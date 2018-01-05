@@ -6,6 +6,7 @@
 *.cmd
 *.exe
 *.iml
+*.MF
 
 # Compiled class file
 *.class
