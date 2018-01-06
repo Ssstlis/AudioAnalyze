@@ -1,12 +1,14 @@
-\.idea
+
 \resources
 \out
+\.idea
 *.jar
 *.bat
 *.cmd
 *.exe
-*.iml
 *.MF
+*.iml
+*.json
 
 # Compiled class file
 *.class
