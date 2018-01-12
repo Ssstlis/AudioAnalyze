@@ -1,7 +1,5 @@
 package Fox.core.lib.service.acousticid.LookupByFP.sources;
 
-import org.jetbrains.annotations.NotNull;
-
 public class Artist {
     private String id;
     private String name;
@@ -9,26 +7,24 @@ public class Artist {
     public Artist() {
     }
 
-    public Artist(@NotNull String id, @NotNull String name) {
+    public Artist(String id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    @NotNull
     public String getId() {
         return this.id;
     }
 
-    public void setId(@NotNull String id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    @NotNull
     public String getName() {
         return this.name;
     }
 
-    public void setName(@NotNull String name) {
+    public void setName(String name) {
         this.name = name;
     }
 

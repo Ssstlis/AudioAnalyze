@@ -1,7 +1,5 @@
 package Fox.core.lib.service.acousticid.LookupByFP.sources;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.List;
 
 public class Track
@@ -14,9 +12,9 @@ public class Track
     public Track(){}
 
     public Track(int position,
-                 @NotNull String title,
-                 @NotNull String id,
-                 @NotNull List<Artist> Artists)
+                 String title,
+                 String id,
+                 List<Artist> Artists)
     {
         this.Artists = Artists;
         this.id = id;
@@ -37,12 +35,11 @@ public class Track
         return position!=0;
     }
 
-    @NotNull
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(@NotNull String title) {
+    public void setTitle(String title) {
         this.title = title;
     }
 
@@ -51,12 +48,11 @@ public class Track
         return title!=null && title.length()>0;
     }
 
-    @NotNull
     public String getId() {
         return id;
     }
 
-    public void setId(@NotNull String id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -65,12 +61,11 @@ public class Track
         return id!=null && id.length()>0;
     }
 
-    @NotNull
     public List<Artist> getArtists() {
         return Artists;
     }
 
-    public void setArtists(@NotNull List<Artist> artists) {
+    public void setArtists(List<Artist> artists) {
         Artists = artists;
     }
 

@@ -1,6 +1,5 @@
 package Fox.core.lib.service.acousticid.LookupByFP.sources;
 
-import org.jetbrains.annotations.NotNull;
 
 public class Releaseevent
 {
@@ -9,19 +8,18 @@ public class Releaseevent
 
     public Releaseevent(){}
 
-    public Releaseevent(@NotNull String country,
-                        @NotNull Date date)
+    public Releaseevent(String country,
+                        Date date)
     {
         this.country = country;
         this.date = date;
     }
 
-    @NotNull
     public String getCountry() {
         return country;
     }
 
-    public void setCountry(@NotNull String country) {
+    public void setCountry(String country) {
         this.country = country;
     }
 
@@ -30,12 +28,11 @@ public class Releaseevent
         return country!=null && country.length()>0;
     }
 
-    @NotNull
     public Date getDate() {
         return date;
     }
 
-    public void setDate(@NotNull Date date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

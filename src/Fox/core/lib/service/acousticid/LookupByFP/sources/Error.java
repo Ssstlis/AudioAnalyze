@@ -1,8 +1,6 @@
 package Fox.core.lib.service.acousticid.LookupByFP.sources;
 
 
-import org.jetbrains.annotations.NotNull;
-
 public class Error {
     private String message;
     private int code;
@@ -10,17 +8,16 @@ public class Error {
     public Error() {
     }
 
-    public Error(@NotNull String mes, int code) {
+    public Error(String mes, int code) {
         this.code = code;
         this.message = mes;
     }
 
-    @NotNull
     public String getMessage() {
         return message;
     }
 
-    public void setMessage(@NotNull String message) {
+    public void setMessage(String message) {
         this.message = message;
     }
 

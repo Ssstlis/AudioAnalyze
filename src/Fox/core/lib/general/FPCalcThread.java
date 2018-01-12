@@ -12,7 +12,8 @@ public class FPCalcThread implements Runnable {
                         @NotNull String location,
                         @NotNull FingerPrint transfer,
                         @NotNull ProgressState ProgressLine,
-                        @NotNull ProgressState CommonLine) {
+                        @NotNull ProgressState CommonLine)
+    {
         this.executor = executor;
         this.Line = ProgressLine;
         this.message = transfer;

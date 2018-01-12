@@ -1,6 +1,5 @@
 package Fox.core.lib.service.acousticid.LookupByFP.sources;
 
-import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -15,12 +14,12 @@ public class Releasegroup {
     public Releasegroup() {
     }
 
-    public Releasegroup(@NotNull String type,
-                        @NotNull String id,
-                        @NotNull String title,
-                        @NotNull List<String> secondarytypes,
-                        @NotNull List<Artist> Artists,
-                        @NotNull List<Release> Releases) {
+    public Releasegroup(String type,
+                        String id,
+                        String title,
+                        List<String> secondarytypes,
+                        List<Artist> Artists,
+                        List<Release> Releases) {
         this.id = id;
         this.secondarytypes = secondarytypes;
         this.title = title;
@@ -29,39 +28,35 @@ public class Releasegroup {
         this.Releases = Releases;
     }
 
-    @NotNull
     public String getType() {
         return this.type;
     }
 
-    public void setType(@NotNull String type) {
+    public void setType(String type) {
         this.type = type;
     }
 
-    @NotNull
     public String getTitle() {
         return this.title;
     }
 
-    public void setTitle(@NotNull String title) {
+    public void setTitle(String title) {
         this.title = title;
     }
 
-    @NotNull
     public String getId() {
         return this.id;
     }
 
-    public void setId(@NotNull String id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    @NotNull
     public List<String> getSecondarytypes() {
         return this.secondarytypes;
     }
 
-    public void setSecondarytypes(@NotNull List<String> secondarytypes) {
+    public void setSecondarytypes(List<String> secondarytypes) {
         this.secondarytypes = secondarytypes;
     }
 
@@ -81,21 +76,19 @@ public class Releasegroup {
         return secondarytypes != null && secondarytypes.size() > 0;
     }
 
-    @NotNull
     public List<Artist> getArtists() {
         return Artists;
     }
 
-    public void setArtists(@NotNull List<Artist> artists) {
+    public void setArtists(List<Artist> artists) {
         Artists = artists;
     }
 
-    @NotNull
     public List<Release> getReleases() {
         return Releases;
     }
 
-    public void setReleases(@NotNull List<Release> releases) {
+    public void setReleases(List<Release> releases) {
         Releases = releases;
     }
 
