@@ -1,6 +1,7 @@
 package Fox.core.lib.service.acousticid.LookupByFP.sources;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Medium
@@ -19,8 +20,32 @@ public class Medium
     {
         this.position = position;
         this.track_count = track_count;
-        this.Tracks = Tracks;
+        this.Tracks = Track.TrackListCopy(Tracks);
         this.format = format;
+    }
+
+    public Medium(Medium copy)
+    {
+        if (copy!=null)
+        {
+            this.position = copy.position;
+            this.track_count = copy.track_count;
+            this.format = copy.format;
+            this.Tracks = Track.TrackListCopy(copy.Tracks);
+        }
+    }
+
+    public static List<Medium> MediumListCopy(List<Medium> copy)
+    {
+        List<Medium> temp = null;
+
+        if (copy!=null)
+        {
+            temp = new ArrayList<>();
+            for(Medium elem:copy)
+                temp.add(new Medium(elem));
+        }
+        return temp;
     }
 
     public int getPosition() {
@@ -50,11 +75,11 @@ public class Medium
     }
 
     public List<Track> getTracks() {
-        return Tracks;
+        return Track.TrackListCopy(Tracks);
     }
 
     public void setTracks(List<Track> tracks) {
-        Tracks = tracks;
+        Tracks = Track.TrackListCopy(tracks);
     }
 
     public boolean hasTracks()

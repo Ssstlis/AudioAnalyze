@@ -1,6 +1,9 @@
 package Fox.core.lib.service.acousticid.LookupByFP.sources;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Releaseevent
 {
     private String country;
@@ -13,6 +16,28 @@ public class Releaseevent
     {
         this.country = country;
         this.date = date;
+    }
+
+    public Releaseevent(Releaseevent copy)
+    {
+        if (copy!=null)
+        {
+            this.date = copy.date;
+            this.country = copy.country;
+        }
+    }
+
+    public static List<Releaseevent> ReleaseeventListCopy(List<Releaseevent> copy)
+    {
+        List<Releaseevent> temp = null;
+
+        if (copy!=null)
+        {
+            temp = new ArrayList<>();
+            for (Releaseevent elem : copy)
+                temp.add(new Releaseevent(elem));
+        }
+        return temp;
     }
 
     public String getCountry() {

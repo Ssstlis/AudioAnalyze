@@ -1,6 +1,6 @@
 package Fox.core.lib.service.acousticid.LookupByFP.sources;
 
-
+import java.util.ArrayList;
 import java.util.List;
 
 public class Releasegroup {
@@ -21,11 +21,47 @@ public class Releasegroup {
                         List<Artist> Artists,
                         List<Release> Releases) {
         this.id = id;
-        this.secondarytypes = secondarytypes;
         this.title = title;
         this.type = type;
-        this.Artists = Artists;
-        this.Releases = Releases;
+        this.Releases = Release.ReleaseListCopy(Releases);
+        this.Artists = Artist.ArtistListCopy(Artists);
+        if (secondarytypes!=null)
+        {
+            this.secondarytypes = new ArrayList<>();
+            this.secondarytypes.addAll(secondarytypes);
+        }
+    }
+
+    public Releasegroup(Releasegroup copy)
+    {
+        if (copy!=null)
+        {
+            this.id = copy.id;
+            this.Releases = Release.ReleaseListCopy(copy.Releases);
+            this.Artists = Artist.ArtistListCopy(copy.Artists);
+            this.title = copy.title;
+            this.type = copy.type;
+            if (copy.secondarytypes!=null)
+            {
+                this.secondarytypes = new ArrayList<>();
+                secondarytypes.addAll(copy.secondarytypes);
+            }
+        }
+    }
+
+    public static List<Releasegroup> ReleasegroupListCopy(List<Releasegroup> copy)
+    {
+        List<Releasegroup> temp = null;
+
+        if (copy!=null)
+        {
+            temp = new ArrayList<>();
+
+            for (Releasegroup elem : copy)
+                temp.add(new Releasegroup(elem));
+        }
+
+        return temp;
     }
 
     public String getType() {
@@ -53,10 +89,23 @@ public class Releasegroup {
     }
 
     public List<String> getSecondarytypes() {
-        return this.secondarytypes;
+        List<String> temp = null;
+        if (this.secondarytypes!=null)
+        {
+            temp = new ArrayList<>();
+            temp.addAll(this.secondarytypes);
+        }
+        return temp;
     }
 
-    public void setSecondarytypes(List<String> secondarytypes) {
+    public void setSecondarytypes(List<String> secondarytypes)
+    {
+        List<String> temp = null;
+        if (secondarytypes!=null)
+        {
+            temp = new ArrayList<>();
+            temp.addAll(secondarytypes);
+        }
         this.secondarytypes = secondarytypes;
     }
 
@@ -72,24 +121,26 @@ public class Releasegroup {
         return title != null;
     }
 
-    public boolean hasSecondytypes() {
+    public boolean hasSecondarytypes() {
         return secondarytypes != null && secondarytypes.size() > 0;
     }
 
-    public List<Artist> getArtists() {
-        return Artists;
+    public List<Artist> getArtists()
+    {
+        return Artist.ArtistListCopy(this.Artists);
     }
 
-    public void setArtists(List<Artist> artists) {
-        Artists = artists;
+    public void setArtists(List<Artist> artists)
+    {
+        Artists = Artist.ArtistListCopy(artists);
     }
 
     public List<Release> getReleases() {
-        return Releases;
+        return Release.ReleaseListCopy(this.Releases);
     }
 
     public void setReleases(List<Release> releases) {
-        Releases = releases;
+        Releases = Release.ReleaseListCopy(releases);
     }
 
     public boolean hasArtists() {

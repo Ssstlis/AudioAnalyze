@@ -17,23 +17,41 @@ public class ExecutableHelper {
         return Temp;
     }
 
-    public static List<File> GetFileList(
-            @NotNull String pathname,
-            @NotNull FileFilter filter) {
+    public static List<File> GetPathList(@NotNull String pathname)
+    {
         List<File> files = new ArrayList<>();
         File check = new File(pathname);
 
         if (!check.exists())
             return files;
 
-        File[] path = new File(pathname).listFiles(filter);
-        File[] alls = new File(pathname).listFiles();
+        File[] elems  = check.listFiles();
 
-        if (path != null)
-            files.addAll(Arrays.asList(path));
+        if (elems!=null)
+            for (File elem : elems)
+                if (elem.isDirectory())
+                    files.add(elem);
 
-        if (alls != null)
-            for (File file : alls)
+        return files;
+    }
+
+    public static List<File> GetFileList(@NotNull String pathname,
+                                         @NotNull FileFilter filter)
+    {
+        File check = new File(pathname);
+        List<File> files = new ArrayList<>();
+
+        if (!check.exists())
+            return files;
+
+        File[] FilterResult = check.listFiles(filter);
+        File[] ResultForPath = check.listFiles();
+
+        if (FilterResult != null)
+            files.addAll(Arrays.asList(FilterResult));
+
+        if (ResultForPath != null)
+            for (File file : ResultForPath)
                 if (file.isDirectory())
                     files.addAll(GetFileList(file.getPath(), filter));
 
@@ -41,9 +59,9 @@ public class ExecutableHelper {
     }
 
     @NotNull
-    public static File SearchFile(
-            @NotNull String location,
-            @NotNull final String name) {
+    public static File SearchFile(@NotNull String location,
+                                  @NotNull final String name)
+    {
 
         return ExecutableHelper.GetFileList(
                 location,

@@ -1,6 +1,7 @@
 package Fox.core.lib.service.acousticid.LookupByFP.sources;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Result {
@@ -21,9 +22,36 @@ public class Result {
     {
         this.score = score;
         this.id = id;
-        this.Recordings = Recordings;
-        this.Releasegroups = Releasegroups;
-        this.Releases = Releases;
+        this.Recordings = Recording.RecordingListCopy(Recordings);
+        this.Releasegroups = Releasegroup.ReleasegroupListCopy(Releasegroups);
+        this.Releases = Release.ReleaseListCopy(Releases);
+    }
+
+    public Result(Result copy)
+    {
+        if (copy!=null)
+        {
+            this.id = copy.id;
+            this.score = copy.score;
+            this.Recordings = Recording.RecordingListCopy(copy.Recordings);
+            this.Releasegroups = Releasegroup.ReleasegroupListCopy(copy.Releasegroups);
+            this.Releases = Release.ReleaseListCopy(copy.Releases);
+        }
+    }
+
+    public static List<Result> ResultListCopy(List<Result> copy)
+    {
+        List<Result> temp = null;
+
+        if(copy!=null)
+        {
+            temp = new ArrayList<>();
+
+            for (Result elem:copy)
+                temp.add(new Result(elem));
+        }
+
+        return temp;
     }
 
     public String getId() {
@@ -43,11 +71,11 @@ public class Result {
     }
 
     public List<Recording> getRecordings() {
-        return this.Recordings;
+        return Recording.RecordingListCopy(this.Recordings);
     }
 
-    public void setRecordings(List<Recording> Recording) {
-        this.Recordings = Recording;
+    public void setRecordings(List<Recording> recording) {
+        this.Recordings = Recording.RecordingListCopy(recording);
     }
 
     public boolean hasId() {
@@ -63,11 +91,11 @@ public class Result {
     }
 
     public List<Releasegroup> getReleasegroups() {
-        return Releasegroups;
+        return Releasegroup.ReleasegroupListCopy(this.Releasegroups);
     }
 
     public void setReleasegroups(List<Releasegroup> releasegroups) {
-        Releasegroups = releasegroups;
+        Releasegroups = Releasegroup.ReleasegroupListCopy(releasegroups);
     }
 
     public boolean hasReleasegroups()
@@ -76,11 +104,11 @@ public class Result {
     }
 
     public List<Release> getReleases() {
-        return Releases;
+        return Release.ReleaseListCopy(Releases);
     }
 
     public void setReleases(List<Release> releases) {
-        Releases = releases;
+        Releases = Release.ReleaseListCopy(releases);
     }
 
     public boolean hasReleases()

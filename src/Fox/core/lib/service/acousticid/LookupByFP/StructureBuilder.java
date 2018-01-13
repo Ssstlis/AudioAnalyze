@@ -3,6 +3,7 @@ package Fox.core.lib.service.acousticid.LookupByFP;
 import Fox.core.lib.service.acousticid.AcousticIDResponse;
 import Fox.core.lib.service.acousticid.LookupByFP.sources.*;
 import Fox.core.lib.service.acousticid.LookupByFP.sources.Error;
+import Fox.core.lib.service.acousticid.LookupByFP.sources.Artist;
 import com.google.gson.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -15,9 +16,9 @@ import java.util.List;
 public class StructureBuilder {
 
     @Nullable
-    private Object GetSource(@NotNull JsonObject object,
-                             @NotNull String name,
-                             @NotNull Class target)
+    private java.lang.Object GetSource(@NotNull JsonObject object,
+                                       @NotNull String name,
+                                       @NotNull Class target)
     {
         JsonElement element;
         if (object.has(name)) {

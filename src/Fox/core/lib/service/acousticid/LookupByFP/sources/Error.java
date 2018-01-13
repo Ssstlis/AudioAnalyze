@@ -1,16 +1,48 @@
 package Fox.core.lib.service.acousticid.LookupByFP.sources;
 
 
-public class Error {
-    private String message;
-    private int code;
+import java.util.ArrayList;
+import java.util.List;
 
-    public Error() {
+public class Error
+{
+    private String message;
+    private int    code;
+
+    public Error()
+    {
     }
 
-    public Error(String mes, int code) {
+    public Error(
+            String mes,
+            int code)
+    {
         this.code = code;
         this.message = mes;
+    }
+
+    public Error(Error copy)
+    {
+        if (copy != null)
+        {
+            this.message = copy.message;
+            this.code = copy.code;
+        }
+    }
+
+    public static List<Error> ErrorListCopy(List<Error> copy)
+    {
+        List<Error> temp = null;
+
+        if (copy!=null)
+        {
+            temp = new ArrayList<>();
+
+            for(Error elem:copy)
+                temp.add(new Error(elem));
+        }
+
+        return temp;
     }
 
     public String getMessage() {

@@ -1,5 +1,6 @@
 package Fox.core.lib.service.acousticid.LookupByFP.sources;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Release {
@@ -24,16 +25,47 @@ public class Release {
                    List<Artist> Artists,
                    List<Releaseevent> Releaseevents,
                    List<Medium> Mediums,
-                   Date date) {
-        this.Artists = Artists;
+                   Date date)
+    {
+        this.Artists = Artist.ArtistListCopy(Artists);
         this.country = country;
         this.date = date;
         this.id = id;
         this.medium_count = medium_count;
-        this.Releaseevents = Releaseevents;
+        this.Releaseevents = Releaseevent.ReleaseeventListCopy(Releaseevents);
         this.title = title;
-        this.Mediums = Mediums;
+        this.Mediums = Medium.MediumListCopy(Mediums);
         this.track_count = track_count;
+    }
+
+    public Release(Release copy)
+    {
+        if (copy!=null)
+        {
+            this.country = copy.country;
+            this.date = copy.date;
+            this.id = copy.id;
+            this.medium_count = copy.medium_count;
+            this.title = copy.title;
+            this.Mediums = Medium.MediumListCopy(copy.Mediums);
+            this.track_count = copy.track_count;
+            this.Releaseevents = Releaseevent.ReleaseeventListCopy(copy.Releaseevents);
+            this.Artists = Artist.ArtistListCopy(copy.Artists);
+        }
+    }
+
+    public static List<Release> ReleaseListCopy(List<Release> copy)
+    {
+        List<Release> temp = null;
+
+        if (copy!=null)
+        {
+            temp = new ArrayList<>();
+            for (Release elem : copy)
+                temp.add(new Release(elem));
+        }
+
+        return temp;
     }
 
     public int getTrack_count() {
@@ -47,7 +79,6 @@ public class Release {
     public boolean hasTrack_count() {
         return track_count > 0;
     }
-
 
     public int getMedium_count() {
         return medium_count;
@@ -98,11 +129,11 @@ public class Release {
     }
 
     public List<Artist> getArtists() {
-        return Artists;
+        return Artist.ArtistListCopy(Artists);
     }
 
     public void setArtists(List<Artist> artists) {
-        Artists = artists;
+        Artists = Artist.ArtistListCopy(artists);
     }
 
     public boolean hasArtists() {
@@ -110,11 +141,11 @@ public class Release {
     }
 
     public List<Releaseevent> getReleaseevents() {
-        return Releaseevents;
+        return Releaseevent.ReleaseeventListCopy(Releaseevents);
     }
 
     public void setReleaseevents(List<Releaseevent> releaseevents) {
-        Releaseevents = releaseevents;
+        Releaseevents = Releaseevent.ReleaseeventListCopy(releaseevents);
     }
 
     public boolean hasReleaseevents() {
@@ -122,11 +153,11 @@ public class Release {
     }
 
     public List<Medium> getMediums() {
-        return Mediums;
+        return Medium.MediumListCopy(Mediums);
     }
 
     public void setMediums(List<Medium> mediums) {
-        Mediums = mediums;
+        Mediums = Medium.MediumListCopy(mediums);
     }
 
     public boolean hasMediums() {

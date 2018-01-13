@@ -1,14 +1,48 @@
 package Fox.core.lib.service.acousticid.LookupByFP.sources;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class ByFingerPrint {
+public class ByFingerPrint
+{
     private String status;
-    private List<Result> Result;
+    private List<Result> result;
     private Error err;
 
-    public ByFingerPrint() {
+    public ByFingerPrint(){}
 
+    public ByFingerPrint(String status,
+                         List<Result> Results,
+                         Error err)
+    {
+        this.result = Result.ResultListCopy(Results);
+        this.err = new Error(err);
+        this.status = status;
+    }
+
+    public ByFingerPrint(ByFingerPrint copy)
+    {
+        if (copy!=null)
+        {
+            this.status = copy.status;
+            this.err = new Error(copy.err);
+            this.result = Result.ResultListCopy(copy.result);
+        }
+    }
+
+    public static List<ByFingerPrint> ByFingerPrintListCopy(List<ByFingerPrint> copy)
+    {
+        List<ByFingerPrint> temp = null;
+
+        if (copy!=null)
+        {
+            temp = new ArrayList<>();
+
+            for (ByFingerPrint elem:copy)
+                temp.add(new ByFingerPrint(elem));
+        }
+
+        return temp;
     }
 
     public String getStatus() {
@@ -20,19 +54,19 @@ public class ByFingerPrint {
     }
 
     public Error getErr() {
-        return err;
+        return new Error(err);
     }
 
     public void setErr(Error err) {
-        this.err = err;
+        this.err = new Error(err);
     }
 
     public List<Result> getResult() {
-        return Result;
+        return Result.ResultListCopy(this.result);
     }
 
     public void setResult(List<Result> result) {
-        Result = result;
+        this.result = Result.ResultListCopy(result);
     }
 
     public boolean hasError() {
@@ -40,7 +74,7 @@ public class ByFingerPrint {
     }
 
     public boolean hasResults() {
-        return Result != null && Result.size()>0;
+        return result != null && result.size()>0;
     }
 
     public boolean hasStatus() {

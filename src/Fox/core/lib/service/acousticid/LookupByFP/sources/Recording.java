@@ -1,5 +1,6 @@
 package Fox.core.lib.service.acousticid.LookupByFP.sources;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Recording {
@@ -17,13 +18,42 @@ public class Recording {
                      int sources,
                      String title,
                      String id,
-                     List<Artist> Artists)
+                     List<Artist> Artists,
+                     List<Releasegroup> Releasegroups)
     {
-        this.Artists = Artists;
+        this.Releasegroups = Releasegroup.ReleasegroupListCopy(Releasegroups);
+        this.Artists = Artist.ArtistListCopy(Artists);
         this.duration = duration;
         this.sources = sources;
         this.id = id;
         this.title = title;
+    }
+
+    public Recording(Recording copy)
+    {
+        if (copy!=null)
+        {
+            this.sources = copy.sources;
+            this.title = copy.title;
+            this.duration = copy.duration;
+            this.id = copy.id;
+            this.Releasegroups = Releasegroup.ReleasegroupListCopy(copy.Releasegroups);
+            this.Artists = Artist.ArtistListCopy(copy.Artists);
+        }
+    }
+
+    public static List<Recording> RecordingListCopy(List<Recording> copy)
+    {
+        List<Recording> temp = null;
+
+        if (copy!=null)
+        {
+            temp = new ArrayList<>();
+            for(Recording elem:copy)
+                temp.add(new Recording(elem));
+        }
+
+        return temp;
     }
 
     public int getDuration() {
@@ -51,11 +81,11 @@ public class Recording {
     }
 
     public List<Artist> getArtists() {
-        return this.Artists;
+        return Artist.ArtistListCopy(this.Artists);
     }
 
-    public void setArtists(List<Artist> Artist) {
-        this.Artists = Artist;
+    public void setArtists(List<Artist> artist) {
+        this.Artists = Artist.ArtistListCopy(artist);
     }
 
     public boolean hasDuration() {
@@ -75,11 +105,11 @@ public class Recording {
     }
 
     public List<Releasegroup> getReleasegroups() {
-        return Releasegroups;
+        return Releasegroup.ReleasegroupListCopy(this.Releasegroups);
     }
 
     public void setReleasegroups(List<Releasegroup> releasegroups) {
-        Releasegroups = releasegroups;
+        Releasegroups = Releasegroup.ReleasegroupListCopy(releasegroups);
     }
 
     public boolean hasReleasegroups() {
