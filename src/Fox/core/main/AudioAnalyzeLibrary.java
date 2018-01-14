@@ -73,23 +73,15 @@ public class AudioAnalyzeLibrary {
         CommonBar.setSize(Locations.size() * 3);
         CheckBar.setSize(Locations.size());
 
-        FileChecker Filereviewer = new FileChecker();
-        Filereviewer.SiftFileAsString(Locations, CheckBar, CommonBar);
-        Locations = Filereviewer.getAccepted();
-        Rejected = Filereviewer.getRejected();
-        CommonBar.setSize(CommonBar.getSize() - 3 * Filereviewer.getRejected().size());
+        FileChecker FileReviewer = new FileChecker();
+        FileReviewer.SiftFileAsString(Locations, CheckBar, CommonBar);
+        Locations = FileReviewer.getAccepted();
+        Rejected = FileReviewer.getRejected();
+        CommonBar.setSize(CommonBar.getSize() - 3 * FileReviewer.getRejected().size());
 
         FPBar.setSize(Locations.size());
         ServiceBar.setSize(Locations.size());
 
-        long CurrentTime = System.currentTimeMillis();
-
-        Elapsed.AcousticIDElapse = CurrentTime;
-        Elapsed.CoverArtArchiveElapse = CurrentTime;
-        Elapsed.LastFMElapse = CurrentTime;
-        Elapsed.MusicBrainzElapse = CurrentTime;
-        /*TODO СДЕЛАЙ БЛЯТЬ ПО 2 ПОТОКА НА КАЖДОГО
-         */
         ExecutorService es = Executors.newFixedThreadPool(CPU);
         for (String file : Locations) {
             time1 = System.currentTimeMillis();

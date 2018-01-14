@@ -1,5 +1,6 @@
 package Fox.core.lib.general;
 
+import Fox.core.lib.service.Elapsed;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -24,8 +25,10 @@ public class HttpClient {
         return this;
     }
 
-    public String run() {
+    public String run(long Elapse) {
         try {
+            TimeUnit.MILLISECONDS.sleep(Elapse);
+            //TODO сделать повтор запроса до момента получения данных
             Response response = client.newCall(req).execute();
 
             String Resp = response.body().string();
@@ -34,9 +37,9 @@ public class HttpClient {
                     && 300 > response.code()
                     || response.code() == 400) return Resp;
             else
-                return "";
+                return null;
         } catch (Exception e) {
-            return "";
+            return null;
         }
     }
 }

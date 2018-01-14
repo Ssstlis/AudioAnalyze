@@ -1,4 +1,4 @@
-package Fox.core.lib.service.acousticid.LookupByFP.sources;
+package Fox.core.lib.service.acoustid.LookupByFP.sources;
 
 import java.util.ArrayList;
 import java.util.List;

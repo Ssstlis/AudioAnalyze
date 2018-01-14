@@ -42,6 +42,12 @@ public class CustomProgressState implements ProgressState {
     }
 
     @Override
+    public boolean isDone()
+    {
+        return state == size;
+    }
+
+    @Override
     public String getName() {
         return this.name;
     }

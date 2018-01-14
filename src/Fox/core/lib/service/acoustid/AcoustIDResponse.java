@@ -1,11 +1,12 @@
-package Fox.core.lib.service.acousticid;
+package Fox.core.lib.service.acoustid;
 
 import org.jetbrains.annotations.NotNull;
 
-public class AcousticIDResponse {
+public class AcoustIDResponse
+{
     private String source;
 
-    public AcousticIDResponse(@NotNull String src) {
+    public AcoustIDResponse(@NotNull String src) {
         this.source = src;
     }
 
