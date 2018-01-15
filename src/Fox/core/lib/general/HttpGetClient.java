@@ -1,24 +1,25 @@
 package Fox.core.lib.general;
 
-import Fox.core.lib.service.Elapsed;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
 import java.util.concurrent.TimeUnit;
 
-public class HttpClient {
+public class HttpGetClient
+{
     private OkHttpClient client;
     private Request req;
 
-    public HttpClient() {
+    public HttpGetClient() {
         client = new OkHttpClient
                 .Builder()
                 .connectTimeout(30, TimeUnit.SECONDS)
                 .build();
     }
 
-    public HttpClient build(String adress) {
+    public HttpGetClient build(String adress)
+    {
         req = new Request.Builder()
                 .url(adress)
                 .build();
@@ -26,7 +27,8 @@ public class HttpClient {
     }
 
     public String run(long Elapse) {
-        try {
+        try
+        {
             TimeUnit.MILLISECONDS.sleep(Elapse);
             //TODO сделать повтор запроса до момента получения данных
             Response response = client.newCall(req).execute();
@@ -38,7 +40,9 @@ public class HttpClient {
                     || response.code() == 400) return Resp;
             else
                 return null;
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             return null;
         }
     }

@@ -4,7 +4,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class FPCalcThread implements Runnable {
     private FingerPrintThread executor;
-    private ProgressState Line, Common;
+    private volatile ProgressState Line, Common;
     private FingerPrint message;
     private String location;
 
@@ -22,19 +22,21 @@ public class FPCalcThread implements Runnable {
     }
 
     @Override
-    public void run() {
-        try {
-            synchronized (message) {
+    public void run()
+    {
+        try
+        {
+            synchronized (message)
+            {
                 executor.getFingerPrint(location, message);
                 message.notify();
-                synchronized (Line) {
-                    Line.update(Line.state + 1, Line.desc);
-                }
-                synchronized (Common) {
-                    Common.update(Common.state + 1, Common.desc);
-                }
+
+                Line.update();
+                Common.update();
             }
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             e.printStackTrace();
         }
 

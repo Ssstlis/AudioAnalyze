@@ -106,7 +106,7 @@ public class Releasegroup {
             temp = new ArrayList<>();
             temp.addAll(secondarytypes);
         }
-        this.secondarytypes = secondarytypes;
+        this.secondarytypes = temp;
     }
 
     public boolean hasId() {

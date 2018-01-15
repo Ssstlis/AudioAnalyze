@@ -5,8 +5,6 @@ import Fox.core.lib.service.acoustid.AcoustIDClient;
 import Fox.core.lib.service.acoustid.AcoustIDRequestConfig;
 import Fox.core.lib.service.acoustid.LookupByFP.sources.ByFingerPrint;
 
-import java.util.HashMap;
-
 public class testingJson {
     public static void main(String[] args)
     {

@@ -1,110 +1,130 @@
 package Fox.core.main;
 
 import Fox.core.lib.general.*;
-import Fox.core.lib.service.Elapsed;
+import Fox.core.lib.service.acoustid.AcoustIDClient;
+import Fox.core.lib.service.acoustid.AcoustIDRequestConfig;
 import Fox.utils.ExecutableHelper;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-public class AudioAnalyzeLibrary {
+public class AudioAnalyzeLibrary
+{
     private List<String>
             Locations,
             Rejected;
 
-    private ProgressState
-            CheckBar,
-            FPBar,
-            ServiceBar,
-            CommonBar;
+    private boolean isBuild = false;
+    private static AcoustIDClient AIDClient;
 
-    private FingerPrintThread targetFPCalcThread;
-    private Map<String, Tag> Target;
-    public static long time1;
 
-    public AudioAnalyzeLibrary(@NotNull FingerPrintThread YourFPCalcThread,
-                               @NotNull ProgressState CheckerProgressBar,
-                               @NotNull ProgressState FPProgressBar,
-                               @NotNull ProgressState ServiceProgressBar,
-                               @NotNull ProgressState CommonProgressBar) {
-        this.targetFPCalcThread = YourFPCalcThread;
-        this.CheckBar = CheckerProgressBar;
-        this.CommonBar = CommonProgressBar;
-        this.FPBar = FPProgressBar;
-        this.ServiceBar = ServiceProgressBar;
-        this.Target = new HashMap<>();
+    public AudioAnalyzeLibrary()
+    {
+        AcoustIDRequestConfig AIDConfig = new AcoustIDRequestConfig();
+        AIDConfig.setDefault();
+        AIDClient = new AcoustIDClient(AIDConfig);
     }
 
-    public AudioAnalyzeLibrary buildStrings(@NotNull List<String> Files) {
+    public void buildStrings(@NotNull List<String> Files)
+    {
         this.Locations = Files;
-        return this;
+        if (Locations.size()>0)
+            isBuild = true;
     }
 
-    public AudioAnalyzeLibrary buildFiles(@NotNull List<File> File) {
+    public void buildFiles(@NotNull List<File> File)
+    {
         this.Locations = ExecutableHelper.FilesToStrings(File);
-        return this;
+        if (Locations.size()>0)
+            isBuild = true;
     }
 
-    public AudioAnalyzeLibrary run(@NotNull performance Speed) throws InterruptedException {
-        int N_CPUS = Runtime.getRuntime().availableProcessors();
-        int CPU = 2;
-        if (N_CPUS != 2)
-            switch (Speed) {
-                case MAX:
-                    CPU = (N_CPUS - 1 > 1) ? (N_CPUS - 1) : (2);
-                    break;
-                case HALF:
-                    CPU = (N_CPUS / 2 > 1) ? (N_CPUS / 2) : (2);
-                    break;
-                case CLOSETOMAX:
-                    CPU = (N_CPUS * 3 / 4 > 1) ? (N_CPUS * 3 / 4) : (2);
-                    break;
-                case CLOSETOMIN:
-                    CPU = (N_CPUS / 4 > 1) ? (N_CPUS / 4) : (2);
-                    break;
-            }
-        System.out.println("Стартовало " + CPU + " потоков");
-        CommonBar.setSize(Locations.size() * 3);
-        CheckBar.setSize(Locations.size());
+    public ConcurrentHashMap<String, List<ID3V2>> run(@NotNull FingerPrintThread YourFPCalcThread,
+                                                      @NotNull ProgressState CheckerProgressBar,
+                                                      @NotNull ProgressState FPProgressBar,
+                                                      @NotNull ProgressState ServiceProgressBar,
+                                                      @NotNull ProgressState CommonProgressBar,
+                                                      @NotNull performance Speed,
+                                                      boolean TrustMode)
+            throws Exception
+    {
+        CommonProgressBar.setSize(Locations.size() * 3);
+        CheckerProgressBar.setSize(Locations.size());
 
         FileChecker FileReviewer = new FileChecker();
-        FileReviewer.SiftFileAsString(Locations, CheckBar, CommonBar);
+
+        FileReviewer.SiftFileAsString(Locations,
+                                      CheckerProgressBar,
+                                      CommonProgressBar
+                                     );
+
         Locations = FileReviewer.getAccepted();
         Rejected = FileReviewer.getRejected();
-        CommonBar.setSize(CommonBar.getSize() - 3 * FileReviewer.getRejected().size());
 
-        FPBar.setSize(Locations.size());
-        ServiceBar.setSize(Locations.size());
+        if (Locations==null || Locations.size()==0)
+            return null;
+
+        ConcurrentHashMap<String, List<ID3V2>> target = new ConcurrentHashMap<>();
+
+        CommonProgressBar.setSize(CommonProgressBar.getSize() - 3 * Rejected.size());
+
+        FPProgressBar.setSize(Locations.size());
+        ServiceProgressBar.setSize(Locations.size());
+
+        int N_CPUs = Runtime.getRuntime().availableProcessors();
+        int CPU = 2;
+        if (N_CPUs != 2)
+            switch (Speed) {
+                case MAX:
+                    CPU = (N_CPUs - 1 > 1) ? (N_CPUs - 1) : (2);
+                    break;
+                case HALF:
+                    CPU = (N_CPUs / 2 > 1) ? (N_CPUs / 2) : (2);
+                    break;
+                case CLOSETOMAX:
+                    CPU = (N_CPUs * 3 / 4 > 1) ? (N_CPUs * 3 / 4) : (2);
+                    break;
+                case CLOSETOMIN:
+                    CPU = (N_CPUs / 4 > 1) ? (N_CPUs / 4) : (2);
+                    break;
+            }
+
+        System.out.println("Стартовало " + CPU + " потоков");
 
         ExecutorService es = Executors.newFixedThreadPool(CPU);
-        for (String file : Locations) {
-            time1 = System.currentTimeMillis();
+
+        for (String file : Locations)
+        {
             FingerPrint transfer = new FingerPrint();
 
             es.execute(new ServiceThread(
+                    AIDClient,
                     transfer,
-                    Target,
-                    ServiceBar,
-                    CommonBar));
+                    target,
+                    ServiceProgressBar,
+                    CommonProgressBar,
+                    TrustMode
+            ));
 
             es.execute(new FPCalcThread(
-                    targetFPCalcThread,
+                    YourFPCalcThread,
                     file,
                     transfer,
-                    FPBar,
-                    CommonBar));
+                    FPProgressBar,
+                    CommonProgressBar
+            ));
         }
 
         es.shutdown();
-        es.awaitTermination(15, TimeUnit.SECONDS);
+        es.awaitTermination(15, TimeUnit.MINUTES);
+        isBuild = false;
 
-        return this;
+        return target;
     }
 
     public List<String> getRejected() {
@@ -114,4 +134,5 @@ public class AudioAnalyzeLibrary {
     public List<String> getAccepted() {
         return Locations;
     }
+
 }

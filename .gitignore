@@ -1,8 +1,5 @@
 \out
-*.bat
-*.cmd
 *.exe
-*.MF
 *.iml
 
 # Compiled class file

@@ -1,21 +1,21 @@
 package Fox.core.lib.service.acoustid;
 
 import Fox.core.lib.general.FingerPrint;
-import Fox.core.lib.general.HttpClient;
+import Fox.core.lib.general.HttpGetClient;
 import Fox.core.lib.service.Elapsed;
 import Fox.core.lib.service.acoustid.LookupByFP.StructureBuilder;
 import Fox.core.lib.service.acoustid.LookupByFP.sources.ByFingerPrint;
 
 public class AcoustIDClient
 {
-    private HttpClient RequestClient;
+    private HttpGetClient RequestClient;
     private final static String key = "ZG11QsMYof";
     private final static String httpkey =
             "https://api.acoustid.org/v2/lookup?client=" + key + "&format=json";
     private AcoustIDRequestConfig config;
 
     public AcoustIDClient(AcoustIDRequestConfig cfg) {
-        RequestClient = new HttpClient();
+        RequestClient = new HttpGetClient();
         if (cfg!=null)
         {
             config = cfg;
@@ -53,6 +53,7 @@ public class AcoustIDClient
                                     FPrint.getPrint() +
                                     config.toString()
                           );
+
             AcoustIDResponse response = new AcoustIDResponse
                     (
                             RequestClient

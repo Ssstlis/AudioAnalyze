@@ -14,13 +14,18 @@ public class FileCheckerThread implements Runnable {
     private ProgressState Line, Common;
 
     private static boolean acceptAsString(String check) {
-        try {
+        try
+        {
             File pathname = new File(check);
+
             if (!check.endsWith(".mp3"))
                 return false;
-            MP3File mp3File = (MP3File) AudioFileIO.read(pathname);
+
+            MP3File mp3File = (MP3File)AudioFileIO.read(pathname);
             return mp3File.getAudioHeader().getTrackLength() > 119;
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             e.printStackTrace();
             return false;
         }
@@ -45,11 +50,13 @@ public class FileCheckerThread implements Runnable {
         else
             Rejected.add(location);
 
-        synchronized (Line) {
-            Line.update(Line.state + 1, Line.desc);
+        synchronized (Line)
+        {
+            Line.update();
         }
-        synchronized (Common) {
-            Common.update(Common.state + 1, Common.desc);
+        synchronized (Common)
+        {
+            Common.update();
         }
     }
 }

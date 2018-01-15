@@ -6,6 +6,7 @@
       <element id="extracted-dir" path="$APPLICATION_HOME_DIR$/redist/annotations-java8.jar" path-in-jar="/" />
       <element id="extracted-dir" path="C:/library/DestinationBuilder.jar" path-in-jar="/" />
       <element id="extracted-dir" path="C:/library/jaudiotagger-2.2.3.jar" path-in-jar="/" />
+      <element id="library" level="project" name="MusicBrainzAndroid" />
     </root>
   </artifact>
 </component>

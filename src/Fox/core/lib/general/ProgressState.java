@@ -1,16 +1,81 @@
 package Fox.core.lib.general;
 
-public interface ProgressState {
-    int state = 0, size = 0;
-    String desc = "", name = "";
+public abstract class ProgressState {
+    protected int state, size;
+    protected String desc, name;
 
-    ProgressState create(int size, String name, String desc);
-    void update(int now, String state);
-    int getState();
-    int getSize();
-    String getName();
-    String getDesc();
-    void setSize(int size);
-    void onDone();
-    boolean isDone();
+    protected ProgressState(int size, String name, String desc)
+    {
+        this.size = size;
+        this.desc = desc;
+        this.name = name;
+    }
+
+    protected abstract void onDone();
+    protected abstract void onChange();
+
+    public void update(int now, String desc)
+    {
+        this.state = now;
+        this.desc = desc;
+
+        this.onChange();
+
+        if (now >= size)
+            this.onDone();
+    }
+
+    public void update(String desc)
+    {
+        this.state++;
+        this.desc = desc;
+
+        this.onChange();
+
+        if (state >= size)
+            this.onDone();
+    }
+
+    public void update()
+    {
+        this.state++;
+
+        this.onChange();
+
+        if (state >= size)
+            this.onDone();
+    }
+
+
+    public int getState()
+    {
+        return state;
+    }
+
+    public int getSize()
+    {
+        return size;
+    }
+
+    public String getName()
+    {
+        return name;
+    }
+
+    public String getDesc()
+    {
+        return desc;
+    }
+
+    public void setSize(int size)
+    {
+        this.size = size;
+        if (state>=size)
+            onDone();
+    }
+
+    public boolean isDone()
+    {
+        return state == size;
+    }
 }

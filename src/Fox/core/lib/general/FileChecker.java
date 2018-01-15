@@ -15,14 +15,16 @@ public class FileChecker {
             Rejected;
 
     public FileChecker() {
-        this.Accepted = new CopyOnWriteArrayList<>();
-        this.Rejected = new CopyOnWriteArrayList<>();
     }
 
     public void SiftFileAsString(@NotNull List<String> Sources,
                                  @NotNull ProgressState Progress,
                                  @NotNull ProgressState Common)
-            throws InterruptedException {
+            throws InterruptedException
+    {
+        this.Accepted = new CopyOnWriteArrayList<>();
+        this.Rejected = new CopyOnWriteArrayList<>();
+
         ExecutorService es = Executors.newFixedThreadPool(2);
 
         for (String loc : Sources)
@@ -40,7 +42,11 @@ public class FileChecker {
     public void SiftFileAsFile(@NotNull List<File> Sources,
                                @NotNull ProgressState Progress,
                                @NotNull ProgressState Common)
-            throws InterruptedException {
+            throws InterruptedException
+    {
+
+        this.Accepted = new CopyOnWriteArrayList<>();
+        this.Rejected = new CopyOnWriteArrayList<>();
         ExecutorService es = Executors.newFixedThreadPool(2);
 
         for (File file : Sources)

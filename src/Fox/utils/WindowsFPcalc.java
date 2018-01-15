@@ -12,8 +12,12 @@ import java.io.InputStreamReader;
 public class WindowsFPcalc implements FingerPrintThread {
 
     @Override
-    public void getFingerPrint(@NotNull String location, @NotNull FingerPrint target) throws Exception {
-        try {
+    public void getFingerPrint(@NotNull String location,
+                               @NotNull FingerPrint target)
+            throws Exception
+    {
+        try
+        {
             final String Source = new FileDestinationWindows()
                     .GetCurrentDir(WindowsFPcalc.class)
                     .addElem("fpcalc.exe", true)
@@ -21,13 +25,16 @@ public class WindowsFPcalc implements FingerPrintThread {
 
             String duration, print;
             String[] args = new String[]{Source, location};
+
             Process process = new ProcessBuilder()
                     .command(args)
                     .redirectErrorStream(true)
                     .start();
+
             InputStream stdin = process.getInputStream();
             InputStreamReader isr = new InputStreamReader(stdin);
             BufferedReader br = new BufferedReader(isr);
+
             String line;
             String result = "";
 
@@ -35,15 +42,19 @@ public class WindowsFPcalc implements FingerPrintThread {
                 result = result.concat(line + "\n");
 
             int exit_value = process.waitFor();
-            if (exit_value == 0) {
+            if (exit_value == 0)
+            {
                 duration = result.substring(result.indexOf("DURATION=") + 9, result.indexOf("DURATION=") + 12);
                 print = result.substring(result.indexOf("FINGERPRINT=") + 12);
+
                 target.setPrint(print);
                 target.setDuration(duration);
                 target.setLocation(location);
             }
             process.destroy();
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             e.printStackTrace();
         }
     }
