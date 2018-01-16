@@ -1,13 +1,19 @@
 package Fox.utils;
 
-import Fox.core.lib.general.ProgressState;
+import Fox.core.lib.general.templates.ProgressState;
 
-public class CustomProgressState extends ProgressState
+public class CustomProgressState
+        extends ProgressState
 {
 
-    public CustomProgressState(int size, String name, String desc)
+    public CustomProgressState(int size,
+                               String name,
+                               String desc)
     {
-        super(size, name, desc);
+        super(size,
+              name,
+              desc
+             );
     }
 
     @Override
@@ -19,7 +25,7 @@ public class CustomProgressState extends ProgressState
     @Override
     public void onChange()
     {
-        System.out.println(this.state + "\\" + this.size + "\\" +this.desc);
+        System.out.println(this.state + "\\" + this.size + "\\" + this.desc);
     }
 
 }

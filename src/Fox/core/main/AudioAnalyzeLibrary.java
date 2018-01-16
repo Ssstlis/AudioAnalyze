@@ -1,8 +1,15 @@
 package Fox.core.main;
 
-import Fox.core.lib.general.*;
-import Fox.core.lib.service.acoustid.AcoustIDClient;
-import Fox.core.lib.service.acoustid.AcoustIDRequestConfig;
+import Fox.core.lib.general.DOM.FingerPrint;
+import Fox.core.lib.general.DOM.ID3V2;
+import Fox.core.lib.general.Threads.FPCalcThread;
+import Fox.core.lib.general.Threads.ServiceThread;
+import Fox.core.lib.general.templates.FingerPrintThread;
+import Fox.core.lib.general.templates.ProgressState;
+import Fox.core.lib.general.utils.FileChecker;
+import Fox.core.lib.general.utils.performance;
+import Fox.core.lib.services.acoustid.AcoustIDClient;
+import Fox.core.lib.services.acoustid.AcoustIDRequestConfig;
 import Fox.utils.ExecutableHelper;
 import org.jetbrains.annotations.NotNull;
 
@@ -15,12 +22,11 @@ import java.util.concurrent.TimeUnit;
 
 public class AudioAnalyzeLibrary
 {
+    private static AcoustIDClient AIDClient;
     private List<String>
             Locations,
             Rejected;
-
     private boolean isBuild = false;
-    private static AcoustIDClient AIDClient;
 
 
     public AudioAnalyzeLibrary()
@@ -33,15 +39,19 @@ public class AudioAnalyzeLibrary
     public void buildStrings(@NotNull List<String> Files)
     {
         this.Locations = Files;
-        if (Locations.size()>0)
+        if (Locations.size() > 0)
+        {
             isBuild = true;
+        }
     }
 
     public void buildFiles(@NotNull List<File> File)
     {
         this.Locations = ExecutableHelper.FilesToStrings(File);
-        if (Locations.size()>0)
+        if (Locations.size() > 0)
+        {
             isBuild = true;
+        }
     }
 
     public ConcurrentHashMap<String, List<ID3V2>> run(@NotNull FingerPrintThread YourFPCalcThread,
@@ -51,7 +61,8 @@ public class AudioAnalyzeLibrary
                                                       @NotNull ProgressState CommonProgressBar,
                                                       @NotNull performance Speed,
                                                       boolean TrustMode)
-            throws Exception
+            throws
+            Exception
     {
         CommonProgressBar.setSize(Locations.size() * 3);
         CheckerProgressBar.setSize(Locations.size());
@@ -66,8 +77,10 @@ public class AudioAnalyzeLibrary
         Locations = FileReviewer.getAccepted();
         Rejected = FileReviewer.getRejected();
 
-        if (Locations==null || Locations.size()==0)
+        if (Locations == null || Locations.size() == 0)
+        {
             return null;
+        }
 
         ConcurrentHashMap<String, List<ID3V2>> target = new ConcurrentHashMap<>();
 
@@ -76,10 +89,13 @@ public class AudioAnalyzeLibrary
         FPProgressBar.setSize(Locations.size());
         ServiceProgressBar.setSize(Locations.size());
 
-        int N_CPUs = Runtime.getRuntime().availableProcessors();
+        int N_CPUs = Runtime.getRuntime()
+                            .availableProcessors();
         int CPU = 2;
         if (N_CPUs != 2)
-            switch (Speed) {
+        {
+            switch (Speed)
+            {
                 case MAX:
                     CPU = (N_CPUs - 1 > 1) ? (N_CPUs - 1) : (2);
                     break;
@@ -93,6 +109,7 @@ public class AudioAnalyzeLibrary
                     CPU = (N_CPUs / 4 > 1) ? (N_CPUs / 4) : (2);
                     break;
             }
+        }
 
         System.out.println("Стартовало " + CPU + " потоков");
 
@@ -121,17 +138,21 @@ public class AudioAnalyzeLibrary
         }
 
         es.shutdown();
-        es.awaitTermination(15, TimeUnit.MINUTES);
+        es.awaitTermination(15,
+                            TimeUnit.MINUTES
+                           );
         isBuild = false;
 
         return target;
     }
 
-    public List<String> getRejected() {
+    public List<String> getRejected()
+    {
         return Rejected;
     }
 
-    public List<String> getAccepted() {
+    public List<String> getAccepted()
+    {
         return Locations;
     }
 

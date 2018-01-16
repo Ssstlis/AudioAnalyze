@@ -1,7 +1,7 @@
 package Fox.utils;
 
-import Fox.core.lib.general.FingerPrint;
-import Fox.core.lib.general.FingerPrintThread;
+import Fox.core.lib.general.DOM.FingerPrint;
+import Fox.core.lib.general.templates.FingerPrintThread;
 import core.windows.FileDestinationWindows;
 import org.jetbrains.annotations.NotNull;
 
@@ -9,18 +9,23 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-public class WindowsFPcalc implements FingerPrintThread {
+public class WindowsFPcalc
+        implements FingerPrintThread
+{
 
     @Override
     public void getFingerPrint(@NotNull String location,
                                @NotNull FingerPrint target)
-            throws Exception
+            throws
+            Exception
     {
         try
         {
             final String Source = new FileDestinationWindows()
                     .GetCurrentDir(WindowsFPcalc.class)
-                    .addElem("fpcalc.exe", true)
+                    .addElem("fpcalc.exe",
+                             true
+                            )
                     .toString();
 
             String duration, print;
@@ -44,7 +49,9 @@ public class WindowsFPcalc implements FingerPrintThread {
             int exit_value = process.waitFor();
             if (exit_value == 0)
             {
-                duration = result.substring(result.indexOf("DURATION=") + 9, result.indexOf("DURATION=") + 12);
+                duration = result.substring(result.indexOf("DURATION=") + 9,
+                                            result.indexOf("DURATION=") + 12
+                                           );
                 print = result.substring(result.indexOf("FINGERPRINT=") + 12);
 
                 target.setPrint(print);

@@ -1,6 +1,6 @@
 package Fox.test.pool;
 
-import Fox.core.lib.general.FingerPrint;
+import Fox.core.lib.general.DOM.FingerPrint;
 import Fox.test.util.Mp3Filter;
 import Fox.utils.ExecutableHelper;
 
@@ -8,10 +8,15 @@ import java.io.File;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-public class PoolTesting {
-    public static void main(String[] args) throws InterruptedException {
+public class PoolTesting
+{
+    public static void main(String[] args) throws
+                                           InterruptedException
+    {
         String mp3location = "D:\\music";
-        List<File> FileList = ExecutableHelper.GetFileList(mp3location, new Mp3Filter());
+        List<File> FileList = ExecutableHelper.GetFileList(mp3location,
+                                                           new Mp3Filter()
+                                                          );
         List<FingerPrint> TargetList = new CopyOnWriteArrayList<>();
 
         /*int N_CPUS = Runtime.getRuntime().availableProcessors();

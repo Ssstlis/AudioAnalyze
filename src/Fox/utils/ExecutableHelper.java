@@ -8,9 +8,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class ExecutableHelper {
+public class ExecutableHelper
+{
 
-    public static List<String> FilesToStrings(@NotNull List<File> FileList) {
+    public static List<String> FilesToStrings(@NotNull List<File> FileList)
+    {
         List<String> Temp = new ArrayList<>();
         for (File file : FileList)
             Temp.add(file.getPath());
@@ -23,14 +25,20 @@ public class ExecutableHelper {
         File check = new File(pathname);
 
         if (!check.exists())
+        {
             return files;
+        }
 
-        File[] elems  = check.listFiles();
+        File[] elems = check.listFiles();
 
-        if (elems!=null)
+        if (elems != null)
+        {
             for (File elem : elems)
                 if (elem.isDirectory())
+                {
                     files.add(elem);
+                }
+        }
 
         return files;
     }
@@ -42,18 +50,28 @@ public class ExecutableHelper {
         List<File> files = new ArrayList<>();
 
         if (!check.exists())
+        {
             return files;
+        }
 
         File[] FilterResult = check.listFiles(filter);
         File[] ResultForPath = check.listFiles();
 
         if (FilterResult != null)
+        {
             files.addAll(Arrays.asList(FilterResult));
+        }
 
         if (ResultForPath != null)
+        {
             for (File file : ResultForPath)
                 if (file.isDirectory())
-                    files.addAll(GetFileList(file.getPath(), filter));
+                {
+                    files.addAll(GetFileList(file.getPath(),
+                                             filter
+                                            ));
+                }
+        }
 
         return files;
     }
@@ -65,28 +83,38 @@ public class ExecutableHelper {
 
         return ExecutableHelper.GetFileList(
                 location,
-                new FileFilter() {
+                new FileFilter()
+                {
                     @Override
-                    public boolean accept(File pathname) {
+                    public boolean accept(File pathname)
+                    {
                         return pathname.exists()
-                                && pathname.getName().endsWith(name);
+                                && pathname.getName()
+                                           .endsWith(name);
                     }
-                }).get(0);
+                }
+                                           )
+                               .get(0);
     }
 
     @NotNull
     public static List<File> SearchAllFile(
             @NotNull String location,
-            @NotNull final String name) {
+            @NotNull final String name)
+    {
 
         return ExecutableHelper.GetFileList(
                 location,
-                new FileFilter() {
+                new FileFilter()
+                {
                     @Override
-                    public boolean accept(File pathname) {
+                    public boolean accept(File pathname)
+                    {
                         return pathname.exists()
-                                && pathname.getName().endsWith(name);
+                                && pathname.getName()
+                                           .endsWith(name);
                     }
-                });
+                }
+                                           );
     }
 }

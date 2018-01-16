@@ -1,6 +1,7 @@
 package Fox.test.util;
 
-public class LibChecker {
+public class LibChecker
+{
     /*private final String fingerprintbase = System.getProperty("user.dir") + "\\resources\\fingerprintlist.txt";
     private ArrayList<FingerPrint> FPList;
     public LibChecker()
