@@ -52,11 +52,13 @@ public class AcoustIDStructureBuilder
 
     private static Artist buildArtist(JsonElement element)
     {
-        Artist temp = new Artist();
+        Artist temp = null;
 
         try
         {
             JsonObject ArtistObject = element.getAsJsonObject();
+
+            temp = new Artist();
 
             temp.setName((String)
                                  ParseSupport.GetSource(
@@ -82,11 +84,13 @@ public class AcoustIDStructureBuilder
 
     private static Date buildDate(JsonElement element)
     {
-        Date temp = new Date();
+        Date temp = null;
 
         try
         {
             JsonObject DateObj = element.getAsJsonObject();
+
+            temp = new Date();
 
             temp.setDay((int)
                                 ParseSupport.GetSource(
@@ -118,10 +122,12 @@ public class AcoustIDStructureBuilder
 
     private static Error buildError(JsonElement element)
     {
-        Error temp = new Error();
+        Error temp = null;
         try
         {
             JsonObject ErrJObj = element.getAsJsonObject();
+
+            temp = new Error();
 
             temp.setMessage((String)
                                     ParseSupport.GetSource(
@@ -146,7 +152,6 @@ public class AcoustIDStructureBuilder
 
     public ByFingerPrint buildLookup(@NotNull AcoustIDResponse response)
     {
-        JsonParser parser = new JsonParser();
 
         if (!response.hasSource())
         {
@@ -154,7 +159,8 @@ public class AcoustIDStructureBuilder
         }
 
         String source = response.getSource();
-        ByFingerPrint temp = new ByFingerPrint();
+        JsonParser parser = new JsonParser();
+        ByFingerPrint temp = null;
 
         try
         {
@@ -163,6 +169,8 @@ public class AcoustIDStructureBuilder
 
             JsonObject LookupJObj = element
                     .getAsJsonObject();
+
+            temp = new ByFingerPrint();
 
             temp.setStatus((String)
                                    ParseSupport.GetSource(
@@ -213,11 +221,13 @@ public class AcoustIDStructureBuilder
 
     private Result buildResult(JsonElement element)
     {
-        Result temp = new Result();
+        Result temp = null;
 
         try
         {
             JsonObject ResultJObj = element.getAsJsonObject();
+
+            temp = new Result();
 
             temp.setId((String)
                                ParseSupport.GetSource(
@@ -333,11 +343,13 @@ public class AcoustIDStructureBuilder
 
     private Recording buildRecording(JsonElement element)
     {
-        Recording temp = new Recording();
+        Recording temp = null;
 
         try
         {
             JsonObject RecordingJObj = element.getAsJsonObject();
+
+            temp = new Recording();
 
             temp.setDuration((int)
                                      ParseSupport.GetSource(
@@ -380,10 +392,12 @@ public class AcoustIDStructureBuilder
 
     private Releasegroup buildReleasegroup(JsonElement element)
     {
-        Releasegroup temp = new Releasegroup();
+        Releasegroup temp = null;
         try
         {
             JsonObject ReleasegroupObject = element.getAsJsonObject();
+
+            temp = new Releasegroup();
 
             temp.setType((String)
                                  ParseSupport.GetSource(
@@ -448,11 +462,13 @@ public class AcoustIDStructureBuilder
 
     private Medium buildMeduim(JsonElement element)
     {
-        Medium temp = new Medium();
+        Medium temp = null;
 
         try
         {
             JsonObject MediumObj = element.getAsJsonObject();
+
+            temp = new Medium();
 
             temp.setPosition((int)
                                      ParseSupport.GetSource(
@@ -514,11 +530,13 @@ public class AcoustIDStructureBuilder
 
     private Release buildRelease(JsonElement element)
     {
-        Release temp = new Release();
+        Release temp = null;
 
         try
         {
             JsonObject ReleaseObj = element.getAsJsonObject();
+
+            temp = new Release();
 
             temp.setTrack_count((int)
                                         ParseSupport.GetSource(
@@ -634,10 +652,12 @@ public class AcoustIDStructureBuilder
 
     private Releaseevent buildReleaseevent(JsonElement element)
     {
-        Releaseevent temp = new Releaseevent();
+        Releaseevent temp = null;
         try
         {
             JsonObject ReleaseeventObj = element.getAsJsonObject();
+
+            temp = new Releaseevent();
 
             temp.setDate(buildDate(ReleaseeventObj.get("date")));
 
@@ -657,10 +677,12 @@ public class AcoustIDStructureBuilder
 
     private Track buildTrack(JsonElement element)
     {
-        Track temp = new Track();
+        Track temp = null;
         try
         {
             JsonObject TrackObj = element.getAsJsonObject();
+
+            temp = new Track();
 
             temp.setPosition((int)
                                      ParseSupport.GetSource(
