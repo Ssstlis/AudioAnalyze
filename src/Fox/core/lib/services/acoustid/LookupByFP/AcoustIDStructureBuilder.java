@@ -20,136 +20,6 @@ public class AcoustIDStructureBuilder
     {
     }
 
-    private static List<String> buildSecondarytypeList(JsonObject Obj)
-    {
-        List<String> temp = null;
-        try
-        {
-            JsonArray SecondatytypesJList = (JsonArray)
-                    ParseSupport.GetSource(
-                            Obj,
-                            "secondarytypes",
-                            JsonArray.class
-                                          );
-
-
-            if (SecondatytypesJList != null)
-            {
-                temp = new ArrayList<>();
-                int size = SecondatytypesJList.size();
-
-                for (int i = 0; i < size; i++)
-                    temp.add(SecondatytypesJList.get(i)
-                                                .getAsString());
-            }
-        }
-        catch (Exception e)
-        {
-            System.out.println(e.getMessage());
-        }
-        return temp;
-    }
-
-    private static Artist buildArtist(JsonElement element)
-    {
-        Artist temp = null;
-
-        try
-        {
-            JsonObject ArtistObject = element.getAsJsonObject();
-
-            temp = new Artist();
-
-            temp.setName((String)
-                                 ParseSupport.GetSource(
-                                         ArtistObject,
-                                         "name",
-                                         String.class
-                                                       ));
-
-
-            temp.setId((String)
-                               ParseSupport.GetSource(
-                                       ArtistObject,
-                                       "id",
-                                       String.class
-                                                     ));
-        }
-        catch (Exception e)
-        {
-            System.out.println(e.getMessage());
-        }
-        return temp;
-    }
-
-    private static Date buildDate(JsonElement element)
-    {
-        Date temp = null;
-
-        try
-        {
-            JsonObject DateObj = element.getAsJsonObject();
-
-            temp = new Date();
-
-            temp.setDay((int)
-                                ParseSupport.GetSource(
-                                        DateObj,
-                                        "day",
-                                        int.class
-                                                      ));
-
-            temp.setMonth((int)
-                                  ParseSupport.GetSource(
-                                          DateObj,
-                                          "month",
-                                          int.class
-                                                        ));
-
-            temp.setYear((int)
-                                 ParseSupport.GetSource(
-                                         DateObj,
-                                         "year",
-                                         int.class
-                                                       ));
-        }
-        catch (Exception e)
-        {
-            System.out.println(e.getMessage());
-        }
-        return temp;
-    }
-
-    private static Error buildError(JsonElement element)
-    {
-        Error temp = null;
-        try
-        {
-            JsonObject ErrJObj = element.getAsJsonObject();
-
-            temp = new Error();
-
-            temp.setMessage((String)
-                                    ParseSupport.GetSource(
-                                            ErrJObj,
-                                            "message",
-                                            String.class
-                                                          ));
-
-            temp.setCode((int)
-                                 ParseSupport.GetSource(
-                                         ErrJObj,
-                                         "code",
-                                         int.class
-                                                       ));
-        }
-        catch (Exception e)
-        {
-            System.out.println(e.getMessage());
-        }
-        return temp;
-    }
-
     public ByFingerPrint buildLookup(@NotNull AcoustIDResponse response)
     {
 
@@ -190,6 +60,136 @@ public class AcoustIDStructureBuilder
         return temp;
     }
 
+    private List<String> buildSecondarytypeList(JsonObject Obj)
+    {
+        List<String> temp = null;
+        try
+        {
+            JsonArray SecondatytypesJList = (JsonArray)
+                    ParseSupport.GetSource(
+                            Obj,
+                            "secondarytypes",
+                            JsonArray.class
+                                          );
+
+
+            if (SecondatytypesJList != null)
+            {
+                temp = new ArrayList<>();
+                int size = SecondatytypesJList.size();
+
+                for (int i = 0; i < size; i++)
+                    temp.add(SecondatytypesJList.get(i)
+                                                .getAsString());
+            }
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+        }
+        return temp;
+    }
+
+    private Artist buildArtist(JsonElement element)
+    {
+        Artist temp = null;
+
+        try
+        {
+            JsonObject ArtistObject = element.getAsJsonObject();
+
+            temp = new Artist();
+
+            temp.setName((String)
+                                 ParseSupport.GetSource(
+                                         ArtistObject,
+                                         "name",
+                                         String.class
+                                                       ));
+
+
+            temp.setId((String)
+                               ParseSupport.GetSource(
+                                       ArtistObject,
+                                       "id",
+                                       String.class
+                                                     ));
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+        }
+        return temp;
+    }
+
+    private Date buildDate(JsonElement element)
+    {
+        Date temp = null;
+
+        try
+        {
+            JsonObject DateObj = element.getAsJsonObject();
+
+            temp = new Date();
+
+            temp.setDay((int)
+                                ParseSupport.GetSource(
+                                        DateObj,
+                                        "day",
+                                        int.class
+                                                      ));
+
+            temp.setMonth((int)
+                                  ParseSupport.GetSource(
+                                          DateObj,
+                                          "month",
+                                          int.class
+                                                        ));
+
+            temp.setYear((int)
+                                 ParseSupport.GetSource(
+                                         DateObj,
+                                         "year",
+                                         int.class
+                                                       ));
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+        }
+        return temp;
+    }
+
+    private Error buildError(JsonElement element)
+    {
+        Error temp = null;
+        try
+        {
+            JsonObject ErrJObj = element.getAsJsonObject();
+
+            temp = new Error();
+
+            temp.setMessage((String)
+                                    ParseSupport.GetSource(
+                                            ErrJObj,
+                                            "message",
+                                            String.class
+                                                          ));
+
+            temp.setCode((int)
+                                 ParseSupport.GetSource(
+                                         ErrJObj,
+                                         "code",
+                                         int.class
+                                                       ));
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+        }
+        return temp;
+    }
+
     private List<Result> buildResultList(JsonObject Obj)
     {
         List<Result> ResultList = null;
@@ -201,7 +201,6 @@ public class AcoustIDStructureBuilder
                             "results",
                             JsonArray.class
                                           );
-
 
             if (ResultsJList != null)
             {

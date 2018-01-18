@@ -3,15 +3,18 @@ package Fox.core.lib.services.LastFM.CommonSources;
 public class attr
 {
     private String position;
+    private String rank;
 
     public attr()
     {
 
     }
 
-    public attr(String position)
+    public attr(String position,
+                String rank)
     {
         this.position = position;
+        this.rank = rank;
     }
 
     public attr(attr copy)
@@ -19,6 +22,7 @@ public class attr
         if (copy!=null)
         {
             this.position = copy.position;
+            this.rank = copy.rank;
         }
     }
 
@@ -35,5 +39,20 @@ public class attr
     public boolean hasPosition()
     {
         return (position!=null && !position.isEmpty());
+    }
+
+    public String getRank()
+    {
+        return rank;
+    }
+
+    public void setRank(String rank)
+    {
+        this.rank = rank;
+    }
+
+    public boolean hasRank()
+    {
+        return (rank!=null && !rank.isEmpty());
     }
 }
