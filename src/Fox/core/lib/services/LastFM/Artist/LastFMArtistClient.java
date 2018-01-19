@@ -3,7 +3,7 @@ package Fox.core.lib.services.LastFM.Artist;
 import Fox.core.lib.services.LastFM.Artist.getInfo.GetInfoBuilder;
 import Fox.core.lib.services.LastFM.Artist.getInfo.sources.ArtistInfo;
 import Fox.core.lib.services.LastFM.LastFMClient;
-import com.sun.istack.internal.NotNull;
+import org.jetbrains.annotations.NotNull;
 
 public class LastFMArtistClient
 {
@@ -41,13 +41,16 @@ public class LastFMArtistClient
         if (lang!=null && !lang.isEmpty())
             optional += "&lang=" + lang;
 
+        if (!artist.isEmpty())
+            artist = "&artist="+artist;
+
         LastFMClient.RequestHTTPClient
                 .build(
                         LastFMClient.api_root+
                                 method_name+
                                 LastFMClient.api_key+
                                 LastFMClient.format+
-                                "&artist="+artist+
+                                artist+
                                 optional
                       );
         String response = LastFMClient.RequestHTTPClient.run(0);

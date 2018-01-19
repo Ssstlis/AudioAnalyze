@@ -7,11 +7,13 @@ import Fox.core.lib.services.LastFM.Album.getInfo.sources.track;
 import Fox.core.lib.services.LastFM.Album.getInfo.sources.tracks;
 import Fox.core.lib.services.LastFM.CommonSources.CommonBuilder;
 import Fox.core.lib.services.LastFM.CommonSources.Error;
+import Fox.core.lib.services.LastFM.Track.getInfo.sources.artist;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GetInfoBuilder extends CommonBuilder
@@ -108,7 +110,7 @@ public class GetInfoBuilder extends CommonBuilder
             System.out.println(e.getMessage());
         }
 
-        return null;
+        return temp;
     }
 
     private tracks buildTracks(JsonElement element)
@@ -146,6 +148,95 @@ public class GetInfoBuilder extends CommonBuilder
                                             );
 
             if (TrackJList!=null)
+            {
+                temp = new ArrayList<>();
+                int size = TrackJList.size();
+
+                for(int i = 0; i < size ; i++)
+                    temp.add(buildTrack(TrackJList.get(i)));
+            }
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+        }
+
+        return temp;
+    }
+
+    private track buildTrack(JsonElement element)
+    {
+        track temp = null;
+
+        try
+        {
+            JsonObject TrackObj = element.getAsJsonObject();
+
+            temp = new track();
+
+            temp.setName((String)
+                                 ParseSupport.GetSource(
+                                         TrackObj,
+                                         "name",
+                                         String.class
+                                                       ));
+            temp.setUrl((String)
+                                 ParseSupport.GetSource(
+                                         TrackObj,
+                                         "url",
+                                         String.class
+                                                       ));
+            temp.setDuration((String)
+                                 ParseSupport.GetSource(
+                                         TrackObj,
+                                         "duration",
+                                         String.class
+                                                       ));
+            temp.setAttribute(buildAttribute(TrackObj.get("@attr")));
+            temp.setStreamable(buildStreamable(TrackObj.get("streamable")));
+            temp.setArtist(buildArtist(TrackObj.get("artist")));
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+        }
+
+        return temp;
+    }
+
+    @Override
+    protected artist buildArtist(JsonElement element)
+    {
+        artist temp = null;
+
+        try
+        {
+            JsonObject ArtistObj = element.getAsJsonObject();
+
+            temp = new artist();
+
+            temp.setUrl((String)
+                                     ParseSupport.GetSource(
+                                             ArtistObj,
+                                             "url",
+                                             String.class
+                                                           ));
+            temp.setName((String)
+                                     ParseSupport.GetSource(
+                                             ArtistObj,
+                                             "name",
+                                             String.class
+                                                           ));
+            temp.setMbid((String)
+                                     ParseSupport.GetSource(
+                                             ArtistObj,
+                                             "mbid",
+                                             String.class
+                                                           ));
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
         }
 
         return temp;

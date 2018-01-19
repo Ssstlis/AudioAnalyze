@@ -19,7 +19,7 @@ public class LastFMAlbumClient
                              Boolean AutoCorrect
                             )
     {
-        final String method_name = "?method=artist.getInfo";
+        final String method_name = "?method=album.getInfo";
         String optional = "";
 
         if (AutoCorrect!=null)
@@ -41,14 +41,20 @@ public class LastFMAlbumClient
         if (lang!=null && !lang.isEmpty())
             optional += "&lang=" + lang;
 
+        if (!album.isEmpty())
+            album = "&album="+album;
+
+        if (!artist.isEmpty())
+            artist = "&artist="+artist;
+
         LastFMClient.RequestHTTPClient
                 .build(
                         LastFMClient.api_root+
                                 method_name+
                                 LastFMClient.api_key+
                                 LastFMClient.format+
-                                "&album="+album+
-                                "&artist="+artist+
+                                album+
+                                artist+
                                 optional
                       );
         String response = LastFMClient.RequestHTTPClient.run(0);

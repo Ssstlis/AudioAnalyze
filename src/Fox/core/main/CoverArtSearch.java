@@ -1,6 +1,6 @@
 package Fox.core.main;
 
-import Fox.core.lib.general.DOM.AlbumArt;
+import Fox.core.lib.general.DOM.AlbumArtCompilation;
 import Fox.core.lib.services.Common.SimpleInfo;
 
 public class CoverArtSearch
@@ -9,9 +9,9 @@ public class CoverArtSearch
     {
     }
 
-    public AlbumArt run(SimpleInfo request)
+    public AlbumArtCompilation run(SimpleInfo request)
     {
         //TODO PROCESS
-        return new AlbumArt();
+        return new AlbumArtCompilation(artList);
     }
 }

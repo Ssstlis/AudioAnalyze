@@ -47,6 +47,7 @@ public class CoverArtStructureBuilder
                                             "release",
                                             String.class
                                                           ));
+            temp.setImages(buildImageList(AlbumArtObj));
         }
         catch (Exception e)
         {

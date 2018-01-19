@@ -38,14 +38,20 @@ public class LastFMTrackClient
         if (mbid!=null && !mbid.isEmpty())
             optional += "&mbid="+mbid;
 
+        if (!track.isEmpty())
+            track = "&track="+track;
+
+        if (!artist.isEmpty())
+            artist = "&artist="+artist;
+
         LastFMClient.RequestHTTPClient
                     .build(
                             LastFMClient.api_root+
                             method_name+
                             LastFMClient.api_key+
                             LastFMClient.format+
-                            "&track="+track+
-                            "&artist="+artist+
+                            track+
+                            artist+
                             optional
                           );
         String response = LastFMClient.RequestHTTPClient.run(0);

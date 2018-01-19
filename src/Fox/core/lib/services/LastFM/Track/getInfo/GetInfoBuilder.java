@@ -63,6 +63,12 @@ public class GetInfoBuilder extends CommonBuilder
 
             temp = new track();
 
+            temp.setName((String)
+                                     ParseSupport.GetSource(
+                                             TrackObj,
+                                             "name",
+                                             String.class
+                                                           ));
             temp.setDuration((String)
                                      ParseSupport.GetSource(
                                              TrackObj,

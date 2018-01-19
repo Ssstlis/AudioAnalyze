@@ -15,6 +15,11 @@ import java.util.List;
 
 public class GetInfoBuilder extends CommonBuilder
 {
+    public GetInfoBuilder()
+    {
+
+    }
+
     public ArtistInfo buildArtistInfo(String response)
     {
         if (response==null || response.isEmpty())
