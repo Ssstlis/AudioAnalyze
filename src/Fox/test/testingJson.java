@@ -4,21 +4,23 @@ import Fox.core.lib.general.DOM.FingerPrint;
 import Fox.core.lib.services.CoverArtArchive.CoverArtArchiveClient;
 import Fox.core.lib.services.CoverArtArchive.LookupAlbumArt.sources.AlbumArt;
 import Fox.core.lib.services.LastFM.Album.getInfo.sources.AlbumInfo;
-import Fox.core.lib.services.LastFM.Artist.getInfo.sources.ArtistInfo;
+import Fox.core.lib.services.LastFM.Album.search.sources.Search;
 import Fox.core.lib.services.LastFM.LastFMClient;
-import Fox.core.lib.services.LastFM.LastFMTrackInfoCompilation;
-import Fox.core.lib.services.LastFM.Track.LastFMTrackClient;
-import Fox.core.lib.services.LastFM.Track.getInfo.sources.TrackInfo;
 import Fox.core.lib.services.acoustid.AcoustIDClient;
 import Fox.core.lib.services.acoustid.AcoustIDRequestConfig;
-import Fox.core.lib.services.acoustid.LookupByFP.sources.Artist;
-import Fox.core.lib.services.acoustid.LookupByFP.sources.ByFingerPrint;
+import org.musicbrainz.android.api.data.ReleaseInfo;
+import org.musicbrainz.android.api.webservice.MusicBrainzWebClient;
+
+import java.util.LinkedList;
 
 public class testingJson
 {
-    public static void main(String[] args)
+    public static void main(String[] args) throws Exception
     {
         LastFMClient lastFMClient = new LastFMClient();
+
+        LinkedList<ReleaseInfo> meteora = new MusicBrainzWebClient("myapp").searchRelease("Meteora");
+
         /*TrackInfo a = lastFMClient.Track().getInfo(null,
                                                          "Believe",
                                                          "Cher",
@@ -29,16 +31,23 @@ public class testingJson
                                                      null,
                                                      null,
                                                      null);*/
-        AlbumInfo c = lastFMClient.Album().getInfo(null,
-                                                   "Cher",
-                                                   "Believe",
-                                                   null,
-                                                   null,
-                                                   null);
+        AlbumInfo c = lastFMClient.Album()
+                                  .getInfo(null,
+                                           "Cher",
+                                           "Believe",
+                                           null,
+                                           null,
+                                           null
+                                          );
 
         /*LastFMTrackInfoCompilation lastFMTrackInfoCompilation = new LastFMTrackInfoCompilation(a,
                                                                                                b,
                                                                                                c);*/
+        Search believe = lastFMClient.Album()
+                                     .search(null,
+                                             null,
+                                             "Believe"
+                                            );
 
 
         FingerPrint nw = new FingerPrint(

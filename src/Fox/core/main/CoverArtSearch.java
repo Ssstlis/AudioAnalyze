@@ -9,9 +9,16 @@ public class CoverArtSearch
     {
     }
 
-    public AlbumArtCompilation run(SimpleInfo request)
+    public AlbumArtCompilation run(
+            String AlbumName,
+            String ArtistName,
+            Integer count)
     {
-        //TODO PROCESS
-        return new AlbumArtCompilation(artList);
+        if (AlbumName == null || AlbumName.isEmpty() || count == null || count <= 0)
+        {
+            return null;
+        }
+
+        return new AlbumArtCompilation();
     }
 }

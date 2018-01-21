@@ -2,6 +2,8 @@ package Fox.core.lib.services.LastFM.Album;
 
 import Fox.core.lib.services.LastFM.Album.getInfo.GetInfoBuilder;
 import Fox.core.lib.services.LastFM.Album.getInfo.sources.AlbumInfo;
+import Fox.core.lib.services.LastFM.Album.search.SearchBuilder;
+import Fox.core.lib.services.LastFM.Album.search.sources.Search;
 import Fox.core.lib.services.LastFM.LastFMClient;
 import org.jetbrains.annotations.NotNull;
 
@@ -11,6 +13,7 @@ public class LastFMAlbumClient
     {
 
     }
+
     public AlbumInfo getInfo(String mbid,
                              @NotNull String artist,
                              @NotNull String album,
@@ -59,5 +62,35 @@ public class LastFMAlbumClient
                       );
         String response = LastFMClient.RequestHTTPClient.run(0);
         return new GetInfoBuilder().buildAlbumInfo(response);
+    }
+    public Search search(Integer limit,
+                         Integer page,
+                         @NotNull String album
+                        )
+    {
+        final String method_name = "?method=album.search";
+        String optional = "";
+
+        if (limit!=null && limit!=0)
+            optional += "&limit=" + limit.toString();
+
+        if (page!=null && page!=0)
+            optional += "&page=" + page.toString();
+
+        if (!album.isEmpty())
+            album = "&album="+album;
+
+        LastFMClient.RequestHTTPClient
+                .build(
+                        LastFMClient.api_root+
+                                method_name+
+                                LastFMClient.api_key+
+                                LastFMClient.format+
+                                album+
+                                optional
+                      );
+
+        String response = LastFMClient.RequestHTTPClient.run(0);
+        return new SearchBuilder().buildSearch(response);
     }
 }

@@ -7,6 +7,7 @@ public class Art
 {
     private String url;
     private String size;
+    private String source;
 
     public Art()
     {
@@ -14,10 +15,12 @@ public class Art
     }
 
     public Art(String url,
-               String size)
+               String size,
+               String source)
     {
         this.url = url;
         this.size = size;
+        this.source = source;
     }
 
     public Art(Art copy)
@@ -26,6 +29,7 @@ public class Art
         {
             this.size = copy.size;
             this.url = copy.url;
+            this.source = copy.source;
         }
     }
 
@@ -36,7 +40,6 @@ public class Art
         if (copy!=null)
         {
             temp = new ArrayList<>();
-            int size = copy.size();
 
             for(Art elem:copy)
                 temp.add(new Art(elem));
@@ -73,5 +76,20 @@ public class Art
     public boolean hasUrl()
     {
         return (url!=null && !url.isEmpty());
+    }
+
+    public String getSource()
+    {
+        return source;
+    }
+
+    public void setSource(String source)
+    {
+        this.source = source;
+    }
+
+    public boolean hashSource()
+    {
+        return (source!=null && !source.isEmpty());
     }
 }

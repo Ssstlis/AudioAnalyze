@@ -4,6 +4,7 @@ public class attr
 {
     private String position;
     private String rank;
+    private String For;
 
     public attr()
     {
@@ -11,10 +12,12 @@ public class attr
     }
 
     public attr(String position,
-                String rank)
+                String rank,
+                String For)
     {
         this.position = position;
         this.rank = rank;
+        this.For = For;
     }
 
     public attr(attr copy)
@@ -23,6 +26,7 @@ public class attr
         {
             this.position = copy.position;
             this.rank = copy.rank;
+            this.For = copy.For;
         }
     }
 
@@ -54,5 +58,20 @@ public class attr
     public boolean hasRank()
     {
         return (rank!=null && !rank.isEmpty());
+    }
+
+    public String getFor()
+    {
+        return For;
+    }
+
+    public void setFor(String aFor)
+    {
+        For = aFor;
+    }
+
+    public boolean hasFor()
+    {
+        return (For!=null && !For.isEmpty());
     }
 }

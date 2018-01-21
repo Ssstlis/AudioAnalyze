@@ -68,6 +68,12 @@ public class CommonBuilder
                                              "rank",
                                              String.class
                                                            ));
+            temp.setFor((String)
+                                    ParseSupport.GetSource(
+                                            ArtistObj,
+                                            "for",
+                                            String.class
+                                                          ));
         }
         catch (Exception e)
         {

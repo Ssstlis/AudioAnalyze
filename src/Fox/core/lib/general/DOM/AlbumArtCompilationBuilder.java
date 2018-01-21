@@ -1,7 +1,9 @@
 package Fox.core.lib.general.DOM;
 
-import Fox.core.lib.services.CoverArtArchive.LookupAlbumArt.sources.AlbumArt;
-import Fox.core.lib.services.LastFM.LastFMTrackInfoCompilation;
+import Fox.core.lib.services.LastFM.Album.search.sources.Search;
+import org.musicbrainz.android.api.data.ReleaseInfo;
+
+import java.util.List;
 
 public class AlbumArtCompilationBuilder
 {
@@ -10,12 +12,16 @@ public class AlbumArtCompilationBuilder
 
     }
 
-    public AlbumArtCompilation buildAlbumArtCompilation(AlbumArt CoverArchive, LastFMTrackInfoCompilation LastFMCompile)
+    public AlbumArtCompilation buildAlbumArtCompilation(
+            Search LFNResponseSearch,
+            List<ReleaseInfo> MBInfo
+                                                       )
     {
-        if (CoverArchive==null || !CoverArchive.hasImages()
-                || LastFMCompile==null || LastFMCompile.getAlbumInfo().hasError())
+        if (LFNResponseSearch == null || !LFNResponseSearch.hasError()
+                && (MBInfo == null || MBInfo.isEmpty()))
+        {
             return null;
-
+        }
 
         AlbumArtCompilation temp = null;
 
