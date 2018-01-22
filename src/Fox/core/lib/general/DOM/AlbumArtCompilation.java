@@ -52,4 +52,34 @@ public class AlbumArtCompilation
     {
         return (ArtList!=null && !ArtList.isEmpty());
     }
+
+    public String getTitle()
+    {
+        return Title;
+    }
+
+    public void setTitle(String title)
+    {
+        Title = title;
+    }
+
+    public boolean hasTitle()
+    {
+        return (Title!=null && !Title.isEmpty());
+    }
+
+    public void setArtist(String artist)
+    {
+        Artist = artist;
+    }
+
+    public String getArtist()
+    {
+        return Artist;
+    }
+
+    public boolean hasArtist()
+    {
+        return (Artist!=null && !Artist.isEmpty());
+    }
 }

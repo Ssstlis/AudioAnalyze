@@ -1,5 +1,7 @@
 package Fox.core.lib.general.DOM;
 
+import Fox.core.lib.general.utils.target;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,7 +9,7 @@ public class Art
 {
     private String url;
     private String size;
-    private String source;
+    private target source;
 
     public Art()
     {
@@ -16,7 +18,7 @@ public class Art
 
     public Art(String url,
                String size,
-               String source)
+               target source)
     {
         this.url = url;
         this.size = size;
@@ -78,18 +80,18 @@ public class Art
         return (url!=null && !url.isEmpty());
     }
 
-    public String getSource()
+    public target getSource()
     {
         return source;
     }
 
-    public void setSource(String source)
+    public void setSource(target source)
     {
         this.source = source;
     }
 
     public boolean hashSource()
     {
-        return (source!=null && !source.isEmpty());
+        return source!=null;
     }
 }

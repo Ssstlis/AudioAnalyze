@@ -54,6 +54,11 @@ public class results
         this.opensearchQuery = new opensearchQuery(opensearchQuery);
     }
 
+    public boolean hasQuery()
+    {
+        return opensearchQuery!=null;
+    }
+
     public String getTotalResults()
     {
         return openSearchTotalResults;
@@ -62,6 +67,11 @@ public class results
     public void setTotalResults(String TotalResults)
     {
         this.openSearchTotalResults = TotalResults;
+    }
+
+    public boolean hasTotalResults()
+    {
+        return (openSearchTotalResults!=null && !openSearchTotalResults.isEmpty());
     }
 
     public String getStartIndex()
@@ -74,6 +84,11 @@ public class results
         this.openSearchStartIndex = StartIndex;
     }
 
+    public boolean hasStartIndex()
+    {
+        return (openSearchStartIndex!=null && !openSearchStartIndex.isEmpty());
+    }
+
     public String getItemsPerPage()
     {
         return openSearchItemsPerPage;
@@ -82,6 +97,11 @@ public class results
     public void setItemsPerPage(String ItemsPerPage)
     {
         this.openSearchItemsPerPage = ItemsPerPage;
+    }
+
+    public boolean hasItemsPerPage()
+    {
+        return (openSearchItemsPerPage!=null && !openSearchItemsPerPage.isEmpty());
     }
 
     public albummatches getAlbummatches()
@@ -94,6 +114,11 @@ public class results
         this.albummatches = new albummatches(albummatches);
     }
 
+    public boolean hasAlbummatches()
+    {
+        return albummatches!=null;
+    }
+
     public attr getAttr()
     {
         return new attr(attr);
@@ -102,5 +127,10 @@ public class results
     public void setAttr(attr attr)
     {
         this.attr = new attr(attr);
+    }
+
+    public boolean hasAttr()
+    {
+        return attr!=null;
     }
 }
