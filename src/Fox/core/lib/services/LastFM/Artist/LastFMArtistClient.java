@@ -1,5 +1,6 @@
 package Fox.core.lib.services.LastFM.Artist;
 
+import Fox.core.lib.services.Elapsed;
 import Fox.core.lib.services.LastFM.Artist.getInfo.GetInfoBuilder;
 import Fox.core.lib.services.LastFM.Artist.getInfo.sources.ArtistInfo;
 import Fox.core.lib.services.LastFM.LastFMClient;
@@ -53,7 +54,7 @@ public class LastFMArtistClient
                                 artist+
                                 optional
                       );
-        String response = LastFMClient.RequestHTTPClient.run(0);
+        String response = LastFMClient.RequestHTTPClient.run(Elapsed.LastFMElapse());
         return new GetInfoBuilder().buildArtistInfo(response);
     }
 }

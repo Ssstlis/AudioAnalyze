@@ -1,5 +1,6 @@
 package Fox.core.lib.services.LastFM.Album;
 
+import Fox.core.lib.services.Elapsed;
 import Fox.core.lib.services.LastFM.Album.getInfo.GetInfoBuilder;
 import Fox.core.lib.services.LastFM.Album.getInfo.sources.AlbumInfo;
 import Fox.core.lib.services.LastFM.Album.search.SearchBuilder;
@@ -60,7 +61,7 @@ public class LastFMAlbumClient
                                 artist+
                                 optional
                       );
-        String response = LastFMClient.RequestHTTPClient.run(0);
+        String response = LastFMClient.RequestHTTPClient.run(Elapsed.LastFMElapse());
         return new GetInfoBuilder().buildAlbumInfo(response);
     }
     public Search search(Integer limit,
@@ -90,7 +91,7 @@ public class LastFMAlbumClient
                                 optional
                       );
 
-        String response = LastFMClient.RequestHTTPClient.run(0);
+        String response = LastFMClient.RequestHTTPClient.run(Elapsed.LastFMElapse());
         return new SearchBuilder().buildSearch(response);
     }
 }

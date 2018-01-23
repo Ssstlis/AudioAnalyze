@@ -14,39 +14,11 @@ public class LastFMClient
     public static final HttpGetClient RequestHTTPClient = new HttpGetClient();
     public static final HttpsPostClient RequestHTTPSClient = new HttpsPostClient();
 
-    private LastFMTrackClient TrackClient;
-    private LastFMArtistClient ArtistClient;
-    private LastFMAlbumClient AlbumClient;
+    public LastFMTrackClient Track = new LastFMTrackClient();
+    public LastFMArtistClient Artist = new LastFMArtistClient();
+    public LastFMAlbumClient Album = new LastFMAlbumClient();
 
     public LastFMClient()
     {
-    }
-
-
-    public LastFMTrackClient Track()
-    {
-        if (TrackClient == null)
-        {
-            TrackClient = new LastFMTrackClient();
-        }
-        return TrackClient;
-    }
-
-    public LastFMArtistClient Artist()
-    {
-        if (ArtistClient == null)
-        {
-            ArtistClient = new LastFMArtistClient();
-        }
-        return ArtistClient;
-    }
-
-    public LastFMAlbumClient Album()
-    {
-        if (AlbumClient == null)
-        {
-            AlbumClient = new LastFMAlbumClient();
-        }
-        return AlbumClient;
     }
 }

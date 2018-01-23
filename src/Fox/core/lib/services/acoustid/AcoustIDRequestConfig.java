@@ -82,7 +82,7 @@ public class AcoustIDRequestConfig
                       false
                      );
         ConfigMap.put("releases",
-                      false
+                      true
                      );
         ConfigMap.put("tracks",
                       false

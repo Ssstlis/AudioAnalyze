@@ -62,14 +62,9 @@ public class AcoustIDClient
             AcoustIDResponse response = new AcoustIDResponse
                     (
                             RequestClient
-                                    .run(
-                                            (System.currentTimeMillis() - Elapsed.AcoustIDElapse > Elapsed.AcoustIDElapseState || !Elapsed.AcoustIDUsage)
-                                            ? (0) : (System.currentTimeMillis() - Elapsed.AcoustIDElapse)
-                                        )
+                                    .run(Elapsed.AcoustIDElapse())
                     );
 
-            Elapsed.AcoustIDUsage = true;
-            Elapsed.AcoustIDElapse = System.currentTimeMillis();
 
             /*try
             {
@@ -101,9 +96,9 @@ public class AcoustIDClient
             {
                 e.printStackTrace();
             }*/
-            ByFingerPrint temp = new AcoustIDStructureBuilder()
+
+            return new AcoustIDStructureBuilder()
                     .buildLookup(response);
-            return temp;
         }
         return null;
     }

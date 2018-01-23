@@ -1,26 +1,18 @@
 package Fox.test;
 
+import Fox.core.lib.general.DOM.AlbumArtCompilation;
 import Fox.core.lib.general.DOM.FingerPrint;
-import Fox.core.lib.services.CoverArtArchive.CoverArtArchiveClient;
-import Fox.core.lib.services.CoverArtArchive.LookupAlbumArt.sources.AlbumArt;
-import Fox.core.lib.services.LastFM.Album.getInfo.sources.AlbumInfo;
-import Fox.core.lib.services.LastFM.Album.search.sources.Search;
+import Fox.core.lib.general.utils.target;
 import Fox.core.lib.services.LastFM.LastFMClient;
 import Fox.core.lib.services.acoustid.AcoustIDClient;
 import Fox.core.lib.services.acoustid.AcoustIDRequestConfig;
-import org.musicbrainz.android.api.data.ReleaseInfo;
-import org.musicbrainz.android.api.webservice.MusicBrainzWebClient;
-
-import java.util.LinkedList;
+import Fox.core.main.CoverArtSearch;
 
 public class testingJson
 {
     public static void main(String[] args) throws Exception
     {
         LastFMClient lastFMClient = new LastFMClient();
-
-        LinkedList<ReleaseInfo> meteora = new MusicBrainzWebClient("myapp").searchRelease("Meteora");
-
         /*TrackInfo a = lastFMClient.Track().getInfo(null,
                                                          "Believe",
                                                          "Cher",
@@ -31,23 +23,23 @@ public class testingJson
                                                      null,
                                                      null,
                                                      null);*/
-        AlbumInfo c = lastFMClient.Album()
+       /* AlbumInfo c = lastFMClient.Album()
                                   .getInfo(null,
                                            "Cher",
                                            "Believe",
                                            null,
                                            null,
                                            null
-                                          );
+                                          );*/
 
         /*LastFMTrackInfoCompilation lastFMTrackInfoCompilation = new LastFMTrackInfoCompilation(a,
                                                                                                b,
                                                                                                c);*/
-        Search believe = lastFMClient.Album()
+        /*Search believe = lastFMClient.Album()
                                      .search(null,
                                              null,
                                              "Believe"
-                                            );
+                                            );*/
 
 
         FingerPrint nw = new FingerPrint(
@@ -56,14 +48,20 @@ public class testingJson
                 ""
         );
 
+        AlbumArtCompilation meteora1 = new CoverArtSearch().run("Meteora",
+                                                                null,
+                                                                target.LastFM,
+                                                                5
+                                                               );
+
         AcoustIDRequestConfig config = new AcoustIDRequestConfig();
 
         config.setDefault();
 
         AcoustIDClient client = new AcoustIDClient(config);
         //ByFingerPrint byFingerPrint = client.LookupByFingerPrint(nw);
-        AlbumArt albumArt = new CoverArtArchiveClient().LookupAlbumArt(c.getAlbum()
-                                                                        .getMbid());
+        /*AlbumArt albumArt = new CoverArtArchiveClient().LookupAlbumArt(c.getAlbum()
+                                                                        .getMbid());*/
         System.out.println(1);
 
     }

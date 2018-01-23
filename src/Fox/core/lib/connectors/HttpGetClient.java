@@ -34,7 +34,6 @@ public class HttpGetClient
         try
         {
             TimeUnit.MILLISECONDS.sleep(Elapse);
-            //TODO сделать повтор запроса до момента получения данных
             Response response = client.newCall(req)
                                       .execute();
 

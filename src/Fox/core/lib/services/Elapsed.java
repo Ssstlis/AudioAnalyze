@@ -2,20 +2,45 @@ package Fox.core.lib.services;
 
 public class Elapsed
 {
+    public static long LastFMElapse()
+    {
+        long temp = System.currentTimeMillis() - LastFMElapse;
 
-    public static final long
+        LastFMElapse = System.currentTimeMillis();
+
+        if (!LastFMUsage)
+        {
+            LastFMUsage = true;
+            return 0;
+        }
+        if (temp > LastFMElapseState)
+            return 0;
+        else return (LastFMElapseState - temp);
+    }
+
+    public static long AcoustIDElapse()
+    {
+        long temp = System.currentTimeMillis() - AcoustIDElapse;
+
+        AcoustIDElapse = System.currentTimeMillis();
+
+        if (!AcoustIDUsage)
+        {
+            AcoustIDUsage = true;
+            return 0;
+        }
+        if (temp > AcoustIDElapseState)
+            return 0;
+        else return (AcoustIDElapseState - temp);
+    }
+
+    private static final long
             AcoustIDElapseState = 330,
-            MusicBrainzElapseState = 200,
-            LastFMElapseState = 200,
-            CoverArtArchiveElapseState = 330;
-    public static long
+            LastFMElapseState = 250;
+    private static long
             AcoustIDElapse,
-            MusicBrainzElapse,
-            LastFMElapse,
-            CoverArtArchiveElapse;
-    public static boolean
+            LastFMElapse;
+    private static boolean
             AcoustIDUsage = false,
-            MusicBrainzUsage = false,
-            LastFMUsage = false,
-            CoverArtArchiveUsage = false;
+            LastFMUsage = false;
 }

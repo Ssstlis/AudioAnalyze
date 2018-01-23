@@ -1,9 +1,11 @@
 package Fox.core.lib.services.LastFM.Track;
 
+import Fox.core.lib.services.Elapsed;
 import Fox.core.lib.services.LastFM.LastFMClient;
 import Fox.core.lib.services.LastFM.Track.getInfo.GetInfoBuilder;
 import Fox.core.lib.services.LastFM.Track.getInfo.sources.TrackInfo;
 import org.jetbrains.annotations.NotNull;
+
 
 public class LastFMTrackClient
 {
@@ -54,7 +56,8 @@ public class LastFMTrackClient
                             artist+
                             optional
                           );
-        String response = LastFMClient.RequestHTTPClient.run(0);
+
+        String response = LastFMClient.RequestHTTPClient.run(Elapsed.LastFMElapse());
         return new GetInfoBuilder().buildTrackInfo(response);
     }
 }

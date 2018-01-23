@@ -3,7 +3,6 @@ package Fox.core.lib.services.CoverArtArchive;
 import Fox.core.lib.connectors.HttpGetClient;
 import Fox.core.lib.services.CoverArtArchive.LookupAlbumArt.CoverArtStructureBuilder;
 import Fox.core.lib.services.CoverArtArchive.LookupAlbumArt.sources.AlbumArt;
-import Fox.core.lib.services.Elapsed;
 
 public class CoverArtArchiveClient
 {
@@ -24,18 +23,11 @@ public class CoverArtArchiveClient
                                );
             CoverArtArchiveResponse response = new CoverArtArchiveResponse(
                     RequestClient
-                            .run(
-                                    (System.currentTimeMillis() - Elapsed.CoverArtArchiveElapse > Elapsed.CoverArtArchiveElapseState || !Elapsed.CoverArtArchiveUsage)
-                                    ? (0) : (System.currentTimeMillis() - Elapsed.CoverArtArchiveElapse)
-                                )
+                            .run(0)
             );
 
-            Elapsed.CoverArtArchiveUsage = true;
-            Elapsed.CoverArtArchiveElapse = System.currentTimeMillis();
-
-            AlbumArt temp = new CoverArtStructureBuilder()
+            return new CoverArtStructureBuilder()
                     .buildAlbumArt(response);
-            return temp;
         }
         return null;
     }

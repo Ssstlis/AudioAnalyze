@@ -45,7 +45,7 @@ public class AlbumArtCompilation
 
     public void setArtList(List<Art> artList)
     {
-        ArtList = Art.ArtListCopy(ArtList);
+        ArtList = Art.ArtListCopy(artList);
     }
 
     public boolean hasArtList()

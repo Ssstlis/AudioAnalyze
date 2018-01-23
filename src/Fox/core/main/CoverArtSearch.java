@@ -5,7 +5,6 @@ import Fox.core.lib.general.DOM.Art;
 import Fox.core.lib.general.utils.target;
 import Fox.core.lib.services.CoverArtArchive.CoverArtArchiveClient;
 import Fox.core.lib.services.CoverArtArchive.LookupAlbumArt.sources.AlbumArt;
-import Fox.core.lib.services.CoverArtArchive.LookupAlbumArt.sources.thumbnail;
 import Fox.core.lib.services.LastFM.Album.getInfo.sources.AlbumInfo;
 import Fox.core.lib.services.LastFM.Album.getInfo.sources.album;
 import Fox.core.lib.services.LastFM.Album.search.sources.Search;
@@ -13,6 +12,7 @@ import Fox.core.lib.services.LastFM.Album.search.sources.albummatches;
 import Fox.core.lib.services.LastFM.Album.search.sources.results;
 import Fox.core.lib.services.LastFM.CommonSources.image;
 import Fox.core.lib.services.LastFM.LastFMClient;
+import org.jetbrains.annotations.NotNull;
 import org.musicbrainz.android.api.data.ReleaseInfo;
 import org.musicbrainz.android.api.webservice.MusicBrainzWebClient;
 
@@ -28,7 +28,7 @@ public class CoverArtSearch
     }
 
     public AlbumArtCompilation run(
-            String AlbumName,
+            @NotNull String AlbumName,
             String ArtistName,
             target source,
             Integer count)
@@ -37,22 +37,22 @@ public class CoverArtSearch
                                                            ArtistName,
                                                            null);
 
-        if (source == null || AlbumName == null || AlbumName.isEmpty() || count == null || count <= 0)
+        if (source == null || AlbumName.isEmpty() || count == null || count <= 0)
         {
-            return temp;
+            return null;
         }
 
 
 
         if (ArtistName != null && !ArtistName.isEmpty())
         {
-            AlbumInfo LFMInfo = new LastFMClient().Album()
-                                               .getInfo(null,
-                                                        ArtistName,
-                                                        AlbumName,
-                                                        null,
-                                                        null,
-                                                        null
+            AlbumInfo LFMInfo = new LastFMClient().Album
+                                                  .getInfo(null,
+                                                           ArtistName,
+                                                           AlbumName,
+                                                           null,
+                                                           null,
+                                                           null
                                                        );
             if (LFMInfo!=null && LFMInfo.hasError())
             {
@@ -65,35 +65,36 @@ public class CoverArtSearch
                 List<Art> ArtList = new ArrayList<>();
 
                 if (album.hasImages())
-                    for (image elem : album.getImages())
-                        ArtList.add(new Art(elem.getText(),elem.getSize(),target.LastFM));
-
-                AlbumArt lookupAlbumArt = new CoverArtArchiveClient().LookupAlbumArt(album.getMbid());
-
-                if (lookupAlbumArt.hasImages())
                 {
-                    for (Fox.core.lib.services.CoverArtArchive.LookupAlbumArt.sources.image elem:lookupAlbumArt.getImages())
-                        if (elem.hasFront())
-                        {
-                            thumbnail elemThumbnail = elem.getThumbnail();
-                            if (elemThumbnail!=null)
-                            {
-                                if (elemThumbnail.hasSmall())
-                                    ArtList.add(new Art(elemThumbnail.getSmall(),"small",target.CoverArtArchive));
+                    List<image> elem = album.getImages();
+                    int         size = elem.size();
 
-                                if (elemThumbnail.hasLarge())
-                                    ArtList.add(new Art(elemThumbnail.getLarge(),"large",target.CoverArtArchive));
-                            }
-                            ArtList.add(new Art(elem.getImage(),"mega",target.CoverArtArchive));
-                        }
+                    ArtList.add(new Art(elem.get(size-1).getText(),
+                                        elem.get(size-1).getSize(),
+                                        target.LastFM));
                 }
 
+                if (album.hasMbid())
+                {
+                    AlbumArt lookupAlbumArt = new CoverArtArchiveClient().LookupAlbumArt(album.getMbid());
+
+                    if (lookupAlbumArt!=null && lookupAlbumArt.hasImages())
+                    {
+                        for (Fox.core.lib.services.CoverArtArchive.LookupAlbumArt.sources.image elem : lookupAlbumArt.getImages())
+                            if (elem.hasFront())
+                                ArtList.add(new Art(elem.getImage(),
+                                                    "mega",
+                                                    target.CoverArtArchive));
+                    }
+                }
                 temp.setArtList(ArtList);
+                return temp;
             }
         }
+
         if (source == target.LastFM)
         {
-            Search searchLF = new LastFMClient().Album()
+            Search searchLF = new LastFMClient().Album
                                                 .search(count,
                                                         null,
                                                         AlbumName
@@ -110,17 +111,25 @@ public class CoverArtSearch
                     {
                         List<Fox.core.lib.services.LastFM.Album.search.sources.album> LFMResultsAlbummatchesAlbumList = LFMResultsAlbummatches.getAlbumList();
 
-                        if (!LFMResultsAlbummatchesAlbumList.isEmpty())
+                        List<Art> ArtList = new ArrayList<>();
+
+                        for (Fox.core.lib.services.LastFM.Album.search.sources.album elem : LFMResultsAlbummatchesAlbumList)
                         {
-                            List<Art> ArtList = new ArrayList<>();
+                            if (elem.hasImages())
+                            {
+                                List<Fox.core.lib.services.LastFM.CommonSources.image> imgList = elem.getImages();
+                                int                                                    size    = imgList.size();
 
-                            for (Fox.core.lib.services.LastFM.Album.search.sources.album elem:LFMResultsAlbummatchesAlbumList)
-                                for(image ImgElem:elem.getImages())
-                                    ArtList.add(new Art(ImgElem.getText(),ImgElem.getSize(),target.LastFM));
+                                Fox.core.lib.services.LastFM.CommonSources.image ImgElem = imgList.get(size - 1);
 
-                            temp.setArtList(ArtList);
+                                ArtList.add(new Art(ImgElem.getText(),
+                                                    ImgElem.getSize(),
+                                                    target.LastFM
+                                ));
+                            }
                         }
-
+                        temp.setArtList(ArtList);
+                        return temp;
                     }
                 }
             }
@@ -134,20 +143,25 @@ public class CoverArtSearch
                 if (releaseInfos!=null && !releaseInfos.isEmpty())
                 {
                     List<Art> ArtList = new ArrayList<>();
+
                     CoverArtArchiveClient coverArtArchiveClient = new CoverArtArchiveClient();
-                    for (int i = 0; i < 10 || i < releaseInfos.size() ; i++)
+
+                    for (int i = 0, size = releaseInfos.size(); ArtList.size()!=count && i < size ; i++)
                     {
                         AlbumArt albumArt = coverArtArchiveClient.LookupAlbumArt(releaseInfos.get(i)
                                                                                              .getReleaseMbid());
                         if (albumArt!=null && albumArt.hasImages())
                         {
-
-                            for ()
-                                ArtList.add(new Art(albumArt.));
+                                for (Fox.core.lib.services.CoverArtArchive.LookupAlbumArt.sources.image elem : albumArt.getImages())
+                                    if (elem.hasFront())
+                                        ArtList.add(new Art(elem.getImage(),
+                                                            "mega",
+                                                            target.CoverArtArchive));
                         }
                     }
+                    temp.setArtList(ArtList);
+                    return temp;
                 }
-
             }
             catch (IOException e)
             {
