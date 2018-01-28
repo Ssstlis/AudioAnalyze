@@ -9,24 +9,25 @@ import java.util.List;
 
 public class track
 {
-    private String     name;
-    private String     url;
-    private String     duration;
-    private attr       attribute;
+    private String name;
+    private String url;
+    private String duration;
+    private attr attribute;
     private streamable streamable;
-    private artist     artist;
+    private artist artist;
 
     public track()
     {
 
     }
 
-    public track(String name,
-                 String url,
-                 String duration,
-                 attr attribute,
-                 streamable streamable,
-                 artist artist)
+    public track(
+            String name,
+            String url,
+            String duration,
+            attr attribute,
+            streamable streamable,
+            artist artist)
     {
         this.name = name;
         this.url = url;
@@ -38,7 +39,7 @@ public class track
 
     public track(track copy)
     {
-        if (copy!=null)
+        if (copy != null)
         {
             this.name = copy.name;
             this.url = copy.url;
@@ -53,12 +54,14 @@ public class track
     {
         List<track> temp = null;
 
-        if(tracks!=null)
+        if (tracks != null)
         {
             temp = new ArrayList<>();
 
-            for(track elem:tracks)
+            for (track elem : tracks)
+            {
                 temp.add(new track(elem));
+            }
         }
 
         return temp;
@@ -76,7 +79,7 @@ public class track
 
     public boolean hasName()
     {
-        return (name!=null && !name.isEmpty());
+        return (name != null && !name.isEmpty());
     }
 
     public String getUrl()
@@ -91,7 +94,7 @@ public class track
 
     public boolean hasUrl()
     {
-        return (url!=null && !url.isEmpty());
+        return (url != null && !url.isEmpty());
     }
 
     public String getDuration()
@@ -106,7 +109,7 @@ public class track
 
     public boolean hasDuration()
     {
-        return (duration!=null && !duration.isEmpty());
+        return (duration != null && !duration.isEmpty());
     }
 
     public attr getAttribute()
@@ -121,7 +124,7 @@ public class track
 
     public boolean hasAttribute()
     {
-        return attribute!=null;
+        return attribute != null;
     }
 
     public streamable getStreamable()
@@ -136,7 +139,7 @@ public class track
 
     public boolean hasStreamable()
     {
-        return streamable!=null;
+        return streamable != null;
     }
 
     public artist getArtist()
@@ -151,6 +154,6 @@ public class track
 
     public boolean hasArtist()
     {
-        return artist!=null;
+        return artist != null;
     }
 }

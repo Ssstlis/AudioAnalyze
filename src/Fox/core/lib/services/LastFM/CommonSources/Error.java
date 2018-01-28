@@ -10,8 +10,9 @@ public class Error
 
     }
 
-    public Error(Integer error,
-                 String message)
+    public Error(
+            Integer error,
+            String message)
     {
         this.message = message;
         this.error = error;
@@ -19,12 +20,13 @@ public class Error
 
     public Error(Error copy)
     {
-        if (copy!=null)
+        if (copy != null)
         {
             this.error = copy.error;
             this.message = copy.message;
         }
     }
+
     public Integer getError()
     {
         return error;
@@ -47,11 +49,11 @@ public class Error
 
     public boolean hasMessage()
     {
-        return (message!=null && !message.isEmpty());
+        return (message != null && !message.isEmpty());
     }
 
     public boolean hasError()
     {
-        return error!=null;
+        return error != null;
     }
 }

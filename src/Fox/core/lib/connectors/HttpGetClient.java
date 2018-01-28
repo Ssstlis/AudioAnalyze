@@ -39,17 +39,7 @@ public class HttpGetClient
 
             String Resp = response.body()
                                   .string();
-
-            if (199 < response.code()
-                    && 300 > response.code()
-                    || response.code() == 400)
-            {
-                return Resp;
-            }
-            else
-            {
-                return null;
-            }
+            return Resp;
         }
         catch (Exception e)
         {

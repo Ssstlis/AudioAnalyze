@@ -6,9 +6,10 @@ public class FingerPrint
 {
     private String print, duration, location;
 
-    public FingerPrint(@NotNull String print,
-                       @NotNull String duration,
-                       @NotNull String location)
+    public FingerPrint(
+            @NotNull String print,
+            @NotNull String duration,
+            @NotNull String location)
     {
         this.print = print;
         this.duration = duration;

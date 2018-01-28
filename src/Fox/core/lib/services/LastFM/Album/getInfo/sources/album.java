@@ -52,7 +52,7 @@ public class album
 
     public album(album copy)
     {
-        if (copy!=null)
+        if (copy != null)
         {
             this.name = copy.name;
             this.artist = copy.artist;
@@ -79,7 +79,7 @@ public class album
 
     public boolean hasName()
     {
-        return (name!=null && !name.isEmpty());
+        return (name != null && !name.isEmpty());
     }
 
     public String getArtist()
@@ -94,7 +94,7 @@ public class album
 
     public boolean hasArtist()
     {
-        return (artist!=null && !artist.isEmpty());
+        return (artist != null && !artist.isEmpty());
     }
 
     public String getMbid()
@@ -109,7 +109,7 @@ public class album
 
     public boolean hasMbid()
     {
-        return (mbid!=null && !mbid.isEmpty());
+        return (mbid != null && !mbid.isEmpty());
     }
 
     public String getUrl()
@@ -124,7 +124,7 @@ public class album
 
     public boolean hasUrl()
     {
-        return (url!=null && !url.isEmpty());
+        return (url != null && !url.isEmpty());
     }
 
     public String getListeners()
@@ -139,7 +139,7 @@ public class album
 
     public boolean hasListeners()
     {
-        return (listeners!=null && !listeners.isEmpty());
+        return (listeners != null && !listeners.isEmpty());
     }
 
     public String getPlaycount()
@@ -154,7 +154,7 @@ public class album
 
     public boolean hasPlaycount()
     {
-        return (playcount!=null && !playcount.isEmpty());
+        return (playcount != null && !playcount.isEmpty());
     }
 
     public List<image> getImages()
@@ -169,7 +169,7 @@ public class album
 
     public boolean hasImages()
     {
-        return (images!=null && !images.isEmpty());
+        return (images != null && !images.isEmpty());
     }
 
     public tracks getTracks()
@@ -184,7 +184,7 @@ public class album
 
     public boolean hasTracks()
     {
-        return tracks!=null;
+        return tracks != null;
     }
 
     public toptags getTags()
@@ -199,7 +199,7 @@ public class album
 
     public boolean hasTags()
     {
-        return tags!=null;
+        return tags != null;
     }
 
     public wiki getWiki()
@@ -214,6 +214,6 @@ public class album
 
     public boolean hasWiki()
     {
-        return wiki!=null;
+        return wiki != null;
     }
 }

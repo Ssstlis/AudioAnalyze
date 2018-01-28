@@ -30,7 +30,9 @@ public class JSON
         Set<String> keys = json.keySet();
 
         for (String key : keys)
+        {
             source = source.concat("\"" + key + "\":\"" + json.get(key) + "\",");
+        }
 
         source = source.substring(0,
                                   source.length() - 1

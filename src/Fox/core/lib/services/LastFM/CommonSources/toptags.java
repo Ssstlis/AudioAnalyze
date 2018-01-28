@@ -18,10 +18,12 @@ public class toptags
 
     public toptags(toptags copy)
     {
-        if (copy!=null)
+        if (copy != null)
         {
             if (copy.hasTags())
+            {
                 this.tags = tag.tagListCopy(copy.tags);
+            }
         }
     }
 
@@ -37,6 +39,6 @@ public class toptags
 
     public boolean hasTags()
     {
-        return (tags!=null && !tags.isEmpty());
+        return (tags != null && !tags.isEmpty());
     }
 }

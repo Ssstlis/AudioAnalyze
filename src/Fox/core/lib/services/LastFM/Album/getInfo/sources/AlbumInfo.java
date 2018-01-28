@@ -2,7 +2,8 @@ package Fox.core.lib.services.LastFM.Album.getInfo.sources;
 
 import Fox.core.lib.services.LastFM.CommonSources.Error;
 
-public class AlbumInfo extends Error
+public class AlbumInfo
+        extends Error
 {
     private album album;
 
@@ -11,17 +12,20 @@ public class AlbumInfo extends Error
 
     }
 
-    public AlbumInfo(album artist,
-                     Integer error,
-                     String message)
+    public AlbumInfo(
+            album artist,
+            Integer error,
+            String message)
     {
-        super(error, message);
+        super(error,
+              message
+             );
         this.album = new album(artist);
     }
 
     public AlbumInfo(AlbumInfo copy)
     {
-        if (copy!=null)
+        if (copy != null)
         {
             this.album = new album(copy.album);
             this.setError(copy.getError());
@@ -41,6 +45,6 @@ public class AlbumInfo extends Error
 
     public boolean hasAlbum()
     {
-        return album!=null;
+        return album != null;
     }
 }

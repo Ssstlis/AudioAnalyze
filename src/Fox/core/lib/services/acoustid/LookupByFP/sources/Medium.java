@@ -15,10 +15,11 @@ public class Medium
     {
     }
 
-    public Medium(int position,
-                  int track_count,
-                  String format,
-                  List<Track> Tracks)
+    public Medium(
+            int position,
+            int track_count,
+            String format,
+            List<Track> Tracks)
     {
         this.position = position;
         this.track_count = track_count;
@@ -45,7 +46,9 @@ public class Medium
         {
             temp = new ArrayList<>();
             for (Medium elem : copy)
+            {
                 temp.add(new Medium(elem));
+            }
         }
         return temp;
     }

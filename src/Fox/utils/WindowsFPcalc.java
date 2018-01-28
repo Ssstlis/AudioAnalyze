@@ -14,8 +14,9 @@ public class WindowsFPcalc
 {
 
     @Override
-    public void getFingerPrint(@NotNull String location,
-                               @NotNull FingerPrint target)
+    public void getFingerPrint(
+            @NotNull String location,
+            @NotNull FingerPrint target)
             throws
             Exception
     {
@@ -44,7 +45,9 @@ public class WindowsFPcalc
             String result = "";
 
             while ((line = br.readLine()) != null)
+            {
                 result = result.concat(line + "\n");
+            }
 
             int exit_value = process.waitFor();
             if (exit_value == 0)

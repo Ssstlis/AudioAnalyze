@@ -19,12 +19,13 @@ public class album
 
     }
 
-    public album(String artist,
-                 String title,
-                 String mbid,
-                 String url,
-                 List<image> images,
-                 attr attribute)
+    public album(
+            String artist,
+            String title,
+            String mbid,
+            String url,
+            List<image> images,
+            attr attribute)
     {
         this.artist = artist;
         this.attribute = new attr(attribute);
@@ -36,7 +37,7 @@ public class album
 
     public album(album copy)
     {
-        if (copy!=null)
+        if (copy != null)
         {
             this.attribute = new attr(copy.attribute);
             this.images = image.imageListCopy(copy.images);
@@ -59,7 +60,7 @@ public class album
 
     public boolean hasArtist()
     {
-        return (artist!=null && !artist.isEmpty());
+        return (artist != null && !artist.isEmpty());
     }
 
     public String getTitle()
@@ -74,7 +75,7 @@ public class album
 
     public boolean hasTitle()
     {
-        return (title!=null && !title.isEmpty());
+        return (title != null && !title.isEmpty());
     }
 
     public String getMbid()
@@ -89,7 +90,7 @@ public class album
 
     public boolean hasMbid()
     {
-        return (mbid!=null && !mbid.isEmpty());
+        return (mbid != null && !mbid.isEmpty());
     }
 
     public String getUrl()
@@ -104,7 +105,7 @@ public class album
 
     public boolean hasUrl()
     {
-        return (url!=null && !url.isEmpty());
+        return (url != null && !url.isEmpty());
     }
 
     public List<image> getImages()
@@ -119,7 +120,7 @@ public class album
 
     public boolean hasImages()
     {
-        return (images!=null && !images.isEmpty());
+        return (images != null && !images.isEmpty());
     }
 
     public attr getAttribute()
@@ -134,6 +135,6 @@ public class album
 
     public boolean hasAttribute()
     {
-        return attribute!=null;
+        return attribute != null;
     }
 }

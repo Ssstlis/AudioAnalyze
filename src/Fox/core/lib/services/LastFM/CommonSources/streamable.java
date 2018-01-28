@@ -10,8 +10,9 @@ public class streamable
 
     }
 
-    public streamable(String text,
-                      String fulltrack)
+    public streamable(
+            String text,
+            String fulltrack)
     {
         this.text = text;
         this.fulltrack = fulltrack;
@@ -19,7 +20,7 @@ public class streamable
 
     public streamable(streamable copy)
     {
-        if (copy!=null)
+        if (copy != null)
         {
             this.fulltrack = copy.fulltrack;
             this.text = copy.text;
@@ -38,7 +39,7 @@ public class streamable
 
     public boolean hasText()
     {
-        return (text!=null && !text.isEmpty());
+        return (text != null && !text.isEmpty());
     }
 
     public String getFulltrack()
@@ -53,6 +54,6 @@ public class streamable
 
     public boolean hasFulltrack()
     {
-        return (fulltrack!=null && !fulltrack.isEmpty());
+        return (fulltrack != null && !fulltrack.isEmpty());
     }
 }

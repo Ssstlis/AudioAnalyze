@@ -2,16 +2,16 @@ package Fox.test;
 
 import Fox.core.lib.general.DOM.ID3V2;
 import Fox.core.lib.general.templates.ProgressState;
+import Fox.core.lib.general.utils.ExecutableHelper;
 import Fox.core.lib.general.utils.performance;
 import Fox.core.main.AudioAnalyzeLibrary;
 import Fox.test.util.Mp3Filter;
 import Fox.utils.CustomProgressState;
-import Fox.utils.ExecutableHelper;
 import Fox.utils.WindowsFPcalc;
 
 import java.io.File;
 import java.util.List;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.Map;
 
 public class testing
 {
@@ -20,7 +20,7 @@ public class testing
         try
         {
 
-            String mp3location = "D:\\music\\Cursed";
+            String mp3location = "D:\\Fraps";
             List<File> FileList = ExecutableHelper.GetFileList(mp3location,
                                                                new Mp3Filter()
                                                               );
@@ -58,7 +58,7 @@ public class testing
 
 
                 Client.buildStrings(ExecutableHelper.FilesToStrings(FileList));
-                ConcurrentHashMap<String, List<ID3V2>> Result = Client.run(
+                Map<String, List<ID3V2>> Result = Client.run(
                         new WindowsFPcalc(),
                         Line1,
                         Line2,
@@ -66,7 +66,7 @@ public class testing
                         Line4,
                         performance.MAX,
                         true
-                                                                          );
+                                                            );
 
                 System.out.println(System.currentTimeMillis() - temp);
             }

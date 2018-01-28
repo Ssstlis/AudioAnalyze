@@ -16,11 +16,12 @@ public class Result
     {
     }
 
-    public Result(float score,
-                  String id,
-                  List<Recording> Recordings,
-                  List<Releasegroup> Releasegroups,
-                  List<Release> Releases)
+    public Result(
+            float score,
+            String id,
+            List<Recording> Recordings,
+            List<Releasegroup> Releasegroups,
+            List<Release> Releases)
     {
         this.score = score;
         this.id = id;
@@ -50,7 +51,9 @@ public class Result
             temp = new ArrayList<>();
 
             for (Result elem : copy)
+            {
                 temp.add(new Result(elem));
+            }
         }
 
         return temp;

@@ -5,9 +5,10 @@ public abstract class ProgressState
     protected int state, size;
     protected String desc, name;
 
-    protected ProgressState(int size,
-                            String name,
-                            String desc)
+    protected ProgressState(
+            int size,
+            String name,
+            String desc)
     {
         this.size = size;
         this.desc = desc;
@@ -18,8 +19,9 @@ public abstract class ProgressState
 
     protected abstract void onChange();
 
-    public void update(int now,
-                       String desc)
+    public void update(
+            int now,
+            String desc)
     {
         this.state = now;
         this.desc = desc;

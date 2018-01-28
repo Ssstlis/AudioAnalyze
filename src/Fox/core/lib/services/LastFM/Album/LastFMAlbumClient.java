@@ -15,18 +15,20 @@ public class LastFMAlbumClient
 
     }
 
-    public AlbumInfo getInfo(String mbid,
-                             @NotNull String artist,
-                             @NotNull String album,
-                             String lang,
-                             String username,
-                             Boolean AutoCorrect
+    public AlbumInfo getInfo(
+            String mbid,
+            @NotNull String artist,
+            @NotNull String album,
+            String lang,
+            String username,
+            Boolean AutoCorrect
                             )
     {
         final String method_name = "?method=album.getInfo";
         String optional = "";
 
-        if (AutoCorrect!=null)
+        if (AutoCorrect != null)
+        {
             if (AutoCorrect)
             {
                 optional += "&autocorrect=1";
@@ -35,59 +37,78 @@ public class LastFMAlbumClient
             {
                 optional += "&autocorrect=0";
             }
+        }
 
-        if (username!=null && !username.isEmpty())
+        if (username != null && !username.isEmpty())
+        {
             optional += "&username=" + username;
+        }
 
-        if (mbid!=null && !mbid.isEmpty())
+        if (mbid != null && !mbid.isEmpty())
+        {
             optional += "&mbid=" + mbid;
+        }
 
-        if (lang!=null && !lang.isEmpty())
+        if (lang != null && !lang.isEmpty())
+        {
             optional += "&lang=" + lang;
+        }
 
         if (!album.isEmpty())
-            album = "&album="+album;
+        {
+            album = "&album=" + album;
+        }
 
         if (!artist.isEmpty())
-            artist = "&artist="+artist;
+        {
+            artist = "&artist=" + artist;
+        }
 
         LastFMClient.RequestHTTPClient
                 .build(
-                        LastFMClient.api_root+
-                                method_name+
-                                LastFMClient.api_key+
-                                LastFMClient.format+
-                                album+
-                                artist+
+                        LastFMClient.api_root +
+                                method_name +
+                                LastFMClient.api_key +
+                                LastFMClient.format +
+                                album +
+                                artist +
                                 optional
                       );
         String response = LastFMClient.RequestHTTPClient.run(Elapsed.LastFMElapse());
         return new GetInfoBuilder().buildAlbumInfo(response);
     }
-    public Search search(Integer limit,
-                         Integer page,
-                         @NotNull String album
+
+    public Search search(
+            Integer limit,
+            Integer page,
+            @NotNull String album
                         )
     {
         final String method_name = "?method=album.search";
         String optional = "";
 
-        if (limit!=null && limit!=0)
+        if (limit != null && limit != 0)
+        {
             optional += "&limit=" + limit.toString();
+        }
 
-        if (page!=null && page!=0)
+        if (page != null && page != 0)
+        {
             optional += "&page=" + page.toString();
+        }
 
         if (!album.isEmpty())
-            album = "&album="+album;
+        {
+            album = "&album=" + album;
+        }
 
         LastFMClient.RequestHTTPClient
                 .build(
-                        LastFMClient.api_root+
-                                method_name+
-                                LastFMClient.api_key+
-                                LastFMClient.format+
-                                album+
+                        LastFMClient.api_root +
+                                method_name +
+                                LastFMClient.api_key +
+                                LastFMClient.format +
+                                album +
                                 optional
                       );
 

@@ -16,7 +16,7 @@ public class links
 
     public links(links copy)
     {
-        if (copy!=null)
+        if (copy != null)
         {
             this.link = new link(copy.link);
         }

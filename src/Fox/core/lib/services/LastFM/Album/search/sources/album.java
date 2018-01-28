@@ -7,9 +7,9 @@ import java.util.List;
 
 public class album
 {
-    private String      name;
-    private String      artist;
-    private String      url;
+    private String name;
+    private String artist;
+    private String url;
     private String streamable;
     private String mbid;
     private List<image> images;
@@ -54,7 +54,9 @@ public class album
         {
             temp = new ArrayList<>();
             for (album elem : albumList)
+            {
                 temp.add(new album(elem));
+            }
         }
         return temp;
     }
@@ -101,7 +103,7 @@ public class album
 
     public boolean hasUrl()
     {
-        return (url!=null && !url.isEmpty());
+        return (url != null && !url.isEmpty());
     }
 
     public List<image> getImages()
@@ -116,7 +118,7 @@ public class album
 
     public boolean hasImages()
     {
-        return (images!=null && !images.isEmpty());
+        return (images != null && !images.isEmpty());
     }
 
     public String getStreamable()
@@ -131,7 +133,7 @@ public class album
 
     public boolean hasStreamable()
     {
-        return (streamable!=null && !streamable.isEmpty());
+        return (streamable != null && !streamable.isEmpty());
     }
 
     public String getMbid()
@@ -146,6 +148,6 @@ public class album
 
     public boolean hasMbid()
     {
-        return (mbid!=null && !mbid.isEmpty());
+        return (mbid != null && !mbid.isEmpty());
     }
 }

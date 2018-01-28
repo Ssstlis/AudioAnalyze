@@ -2,6 +2,16 @@ package Fox.core.lib.services;
 
 public class Elapsed
 {
+    private static final long
+            AcoustIDElapseState = 330,
+            LastFMElapseState = 250;
+    private static long
+            AcoustIDElapse,
+            LastFMElapse;
+    private static boolean
+            AcoustIDUsage = false,
+            LastFMUsage = false;
+
     public static long LastFMElapse()
     {
         long temp = System.currentTimeMillis() - LastFMElapse;
@@ -14,8 +24,13 @@ public class Elapsed
             return 0;
         }
         if (temp > LastFMElapseState)
+        {
             return 0;
-        else return (LastFMElapseState - temp);
+        }
+        else
+        {
+            return (LastFMElapseState - temp);
+        }
     }
 
     public static long AcoustIDElapse()
@@ -30,17 +45,12 @@ public class Elapsed
             return 0;
         }
         if (temp > AcoustIDElapseState)
+        {
             return 0;
-        else return (AcoustIDElapseState - temp);
+        }
+        else
+        {
+            return (AcoustIDElapseState - temp);
+        }
     }
-
-    private static final long
-            AcoustIDElapseState = 330,
-            LastFMElapseState = 250;
-    private static long
-            AcoustIDElapse,
-            LastFMElapse;
-    private static boolean
-            AcoustIDUsage = false,
-            LastFMUsage = false;
 }

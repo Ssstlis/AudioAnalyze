@@ -79,8 +79,10 @@ public class AcoustIDStructureBuilder
                 int size = SecondatytypesJList.size();
 
                 for (int i = 0; i < size; i++)
+                {
                     temp.add(SecondatytypesJList.get(i)
                                                 .getAsString());
+                }
             }
         }
         catch (Exception e)
@@ -208,7 +210,9 @@ public class AcoustIDStructureBuilder
                 int size = ResultsJList.size();
 
                 for (int i = 0; i < size; i++)
+                {
                     ResultList.add(buildResult(ResultsJList.get(i)));
+                }
             }
         }
         catch (Exception e)
@@ -274,7 +278,9 @@ public class AcoustIDStructureBuilder
                 int size = RecordingsJList.size();
 
                 for (int i = 0; i < size; i++)
+                {
                     temp.add(buildRecording(RecordingsJList.get(i)));
+                }
             }
         }
         catch (Exception e)
@@ -302,7 +308,9 @@ public class AcoustIDStructureBuilder
                 int size = ReleasesJList.size();
 
                 for (int i = 0; i < size; i++)
+                {
                     temp.add(buildRelease(ReleasesJList.get(i)));
+                }
             }
         }
         catch (Exception e)
@@ -330,7 +338,9 @@ public class AcoustIDStructureBuilder
                 int size = ReleasegroupJList.size();
 
                 for (int i = 0; i < size; i++)
+                {
                     temp.add(buildReleasegroup(ReleasegroupJList.get(i)));
+                }
             }
         }
         catch (Exception e)
@@ -449,7 +459,9 @@ public class AcoustIDStructureBuilder
                 int size = ArtistJList.size();
 
                 for (int i = 0; i < size; i++)
+                {
                     temp.add(buildArtist(ArtistJList.get(i)));
+                }
             }
         }
         catch (Exception e)
@@ -517,7 +529,9 @@ public class AcoustIDStructureBuilder
                 int size = TrackJList.size();
 
                 for (int i = 0; i < size; i++)
+                {
                     temp.add(buildTrack(TrackJList.get(i)));
+                }
             }
         }
         catch (Exception e)
@@ -609,7 +623,9 @@ public class AcoustIDStructureBuilder
                 int size = ReleaseeventJList.size();
 
                 for (int i = 0; i < size; i++)
+                {
                     temp.add(buildReleaseevent(ReleaseeventJList.get(i)));
+                }
             }
         }
         catch (Exception e)
@@ -639,7 +655,9 @@ public class AcoustIDStructureBuilder
                 int size = MediumJList.size();
 
                 for (int i = 0; i < size; i++)
+                {
                     temp.add(buildMeduim(MediumJList.get(i)));
+                }
             }
         }
         catch (Exception e)

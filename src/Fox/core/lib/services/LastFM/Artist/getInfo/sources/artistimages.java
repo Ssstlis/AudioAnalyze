@@ -5,7 +5,8 @@ import Fox.core.lib.services.LastFM.CommonSources.image;
 import java.util.ArrayList;
 import java.util.List;
 
-public class artistimages extends Fox.core.lib.services.LastFM.CommonSources.artist
+public class artistimages
+        extends Fox.core.lib.services.LastFM.CommonSources.artist
 {
     private List<image> images;
 
@@ -14,11 +15,14 @@ public class artistimages extends Fox.core.lib.services.LastFM.CommonSources.art
 
     }
 
-    public artistimages(String name,
-                        String url,
-                        List<image> images)
+    public artistimages(
+            String name,
+            String url,
+            List<image> images)
     {
-        super(name, url);
+        super(name,
+              url
+             );
         this.images = image.imageListCopy(images);
     }
 
@@ -33,11 +37,13 @@ public class artistimages extends Fox.core.lib.services.LastFM.CommonSources.art
     {
         List<artistimages> temp = null;
 
-        if (copy!=null)
+        if (copy != null)
         {
             temp = new ArrayList<>();
-            for(artistimages elem:copy)
+            for (artistimages elem : copy)
+            {
                 temp.add(new artistimages(elem));
+            }
         }
         return temp;
     }
@@ -54,6 +60,6 @@ public class artistimages extends Fox.core.lib.services.LastFM.CommonSources.art
 
     public boolean hasImages()
     {
-        return (images!=null && !images.isEmpty());
+        return (images != null && !images.isEmpty());
     }
 }

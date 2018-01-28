@@ -24,8 +24,9 @@ public class HttpPostClient
                 .build();
     }
 
-    public HttpPostClient build(String adress,
-                                JSON param)
+    public HttpPostClient build(
+            String adress,
+            JSON param)
     {
         final MediaType JSON
                 = MediaType.parse("application/json; charset=utf-8");

@@ -13,8 +13,9 @@ public class TFile
         loc = location;
     }
 
-    public void Append(String source) throws
-                                      IOException
+    public void Append(String source)
+            throws
+            IOException
     {
         File file = new File(loc);
         FileWriter writer = new FileWriter(loc,

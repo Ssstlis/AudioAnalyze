@@ -13,9 +13,10 @@ public class ID3V2
     private Integer number;
 
     //TODO NOT FINAL
-    public ID3V2(LastFMTrackInfoCompilation compile,
-                 Recording a,
-                 AlbumArt b)
+    public ID3V2(
+            LastFMTrackInfoCompilation compile,
+            Recording a,
+            AlbumArt b)
     {
 
     }

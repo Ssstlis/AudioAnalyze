@@ -16,16 +16,20 @@ import com.google.gson.JsonParser;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GetInfoBuilder extends CommonBuilder
+public class GetInfoBuilder
+        extends CommonBuilder
 {
     public GetInfoBuilder()
     {
 
     }
+
     public AlbumInfo buildAlbumInfo(String source)
     {
-        if (source==null || source.isEmpty())
-        return null;
+        if (source == null || source.isEmpty())
+        {
+            return null;
+        }
 
         JsonParser parser = new JsonParser();
         AlbumInfo temp = null;
@@ -65,41 +69,41 @@ public class GetInfoBuilder extends CommonBuilder
             temp = new album();
 
             temp.setName((String)
-                                     ParseSupport.GetSource(
-                                             AlbumObj,
-                                             "name",
-                                             String.class
-                                                           ));
+                                 ParseSupport.GetSource(
+                                         AlbumObj,
+                                         "name",
+                                         String.class
+                                                       ));
             temp.setArtist((String)
-                                     ParseSupport.GetSource(
-                                             AlbumObj,
-                                             "artist",
-                                             String.class
-                                                           ));
+                                   ParseSupport.GetSource(
+                                           AlbumObj,
+                                           "artist",
+                                           String.class
+                                                         ));
             temp.setMbid((String)
-                                     ParseSupport.GetSource(
-                                             AlbumObj,
-                                             "mbid",
-                                             String.class
-                                                           ));
+                                 ParseSupport.GetSource(
+                                         AlbumObj,
+                                         "mbid",
+                                         String.class
+                                                       ));
             temp.setUrl((String)
-                                     ParseSupport.GetSource(
-                                             AlbumObj,
-                                             "url",
-                                             String.class
-                                                           ));
+                                ParseSupport.GetSource(
+                                        AlbumObj,
+                                        "url",
+                                        String.class
+                                                      ));
             temp.setListeners((String)
-                                     ParseSupport.GetSource(
-                                             AlbumObj,
-                                             "listeners",
-                                             String.class
-                                                           ));
+                                      ParseSupport.GetSource(
+                                              AlbumObj,
+                                              "listeners",
+                                              String.class
+                                                            ));
             temp.setPlaycount((String)
-                                     ParseSupport.GetSource(
-                                             AlbumObj,
-                                             "playcount",
-                                             String.class
-                                                           ));
+                                      ParseSupport.GetSource(
+                                              AlbumObj,
+                                              "playcount",
+                                              String.class
+                                                            ));
             temp.setImages(buildImageList(AlbumObj));
             temp.setTracks(buildTracks(AlbumObj.get("tracks")));
             temp.setTags(buildToptags(AlbumObj.get("tags")));
@@ -141,19 +145,21 @@ public class GetInfoBuilder extends CommonBuilder
         try
         {
             JsonArray TrackJList = (JsonArray)
-                      ParseSupport.GetSource(
-                              Obj,
-                              "track",
-                              JsonArray.class
-                                            );
+                    ParseSupport.GetSource(
+                            Obj,
+                            "track",
+                            JsonArray.class
+                                          );
 
-            if (TrackJList!=null)
+            if (TrackJList != null)
             {
                 temp = new ArrayList<>();
                 int size = TrackJList.size();
 
-                for(int i = 0; i < size ; i++)
+                for (int i = 0; i < size; i++)
+                {
                     temp.add(buildTrack(TrackJList.get(i)));
+                }
             }
         }
         catch (Exception e)
@@ -181,17 +187,17 @@ public class GetInfoBuilder extends CommonBuilder
                                          String.class
                                                        ));
             temp.setUrl((String)
-                                 ParseSupport.GetSource(
-                                         TrackObj,
-                                         "url",
-                                         String.class
-                                                       ));
+                                ParseSupport.GetSource(
+                                        TrackObj,
+                                        "url",
+                                        String.class
+                                                      ));
             temp.setDuration((String)
-                                 ParseSupport.GetSource(
-                                         TrackObj,
-                                         "duration",
-                                         String.class
-                                                       ));
+                                     ParseSupport.GetSource(
+                                             TrackObj,
+                                             "duration",
+                                             String.class
+                                                           ));
             temp.setAttribute(buildAttribute(TrackObj.get("@attr")));
             temp.setStreamable(buildStreamable(TrackObj.get("streamable")));
             temp.setArtist(buildArtist(TrackObj.get("artist")));
@@ -216,23 +222,23 @@ public class GetInfoBuilder extends CommonBuilder
             temp = new artist();
 
             temp.setUrl((String)
-                                     ParseSupport.GetSource(
-                                             ArtistObj,
-                                             "url",
-                                             String.class
-                                                           ));
+                                ParseSupport.GetSource(
+                                        ArtistObj,
+                                        "url",
+                                        String.class
+                                                      ));
             temp.setName((String)
-                                     ParseSupport.GetSource(
-                                             ArtistObj,
-                                             "name",
-                                             String.class
-                                                           ));
+                                 ParseSupport.GetSource(
+                                         ArtistObj,
+                                         "name",
+                                         String.class
+                                                       ));
             temp.setMbid((String)
-                                     ParseSupport.GetSource(
-                                             ArtistObj,
-                                             "mbid",
-                                             String.class
-                                                           ));
+                                 ParseSupport.GetSource(
+                                         ArtistObj,
+                                         "mbid",
+                                         String.class
+                                                       ));
         }
         catch (Exception e)
         {

@@ -6,15 +6,16 @@ import Fox.core.lib.general.Threads.FPCalcThread;
 import Fox.core.lib.general.Threads.ServiceThread;
 import Fox.core.lib.general.templates.FingerPrintThread;
 import Fox.core.lib.general.templates.ProgressState;
+import Fox.core.lib.general.utils.ExecutableHelper;
 import Fox.core.lib.general.utils.FileChecker;
 import Fox.core.lib.general.utils.performance;
 import Fox.core.lib.services.acoustid.AcoustIDClient;
 import Fox.core.lib.services.acoustid.AcoustIDRequestConfig;
-import Fox.utils.ExecutableHelper;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -54,13 +55,14 @@ public class AudioAnalyzeLibrary
         }
     }
 
-    public ConcurrentHashMap<String, List<ID3V2>> run(@NotNull FingerPrintThread YourFPCalcThread,
-                                                      @NotNull ProgressState CheckerProgressBar,
-                                                      @NotNull ProgressState FPProgressBar,
-                                                      @NotNull ProgressState ServiceProgressBar,
-                                                      @NotNull ProgressState CommonProgressBar,
-                                                      @NotNull performance Speed,
-                                                      boolean TrustMode)
+    public Map<String, List<ID3V2>> run(
+            @NotNull FingerPrintThread YourFPCalcThread,
+            @NotNull ProgressState CheckerProgressBar,
+            @NotNull ProgressState FPProgressBar,
+            @NotNull ProgressState ServiceProgressBar,
+            @NotNull ProgressState CommonProgressBar,
+            @NotNull performance Speed,
+            boolean TrustMode)
             throws
             Exception
     {
@@ -114,7 +116,6 @@ public class AudioAnalyzeLibrary
         System.out.println("Стартовало " + CPU + " потоков");
 
         ExecutorService es = Executors.newFixedThreadPool(CPU);
-
         for (String file : Locations)
         {
             FingerPrint transfer = new FingerPrint();

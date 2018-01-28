@@ -17,6 +17,8 @@ public class AcoustIDClient
     public AcoustIDClient()
     {
         RequestClient = new HttpGetClient();
+        config = new AcoustIDRequestConfig();
+        config.setDefault();
     }
 
     public AcoustIDClient(AcoustIDRequestConfig cfg)
@@ -64,38 +66,6 @@ public class AcoustIDClient
                             RequestClient
                                     .run(Elapsed.AcoustIDElapse())
                     );
-
-
-            /*try
-            {
-                String loc = FPrint.getLocation()
-                                   .substring(FPrint.getLocation()
-                                                    .lastIndexOf("\\") + 1);
-
-                File tfile = new File(loc);
-                FileWriter writer = new FileWriter(loc,
-                                                   false
-                );
-
-                if (!tfile.exists())
-                {
-                    tfile.createNewFile();
-                    writer.write(response.getSource());
-                    writer.flush();
-                    writer.close();
-                }
-                else
-                    {
-
-                        writer.write(response.getSource());
-                        writer.flush();
-                        writer.close();
-                    }
-            }
-            catch (Exception e)
-            {
-                e.printStackTrace();
-            }*/
 
             return new AcoustIDStructureBuilder()
                     .buildLookup(response);

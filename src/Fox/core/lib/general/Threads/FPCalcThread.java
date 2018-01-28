@@ -13,11 +13,12 @@ public class FPCalcThread
     private FingerPrint message;
     private String location;
 
-    public FPCalcThread(@NotNull FingerPrintThread executor,
-                        @NotNull String location,
-                        @NotNull FingerPrint transfer,
-                        @NotNull ProgressState ProgressLine,
-                        @NotNull ProgressState CommonLine)
+    public FPCalcThread(
+            @NotNull FingerPrintThread executor,
+            @NotNull String location,
+            @NotNull FingerPrint transfer,
+            @NotNull ProgressState ProgressLine,
+            @NotNull ProgressState CommonLine)
     {
         this.executor = executor;
         this.Line = ProgressLine;

@@ -16,11 +16,12 @@ public class FileCheckerThread
     private List<String> Target, Rejected;
     private ProgressState Line, Common;
 
-    public FileCheckerThread(@NotNull String Source,
-                             @NotNull List<String> TargetList,
-                             @NotNull List<String> RejectedList,
-                             @NotNull ProgressState TargetProgress,
-                             @NotNull ProgressState CommonLine)
+    public FileCheckerThread(
+            @NotNull String Source,
+            @NotNull List<String> TargetList,
+            @NotNull List<String> RejectedList,
+            @NotNull ProgressState TargetProgress,
+            @NotNull ProgressState CommonLine)
     {
         this.location = Source;
         this.Target = TargetList;

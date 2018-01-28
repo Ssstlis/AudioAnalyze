@@ -22,8 +22,9 @@ public class CoverArtStructureBuilder
 
     }
 
-    public AlbumArt buildAlbumArt(@NotNull
-                                          CoverArtArchiveResponse response)
+    public AlbumArt buildAlbumArt(
+            @NotNull
+                    CoverArtArchiveResponse response)
     {
         JsonParser parser = new JsonParser();
 
@@ -77,7 +78,9 @@ public class CoverArtStructureBuilder
                 int size = ImagesJList.size();
 
                 for (int i = 0; i < size; i++)
+                {
                     temp.add(buildImage(ImagesJList.get(i)));
+                }
             }
         }
         catch (Exception e)
@@ -169,8 +172,10 @@ public class CoverArtStructureBuilder
                 int size = TypesJList.size();
 
                 for (int i = 0; i < size; i++)
+                {
                     temp.add(TypesJList.get(i)
                                        .getAsString());
+                }
             }
         }
         catch (Exception e)

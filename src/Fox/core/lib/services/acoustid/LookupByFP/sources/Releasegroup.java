@@ -16,12 +16,13 @@ public class Releasegroup
     {
     }
 
-    public Releasegroup(String type,
-                        String id,
-                        String title,
-                        List<String> secondarytypes,
-                        List<Artist> Artists,
-                        List<Release> Releases)
+    public Releasegroup(
+            String type,
+            String id,
+            String title,
+            List<String> secondarytypes,
+            List<Artist> Artists,
+            List<Release> Releases)
     {
         this.id = id;
         this.title = title;
@@ -61,7 +62,9 @@ public class Releasegroup
             temp = new ArrayList<>();
 
             for (Releasegroup elem : copy)
+            {
                 temp.add(new Releasegroup(elem));
+            }
         }
 
         return temp;

@@ -15,9 +15,10 @@ public class LastFMTrackInfoCompilation
 
     }
 
-    public LastFMTrackInfoCompilation(TrackInfo trackInfo,
-                                      ArtistInfo artistInfo,
-                                      AlbumInfo albumInfo)
+    public LastFMTrackInfoCompilation(
+            TrackInfo trackInfo,
+            ArtistInfo artistInfo,
+            AlbumInfo albumInfo)
     {
         this.albumInfo = albumInfo;
         this.artistInfo = artistInfo;
@@ -26,7 +27,7 @@ public class LastFMTrackInfoCompilation
 
     public LastFMTrackInfoCompilation(LastFMTrackInfoCompilation copy)
     {
-        if (copy!=null)
+        if (copy != null)
         {
             this.trackInfo = new TrackInfo(copy.trackInfo);
             this.artistInfo = new ArtistInfo(copy.artistInfo);
@@ -46,7 +47,7 @@ public class LastFMTrackInfoCompilation
 
     public boolean hasTrackInfo()
     {
-        return trackInfo!=null;
+        return trackInfo != null;
     }
 
     public AlbumInfo getAlbumInfo()
@@ -61,7 +62,7 @@ public class LastFMTrackInfoCompilation
 
     public boolean hasAlbumInfo()
     {
-        return albumInfo!=null;
+        return albumInfo != null;
     }
 
     public ArtistInfo getArtistInfo()
@@ -76,6 +77,6 @@ public class LastFMTrackInfoCompilation
 
     public boolean hasArtistInfo()
     {
-        return artistInfo!=null;
+        return artistInfo != null;
     }
 }

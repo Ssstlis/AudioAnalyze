@@ -18,17 +18,19 @@ public class tracks
 
     public tracks(tracks copy)
     {
-        if (tracks!=null)
+        if (tracks != null)
+        {
             this.tracks = track.trackListCopy(copy.tracks);
-    }
-
-    public void setTracks(List<track> tracks)
-    {
-        this.tracks = track.trackListCopy(tracks);
+        }
     }
 
     public List<track> getTracks()
     {
         return track.trackListCopy(tracks);
+    }
+
+    public void setTracks(List<track> tracks)
+    {
+        this.tracks = track.trackListCopy(tracks);
     }
 }

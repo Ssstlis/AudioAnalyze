@@ -13,8 +13,9 @@ public class image
 
     }
 
-    public image(String text,
-                 String size)
+    public image(
+            String text,
+            String size)
     {
         this.size = size;
         this.text = text;
@@ -22,7 +23,7 @@ public class image
 
     public image(image copy)
     {
-        if (copy!=null)
+        if (copy != null)
         {
             this.size = copy.size;
             this.text = copy.text;
@@ -33,11 +34,13 @@ public class image
     {
         List<image> temp = null;
 
-        if (copy!=null)
+        if (copy != null)
         {
             temp = new ArrayList<>();
-            for(image elem:copy)
+            for (image elem : copy)
+            {
                 temp.add(new image(elem));
+            }
         }
 
         return temp;
@@ -65,11 +68,11 @@ public class image
 
     public boolean hasText()
     {
-        return (text!=null && !text.isEmpty());
+        return (text != null && !text.isEmpty());
     }
 
     public boolean hasSize()
     {
-        return (size!=null && !size.isEmpty());
+        return (size != null && !size.isEmpty());
     }
 }

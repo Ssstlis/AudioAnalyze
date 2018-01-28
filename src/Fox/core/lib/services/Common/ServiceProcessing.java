@@ -20,9 +20,10 @@ public class ServiceProcessing
         this.AIDClient = AIDClient;
     }
 
-    public void Processing(@NotNull FingerPrint AudioPrint,
-                           boolean Trust,
-                           @NotNull ConcurrentHashMap<String, List<ID3V2>> Target)
+    public void Processing(
+            @NotNull FingerPrint AudioPrint,
+            boolean Trust,
+            @NotNull ConcurrentHashMap<String, List<ID3V2>> Target)
     {
         String location = AudioPrint.getLocation();
         ByFingerPrint AIDResp = AIDClient.LookupByFingerPrint(AudioPrint);
@@ -38,9 +39,12 @@ public class ServiceProcessing
             //THIS IS TEMPLATE
             List<ID3V2> temp = new ArrayList<>();
             for (int i = 0; i < 2; i++)
+            {
                 temp.add(new ID3V2(null,
                                    null,
-                                   null));
+                                   null
+                ));
+            }
 
             Target.put(location,
                        temp

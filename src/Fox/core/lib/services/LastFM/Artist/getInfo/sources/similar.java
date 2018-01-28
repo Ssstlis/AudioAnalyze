@@ -18,7 +18,7 @@ public class similar
 
     public similar(similar copy)
     {
-        if (copy!=null)
+        if (copy != null)
         {
             this.artistimagesList = artistimages.artistimagesListCopy(copy.artistimagesList);
         }
@@ -36,6 +36,6 @@ public class similar
 
     public boolean hasArtists()
     {
-        return (artistimagesList!=null && !artistimagesList.isEmpty());
+        return (artistimagesList != null && !artistimagesList.isEmpty());
     }
 }

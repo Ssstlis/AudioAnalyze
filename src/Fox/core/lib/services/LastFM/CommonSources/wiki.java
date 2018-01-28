@@ -11,9 +11,10 @@ public class wiki
 
     }
 
-    public wiki(String published,
-                String summary,
-                String content)
+    public wiki(
+            String published,
+            String summary,
+            String content)
     {
         this.content = content;
         this.published = published;
@@ -22,7 +23,7 @@ public class wiki
 
     public wiki(wiki copy)
     {
-        if (copy!=null)
+        if (copy != null)
         {
             this.content = copy.content;
             this.summary = copy.summary;
@@ -62,16 +63,16 @@ public class wiki
 
     public boolean hasPublished()
     {
-        return (published!=null && !published.isEmpty());
+        return (published != null && !published.isEmpty());
     }
 
     public boolean hasSummary()
     {
-        return (summary!=null && !summary.isEmpty());
+        return (summary != null && !summary.isEmpty());
     }
 
     public boolean hasContent()
     {
-        return (content!=null && !content.isEmpty());
+        return (content != null && !content.isEmpty());
     }
 }

@@ -12,8 +12,9 @@ public class Artist
     {
     }
 
-    public Artist(String id,
-                  String name)
+    public Artist(
+            String id,
+            String name)
     {
         this.id = id;
         this.name = name;
@@ -36,7 +37,9 @@ public class Artist
         {
             temp = new ArrayList<>();
             for (Artist elem : copy)
+            {
                 temp.add(new Artist(elem));
+            }
         }
         return temp;
     }

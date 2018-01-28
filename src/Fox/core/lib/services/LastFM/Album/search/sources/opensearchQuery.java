@@ -12,10 +12,11 @@ public class opensearchQuery
 
     }
 
-    public opensearchQuery(String text,
-                           String role,
-                           String searchTerms,
-                           String startPage)
+    public opensearchQuery(
+            String text,
+            String role,
+            String searchTerms,
+            String startPage)
     {
         this.role = role;
         this.searchTerms = searchTerms;
@@ -25,7 +26,7 @@ public class opensearchQuery
 
     public opensearchQuery(opensearchQuery copy)
     {
-        if (copy!=null)
+        if (copy != null)
         {
             this.role = copy.role;
             this.searchTerms = copy.searchTerms;
@@ -46,7 +47,7 @@ public class opensearchQuery
 
     public boolean hasText()
     {
-        return (text!=null && !text.isEmpty());
+        return (text != null && !text.isEmpty());
     }
 
     public String getRole()
@@ -62,7 +63,7 @@ public class opensearchQuery
 
     public boolean hasRole()
     {
-        return (role!=null && !role.isEmpty());
+        return (role != null && !role.isEmpty());
     }
 
     public String getSearchTerms()
@@ -78,7 +79,7 @@ public class opensearchQuery
 
     public boolean hasSearchTerms()
     {
-        return (searchTerms!=null && !searchTerms.isEmpty());
+        return (searchTerms != null && !searchTerms.isEmpty());
     }
 
     public String getStartPage()
@@ -93,6 +94,6 @@ public class opensearchQuery
 
     public boolean hasStartPage()
     {
-        return (StartPage!=null && !StartPage.isEmpty());
+        return (StartPage != null && !StartPage.isEmpty());
     }
 }

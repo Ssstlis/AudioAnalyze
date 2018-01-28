@@ -6,9 +6,10 @@ public class CustomProgressState
         extends ProgressState
 {
 
-    public CustomProgressState(int size,
-                               String name,
-                               String desc)
+    public CustomProgressState(
+            int size,
+            String name,
+            String desc)
     {
         super(size,
               name,

@@ -10,8 +10,9 @@ public class artist
 
     }
 
-    public artist(String name,
-                  String url)
+    public artist(
+            String name,
+            String url)
     {
         this.name = name;
         this.url = url;
@@ -19,7 +20,7 @@ public class artist
 
     public artist(artist copy)
     {
-        if (copy!=null)
+        if (copy != null)
         {
             this.url = copy.url;
             this.name = copy.name;
@@ -38,7 +39,7 @@ public class artist
 
     public boolean hasName()
     {
-        return (name!=null && !name.isEmpty());
+        return (name != null && !name.isEmpty());
     }
 
     public String getUrl()
@@ -53,6 +54,6 @@ public class artist
 
     public boolean hasUrl()
     {
-        return (url!=null && !url.isEmpty());
+        return (url != null && !url.isEmpty());
     }
 }

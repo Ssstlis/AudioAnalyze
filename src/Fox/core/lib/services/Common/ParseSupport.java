@@ -10,9 +10,10 @@ import java.math.BigInteger;
 public class ParseSupport
 {
     @Nullable
-    public static Object GetSource(@NotNull JsonObject object,
-                                   @NotNull String name,
-                                   @NotNull Class target)
+    public static Object GetSource(
+            @NotNull JsonObject object,
+            @NotNull String name,
+            @NotNull Class target)
     {
         JsonElement element;
         if (object.has(name))

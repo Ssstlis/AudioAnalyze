@@ -13,9 +13,10 @@ public class ByFingerPrint
     {
     }
 
-    public ByFingerPrint(String status,
-                         List<Result> Results,
-                         Error err)
+    public ByFingerPrint(
+            String status,
+            List<Result> Results,
+            Error err)
     {
         this.result = Result.ResultListCopy(Results);
         this.err = new Error(err);
@@ -41,7 +42,9 @@ public class ByFingerPrint
             temp = new ArrayList<>();
 
             for (ByFingerPrint elem : copy)
+            {
                 temp.add(new ByFingerPrint(elem));
+            }
         }
 
         return temp;

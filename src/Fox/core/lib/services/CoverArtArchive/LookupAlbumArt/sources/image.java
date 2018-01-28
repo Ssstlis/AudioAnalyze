@@ -19,15 +19,16 @@ public class image
 
     }
 
-    public image(List<String> types,
-                 thumbnail thumbnail,
-                 boolean approved,
-                 boolean front,
-                 boolean back,
-                 String comment,
-                 String image,
-                 long id,
-                 long edit)
+    public image(
+            List<String> types,
+            thumbnail thumbnail,
+            boolean approved,
+            boolean front,
+            boolean back,
+            String comment,
+            String image,
+            long id,
+            long edit)
     {
         this.types = types;
         this.thumbnail = thumbnail;

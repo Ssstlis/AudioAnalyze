@@ -39,7 +39,9 @@ public class Error
             temp = new ArrayList<>();
 
             for (Error elem : copy)
+            {
                 temp.add(new Error(elem));
+            }
         }
 
         return temp;

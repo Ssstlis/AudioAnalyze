@@ -1,4 +1,4 @@
-package Fox.utils;
+package Fox.core.lib.general.utils;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -15,7 +15,9 @@ public class ExecutableHelper
     {
         List<String> Temp = new ArrayList<>();
         for (File file : FileList)
+        {
             Temp.add(file.getPath());
+        }
         return Temp;
     }
 
@@ -34,17 +36,20 @@ public class ExecutableHelper
         if (elems != null)
         {
             for (File elem : elems)
+            {
                 if (elem.isDirectory())
                 {
                     files.add(elem);
                 }
+            }
         }
 
         return files;
     }
 
-    public static List<File> GetFileList(@NotNull String pathname,
-                                         @NotNull FileFilter filter)
+    public static List<File> GetFileList(
+            @NotNull String pathname,
+            @NotNull FileFilter filter)
     {
         File check = new File(pathname);
         List<File> files = new ArrayList<>();
@@ -65,20 +70,23 @@ public class ExecutableHelper
         if (ResultForPath != null)
         {
             for (File file : ResultForPath)
+            {
                 if (file.isDirectory())
                 {
                     files.addAll(GetFileList(file.getPath(),
                                              filter
                                             ));
                 }
+            }
         }
 
         return files;
     }
 
     @NotNull
-    public static File SearchFile(@NotNull String location,
-                                  @NotNull final String name)
+    public static File SearchFile(
+            @NotNull String location,
+            @NotNull final String name)
     {
 
         return ExecutableHelper.GetFileList(

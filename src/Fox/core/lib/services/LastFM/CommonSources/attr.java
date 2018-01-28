@@ -11,9 +11,10 @@ public class attr
 
     }
 
-    public attr(String position,
-                String rank,
-                String For)
+    public attr(
+            String position,
+            String rank,
+            String For)
     {
         this.position = position;
         this.rank = rank;
@@ -22,7 +23,7 @@ public class attr
 
     public attr(attr copy)
     {
-        if (copy!=null)
+        if (copy != null)
         {
             this.position = copy.position;
             this.rank = copy.rank;
@@ -42,7 +43,7 @@ public class attr
 
     public boolean hasPosition()
     {
-        return (position!=null && !position.isEmpty());
+        return (position != null && !position.isEmpty());
     }
 
     public String getRank()
@@ -57,7 +58,7 @@ public class attr
 
     public boolean hasRank()
     {
-        return (rank!=null && !rank.isEmpty());
+        return (rank != null && !rank.isEmpty());
     }
 
     public String getFor()
@@ -72,6 +73,6 @@ public class attr
 
     public boolean hasFor()
     {
-        return (For!=null && !For.isEmpty());
+        return (For != null && !For.isEmpty());
     }
 }

@@ -13,9 +13,10 @@ public class Date
     {
     }
 
-    public Date(int day,
-                int month,
-                int year)
+    public Date(
+            int day,
+            int month,
+            int year)
     {
         this.day = day;
         this.month = month;
@@ -41,7 +42,9 @@ public class Date
             temp = new ArrayList<>();
 
             for (Date elem : copy)
+            {
                 temp.add(new Date(elem));
+            }
         }
 
         return temp;

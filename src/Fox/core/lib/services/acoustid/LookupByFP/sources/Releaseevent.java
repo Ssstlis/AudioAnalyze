@@ -13,8 +13,9 @@ public class Releaseevent
     {
     }
 
-    public Releaseevent(String country,
-                        Date date)
+    public Releaseevent(
+            String country,
+            Date date)
     {
         this.country = country;
         this.date = date;
@@ -37,7 +38,9 @@ public class Releaseevent
         {
             temp = new ArrayList<>();
             for (Releaseevent elem : copy)
+            {
                 temp.add(new Releaseevent(elem));
+            }
         }
         return temp;
     }

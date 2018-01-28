@@ -2,7 +2,8 @@ package Fox.core.lib.services.LastFM.Album.search.sources;
 
 import Fox.core.lib.services.LastFM.CommonSources.Error;
 
-public class Search extends Error
+public class Search
+        extends Error
 {
     private results results;
 
@@ -11,11 +12,14 @@ public class Search extends Error
         super();
     }
 
-    public Search(results results,
-                  Integer error,
-                  String message)
+    public Search(
+            results results,
+            Integer error,
+            String message)
     {
-        super(error, message);
+        super(error,
+              message
+             );
         this.results = new results(results);
     }
 
@@ -31,6 +35,6 @@ public class Search extends Error
 
     public boolean hasResults()
     {
-        return results!=null;
+        return results != null;
     }
 }

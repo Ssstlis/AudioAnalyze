@@ -10,7 +10,9 @@ import Fox.core.main.CoverArtSearch;
 
 public class testingJson
 {
-    public static void main(String[] args) throws Exception
+    public static void main(String[] args)
+            throws
+            Exception
     {
         LastFMClient lastFMClient = new LastFMClient();
         /*TrackInfo a = lastFMClient.Track().getInfo(null,
@@ -47,12 +49,13 @@ public class testingJson
                 "187",
                 ""
         );
-
-        AlbumArtCompilation meteora1 = new CoverArtSearch().run("Meteora",
+        long l = System.currentTimeMillis();
+        AlbumArtCompilation meteora1 = new CoverArtSearch().run("Blood Visions",
                                                                 null,
                                                                 target.LastFM,
                                                                 5
                                                                );
+        l = System.currentTimeMillis() - l;
 
         AcoustIDRequestConfig config = new AcoustIDRequestConfig();
 

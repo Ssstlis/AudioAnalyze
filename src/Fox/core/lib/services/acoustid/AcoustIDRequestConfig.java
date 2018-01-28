@@ -9,6 +9,14 @@ public class AcoustIDRequestConfig
 
     public AcoustIDRequestConfig()
     {
+
+    }
+
+    public static AcoustIDRequestConfig DefaultConfig()
+    {
+        AcoustIDRequestConfig temp = new AcoustIDRequestConfig();
+        temp.setDefault();
+        return temp;
     }
 
     @Override

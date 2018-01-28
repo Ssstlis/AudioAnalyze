@@ -2,7 +2,8 @@ package Fox.core.lib.services.LastFM.Artist.getInfo.sources;
 
 import Fox.core.lib.services.LastFM.CommonSources.wiki;
 
-public class bio extends wiki
+public class bio
+        extends wiki
 {
     private links links;
 
@@ -11,18 +12,22 @@ public class bio extends wiki
 
     }
 
-    public bio(String published,
-               String summary,
-               String content,
-               links links)
+    public bio(
+            String published,
+            String summary,
+            String content,
+            links links)
     {
-        super(published, summary, content);
+        super(published,
+              summary,
+              content
+             );
         this.links = new links(links);
     }
 
     public bio(bio copy)
     {
-        if (copy!=null)
+        if (copy != null)
         {
             this.setContent(copy.getContent());
             this.setPublished(copy.getPublished());
@@ -43,6 +48,6 @@ public class bio extends wiki
 
     public boolean hasLinks()
     {
-        return links!=null;
+        return links != null;
     }
 }

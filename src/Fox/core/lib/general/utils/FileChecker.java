@@ -1,7 +1,7 @@
 package Fox.core.lib.general.utils;
 
-import Fox.core.lib.general.templates.ProgressState;
 import Fox.core.lib.general.Threads.FileCheckerThread;
+import Fox.core.lib.general.templates.ProgressState;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
@@ -21,9 +21,10 @@ public class FileChecker
     {
     }
 
-    public void SiftFileAsString(@NotNull List<String> Sources,
-                                 @NotNull ProgressState Progress,
-                                 @NotNull ProgressState Common)
+    public void SiftFileAsString(
+            @NotNull List<String> Sources,
+            @NotNull ProgressState Progress,
+            @NotNull ProgressState Common)
             throws
             InterruptedException
     {
@@ -33,6 +34,7 @@ public class FileChecker
         ExecutorService es = Executors.newFixedThreadPool(2);
 
         for (String loc : Sources)
+        {
             es.execute(new FileCheckerThread(
                     loc,
                     Accepted,
@@ -40,6 +42,7 @@ public class FileChecker
                     Progress,
                     Common
             ));
+        }
 
         es.shutdown();
         es.awaitTermination(1,
@@ -47,9 +50,10 @@ public class FileChecker
                            );
     }
 
-    public void SiftFileAsFile(@NotNull List<File> Sources,
-                               @NotNull ProgressState Progress,
-                               @NotNull ProgressState Common)
+    public void SiftFileAsFile(
+            @NotNull List<File> Sources,
+            @NotNull ProgressState Progress,
+            @NotNull ProgressState Common)
             throws
             InterruptedException
     {
@@ -59,6 +63,7 @@ public class FileChecker
         ExecutorService es = Executors.newFixedThreadPool(2);
 
         for (File file : Sources)
+        {
             es.execute(new FileCheckerThread(
                     file.getPath(),
                     Accepted,
@@ -66,6 +71,7 @@ public class FileChecker
                     Progress,
                     Common
             ));
+        }
 
         es.shutdown();
         es.awaitTermination(15,

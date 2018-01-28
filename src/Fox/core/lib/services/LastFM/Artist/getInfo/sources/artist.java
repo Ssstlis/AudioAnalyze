@@ -5,7 +5,8 @@ import Fox.core.lib.services.LastFM.CommonSources.toptags;
 
 import java.util.List;
 
-public class artist extends Fox.core.lib.services.LastFM.Track.getInfo.sources.artist
+public class artist
+        extends Fox.core.lib.services.LastFM.Track.getInfo.sources.artist
 {
     private List<image> images;
     private String streamable;
@@ -20,18 +21,22 @@ public class artist extends Fox.core.lib.services.LastFM.Track.getInfo.sources.a
 
     }
 
-    public artist(String name,
-                  String mbid,
-                  String url,
-                  String streamable,
-                  String ontour,
-                  List<image> images,
-                  stats stats,
-                  similar similar,
-                  toptags tags,
-                  bio bio)
+    public artist(
+            String name,
+            String mbid,
+            String url,
+            String streamable,
+            String ontour,
+            List<image> images,
+            stats stats,
+            similar similar,
+            toptags tags,
+            bio bio)
     {
-        super(name, mbid, url);
+        super(name,
+              mbid,
+              url
+             );
         this.streamable = streamable;
         this.ontour = ontour;
         this.images = image.imageListCopy(images);
@@ -67,7 +72,7 @@ public class artist extends Fox.core.lib.services.LastFM.Track.getInfo.sources.a
 
     public boolean hasImages()
     {
-        return (images!=null && !images.isEmpty());
+        return (images != null && !images.isEmpty());
     }
 
     public String getStreamable()
@@ -82,7 +87,7 @@ public class artist extends Fox.core.lib.services.LastFM.Track.getInfo.sources.a
 
     public boolean hasStreamable()
     {
-        return (streamable!=null && !streamable.isEmpty());
+        return (streamable != null && !streamable.isEmpty());
     }
 
     public String getOntour()
@@ -97,7 +102,7 @@ public class artist extends Fox.core.lib.services.LastFM.Track.getInfo.sources.a
 
     public boolean hasOntour()
     {
-        return (ontour!=null && !ontour.isEmpty());
+        return (ontour != null && !ontour.isEmpty());
     }
 
     public stats getStats()
@@ -112,7 +117,7 @@ public class artist extends Fox.core.lib.services.LastFM.Track.getInfo.sources.a
 
     public boolean hasStats()
     {
-        return stats!=null;
+        return stats != null;
     }
 
     public similar getSimilar()
@@ -127,7 +132,7 @@ public class artist extends Fox.core.lib.services.LastFM.Track.getInfo.sources.a
 
     public boolean hasSimilar()
     {
-        return similar!=null;
+        return similar != null;
     }
 
     public toptags getTags()
@@ -142,7 +147,7 @@ public class artist extends Fox.core.lib.services.LastFM.Track.getInfo.sources.a
 
     public boolean hasTags()
     {
-        return tags!=null;
+        return tags != null;
     }
 
     public bio getBio()
@@ -157,6 +162,6 @@ public class artist extends Fox.core.lib.services.LastFM.Track.getInfo.sources.a
 
     public boolean hasBio()
     {
-        return bio!=null;
+        return bio != null;
     }
 }

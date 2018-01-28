@@ -33,11 +33,11 @@ public class CommonBuilder
 
 
             temp.setUrl((String)
-                               ParseSupport.GetSource(
-                                       ArtistObj,
-                                       "url",
-                                       String.class
-                                                     ));
+                                ParseSupport.GetSource(
+                                        ArtistObj,
+                                        "url",
+                                        String.class
+                                                      ));
         }
         catch (Exception e)
         {
@@ -56,24 +56,24 @@ public class CommonBuilder
             temp = new attr();
 
             temp.setPosition((String)
-                                 ParseSupport.GetSource(
-                                         ArtistObj,
-                                         "position",
-                                         String.class
-                                                       ));
-
-            temp.setRank((String)
                                      ParseSupport.GetSource(
                                              ArtistObj,
-                                             "rank",
+                                             "position",
                                              String.class
                                                            ));
+
+            temp.setRank((String)
+                                 ParseSupport.GetSource(
+                                         ArtistObj,
+                                         "rank",
+                                         String.class
+                                                       ));
             temp.setFor((String)
-                                    ParseSupport.GetSource(
-                                            ArtistObj,
-                                            "for",
-                                            String.class
-                                                          ));
+                                ParseSupport.GetSource(
+                                        ArtistObj,
+                                        "for",
+                                        String.class
+                                                      ));
         }
         catch (Exception e)
         {
@@ -92,17 +92,17 @@ public class CommonBuilder
             temp = new Error();
 
             temp.setError((Integer)
-                                     ParseSupport.GetSource(
-                                             ArtistObj,
-                                             "error",
-                                             int.class
-                                                           ));
-            temp.setMessage((String)
                                   ParseSupport.GetSource(
                                           ArtistObj,
-                                          "message",
-                                          String.class
+                                          "error",
+                                          int.class
                                                         ));
+            temp.setMessage((String)
+                                    ParseSupport.GetSource(
+                                            ArtistObj,
+                                            "message",
+                                            String.class
+                                                          ));
         }
         catch (Exception e)
         {
@@ -121,17 +121,17 @@ public class CommonBuilder
             temp = new image();
 
             temp.setText((String)
-                                  ParseSupport.GetSource(
-                                          ArtistObj,
-                                          "#text",
-                                          String.class
-                                                        ));
+                                 ParseSupport.GetSource(
+                                         ArtistObj,
+                                         "#text",
+                                         String.class
+                                                       ));
             temp.setSize((String)
-                                    ParseSupport.GetSource(
-                                            ArtistObj,
-                                            "size",
-                                            String.class
-                                                          ));
+                                 ParseSupport.GetSource(
+                                         ArtistObj,
+                                         "size",
+                                         String.class
+                                                       ));
         }
         catch (Exception e)
         {
@@ -147,18 +147,20 @@ public class CommonBuilder
         try
         {
             JsonArray ImageJList = (JsonArray)
-                      ParseSupport.GetSource(
-                              Obj,
-                              "image",
-                              JsonArray.class
-                                            );
-            if (ImageJList!=null)
+                    ParseSupport.GetSource(
+                            Obj,
+                            "image",
+                            JsonArray.class
+                                          );
+            if (ImageJList != null)
             {
                 temp = new ArrayList<>();
                 int size = ImageJList.size();
 
-                for(int i = 0; i < size; i++)
+                for (int i = 0; i < size; i++)
+                {
                     temp.add(buildImage(ImageJList.get(i)));
+                }
             }
         }
         catch (Exception e)
@@ -186,11 +188,11 @@ public class CommonBuilder
                                          String.class
                                                        ));
             temp.setFulltrack((String)
-                                 ParseSupport.GetSource(
-                                         StreamableObj,
-                                         "fulltrack",
-                                         String.class
-                                                       ));
+                                      ParseSupport.GetSource(
+                                              StreamableObj,
+                                              "fulltrack",
+                                              String.class
+                                                            ));
         }
         catch (Exception e)
         {
@@ -211,17 +213,17 @@ public class CommonBuilder
             temp = new tag();
 
             temp.setUrl((String)
+                                ParseSupport.GetSource(
+                                        TagObj,
+                                        "url",
+                                        String.class
+                                                      ));
+            temp.setName((String)
                                  ParseSupport.GetSource(
                                          TagObj,
-                                         "url",
+                                         "name",
                                          String.class
                                                        ));
-            temp.setName((String)
-                                      ParseSupport.GetSource(
-                                              TagObj,
-                                              "name",
-                                              String.class
-                                                            ));
         }
         catch (Exception e)
         {
@@ -238,18 +240,20 @@ public class CommonBuilder
         try
         {
             JsonArray TagJList = (JsonArray)
-                      ParseSupport.GetSource(
-                              Obj,
-                              "tag",
-                              JsonArray.class
-                                            );
-            if (TagJList!=null)
+                    ParseSupport.GetSource(
+                            Obj,
+                            "tag",
+                            JsonArray.class
+                                          );
+            if (TagJList != null)
             {
                 temp = new ArrayList<>();
                 int size = TagJList.size();
 
-                for(int i = 0; i< size; i++)
+                for (int i = 0; i < size; i++)
+                {
                     temp.add(buildTag(TagJList.get(i)));
+                }
             }
         }
         catch (Exception e)
@@ -291,23 +295,23 @@ public class CommonBuilder
             temp = new wiki();
 
             temp.setContent((String)
-                                ParseSupport.GetSource(
-                                        WikiObj,
-                                        "content",
-                                        String.class
-                                                      ));
+                                    ParseSupport.GetSource(
+                                            WikiObj,
+                                            "content",
+                                            String.class
+                                                          ));
             temp.setPublished((String)
-                                ParseSupport.GetSource(
-                                        WikiObj,
-                                        "published",
-                                        String.class
-                                                      ));
+                                      ParseSupport.GetSource(
+                                              WikiObj,
+                                              "published",
+                                              String.class
+                                                            ));
             temp.setSummary((String)
-                                ParseSupport.GetSource(
-                                        WikiObj,
-                                        "summary",
-                                        String.class
-                                                      ));
+                                    ParseSupport.GetSource(
+                                            WikiObj,
+                                            "summary",
+                                            String.class
+                                                          ));
         }
         catch (Exception e)
         {

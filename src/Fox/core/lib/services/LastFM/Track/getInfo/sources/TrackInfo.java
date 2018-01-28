@@ -2,7 +2,8 @@ package Fox.core.lib.services.LastFM.Track.getInfo.sources;
 
 import Fox.core.lib.services.LastFM.CommonSources.Error;
 
-public class TrackInfo extends Error
+public class TrackInfo
+        extends Error
 {
     private track track;
 
@@ -11,17 +12,20 @@ public class TrackInfo extends Error
 
     }
 
-    public TrackInfo(track track,
-                     Integer error,
-                     String message)
+    public TrackInfo(
+            track track,
+            Integer error,
+            String message)
     {
-        super(error, message);
+        super(error,
+              message
+             );
         this.track = new track(track);
     }
 
     public TrackInfo(TrackInfo copy)
     {
-        if (copy!=null)
+        if (copy != null)
         {
             this.track = new track(copy.track);
             this.setError(copy.getError());
@@ -41,6 +45,6 @@ public class TrackInfo extends Error
 
     public boolean hasTrack()
     {
-        return track!=null;
+        return track != null;
     }
 }

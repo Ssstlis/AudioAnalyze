@@ -10,8 +10,9 @@ public class stats
 
     }
 
-    public stats(String listeners,
-                 String playcount)
+    public stats(
+            String listeners,
+            String playcount)
     {
         this.listeners = listeners;
         this.playcount = playcount;
@@ -19,7 +20,7 @@ public class stats
 
     public stats(stats copy)
     {
-        if (copy!=null)
+        if (copy != null)
         {
             this.playcount = copy.playcount;
             this.listeners = copy.listeners;
@@ -38,7 +39,7 @@ public class stats
 
     public boolean hasListeners()
     {
-        return (listeners!=null && !listeners.isEmpty());
+        return (listeners != null && !listeners.isEmpty());
     }
 
     public String getPlaycount()
@@ -53,6 +54,6 @@ public class stats
 
     public boolean hasPlaycount()
     {
-        return (playcount!=null && !playcount.isEmpty());
+        return (playcount != null && !playcount.isEmpty());
     }
 }

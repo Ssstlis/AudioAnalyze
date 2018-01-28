@@ -11,9 +11,10 @@ public class link
 
     }
 
-    public link(String text,
-                String rel,
-                String href)
+    public link(
+            String text,
+            String rel,
+            String href)
     {
         this.href = href;
         this.rel = rel;
@@ -22,7 +23,7 @@ public class link
 
     public link(link copy)
     {
-        if (copy!=null)
+        if (copy != null)
         {
             this.text = copy.text;
             this.rel = copy.rel;
@@ -42,7 +43,7 @@ public class link
 
     public boolean hasText()
     {
-        return (text!=null && !text.isEmpty());
+        return (text != null && !text.isEmpty());
     }
 
     public String getRel()
@@ -57,7 +58,7 @@ public class link
 
     public boolean hasRel()
     {
-        return (rel!=null && !rel.isEmpty());
+        return (rel != null && !rel.isEmpty());
     }
 
     public String getHref()
@@ -72,6 +73,6 @@ public class link
 
     public boolean hasHref()
     {
-        return (href!=null && !href.isEmpty());
+        return (href != null && !href.isEmpty());
     }
 }

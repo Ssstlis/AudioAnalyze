@@ -13,9 +13,10 @@ public class AlbumArtCompilation
 
     }
 
-    public AlbumArtCompilation(String title,
-                               String artist,
-                               List<Art> ArtList)
+    public AlbumArtCompilation(
+            String title,
+            String artist,
+            List<Art> ArtList)
     {
         this.Title = title;
         this.Artist = artist;
@@ -24,7 +25,7 @@ public class AlbumArtCompilation
 
     public AlbumArtCompilation(AlbumArtCompilation copy)
     {
-        if (copy!=null)
+        if (copy != null)
         {
             this.ArtList = Art.ArtListCopy(copy.ArtList);
             this.Artist = copy.Artist;
@@ -50,7 +51,7 @@ public class AlbumArtCompilation
 
     public boolean hasArtList()
     {
-        return (ArtList!=null && !ArtList.isEmpty());
+        return (ArtList != null && !ArtList.isEmpty());
     }
 
     public String getTitle()
@@ -65,12 +66,7 @@ public class AlbumArtCompilation
 
     public boolean hasTitle()
     {
-        return (Title!=null && !Title.isEmpty());
-    }
-
-    public void setArtist(String artist)
-    {
-        Artist = artist;
+        return (Title != null && !Title.isEmpty());
     }
 
     public String getArtist()
@@ -78,8 +74,13 @@ public class AlbumArtCompilation
         return Artist;
     }
 
+    public void setArtist(String artist)
+    {
+        Artist = artist;
+    }
+
     public boolean hasArtist()
     {
-        return (Artist!=null && !Artist.isEmpty());
+        return (Artist != null && !Artist.isEmpty());
     }
 }

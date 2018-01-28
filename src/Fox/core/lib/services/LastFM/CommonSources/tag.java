@@ -13,8 +13,9 @@ public class tag
 
     }
 
-    public tag(String name,
-               String url)
+    public tag(
+            String name,
+            String url)
     {
         this.name = name;
         this.url = url;
@@ -22,7 +23,7 @@ public class tag
 
     public tag(tag copy)
     {
-        if (copy!=null)
+        if (copy != null)
         {
             this.url = copy.url;
             this.name = copy.name;
@@ -33,11 +34,13 @@ public class tag
     {
         List<tag> temp = null;
 
-        if (copy!=null)
+        if (copy != null)
         {
             temp = new ArrayList<>();
-            for(tag elem:copy)
+            for (tag elem : copy)
+            {
                 temp.add(new tag(elem));
+            }
         }
 
         return temp;
@@ -65,11 +68,11 @@ public class tag
 
     public boolean hasName()
     {
-        return (name!=null && !name.isEmpty());
+        return (name != null && !name.isEmpty());
     }
 
     public boolean hasUrl()
     {
-        return (url!=null && !url.isEmpty());
+        return (url != null && !url.isEmpty());
     }
 }

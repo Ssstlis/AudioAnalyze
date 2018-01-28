@@ -16,12 +16,13 @@ public class Recording
     {
     }
 
-    public Recording(int duration,
-                     int sources,
-                     String title,
-                     String id,
-                     List<Artist> Artists,
-                     List<Releasegroup> Releasegroups)
+    public Recording(
+            int duration,
+            int sources,
+            String title,
+            String id,
+            List<Artist> Artists,
+            List<Releasegroup> Releasegroups)
     {
         this.Releasegroups = Releasegroup.ReleasegroupListCopy(Releasegroups);
         this.Artists = Artist.ArtistListCopy(Artists);
@@ -52,7 +53,9 @@ public class Recording
         {
             temp = new ArrayList<>();
             for (Recording elem : copy)
+            {
                 temp.add(new Recording(elem));
+            }
         }
 
         return temp;

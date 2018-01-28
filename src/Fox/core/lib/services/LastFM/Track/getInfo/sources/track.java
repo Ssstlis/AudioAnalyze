@@ -23,17 +23,18 @@ public class track
 
     }
 
-    public track(String name,
-                     String mbid,
-                     String url,
-                     String duration,
-                     String listeners,
-                     String playcount,
-                     streamable stream,
-                     artist artist,
-                     album album,
-                     wiki wiki,
-                     toptags toptags
+    public track(
+            String name,
+            String mbid,
+            String url,
+            String duration,
+            String listeners,
+            String playcount,
+            streamable stream,
+            artist artist,
+            album album,
+            wiki wiki,
+            toptags toptags
                 )
     {
         this.duration = duration;
@@ -51,7 +52,7 @@ public class track
 
     public track(track copy)
     {
-        if (copy!=null)
+        if (copy != null)
         {
             this.wiki = new wiki(copy.wiki);
             this.album = new album(copy.album);
@@ -79,7 +80,7 @@ public class track
 
     public boolean hasName()
     {
-        return (name!=null && !name.isEmpty());
+        return (name != null && !name.isEmpty());
     }
 
     public String getMbid()
@@ -94,7 +95,7 @@ public class track
 
     public boolean hasMbid()
     {
-        return (mbid!=null && !mbid.isEmpty());
+        return (mbid != null && !mbid.isEmpty());
     }
 
     public String getUrl()
@@ -109,7 +110,7 @@ public class track
 
     public boolean hasUrl()
     {
-        return (url!=null && !url.isEmpty());
+        return (url != null && !url.isEmpty());
     }
 
     public String getDuration()
@@ -124,7 +125,7 @@ public class track
 
     public boolean hasDuration()
     {
-        return (duration!=null && !duration.isEmpty());
+        return (duration != null && !duration.isEmpty());
     }
 
     public String getListeners()
@@ -139,7 +140,7 @@ public class track
 
     public boolean hasListeners()
     {
-        return (listeners!=null && !listeners.isEmpty());
+        return (listeners != null && !listeners.isEmpty());
     }
 
     public String getPlaycount()
@@ -154,7 +155,7 @@ public class track
 
     public boolean hasPlaycount()
     {
-        return (playcount!=null && !playcount.isEmpty());
+        return (playcount != null && !playcount.isEmpty());
     }
 
     public streamable getStreamable()
@@ -169,7 +170,7 @@ public class track
 
     public boolean hasStreamable()
     {
-        return stream!=null;
+        return stream != null;
     }
 
     public artist getArtist()
@@ -184,7 +185,7 @@ public class track
 
     public boolean hasArtist()
     {
-        return artist!=null;
+        return artist != null;
     }
 
     public album getAlbum()
@@ -199,7 +200,7 @@ public class track
 
     public boolean hasAlbum()
     {
-        return album!=null;
+        return album != null;
     }
 
     public wiki getWiki()
@@ -214,7 +215,7 @@ public class track
 
     public boolean hasWiki()
     {
-        return wiki!=null;
+        return wiki != null;
     }
 
     public toptags getToptags()

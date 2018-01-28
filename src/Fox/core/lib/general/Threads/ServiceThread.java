@@ -20,12 +20,13 @@ public class ServiceThread
     private ConcurrentHashMap<String, List<ID3V2>> target;
 
 
-    public ServiceThread(@NotNull AcoustIDClient AIDClient,
-                         @NotNull FingerPrint FPrint,
-                         @NotNull ConcurrentHashMap<String, List<ID3V2>> Target,
-                         @NotNull ProgressState ServiceState,
-                         @NotNull ProgressState CommonProgress,
-                         boolean Trust
+    public ServiceThread(
+            @NotNull AcoustIDClient AIDClient,
+            @NotNull FingerPrint FPrint,
+            @NotNull ConcurrentHashMap<String, List<ID3V2>> Target,
+            @NotNull ProgressState ServiceState,
+            @NotNull ProgressState CommonProgress,
+            boolean Trust
                         )
     {
         this.AIDClient = AIDClient;

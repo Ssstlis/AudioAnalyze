@@ -7,6 +7,7 @@ public interface FingerPrintThread
 {
     void getFingerPrint(
             @NotNull String location,
-            @NotNull FingerPrint target) throws
-                                         Exception;
+            @NotNull FingerPrint target)
+            throws
+            Exception;
 }

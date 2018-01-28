@@ -1,0 +1,1894 @@
+{
+  "created": "2018-01-26T19:25:34.441Z",
+  "count": 29,
+  "offset": 0,
+  "releases": [
+    {
+      "id": "714fa479-8e26-3cb1-8038-f36d47be2b6a",
+      "score": "100",
+      "count": 1,
+      "title": "Meteora",
+      "status": "Official",
+      "packaging": "Digipak",
+      "text-representation": {
+        "language": "eng",
+        "script": "Latn"
+      },
+      "artist-credit": [
+        {
+          "artist": {
+            "id": "f59c5520-5f46-4d2c-b2c4-822eabf53419",
+            "name": "Linkin Park",
+            "sort-name": "Linkin Park",
+            "aliases": [
+              {
+                "sort-name": "Hybrid Theory",
+                "name": "Hybrid Theory"
+              },
+              {
+                "sort-name": "Limkin Park",
+                "name": "Limkin Park"
+              },
+              {
+                "sort-name": "Lincoln Park",
+                "name": "Lincoln Park"
+              },
+              {
+                "sort-name": "Xero",
+                "name": "Xero"
+              }
+            ]
+          }
+        }
+      ],
+      "release-group": {
+        "id": "09474d62-17dd-3a4f-98fb-04c65f38a479",
+        "primary-type": "Album"
+      },
+      "date": "2003-03-25",
+      "country": "US",
+      "release-events": [
+        {
+          "date": "2003-03-25",
+          "area": {
+            "id": "489ce91b-6658-3307-9877-795b68554c98",
+            "name": "United States",
+            "sort-name": "United States",
+            "iso-3166-1-codes": [
+              "US"
+            ]
+          }
+        }
+      ],
+      "barcode": "093624818625",
+      "asin": "B00008H2LB",
+      "label-info": [
+        {
+          "catalog-number": "48186-2",
+          "label": {
+            "id": "c595c289-47ce-4fba-b999-b87503e8cb71",
+            "name": "Warner Bros. Records"
+          }
+        }
+      ],
+      "track-count": 13,
+      "media": [
+        {
+          "format": "CD",
+          "disc-count": 6,
+          "track-count": 13
+        }
+      ],
+      "tags": [
+        {
+          "count": 1,
+          "name": "nu metal"
+        },
+        {
+          "count": 1,
+          "name": "rap rock"
+        }
+      ]
+    },
+    {
+      "id": "95ff26c8-19e0-3673-8045-7623216f9a05",
+      "score": "100",
+      "count": 1,
+      "title": "Meteora",
+      "status": "Official",
+      "text-representation": {
+        "language": "eng",
+        "script": "Latn"
+      },
+      "artist-credit": [
+        {
+          "artist": {
+            "id": "f59c5520-5f46-4d2c-b2c4-822eabf53419",
+            "name": "Linkin Park",
+            "sort-name": "Linkin Park",
+            "aliases": [
+              {
+                "sort-name": "Hybrid Theory",
+                "name": "Hybrid Theory"
+              },
+              {
+                "sort-name": "Limkin Park",
+                "name": "Limkin Park"
+              },
+              {
+                "sort-name": "Lincoln Park",
+                "name": "Lincoln Park"
+              },
+              {
+                "sort-name": "Xero",
+                "name": "Xero"
+              }
+            ]
+          }
+        }
+      ],
+      "release-group": {
+        "id": "09474d62-17dd-3a4f-98fb-04c65f38a479",
+        "primary-type": "Album"
+      },
+      "date": "2003",
+      "country": "NL",
+      "release-events": [
+        {
+          "date": "2003",
+          "area": {
+            "id": "ef1b7cc0-cd26-36f4-8ea0-04d9623786c7",
+            "name": "Netherlands",
+            "sort-name": "Netherlands",
+            "iso-3166-1-codes": [
+              "NL"
+            ]
+          }
+        }
+      ],
+      "barcode": "093624846321",
+      "asin": "B00008K9Z6",
+      "label-info": [
+        {
+          "catalog-number": "CDW 48463",
+          "label": {
+            "id": "c595c289-47ce-4fba-b999-b87503e8cb71",
+            "name": "Warner Bros. Records"
+          }
+        }
+      ],
+      "track-count": 13,
+      "media": [
+        {
+          "format": "CD",
+          "disc-count": 6,
+          "track-count": 13
+        }
+      ]
+    },
+    {
+      "id": "13bc8649-5b1b-331a-b57a-a41db1c8335c",
+      "score": "100",
+      "count": 1,
+      "title": "Meteora",
+      "status": "Official",
+      "text-representation": {
+        "language": "eng",
+        "script": "Latn"
+      },
+      "artist-credit": [
+        {
+          "artist": {
+            "id": "f59c5520-5f46-4d2c-b2c4-822eabf53419",
+            "name": "Linkin Park",
+            "sort-name": "Linkin Park",
+            "aliases": [
+              {
+                "sort-name": "Hybrid Theory",
+                "name": "Hybrid Theory"
+              },
+              {
+                "sort-name": "Limkin Park",
+                "name": "Limkin Park"
+              },
+              {
+                "sort-name": "Lincoln Park",
+                "name": "Lincoln Park"
+              },
+              {
+                "sort-name": "Xero",
+                "name": "Xero"
+              }
+            ]
+          }
+        }
+      ],
+      "release-group": {
+        "id": "09474d62-17dd-3a4f-98fb-04c65f38a479",
+        "primary-type": "Album"
+      },
+      "date": "2004-06",
+      "country": "TH",
+      "release-events": [
+        {
+          "date": "2004-06",
+          "area": {
+            "id": "ce209e56-cda5-358e-96db-830e3405b675",
+            "name": "Thailand",
+            "sort-name": "Thailand",
+            "iso-3166-1-codes": [
+              "TH"
+            ]
+          }
+        }
+      ],
+      "barcode": "093624884224",
+      "label-info": [
+        {
+          "catalog-number": "9362 48842 2",
+          "label": {
+            "id": "c595c289-47ce-4fba-b999-b87503e8cb71",
+            "name": "Warner Bros. Records"
+          }
+        }
+      ],
+      "track-count": 13,
+      "media": [
+        {
+          "format": "CD",
+          "disc-count": 6,
+          "track-count": 13
+        }
+      ]
+    },
+    {
+      "id": "9e4b251d-ffcc-3dd1-a766-7814022f5e34",
+      "score": "100",
+      "count": 1,
+      "title": "Meteora",
+      "status": "Official",
+      "text-representation": {
+        "language": "eng",
+        "script": "Latn"
+      },
+      "artist-credit": [
+        {
+          "artist": {
+            "id": "f59c5520-5f46-4d2c-b2c4-822eabf53419",
+            "name": "Linkin Park",
+            "sort-name": "Linkin Park",
+            "aliases": [
+              {
+                "sort-name": "Hybrid Theory",
+                "name": "Hybrid Theory"
+              },
+              {
+                "sort-name": "Limkin Park",
+                "name": "Limkin Park"
+              },
+              {
+                "sort-name": "Lincoln Park",
+                "name": "Lincoln Park"
+              },
+              {
+                "sort-name": "Xero",
+                "name": "Xero"
+              }
+            ]
+          }
+        }
+      ],
+      "release-group": {
+        "id": "09474d62-17dd-3a4f-98fb-04c65f38a479",
+        "primary-type": "Album"
+      },
+      "date": "2003-03-26",
+      "country": "JP",
+      "release-events": [
+        {
+          "date": "2003-03-26",
+          "area": {
+            "id": "2db42837-c832-3c27-b4a3-08198f75693c",
+            "name": "Japan",
+            "sort-name": "Japan",
+            "iso-3166-1-codes": [
+              "JP"
+            ]
+          }
+        }
+      ],
+      "barcode": "4943674039739",
+      "asin": "B0000896LJ",
+      "label-info": [
+        {
+          "catalog-number": "WPCR-11440",
+          "label": {
+            "id": "c595c289-47ce-4fba-b999-b87503e8cb71",
+            "name": "Warner Bros. Records"
+          }
+        }
+      ],
+      "track-count": 13,
+      "media": [
+        {
+          "format": "Enhanced CD",
+          "disc-count": 6,
+          "track-count": 13
+        }
+      ]
+    },
+    {
+      "id": "e9b5c5ad-d91e-39d0-89fc-b8ac312bcc55",
+      "score": "100",
+      "count": 1,
+      "title": "Meteora",
+      "status": "Official",
+      "text-representation": {
+        "language": "eng",
+        "script": "Latn"
+      },
+      "artist-credit": [
+        {
+          "artist": {
+            "id": "f59c5520-5f46-4d2c-b2c4-822eabf53419",
+            "name": "Linkin Park",
+            "sort-name": "Linkin Park",
+            "aliases": [
+              {
+                "sort-name": "Hybrid Theory",
+                "name": "Hybrid Theory"
+              },
+              {
+                "sort-name": "Limkin Park",
+                "name": "Limkin Park"
+              },
+              {
+                "sort-name": "Lincoln Park",
+                "name": "Lincoln Park"
+              },
+              {
+                "sort-name": "Xero",
+                "name": "Xero"
+              }
+            ]
+          }
+        }
+      ],
+      "release-group": {
+        "id": "09474d62-17dd-3a4f-98fb-04c65f38a479",
+        "primary-type": "Album"
+      },
+      "date": "2003-03-25",
+      "country": "US",
+      "release-events": [
+        {
+          "date": "2003-03-25",
+          "area": {
+            "id": "489ce91b-6658-3307-9877-795b68554c98",
+            "name": "United States",
+            "sort-name": "United States",
+            "iso-3166-1-codes": [
+              "US"
+            ]
+          }
+        }
+      ],
+      "barcode": "093624844228",
+      "asin": "B00008H2LE",
+      "label-info": [
+        {
+          "catalog-number": "48442-2",
+          "label": {
+            "id": "c595c289-47ce-4fba-b999-b87503e8cb71",
+            "name": "Warner Bros. Records"
+          }
+        }
+      ],
+      "track-count": 13,
+      "media": [
+        {
+          "format": "CD",
+          "disc-count": 7,
+          "track-count": 13
+        }
+      ]
+    },
+    {
+      "id": "43133fe8-bd64-3779-9023-3b45537a0614",
+      "score": "100",
+      "count": 1,
+      "title": "Meteora",
+      "status": "Official",
+      "text-representation": {
+        "language": "eng",
+        "script": "Latn"
+      },
+      "artist-credit": [
+        {
+          "artist": {
+            "id": "f59c5520-5f46-4d2c-b2c4-822eabf53419",
+            "name": "Linkin Park",
+            "sort-name": "Linkin Park",
+            "aliases": [
+              {
+                "sort-name": "Hybrid Theory",
+                "name": "Hybrid Theory"
+              },
+              {
+                "sort-name": "Limkin Park",
+                "name": "Limkin Park"
+              },
+              {
+                "sort-name": "Lincoln Park",
+                "name": "Lincoln Park"
+              },
+              {
+                "sort-name": "Xero",
+                "name": "Xero"
+              }
+            ]
+          }
+        }
+      ],
+      "release-group": {
+        "id": "09474d62-17dd-3a4f-98fb-04c65f38a479",
+        "primary-type": "Album"
+      },
+      "date": "2003-03-24",
+      "country": "GB",
+      "release-events": [
+        {
+          "date": "2003-03-24",
+          "area": {
+            "id": "8a754a16-0027-3a29-b6d7-2b40ea0481ed",
+            "name": "United Kingdom",
+            "sort-name": "United Kingdom",
+            "iso-3166-1-codes": [
+              "GB"
+            ]
+          }
+        }
+      ],
+      "barcode": "093624846123",
+      "asin": "B00008LKGY",
+      "label-info": [
+        {
+          "catalog-number": "9362 48461 2",
+          "label": {
+            "id": "c595c289-47ce-4fba-b999-b87503e8cb71",
+            "name": "Warner Bros. Records"
+          }
+        }
+      ],
+      "track-count": 13,
+      "media": [
+        {
+          "format": "CD",
+          "disc-count": 6,
+          "track-count": 13
+        }
+      ]
+    },
+    {
+      "id": "d58bf754-105d-46a8-905a-601242a7d4b0",
+      "score": "100",
+      "count": 1,
+      "title": "Meteora",
+      "status": "Official",
+      "text-representation": {
+        "language": "eng",
+        "script": "Latn"
+      },
+      "artist-credit": [
+        {
+          "artist": {
+            "id": "f59c5520-5f46-4d2c-b2c4-822eabf53419",
+            "name": "Linkin Park",
+            "sort-name": "Linkin Park",
+            "aliases": [
+              {
+                "sort-name": "Hybrid Theory",
+                "name": "Hybrid Theory"
+              },
+              {
+                "sort-name": "Limkin Park",
+                "name": "Limkin Park"
+              },
+              {
+                "sort-name": "Lincoln Park",
+                "name": "Lincoln Park"
+              },
+              {
+                "sort-name": "Xero",
+                "name": "Xero"
+              }
+            ]
+          }
+        }
+      ],
+      "release-group": {
+        "id": "09474d62-17dd-3a4f-98fb-04c65f38a479",
+        "primary-type": "Album"
+      },
+      "date": "2006-08-29",
+      "country": "XW",
+      "release-events": [
+        {
+          "date": "2006-08-29",
+          "area": {
+            "id": "525d4e18-3d00-31b9-a58b-a146a916de8f",
+            "name": "[Worldwide]",
+            "sort-name": "[Worldwide]",
+            "iso-3166-1-codes": [
+              "XW"
+            ]
+          }
+        }
+      ],
+      "barcode": "093624449362",
+      "label-info": [
+        {
+          "label": {
+            "id": "c595c289-47ce-4fba-b999-b87503e8cb71",
+            "name": "Warner Bros. Records"
+          }
+        }
+      ],
+      "track-count": 16,
+      "media": [
+        {
+          "format": "Digital Media",
+          "disc-count": 0,
+          "track-count": 16
+        }
+      ]
+    },
+    {
+      "id": "c9d52105-5c20-3216-bc1b-e54918f8f688",
+      "score": "100",
+      "count": 1,
+      "title": "Meteora",
+      "status": "Official",
+      "text-representation": {
+        "language": "eng",
+        "script": "Latn"
+      },
+      "artist-credit": [
+        {
+          "artist": {
+            "id": "f59c5520-5f46-4d2c-b2c4-822eabf53419",
+            "name": "Linkin Park",
+            "sort-name": "Linkin Park",
+            "aliases": [
+              {
+                "sort-name": "Hybrid Theory",
+                "name": "Hybrid Theory"
+              },
+              {
+                "sort-name": "Limkin Park",
+                "name": "Limkin Park"
+              },
+              {
+                "sort-name": "Lincoln Park",
+                "name": "Lincoln Park"
+              },
+              {
+                "sort-name": "Xero",
+                "name": "Xero"
+              }
+            ]
+          }
+        }
+      ],
+      "release-group": {
+        "id": "09474d62-17dd-3a4f-98fb-04c65f38a479",
+        "primary-type": "Album"
+      },
+      "date": "2003-03-24",
+      "country": "XE",
+      "release-events": [
+        {
+          "date": "2003-03-24",
+          "area": {
+            "id": "89a675c2-3e37-3518-b83c-418bad59a85a",
+            "name": "Europe",
+            "sort-name": "Europe",
+            "iso-3166-1-codes": [
+              "XE"
+            ]
+          }
+        }
+      ],
+      "barcode": "093624844426",
+      "asin": "B00008S7JP",
+      "label-info": [
+        {
+          "catalog-number": "9362 48444 2",
+          "label": {
+            "id": "c595c289-47ce-4fba-b999-b87503e8cb71",
+            "name": "Warner Bros. Records"
+          }
+        }
+      ],
+      "track-count": 13,
+      "media": [
+        {
+          "format": "CD",
+          "disc-count": 6,
+          "track-count": 13
+        }
+      ],
+      "tags": [
+        {
+          "count": 1,
+          "name": "alternative rock"
+        },
+        {
+          "count": 1,
+          "name": "alternative"
+        }
+      ]
+    },
+    {
+      "id": "8a132ea1-0fbf-45b0-83c3-c274488751f0",
+      "score": "100",
+      "count": 1,
+      "title": "Meteora",
+      "status": "Official",
+      "text-representation": {
+        "language": "eng",
+        "script": "Latn"
+      },
+      "artist-credit": [
+        {
+          "artist": {
+            "id": "f59c5520-5f46-4d2c-b2c4-822eabf53419",
+            "name": "Linkin Park",
+            "sort-name": "Linkin Park",
+            "aliases": [
+              {
+                "sort-name": "Hybrid Theory",
+                "name": "Hybrid Theory"
+              },
+              {
+                "sort-name": "Limkin Park",
+                "name": "Limkin Park"
+              },
+              {
+                "sort-name": "Lincoln Park",
+                "name": "Lincoln Park"
+              },
+              {
+                "sort-name": "Xero",
+                "name": "Xero"
+              }
+            ]
+          }
+        }
+      ],
+      "release-group": {
+        "id": "09474d62-17dd-3a4f-98fb-04c65f38a479",
+        "primary-type": "Album"
+      },
+      "asin": "B00008H2LB",
+      "track-count": 13,
+      "media": [
+        {
+          "disc-count": 2,
+          "track-count": 13
+        }
+      ]
+    },
+    {
+      "id": "dd5fd2b3-576e-4354-bc67-68e6f006fd26",
+      "score": "100",
+      "count": 1,
+      "title": "Meteora",
+      "status": "Official",
+      "packaging": "Digipak",
+      "text-representation": {
+        "language": "eng",
+        "script": "Latn"
+      },
+      "artist-credit": [
+        {
+          "artist": {
+            "id": "f59c5520-5f46-4d2c-b2c4-822eabf53419",
+            "name": "Linkin Park",
+            "sort-name": "Linkin Park",
+            "aliases": [
+              {
+                "sort-name": "Hybrid Theory",
+                "name": "Hybrid Theory"
+              },
+              {
+                "sort-name": "Limkin Park",
+                "name": "Limkin Park"
+              },
+              {
+                "sort-name": "Lincoln Park",
+                "name": "Lincoln Park"
+              },
+              {
+                "sort-name": "Xero",
+                "name": "Xero"
+              }
+            ]
+          }
+        }
+      ],
+      "release-group": {
+        "id": "09474d62-17dd-3a4f-98fb-04c65f38a479",
+        "primary-type": "Album"
+      },
+      "date": "2003-03-24",
+      "country": "GB",
+      "release-events": [
+        {
+          "date": "2003-03-24",
+          "area": {
+            "id": "8a754a16-0027-3a29-b6d7-2b40ea0481ed",
+            "name": "United Kingdom",
+            "sort-name": "United Kingdom",
+            "iso-3166-1-codes": [
+              "GB"
+            ]
+          }
+        }
+      ],
+      "barcode": "093624844327",
+      "asin": "B00008LKEK",
+      "label-info": [
+        {
+          "catalog-number": "9362 48443 2",
+          "label": {
+            "id": "c595c289-47ce-4fba-b999-b87503e8cb71",
+            "name": "Warner Bros. Records"
+          }
+        }
+      ],
+      "track-count": 13,
+      "media": [
+        {
+          "format": "CD",
+          "disc-count": 6,
+          "track-count": 13
+        }
+      ]
+    },
+    {
+      "id": "ccb9e64d-0c6f-3e66-bcda-cc9c190f836f",
+      "score": "100",
+      "count": 1,
+      "title": "Meteora",
+      "status": "Official",
+      "packaging": "Digipak",
+      "text-representation": {
+        "language": "eng",
+        "script": "Latn"
+      },
+      "artist-credit": [
+        {
+          "artist": {
+            "id": "f59c5520-5f46-4d2c-b2c4-822eabf53419",
+            "name": "Linkin Park",
+            "sort-name": "Linkin Park",
+            "aliases": [
+              {
+                "sort-name": "Hybrid Theory",
+                "name": "Hybrid Theory"
+              },
+              {
+                "sort-name": "Limkin Park",
+                "name": "Limkin Park"
+              },
+              {
+                "sort-name": "Lincoln Park",
+                "name": "Lincoln Park"
+              },
+              {
+                "sort-name": "Xero",
+                "name": "Xero"
+              }
+            ]
+          }
+        }
+      ],
+      "release-group": {
+        "id": "09474d62-17dd-3a4f-98fb-04c65f38a479",
+        "primary-type": "Album"
+      },
+      "date": "2003-03-25",
+      "country": "XE",
+      "release-events": [
+        {
+          "date": "2003-03-25",
+          "area": {
+            "id": "89a675c2-3e37-3518-b83c-418bad59a85a",
+            "name": "Europe",
+            "sort-name": "Europe",
+            "iso-3166-1-codes": [
+              "XE"
+            ]
+          }
+        }
+      ],
+      "barcode": "093624846222",
+      "asin": "B00008K9Z5",
+      "label-info": [
+        {
+          "catalog-number": "9362 48462-2",
+          "label": {
+            "id": "c595c289-47ce-4fba-b999-b87503e8cb71",
+            "name": "Warner Bros. Records"
+          }
+        },
+        {
+          "label": {
+            "id": "e5600a80-fd70-4fb6-8212-1a403bcb59da",
+            "name": "Machine Shop Recordings"
+          }
+        }
+      ],
+      "track-count": 13,
+      "media": [
+        {
+          "format": "Enhanced CD",
+          "disc-count": 7,
+          "track-count": 13
+        }
+      ]
+    },
+    {
+      "id": "f1b4ead8-d13e-4f5c-986f-00e640bd9c0e",
+      "score": "100",
+      "count": 1,
+      "title": "Meteora",
+      "status": "Official",
+      "disambiguation": "24-bit 48kHz",
+      "packaging": "None",
+      "text-representation": {
+        "language": "eng",
+        "script": "Latn"
+      },
+      "artist-credit": [
+        {
+          "artist": {
+            "id": "f59c5520-5f46-4d2c-b2c4-822eabf53419",
+            "name": "Linkin Park",
+            "sort-name": "Linkin Park",
+            "aliases": [
+              {
+                "sort-name": "Hybrid Theory",
+                "name": "Hybrid Theory"
+              },
+              {
+                "sort-name": "Limkin Park",
+                "name": "Limkin Park"
+              },
+              {
+                "sort-name": "Lincoln Park",
+                "name": "Lincoln Park"
+              },
+              {
+                "sort-name": "Xero",
+                "name": "Xero"
+              }
+            ]
+          }
+        }
+      ],
+      "release-group": {
+        "id": "09474d62-17dd-3a4f-98fb-04c65f38a479",
+        "primary-type": "Album"
+      },
+      "date": "2012",
+      "country": "XW",
+      "release-events": [
+        {
+          "date": "2012",
+          "area": {
+            "id": "525d4e18-3d00-31b9-a58b-a146a916de8f",
+            "name": "[Worldwide]",
+            "sort-name": "[Worldwide]",
+            "iso-3166-1-codes": [
+              "XW"
+            ]
+          }
+        }
+      ],
+      "barcode": "",
+      "label-info": [
+        {
+          "label": {
+            "id": "c595c289-47ce-4fba-b999-b87503e8cb71",
+            "name": "Warner Bros. Records"
+          }
+        }
+      ],
+      "track-count": 13,
+      "media": [
+        {
+          "format": "Digital Media",
+          "disc-count": 0,
+          "track-count": 13
+        }
+      ]
+    },
+    {
+      "id": "e1656e7e-c23f-48e4-894e-fe1e0d5e6707",
+      "score": "100",
+      "count": 1,
+      "title": "Meteora",
+      "status": "Official",
+      "disambiguation": "mastered for iTunes",
+      "packaging": "None",
+      "text-representation": {
+        "language": "eng",
+        "script": "Latn"
+      },
+      "artist-credit": [
+        {
+          "artist": {
+            "id": "f59c5520-5f46-4d2c-b2c4-822eabf53419",
+            "name": "Linkin Park",
+            "sort-name": "Linkin Park",
+            "aliases": [
+              {
+                "sort-name": "Hybrid Theory",
+                "name": "Hybrid Theory"
+              },
+              {
+                "sort-name": "Limkin Park",
+                "name": "Limkin Park"
+              },
+              {
+                "sort-name": "Lincoln Park",
+                "name": "Lincoln Park"
+              },
+              {
+                "sort-name": "Xero",
+                "name": "Xero"
+              }
+            ]
+          }
+        }
+      ],
+      "release-group": {
+        "id": "09474d62-17dd-3a4f-98fb-04c65f38a479",
+        "primary-type": "Album"
+      },
+      "date": "2012-05-29",
+      "country": "US",
+      "release-events": [
+        {
+          "date": "2012-05-29",
+          "area": {
+            "id": "489ce91b-6658-3307-9877-795b68554c98",
+            "name": "United States",
+            "sort-name": "United States",
+            "iso-3166-1-codes": [
+              "US"
+            ]
+          }
+        }
+      ],
+      "barcode": "093624949350",
+      "label-info": [
+        {
+          "label": {
+            "id": "c595c289-47ce-4fba-b999-b87503e8cb71",
+            "name": "Warner Bros. Records"
+          }
+        }
+      ],
+      "track-count": 13,
+      "media": [
+        {
+          "format": "Digital Media",
+          "disc-count": 0,
+          "track-count": 13
+        }
+      ]
+    },
+    {
+      "id": "f3bfd870-0708-46d0-9953-9f5f573fb600",
+      "score": "100",
+      "count": 1,
+      "title": "Meteora",
+      "status": "Official",
+      "disambiguation": "deluxe version",
+      "packaging": "None",
+      "text-representation": {
+        "language": "eng",
+        "script": "Latn"
+      },
+      "artist-credit": [
+        {
+          "artist": {
+            "id": "f59c5520-5f46-4d2c-b2c4-822eabf53419",
+            "name": "Linkin Park",
+            "sort-name": "Linkin Park",
+            "aliases": [
+              {
+                "sort-name": "Hybrid Theory",
+                "name": "Hybrid Theory"
+              },
+              {
+                "sort-name": "Limkin Park",
+                "name": "Limkin Park"
+              },
+              {
+                "sort-name": "Lincoln Park",
+                "name": "Lincoln Park"
+              },
+              {
+                "sort-name": "Xero",
+                "name": "Xero"
+              }
+            ]
+          }
+        }
+      ],
+      "release-group": {
+        "id": "09474d62-17dd-3a4f-98fb-04c65f38a479",
+        "primary-type": "Album"
+      },
+      "date": "2003-03-25",
+      "country": "DE",
+      "release-events": [
+        {
+          "date": "2003-03-25",
+          "area": {
+            "id": "85752fda-13c4-31a3-bee5-0e5cb1f51dad",
+            "name": "Germany",
+            "sort-name": "Germany",
+            "iso-3166-1-codes": [
+              "DE"
+            ]
+          }
+        },
+        {
+          "date": "2003-03-25",
+          "area": {
+            "id": "489ce91b-6658-3307-9877-795b68554c98",
+            "name": "United States",
+            "sort-name": "United States",
+            "iso-3166-1-codes": [
+              "US"
+            ]
+          }
+        }
+      ],
+      "label-info": [
+        {
+          "label": {
+            "id": "c595c289-47ce-4fba-b999-b87503e8cb71",
+            "name": "Warner Bros. Records"
+          }
+        }
+      ],
+      "track-count": 15,
+      "media": [
+        {
+          "format": "Digital Media",
+          "disc-count": 0,
+          "track-count": 15
+        }
+      ]
+    },
+    {
+      "id": "6d4734bf-6d00-43ec-ad1f-63c1a7c814c4",
+      "score": "100",
+      "count": 1,
+      "title": "Meteora",
+      "status": "Official",
+      "disambiguation": "DMD Album + 3 Bonus Tracks",
+      "packaging": "None",
+      "text-representation": {
+        "language": "eng",
+        "script": "Latn"
+      },
+      "artist-credit": [
+        {
+          "artist": {
+            "id": "f59c5520-5f46-4d2c-b2c4-822eabf53419",
+            "name": "Linkin Park",
+            "sort-name": "Linkin Park",
+            "aliases": [
+              {
+                "sort-name": "Hybrid Theory",
+                "name": "Hybrid Theory"
+              },
+              {
+                "sort-name": "Limkin Park",
+                "name": "Limkin Park"
+              },
+              {
+                "sort-name": "Lincoln Park",
+                "name": "Lincoln Park"
+              },
+              {
+                "sort-name": "Xero",
+                "name": "Xero"
+              }
+            ]
+          }
+        }
+      ],
+      "release-group": {
+        "id": "09474d62-17dd-3a4f-98fb-04c65f38a479",
+        "primary-type": "Album"
+      },
+      "date": "2006-09-26",
+      "country": "US",
+      "release-events": [
+        {
+          "date": "2006-09-26",
+          "area": {
+            "id": "489ce91b-6658-3307-9877-795b68554c98",
+            "name": "United States",
+            "sort-name": "United States",
+            "iso-3166-1-codes": [
+              "US"
+            ]
+          }
+        }
+      ],
+      "asin": "B001ERMYCA",
+      "label-info": [
+        {
+          "label": {
+            "id": "c595c289-47ce-4fba-b999-b87503e8cb71",
+            "name": "Warner Bros. Records"
+          }
+        }
+      ],
+      "track-count": 16,
+      "media": [
+        {
+          "format": "Digital Media",
+          "disc-count": 0,
+          "track-count": 16
+        }
+      ]
+    },
+    {
+      "id": "01e51f7c-4b95-4ae3-a707-181b74b1ebab",
+      "score": "100",
+      "count": 1,
+      "title": "Meteora",
+      "status": "Official",
+      "packaging": "Cardboard/Paper Sleeve",
+      "text-representation": {
+        "language": "eng",
+        "script": "Latn"
+      },
+      "artist-credit": [
+        {
+          "artist": {
+            "id": "f59c5520-5f46-4d2c-b2c4-822eabf53419",
+            "name": "Linkin Park",
+            "sort-name": "Linkin Park",
+            "aliases": [
+              {
+                "sort-name": "Hybrid Theory",
+                "name": "Hybrid Theory"
+              },
+              {
+                "sort-name": "Limkin Park",
+                "name": "Limkin Park"
+              },
+              {
+                "sort-name": "Lincoln Park",
+                "name": "Lincoln Park"
+              },
+              {
+                "sort-name": "Xero",
+                "name": "Xero"
+              }
+            ]
+          }
+        }
+      ],
+      "release-group": {
+        "id": "09474d62-17dd-3a4f-98fb-04c65f38a479",
+        "primary-type": "Album"
+      },
+      "date": "2003",
+      "country": "DE",
+      "release-events": [
+        {
+          "date": "2003",
+          "area": {
+            "id": "85752fda-13c4-31a3-bee5-0e5cb1f51dad",
+            "name": "Germany",
+            "sort-name": "Germany",
+            "iso-3166-1-codes": [
+              "DE"
+            ]
+          }
+        }
+      ],
+      "barcode": "9362484622",
+      "label-info": [
+        {
+          "label": {
+            "id": "c595c289-47ce-4fba-b999-b87503e8cb71",
+            "name": "Warner Bros. Records"
+          }
+        }
+      ],
+      "track-count": 15,
+      "media": [
+        {
+          "format": "Enhanced CD",
+          "disc-count": 0,
+          "track-count": 15
+        }
+      ],
+      "tags": [
+        {
+          "count": 1,
+          "name": "40952498 remove track and submit toc or merge — cf. 33289204"
+        }
+      ]
+    },
+    {
+      "id": "3e42e773-ab67-4b20-ae41-0e1cf7510827",
+      "score": "100",
+      "count": 1,
+      "title": "Meteora",
+      "status": "Official",
+      "packaging": "Jewel Case",
+      "text-representation": {
+        "language": "eng",
+        "script": "Latn"
+      },
+      "artist-credit": [
+        {
+          "artist": {
+            "id": "f59c5520-5f46-4d2c-b2c4-822eabf53419",
+            "name": "Linkin Park",
+            "sort-name": "Linkin Park",
+            "aliases": [
+              {
+                "sort-name": "Hybrid Theory",
+                "name": "Hybrid Theory"
+              },
+              {
+                "sort-name": "Limkin Park",
+                "name": "Limkin Park"
+              },
+              {
+                "sort-name": "Lincoln Park",
+                "name": "Lincoln Park"
+              },
+              {
+                "sort-name": "Xero",
+                "name": "Xero"
+              }
+            ]
+          }
+        }
+      ],
+      "release-group": {
+        "id": "09474d62-17dd-3a4f-98fb-04c65f38a479",
+        "primary-type": "Album"
+      },
+      "date": "2003",
+      "country": "AU",
+      "release-events": [
+        {
+          "date": "2003",
+          "area": {
+            "id": "106e0bec-b638-3b37-b731-f53d507dc00e",
+            "name": "Australia",
+            "sort-name": "Australia",
+            "iso-3166-1-codes": [
+              "AU"
+            ]
+          }
+        }
+      ],
+      "barcode": "9325583025389",
+      "label-info": [
+        {
+          "catalog-number": "9362484442",
+          "label": {
+            "id": "c595c289-47ce-4fba-b999-b87503e8cb71",
+            "name": "Warner Bros. Records"
+          }
+        }
+      ],
+      "track-count": 13,
+      "media": [
+        {
+          "format": "CD",
+          "disc-count": 1,
+          "track-count": 13
+        }
+      ],
+      "tags": [
+        {
+          "count": 1,
+          "name": "rock"
+        },
+        {
+          "count": 1,
+          "name": "instrumental"
+        },
+        {
+          "count": 1,
+          "name": "hip-hop"
+        },
+        {
+          "count": 1,
+          "name": "nu metal"
+        },
+        {
+          "count": 1,
+          "name": "alternative"
+        }
+      ]
+    },
+    {
+      "id": "d0fa08ec-00ee-4ab5-b2f1-04ad8696bd57",
+      "score": "100",
+      "count": 2,
+      "title": "Meteora",
+      "status": "Official",
+      "disambiguation": "Special Edition With Bonus DVD",
+      "packaging": "Digipak",
+      "text-representation": {
+        "language": "eng",
+        "script": "Latn"
+      },
+      "artist-credit": [
+        {
+          "artist": {
+            "id": "f59c5520-5f46-4d2c-b2c4-822eabf53419",
+            "name": "Linkin Park",
+            "sort-name": "Linkin Park",
+            "aliases": [
+              {
+                "sort-name": "Hybrid Theory",
+                "name": "Hybrid Theory"
+              },
+              {
+                "sort-name": "Limkin Park",
+                "name": "Limkin Park"
+              },
+              {
+                "sort-name": "Lincoln Park",
+                "name": "Lincoln Park"
+              },
+              {
+                "sort-name": "Xero",
+                "name": "Xero"
+              }
+            ]
+          }
+        }
+      ],
+      "release-group": {
+        "id": "09474d62-17dd-3a4f-98fb-04c65f38a479",
+        "primary-type": "Album"
+      },
+      "date": "2003-03-25",
+      "country": "US",
+      "release-events": [
+        {
+          "date": "2003-03-25",
+          "area": {
+            "id": "489ce91b-6658-3307-9877-795b68554c98",
+            "name": "United States",
+            "sort-name": "United States",
+            "iso-3166-1-codes": [
+              "US"
+            ]
+          }
+        }
+      ],
+      "barcode": "093624844228",
+      "label-info": [
+        {
+          "catalog-number": "48442-2",
+          "label": {
+            "id": "c595c289-47ce-4fba-b999-b87503e8cb71",
+            "name": "Warner Bros. Records"
+          }
+        }
+      ],
+      "track-count": 15,
+      "media": [
+        {
+          "format": "Enhanced CD",
+          "disc-count": 1,
+          "track-count": 14
+        },
+        {
+          "format": "DVD",
+          "disc-count": 0,
+          "track-count": 1
+        }
+      ]
+    },
+    {
+      "id": "f244dc4a-e823-40a5-9bce-7709b5cd4f9a",
+      "score": "100",
+      "count": 2,
+      "title": "Meteora",
+      "status": "Official",
+      "disambiguation": "Limited Edition",
+      "text-representation": {
+        "language": "eng",
+        "script": "Latn"
+      },
+      "artist-credit": [
+        {
+          "artist": {
+            "id": "f59c5520-5f46-4d2c-b2c4-822eabf53419",
+            "name": "Linkin Park",
+            "sort-name": "Linkin Park",
+            "aliases": [
+              {
+                "sort-name": "Hybrid Theory",
+                "name": "Hybrid Theory"
+              },
+              {
+                "sort-name": "Limkin Park",
+                "name": "Limkin Park"
+              },
+              {
+                "sort-name": "Lincoln Park",
+                "name": "Lincoln Park"
+              },
+              {
+                "sort-name": "Xero",
+                "name": "Xero"
+              }
+            ]
+          }
+        }
+      ],
+      "release-group": {
+        "id": "09474d62-17dd-3a4f-98fb-04c65f38a479",
+        "primary-type": "Album"
+      },
+      "date": "2003-03-25",
+      "country": "XE",
+      "release-events": [
+        {
+          "date": "2003-03-25",
+          "area": {
+            "id": "89a675c2-3e37-3518-b83c-418bad59a85a",
+            "name": "Europe",
+            "sort-name": "Europe",
+            "iso-3166-1-codes": [
+              "XE"
+            ]
+          }
+        }
+      ],
+      "barcode": "093624846321",
+      "label-info": [
+        {
+          "catalog-number": "9362-48462-2",
+          "label": {
+            "id": "c595c289-47ce-4fba-b999-b87503e8cb71",
+            "name": "Warner Bros. Records"
+          }
+        },
+        {
+          "catalog-number": "9362-48463-2",
+          "label": {
+            "id": "c595c289-47ce-4fba-b999-b87503e8cb71",
+            "name": "Warner Bros. Records"
+          }
+        }
+      ],
+      "track-count": 15,
+      "media": [
+        {
+          "format": "Enhanced CD",
+          "disc-count": 0,
+          "track-count": 14
+        },
+        {
+          "format": "DVD",
+          "disc-count": 0,
+          "track-count": 1
+        }
+      ]
+    },
+    {
+      "id": "7b64e9fc-4dfe-4903-b74c-345857ff8d9a",
+      "score": "100",
+      "count": 1,
+      "title": "Meteora",
+      "status": "Official",
+      "text-representation": {
+        "language": "eng",
+        "script": "Latn"
+      },
+      "artist-credit": [
+        {
+          "artist": {
+            "id": "6baa6283-35c8-437b-8ac1-b8289cdfcc82",
+            "name": "The Noble Six",
+            "sort-name": "Noble Six, The",
+            "disambiguation": "Andrew Alexandrov, trance DJ/Producer from Vancouver, Canada"
+          }
+        }
+      ],
+      "release-group": {
+        "id": "1712e8e9-9274-4029-a6df-a0dd82775c42",
+        "primary-type": "Single"
+      },
+      "date": "2016-01-25",
+      "country": "IE",
+      "release-events": [
+        {
+          "date": "2016-01-25",
+          "area": {
+            "id": "390b05d4-11ec-3bce-a343-703a366b34a5",
+            "name": "Ireland",
+            "sort-name": "Ireland",
+            "iso-3166-1-codes": [
+              "IE"
+            ]
+          }
+        }
+      ],
+      "label-info": [
+        {
+          "catalog-number": "Subc099",
+          "label": {
+            "id": "89c2cc22-1d04-4949-a9ee-64b13e7b0eae",
+            "name": "Subculture"
+          }
+        },
+        {
+          "catalog-number": "SUBC099",
+          "label": {
+            "id": "89c2cc22-1d04-4949-a9ee-64b13e7b0eae",
+            "name": "Subculture"
+          }
+        }
+      ],
+      "track-count": 1,
+      "media": [
+        {
+          "format": "Digital Media",
+          "disc-count": 0,
+          "track-count": 1
+        }
+      ]
+    },
+    {
+      "id": "1b74069c-c8df-4244-8106-2a60277865c2",
+      "score": "100",
+      "count": 1,
+      "title": "Meteora",
+      "status": "Official",
+      "packaging": "None",
+      "text-representation": {
+        "language": "spa",
+        "script": "Latn"
+      },
+      "artist-credit": [
+        {
+          "artist": {
+            "id": "94a5400d-6562-4958-9ad5-db7fcde14e8d",
+            "name": "Bumsonico",
+            "sort-name": "Bumsonico"
+          }
+        }
+      ],
+      "release-group": {
+        "id": "aecfc669-2c51-4aee-9e00-0fdd6c1e0f5a",
+        "primary-type": "Album"
+      },
+      "date": "2015-07-17",
+      "country": "DE",
+      "release-events": [
+        {
+          "date": "2015-07-17",
+          "area": {
+            "id": "85752fda-13c4-31a3-bee5-0e5cb1f51dad",
+            "name": "Germany",
+            "sort-name": "Germany",
+            "iso-3166-1-codes": [
+              "DE"
+            ]
+          }
+        }
+      ],
+      "label-info": [
+        {
+          "label": {
+            "id": "84692e3d-69c7-4dda-ad3a-ad1252400587",
+            "name": "Bbhells Records \u0026 Netlabel"
+          }
+        }
+      ],
+      "track-count": 9,
+      "media": [
+        {
+          "format": "Digital Media",
+          "disc-count": 0,
+          "track-count": 9
+        }
+      ]
+    },
+    {
+      "id": "367facc6-2863-4721-a8f9-9ff625c10a4d",
+      "score": "100",
+      "count": 1,
+      "title": "Meteora",
+      "status": "Bootleg",
+      "packaging": "Jewel Case",
+      "text-representation": {
+        "language": "eng",
+        "script": "Latn"
+      },
+      "artist-credit": [
+        {
+          "artist": {
+            "id": "f59c5520-5f46-4d2c-b2c4-822eabf53419",
+            "name": "Linkin Park",
+            "sort-name": "Linkin Park",
+            "aliases": [
+              {
+                "sort-name": "Hybrid Theory",
+                "name": "Hybrid Theory"
+              },
+              {
+                "sort-name": "Limkin Park",
+                "name": "Limkin Park"
+              },
+              {
+                "sort-name": "Lincoln Park",
+                "name": "Lincoln Park"
+              },
+              {
+                "sort-name": "Xero",
+                "name": "Xero"
+              }
+            ]
+          }
+        }
+      ],
+      "release-group": {
+        "id": "09474d62-17dd-3a4f-98fb-04c65f38a479",
+        "primary-type": "Album"
+      },
+      "date": "2003",
+      "country": "RU",
+      "release-events": [
+        {
+          "date": "2003",
+          "area": {
+            "id": "1f1fc3a4-9500-39b8-9f10-f0a465557eef",
+            "name": "Russia",
+            "sort-name": "Russia",
+            "iso-3166-1-codes": [
+              "RU"
+            ]
+          }
+        }
+      ],
+      "label-info": [
+        {
+          "catalog-number": "AL2003-639",
+          "label": {
+            "id": "6db76234-59c7-49b4-b7f1-5615d9589684",
+            "name": "SOUND-R production"
+          }
+        }
+      ],
+      "track-count": 24,
+      "media": [
+        {
+          "format": "CD",
+          "disc-count": 0,
+          "track-count": 24
+        }
+      ]
+    },
+    {
+      "id": "84d8682a-3ee3-4056-8390-6ec0cdae4a6b",
+      "score": "62",
+      "count": 1,
+      "title": "Meteora VII",
+      "status": "Official",
+      "packaging": "Digipak",
+      "text-representation": {
+        "language": "eng",
+        "script": "Latn"
+      },
+      "artist-credit": [
+        {
+          "artist": {
+            "id": "f52d9622-2527-4b73-9e40-810f4d05f09b",
+            "name": "Merciful Nuns",
+            "sort-name": "Merciful Nuns",
+            "disambiguation": "Garden of Delight\u0027s only legitimate successor"
+          }
+        }
+      ],
+      "release-group": {
+        "id": "18e04c6c-abb3-4887-929d-486681a29dc0",
+        "primary-type": "Album"
+      },
+      "date": "2014-09-12",
+      "country": "DE",
+      "release-events": [
+        {
+          "date": "2014-09-12",
+          "area": {
+            "id": "85752fda-13c4-31a3-bee5-0e5cb1f51dad",
+            "name": "Germany",
+            "sort-name": "Germany",
+            "iso-3166-1-codes": [
+              "DE"
+            ]
+          }
+        }
+      ],
+      "barcode": "4042564152012",
+      "asin": "B00LH06ZYC",
+      "label-info": [
+        {
+          "catalog-number": "SL 026",
+          "label": {
+            "id": "22ab6833-d1ec-4905-907c-93a834bb6290",
+            "name": "Solar Lodge Production"
+          }
+        }
+      ],
+      "track-count": 8,
+      "media": [
+        {
+          "format": "CD",
+          "disc-count": 1,
+          "track-count": 8
+        }
+      ]
+    },
+    {
+      "id": "48c6755f-9815-4344-aacd-32d4205f3e14",
+      "score": "62",
+      "count": 1,
+      "title": "Ascents Meteora",
+      "status": "Official",
+      "packaging": "Jewel Case",
+      "text-representation": {
+        "language": "eng",
+        "script": "Latn"
+      },
+      "artist-credit": [
+        {
+          "artist": {
+            "id": "7d1c97f3-ed18-4bf3-a3c3-ee6ed301a6c7",
+            "name": "CoEx",
+            "sort-name": "CoEx"
+          }
+        }
+      ],
+      "release-group": {
+        "id": "1b1b7f9f-e8e5-4bc7-a997-6ba4d31b33a9",
+        "primary-type": "Album"
+      },
+      "date": "1997",
+      "country": "GB",
+      "release-events": [
+        {
+          "date": "1997",
+          "area": {
+            "id": "8a754a16-0027-3a29-b6d7-2b40ea0481ed",
+            "name": "United Kingdom",
+            "sort-name": "United Kingdom",
+            "iso-3166-1-codes": [
+              "GB"
+            ]
+          }
+        }
+      ],
+      "barcode": "5021958481029",
+      "asin": "B000007Y19",
+      "label-info": [
+        {
+          "catalog-number": "DNDC 010 CD",
+          "label": {
+            "id": "5c5509fb-8a0e-4847-a75a-41103455e0b5",
+            "name": "De Nova Da Capo"
+          }
+        }
+      ],
+      "track-count": 6,
+      "media": [
+        {
+          "format": "CD",
+          "disc-count": 0,
+          "track-count": 6
+        }
+      ]
+    },
+    {
+      "id": "ed68a546-2c48-41d3-9c47-0f46c95d9df9",
+      "score": "50",
+      "count": 1,
+      "title": "Meteora / Hybrid Theory",
+      "status": "Bootleg",
+      "artist-credit": [
+        {
+          "artist": {
+            "id": "f59c5520-5f46-4d2c-b2c4-822eabf53419",
+            "name": "Linkin Park",
+            "sort-name": "Linkin Park",
+            "aliases": [
+              {
+                "sort-name": "Hybrid Theory",
+                "name": "Hybrid Theory"
+              },
+              {
+                "sort-name": "Limkin Park",
+                "name": "Limkin Park"
+              },
+              {
+                "sort-name": "Lincoln Park",
+                "name": "Lincoln Park"
+              },
+              {
+                "sort-name": "Xero",
+                "name": "Xero"
+              }
+            ]
+          }
+        }
+      ],
+      "release-group": {
+        "id": "04cea9dd-c4fd-4633-99f6-d7ce7efd4f95",
+        "primary-type": "Album",
+        "secondary-types": [
+          "Compilation"
+        ]
+      },
+      "date": "2003",
+      "country": "RU",
+      "release-events": [
+        {
+          "date": "2003",
+          "area": {
+            "id": "1f1fc3a4-9500-39b8-9f10-f0a465557eef",
+            "name": "Russia",
+            "sort-name": "Russia",
+            "iso-3166-1-codes": [
+              "RU"
+            ]
+          }
+        }
+      ],
+      "barcode": "093624846222",
+      "label-info": [
+        {
+          "catalog-number": "4462 48444-2",
+          "label": {
+            "id": "e5600a80-fd70-4fb6-8212-1a403bcb59da",
+            "name": "Machine Shop Recordings"
+          }
+        }
+      ],
+      "track-count": 25,
+      "media": [
+        {
+          "format": "CD",
+          "disc-count": 0,
+          "track-count": 25
+        }
+      ]
+    }
+  ]
+}

@@ -14,10 +14,11 @@ public class Track
     {
     }
 
-    public Track(int position,
-                 String title,
-                 String id,
-                 List<Artist> Artists)
+    public Track(
+            int position,
+            String title,
+            String id,
+            List<Artist> Artists)
     {
         this.Artists = Artist.ArtistListCopy(Artists);
         this.id = id;
@@ -44,7 +45,9 @@ public class Track
         {
             temp = new ArrayList<>();
             for (Track elem : copy)
+            {
                 temp.add(new Track(elem));
+            }
         }
         return temp;
     }

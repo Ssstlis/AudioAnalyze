@@ -11,8 +11,9 @@ public class Sifter
     {
     }
 
-    public HashMap<String, SimpleInfo> Sifting(@NotNull ByFingerPrint target,
-                                               boolean trust)
+    public HashMap<String, SimpleInfo> Sifting(
+            @NotNull ByFingerPrint target,
+            boolean trust)
     {
         //TODO SIFTING RESULTS FROM AID
         return new HashMap<>();

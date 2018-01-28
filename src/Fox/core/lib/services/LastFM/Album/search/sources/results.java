@@ -16,12 +16,13 @@ public class results
 
     }
 
-    public results(opensearchQuery Query,
-                   String TotalResults,
-                   String StartIndex,
-                   String ItemsPerPage,
-                   albummatches albummatches,
-                   attr attr)
+    public results(
+            opensearchQuery Query,
+            String TotalResults,
+            String StartIndex,
+            String ItemsPerPage,
+            albummatches albummatches,
+            attr attr)
     {
         this.albummatches = new albummatches(albummatches);
         this.attr = new attr(attr);
@@ -33,7 +34,7 @@ public class results
 
     public results(results copy)
     {
-        if (copy!=null)
+        if (copy != null)
         {
             this.albummatches = new albummatches(copy.albummatches);
             this.attr = new attr(copy.attr);
@@ -56,7 +57,7 @@ public class results
 
     public boolean hasQuery()
     {
-        return opensearchQuery!=null;
+        return opensearchQuery != null;
     }
 
     public String getTotalResults()
@@ -71,7 +72,7 @@ public class results
 
     public boolean hasTotalResults()
     {
-        return (openSearchTotalResults!=null && !openSearchTotalResults.isEmpty());
+        return (openSearchTotalResults != null && !openSearchTotalResults.isEmpty());
     }
 
     public String getStartIndex()
@@ -86,7 +87,7 @@ public class results
 
     public boolean hasStartIndex()
     {
-        return (openSearchStartIndex!=null && !openSearchStartIndex.isEmpty());
+        return (openSearchStartIndex != null && !openSearchStartIndex.isEmpty());
     }
 
     public String getItemsPerPage()
@@ -101,7 +102,7 @@ public class results
 
     public boolean hasItemsPerPage()
     {
-        return (openSearchItemsPerPage!=null && !openSearchItemsPerPage.isEmpty());
+        return (openSearchItemsPerPage != null && !openSearchItemsPerPage.isEmpty());
     }
 
     public albummatches getAlbummatches()
@@ -116,7 +117,7 @@ public class results
 
     public boolean hasAlbummatches()
     {
-        return albummatches!=null;
+        return albummatches != null;
     }
 
     public attr getAttr()
@@ -131,6 +132,6 @@ public class results
 
     public boolean hasAttr()
     {
-        return attr!=null;
+        return attr != null;
     }
 }

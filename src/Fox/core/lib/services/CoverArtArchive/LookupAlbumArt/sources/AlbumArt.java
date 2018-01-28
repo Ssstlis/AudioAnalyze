@@ -12,8 +12,9 @@ public class AlbumArt
 
     }
 
-    public AlbumArt(String release,
-                    List<image> images)
+    public AlbumArt(
+            String release,
+            List<image> images)
     {
         this.images = images;
         this.release = release;

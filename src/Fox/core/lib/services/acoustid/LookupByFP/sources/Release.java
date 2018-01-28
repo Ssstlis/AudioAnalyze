@@ -19,15 +19,16 @@ public class Release
     {
     }
 
-    public Release(int track_count,
-                   int medium_count,
-                   String country,
-                   String title,
-                   String id,
-                   List<Artist> Artists,
-                   List<Releaseevent> Releaseevents,
-                   List<Medium> Mediums,
-                   Date date)
+    public Release(
+            int track_count,
+            int medium_count,
+            String country,
+            String title,
+            String id,
+            List<Artist> Artists,
+            List<Releaseevent> Releaseevents,
+            List<Medium> Mediums,
+            Date date)
     {
         this.Artists = Artist.ArtistListCopy(Artists);
         this.country = country;
@@ -64,7 +65,9 @@ public class Release
         {
             temp = new ArrayList<>();
             for (Release elem : copy)
+            {
                 temp.add(new Release(elem));
+            }
         }
 
         return temp;
