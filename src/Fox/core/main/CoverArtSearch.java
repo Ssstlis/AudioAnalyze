@@ -48,7 +48,6 @@ public class CoverArtSearch
             throw new IllegalArgumentException();
         }
 
-
         if (ArtistName != null && !ArtistName.isEmpty())
         {
             AlbumInfo LFMInfo = new LastFMClient().Album
@@ -57,7 +56,7 @@ public class CoverArtSearch
                              AlbumName,
                              null,
                              null,
-                             null
+                             true
                             );
             if (LFMInfo != null && LFMInfo.hasError())
             {
@@ -151,10 +150,15 @@ public class CoverArtSearch
 
                         List<Art> ArtList = new ArrayList<>();
 
-                        for (Fox.core.lib.services.LastFM.Album.search.sources.album elem : LFMResultsAlbummatchesAlbumList)
+                        int ResSize = LFMResultsAlbummatchesAlbumList.size();
+
+                        for (int l = 0; ArtList.size() != count && l < ResSize; l++)
                         {
+                            Fox.core.lib.services.LastFM.Album.search.sources.album elem = LFMResultsAlbummatchesAlbumList.get(l);
+
                             String elemArtist = elem.getArtist();
                             String elemName = elem.getName();
+
                             if (elem.hasImages())
                             {
                                 List<Fox.core.lib.services.LastFM.CommonSources.image> imgList = elem.getImages();
@@ -163,9 +167,7 @@ public class CoverArtSearch
                                 String text = null;
                                 String sizes = null;
 
-                                for (int i = size - 1;
-                                     i >= 0;
-                                     i--)
+                                for (int i = size - 1; i >= 0; i--)
                                 {
                                     image image = imgList.get(i);
                                     if (image.hasText())
@@ -176,19 +178,19 @@ public class CoverArtSearch
                                     }
                                 }
 
-                                if (text == null)
-                                {
-                                    throw new NoMatchesException("No matches.");
-                                }
-
-                                ArtList.add(new Art(text,
-                                                    sizes,
-                                                    elemArtist,
-                                                    elemName,
-                                                    target.LastFM
-                                ));
+                                if (text != null && sizes != null)
+                                    ArtList.add(new Art(text,
+                                                        sizes,
+                                                        elemArtist,
+                                                        elemName,
+                                                        target.LastFM
+                                    ));
                             }
                         }
+
+                        if (ArtList.isEmpty())
+                            throw new NoMatchesException("No matches.");
+
                         temp.setArtList(ArtList);
                         return temp;
                     }

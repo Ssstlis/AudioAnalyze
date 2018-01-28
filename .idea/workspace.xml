@@ -2,96 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9b7273a5-615d-4e5d-8fea-0e0dae05c1c0" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/artifacts/Lib.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/json/releasesearch.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Fox/core/lib/general/utils/NoMatchesException.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Fox/test/testerrors.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/artifacts/AudioAnalyzeNoJAudioTagger_jar.xml" afterPath="$PROJECT_DIR$/.idea/artifacts/AudioAnalyzeNoJAudioTagger_jar.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/artifacts/AudioAnalyze_jar.xml" afterPath="$PROJECT_DIR$/.idea/artifacts/AudioAnalyze_jar.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/codeStyleSettings.xml" afterPath="$PROJECT_DIR$/.idea/codeStyleSettings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/core/lib/connectors/HttpGetClient.java" afterPath="$PROJECT_DIR$/src/Fox/core/lib/connectors/HttpGetClient.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/core/lib/connectors/HttpPostClient.java" afterPath="$PROJECT_DIR$/src/Fox/core/lib/connectors/HttpPostClient.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/core/lib/general/DOM/AlbumArtCompilation.java" afterPath="$PROJECT_DIR$/src/Fox/core/lib/general/DOM/AlbumArtCompilation.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/core/lib/general/DOM/Art.java" afterPath="$PROJECT_DIR$/src/Fox/core/lib/general/DOM/Art.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/core/lib/general/DOM/FingerPrint.java" afterPath="$PROJECT_DIR$/src/Fox/core/lib/general/DOM/FingerPrint.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/core/lib/general/DOM/ID3V2.java" afterPath="$PROJECT_DIR$/src/Fox/core/lib/general/DOM/ID3V2.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/core/lib/general/DOM/JSON.java" afterPath="$PROJECT_DIR$/src/Fox/core/lib/general/DOM/JSON.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/core/lib/general/Threads/FPCalcThread.java" afterPath="$PROJECT_DIR$/src/Fox/core/lib/general/Threads/FPCalcThread.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/core/lib/general/Threads/FileCheckerThread.java" afterPath="$PROJECT_DIR$/src/Fox/core/lib/general/Threads/FileCheckerThread.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/core/lib/general/Threads/ServiceThread.java" afterPath="$PROJECT_DIR$/src/Fox/core/lib/general/Threads/ServiceThread.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/core/lib/general/templates/FingerPrintThread.java" afterPath="$PROJECT_DIR$/src/Fox/core/lib/general/templates/FingerPrintThread.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/core/lib/general/templates/ProgressState.java" afterPath="$PROJECT_DIR$/src/Fox/core/lib/general/templates/ProgressState.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/core/lib/general/utils/FileChecker.java" afterPath="$PROJECT_DIR$/src/Fox/core/lib/general/utils/FileChecker.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/core/lib/services/Common/ParseSupport.java" afterPath="$PROJECT_DIR$/src/Fox/core/lib/services/Common/ParseSupport.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/core/lib/services/Common/ServiceProcessing.java" afterPath="$PROJECT_DIR$/src/Fox/core/lib/services/Common/ServiceProcessing.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/core/lib/services/Common/Sifter.java" afterPath="$PROJECT_DIR$/src/Fox/core/lib/services/Common/Sifter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/core/lib/services/CoverArtArchive/LookupAlbumArt/CoverArtStructureBuilder.java" afterPath="$PROJECT_DIR$/src/Fox/core/lib/services/CoverArtArchive/LookupAlbumArt/CoverArtStructureBuilder.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/core/lib/services/CoverArtArchive/LookupAlbumArt/sources/AlbumArt.java" afterPath="$PROJECT_DIR$/src/Fox/core/lib/services/CoverArtArchive/LookupAlbumArt/sources/AlbumArt.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/core/lib/services/CoverArtArchive/LookupAlbumArt/sources/image.java" afterPath="$PROJECT_DIR$/src/Fox/core/lib/services/CoverArtArchive/LookupAlbumArt/sources/image.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/core/lib/services/CoverArtArchive/LookupAlbumArt/sources/thumbnail.java" afterPath="$PROJECT_DIR$/src/Fox/core/lib/services/CoverArtArchive/LookupAlbumArt/sources/thumbnail.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/core/lib/services/Elapsed.java" afterPath="$PROJECT_DIR$/src/Fox/core/lib/services/Elapsed.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/core/lib/services/LastFM/Album/LastFMAlbumClient.java" afterPath="$PROJECT_DIR$/src/Fox/core/lib/services/LastFM/Album/LastFMAlbumClient.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/core/lib/services/LastFM/Album/getInfo/GetInfoBuilder.java" afterPath="$PROJECT_DIR$/src/Fox/core/lib/services/LastFM/Album/getInfo/GetInfoBuilder.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/core/lib/services/LastFM/Album/getInfo/sources/AlbumInfo.java" afterPath="$PROJECT_DIR$/src/Fox/core/lib/services/LastFM/Album/getInfo/sources/AlbumInfo.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/core/lib/services/LastFM/Album/getInfo/sources/album.java" afterPath="$PROJECT_DIR$/src/Fox/core/lib/services/LastFM/Album/getInfo/sources/album.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/core/lib/services/LastFM/Album/getInfo/sources/track.java" afterPath="$PROJECT_DIR$/src/Fox/core/lib/services/LastFM/Album/getInfo/sources/track.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/core/lib/services/LastFM/Album/getInfo/sources/tracks.java" afterPath="$PROJECT_DIR$/src/Fox/core/lib/services/LastFM/Album/getInfo/sources/tracks.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/core/lib/services/LastFM/Album/search/SearchBuilder.java" afterPath="$PROJECT_DIR$/src/Fox/core/lib/services/LastFM/Album/search/SearchBuilder.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/core/lib/services/LastFM/Album/search/sources/Search.java" afterPath="$PROJECT_DIR$/src/Fox/core/lib/services/LastFM/Album/search/sources/Search.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/core/lib/services/LastFM/Album/search/sources/album.java" afterPath="$PROJECT_DIR$/src/Fox/core/lib/services/LastFM/Album/search/sources/album.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/core/lib/services/LastFM/Album/search/sources/opensearchQuery.java" afterPath="$PROJECT_DIR$/src/Fox/core/lib/services/LastFM/Album/search/sources/opensearchQuery.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/core/lib/services/LastFM/Album/search/sources/results.java" afterPath="$PROJECT_DIR$/src/Fox/core/lib/services/LastFM/Album/search/sources/results.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/core/lib/services/LastFM/Artist/LastFMArtistClient.java" afterPath="$PROJECT_DIR$/src/Fox/core/lib/services/LastFM/Artist/LastFMArtistClient.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/core/lib/services/LastFM/Artist/getInfo/GetInfoBuilder.java" afterPath="$PROJECT_DIR$/src/Fox/core/lib/services/LastFM/Artist/getInfo/GetInfoBuilder.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/core/lib/services/LastFM/Artist/getInfo/sources/ArtistInfo.java" afterPath="$PROJECT_DIR$/src/Fox/core/lib/services/LastFM/Artist/getInfo/sources/ArtistInfo.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/core/lib/services/LastFM/Artist/getInfo/sources/artist.java" afterPath="$PROJECT_DIR$/src/Fox/core/lib/services/LastFM/Artist/getInfo/sources/artist.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/core/lib/services/LastFM/Artist/getInfo/sources/artistimages.java" afterPath="$PROJECT_DIR$/src/Fox/core/lib/services/LastFM/Artist/getInfo/sources/artistimages.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/core/lib/services/LastFM/Artist/getInfo/sources/bio.java" afterPath="$PROJECT_DIR$/src/Fox/core/lib/services/LastFM/Artist/getInfo/sources/bio.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/core/lib/services/LastFM/Artist/getInfo/sources/link.java" afterPath="$PROJECT_DIR$/src/Fox/core/lib/services/LastFM/Artist/getInfo/sources/link.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/core/lib/services/LastFM/Artist/getInfo/sources/links.java" afterPath="$PROJECT_DIR$/src/Fox/core/lib/services/LastFM/Artist/getInfo/sources/links.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/core/lib/services/LastFM/Artist/getInfo/sources/similar.java" afterPath="$PROJECT_DIR$/src/Fox/core/lib/services/LastFM/Artist/getInfo/sources/similar.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/core/lib/services/LastFM/Artist/getInfo/sources/stats.java" afterPath="$PROJECT_DIR$/src/Fox/core/lib/services/LastFM/Artist/getInfo/sources/stats.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/core/lib/services/LastFM/CommonSources/CommonBuilder.java" afterPath="$PROJECT_DIR$/src/Fox/core/lib/services/LastFM/CommonSources/CommonBuilder.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/core/lib/services/LastFM/CommonSources/Error.java" afterPath="$PROJECT_DIR$/src/Fox/core/lib/services/LastFM/CommonSources/Error.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/core/lib/services/LastFM/CommonSources/artist.java" afterPath="$PROJECT_DIR$/src/Fox/core/lib/services/LastFM/CommonSources/artist.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/core/lib/services/LastFM/CommonSources/attr.java" afterPath="$PROJECT_DIR$/src/Fox/core/lib/services/LastFM/CommonSources/attr.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/core/lib/services/LastFM/CommonSources/image.java" afterPath="$PROJECT_DIR$/src/Fox/core/lib/services/LastFM/CommonSources/image.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/core/lib/services/LastFM/CommonSources/streamable.java" afterPath="$PROJECT_DIR$/src/Fox/core/lib/services/LastFM/CommonSources/streamable.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/core/lib/services/LastFM/CommonSources/tag.java" afterPath="$PROJECT_DIR$/src/Fox/core/lib/services/LastFM/CommonSources/tag.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/core/lib/services/LastFM/CommonSources/toptags.java" afterPath="$PROJECT_DIR$/src/Fox/core/lib/services/LastFM/CommonSources/toptags.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/core/lib/services/LastFM/CommonSources/wiki.java" afterPath="$PROJECT_DIR$/src/Fox/core/lib/services/LastFM/CommonSources/wiki.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/core/lib/services/LastFM/LastFMTrackInfoCompilation.java" afterPath="$PROJECT_DIR$/src/Fox/core/lib/services/LastFM/LastFMTrackInfoCompilation.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/core/lib/services/LastFM/Track/LastFMTrackClient.java" afterPath="$PROJECT_DIR$/src/Fox/core/lib/services/LastFM/Track/LastFMTrackClient.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/core/lib/services/LastFM/Track/getInfo/GetInfoBuilder.java" afterPath="$PROJECT_DIR$/src/Fox/core/lib/services/LastFM/Track/getInfo/GetInfoBuilder.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/core/lib/services/LastFM/Track/getInfo/sources/TrackInfo.java" afterPath="$PROJECT_DIR$/src/Fox/core/lib/services/LastFM/Track/getInfo/sources/TrackInfo.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/core/lib/services/LastFM/Track/getInfo/sources/album.java" afterPath="$PROJECT_DIR$/src/Fox/core/lib/services/LastFM/Track/getInfo/sources/album.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/core/lib/services/LastFM/Track/getInfo/sources/artist.java" afterPath="$PROJECT_DIR$/src/Fox/core/lib/services/LastFM/Track/getInfo/sources/artist.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/core/lib/services/LastFM/Track/getInfo/sources/track.java" afterPath="$PROJECT_DIR$/src/Fox/core/lib/services/LastFM/Track/getInfo/sources/track.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/core/lib/services/acoustid/AcoustIDClient.java" afterPath="$PROJECT_DIR$/src/Fox/core/lib/services/acoustid/AcoustIDClient.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/core/lib/services/acoustid/AcoustIDRequestConfig.java" afterPath="$PROJECT_DIR$/src/Fox/core/lib/services/acoustid/AcoustIDRequestConfig.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/core/lib/services/acoustid/LookupByFP/AcoustIDStructureBuilder.java" afterPath="$PROJECT_DIR$/src/Fox/core/lib/services/acoustid/LookupByFP/AcoustIDStructureBuilder.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/core/lib/services/acoustid/LookupByFP/sources/Artist.java" afterPath="$PROJECT_DIR$/src/Fox/core/lib/services/acoustid/LookupByFP/sources/Artist.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/core/lib/services/acoustid/LookupByFP/sources/ByFingerPrint.java" afterPath="$PROJECT_DIR$/src/Fox/core/lib/services/acoustid/LookupByFP/sources/ByFingerPrint.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/core/lib/services/acoustid/LookupByFP/sources/Date.java" afterPath="$PROJECT_DIR$/src/Fox/core/lib/services/acoustid/LookupByFP/sources/Date.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/core/lib/services/acoustid/LookupByFP/sources/Error.java" afterPath="$PROJECT_DIR$/src/Fox/core/lib/services/acoustid/LookupByFP/sources/Error.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/core/lib/services/acoustid/LookupByFP/sources/Medium.java" afterPath="$PROJECT_DIR$/src/Fox/core/lib/services/acoustid/LookupByFP/sources/Medium.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/core/lib/services/acoustid/LookupByFP/sources/Recording.java" afterPath="$PROJECT_DIR$/src/Fox/core/lib/services/acoustid/LookupByFP/sources/Recording.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/core/lib/services/acoustid/LookupByFP/sources/Release.java" afterPath="$PROJECT_DIR$/src/Fox/core/lib/services/acoustid/LookupByFP/sources/Release.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/core/lib/services/acoustid/LookupByFP/sources/Releaseevent.java" afterPath="$PROJECT_DIR$/src/Fox/core/lib/services/acoustid/LookupByFP/sources/Releaseevent.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/core/lib/services/acoustid/LookupByFP/sources/Releasegroup.java" afterPath="$PROJECT_DIR$/src/Fox/core/lib/services/acoustid/LookupByFP/sources/Releasegroup.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/core/lib/services/acoustid/LookupByFP/sources/Result.java" afterPath="$PROJECT_DIR$/src/Fox/core/lib/services/acoustid/LookupByFP/sources/Result.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/core/lib/services/acoustid/LookupByFP/sources/Track.java" afterPath="$PROJECT_DIR$/src/Fox/core/lib/services/acoustid/LookupByFP/sources/Track.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/core/main/AudioAnalyzeLibrary.java" afterPath="$PROJECT_DIR$/src/Fox/core/main/AudioAnalyzeLibrary.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/core/main/CoverArtSearch.java" afterPath="$PROJECT_DIR$/src/Fox/core/main/CoverArtSearch.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/test/pool/PoolTesting.java" afterPath="$PROJECT_DIR$/src/Fox/test/pool/PoolTesting.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/test/testing.java" afterPath="$PROJECT_DIR$/src/Fox/test/testing.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/test/testingJson.java" afterPath="$PROJECT_DIR$/src/Fox/test/testingJson.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/test/util/TFile.java" afterPath="$PROJECT_DIR$/src/Fox/test/util/TFile.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/utils/CustomProgressState.java" afterPath="$PROJECT_DIR$/src/Fox/utils/CustomProgressState.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Fox/utils/WindowsFPcalc.java" afterPath="$PROJECT_DIR$/src/Fox/utils/WindowsFPcalc.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Fox/utils/ExecutableHelper.java" afterPath="$PROJECT_DIR$/src/Fox/core/lib/general/utils/ExecutableHelper.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -138,13 +51,13 @@
     <favorites_list name="AudioAnalyze" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.46061516">
+    <splitter split-orientation="horizontal" split-proportion="0.78019506">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file leaf-file-name="testing.java" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/Fox/test/testing.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="244">
+                <state relative-caret-position="374">
                   <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
                   <folding>
                     <element signature="imports" expanded="true" />
@@ -156,8 +69,8 @@
           <file leaf-file-name="CoverArtSearch.java" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/Fox/core/main/CoverArtSearch.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-1917">
-                  <caret line="95" column="46" lean-forward="false" selection-start-line="95" selection-start-column="46" selection-end-line="95" selection-end-column="46" />
+                <state relative-caret-position="-470">
+                  <caret line="49" column="8" lean-forward="false" selection-start-line="49" selection-start-column="8" selection-end-line="49" selection-end-column="8" />
                   <folding />
                 </state>
               </provider>
@@ -170,7 +83,7 @@
           <file leaf-file-name="recordings_releases_releasegroups.json" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/json/AcoustID/lookupbyFP/recordings_releases_releasegroups.json">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="528">
+                <state relative-caret-position="1173">
                   <caret line="6459" column="16" lean-forward="false" selection-start-line="6459" selection-start-column="16" selection-end-line="6459" selection-end-column="16" />
                   <folding>
                     <element signature="e#90#2313#0" expanded="false" />
@@ -246,8 +159,8 @@
           <file leaf-file-name="testingJson.java" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/Fox/test/testingJson.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="170">
-                  <caret line="16" column="18" lean-forward="false" selection-start-line="16" selection-start-column="18" selection-end-line="16" selection-end-column="18" />
+                <state relative-caret-position="561">
+                  <caret line="63" column="37" lean-forward="false" selection-start-line="63" selection-start-column="37" selection-end-line="63" selection-end-column="37" />
                   <folding />
                 </state>
               </provider>
@@ -340,10 +253,10 @@
         <option value="$PROJECT_DIR$/src/Fox/test/testerrors.java" />
         <option value="$PROJECT_DIR$/src/Fox/core/lib/services/acoustid/AcoustIDClient.java" />
         <option value="$PROJECT_DIR$/src/Fox/core/lib/services/acoustid/AcoustIDRequestConfig.java" />
-        <option value="$PROJECT_DIR$/src/Fox/core/main/CoverArtSearch.java" />
         <option value="$PROJECT_DIR$/src/Fox/core/lib/services/LastFM/LastFMClient.java" />
-        <option value="$PROJECT_DIR$/src/Fox/test/testingJson.java" />
         <option value="$PROJECT_DIR$/src/Fox/core/lib/general/utils/NoMatchesException.java" />
+        <option value="$PROJECT_DIR$/src/Fox/test/testingJson.java" />
+        <option value="$PROJECT_DIR$/src/Fox/core/main/CoverArtSearch.java" />
       </list>
     </option>
   </component>
@@ -394,7 +307,7 @@
     <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectView">
-    <navigator currentView="ProjectPane" proportions="" version="1">
+    <navigator proportions="" version="1">
       <flattenPackages ProjectPane="false" />
       <showMembers ProjectPane="true" />
       <showModules />
@@ -407,276 +320,7 @@
       <manualOrder />
       <foldersAlwaysOnTop value="true" />
     </navigator>
-    <panes>
-      <pane id="Scratches">
-        <subPane>
-          <expand>
-            <path>
-              <item name="" type="1a2a3e82:ScratchProjectViewPane$MyProjectNode" />
-              <item name="Scratches" type="d62648e6:ScratchProjectViewPane$MyRootNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="AndroidView">
-        <subPane>
-          <expand>
-            <path>
-              <item name="AudioAnalyze" type="1abcf292:AndroidViewProjectNode" />
-              <item name="AudioAnalyze" type="1039202d:NonAndroidModuleNode" />
-            </path>
-            <path>
-              <item name="AudioAnalyze" type="1abcf292:AndroidViewProjectNode" />
-              <item name="AudioAnalyze" type="1039202d:NonAndroidModuleNode" />
-              <item name="java" type="b5c1fe26:NonAndroidSourceTypeNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="AudioAnalyze" type="b2602c69:ProjectViewProjectNode" />
-              <item name="AudioAnalyze" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="AudioAnalyze" type="b2602c69:ProjectViewProjectNode" />
-              <item name="AudioAnalyze" type="462c0819:PsiDirectoryNode" />
-              <item name="json" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="AudioAnalyze" type="b2602c69:ProjectViewProjectNode" />
-              <item name="AudioAnalyze" type="462c0819:PsiDirectoryNode" />
-              <item name="json" type="462c0819:PsiDirectoryNode" />
-              <item name="LastFM" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="AudioAnalyze" type="b2602c69:ProjectViewProjectNode" />
-              <item name="AudioAnalyze" type="462c0819:PsiDirectoryNode" />
-              <item name="json" type="462c0819:PsiDirectoryNode" />
-              <item name="LastFM" type="462c0819:PsiDirectoryNode" />
-              <item name="Album" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="AudioAnalyze" type="b2602c69:ProjectViewProjectNode" />
-              <item name="AudioAnalyze" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="AudioAnalyze" type="b2602c69:ProjectViewProjectNode" />
-              <item name="AudioAnalyze" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Fox" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="AudioAnalyze" type="b2602c69:ProjectViewProjectNode" />
-              <item name="AudioAnalyze" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Fox" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="AudioAnalyze" type="b2602c69:ProjectViewProjectNode" />
-              <item name="AudioAnalyze" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Fox" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-              <item name="lib" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="AudioAnalyze" type="b2602c69:ProjectViewProjectNode" />
-              <item name="AudioAnalyze" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Fox" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-              <item name="lib" type="462c0819:PsiDirectoryNode" />
-              <item name="connectors" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="AudioAnalyze" type="b2602c69:ProjectViewProjectNode" />
-              <item name="AudioAnalyze" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Fox" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-              <item name="lib" type="462c0819:PsiDirectoryNode" />
-              <item name="general" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="AudioAnalyze" type="b2602c69:ProjectViewProjectNode" />
-              <item name="AudioAnalyze" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Fox" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-              <item name="lib" type="462c0819:PsiDirectoryNode" />
-              <item name="general" type="462c0819:PsiDirectoryNode" />
-              <item name="DOM" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="AudioAnalyze" type="b2602c69:ProjectViewProjectNode" />
-              <item name="AudioAnalyze" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Fox" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-              <item name="lib" type="462c0819:PsiDirectoryNode" />
-              <item name="general" type="462c0819:PsiDirectoryNode" />
-              <item name="Threads" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="AudioAnalyze" type="b2602c69:ProjectViewProjectNode" />
-              <item name="AudioAnalyze" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Fox" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-              <item name="lib" type="462c0819:PsiDirectoryNode" />
-              <item name="general" type="462c0819:PsiDirectoryNode" />
-              <item name="utils" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="AudioAnalyze" type="b2602c69:ProjectViewProjectNode" />
-              <item name="AudioAnalyze" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Fox" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-              <item name="lib" type="462c0819:PsiDirectoryNode" />
-              <item name="services" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="AudioAnalyze" type="b2602c69:ProjectViewProjectNode" />
-              <item name="AudioAnalyze" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Fox" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-              <item name="lib" type="462c0819:PsiDirectoryNode" />
-              <item name="services" type="462c0819:PsiDirectoryNode" />
-              <item name="LastFM" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="AudioAnalyze" type="b2602c69:ProjectViewProjectNode" />
-              <item name="AudioAnalyze" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Fox" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-              <item name="lib" type="462c0819:PsiDirectoryNode" />
-              <item name="services" type="462c0819:PsiDirectoryNode" />
-              <item name="LastFM" type="462c0819:PsiDirectoryNode" />
-              <item name="Track" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="AudioAnalyze" type="b2602c69:ProjectViewProjectNode" />
-              <item name="AudioAnalyze" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Fox" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="AudioAnalyze" type="b2602c69:ProjectViewProjectNode" />
-              <item name="AudioAnalyze" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Fox" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="AudioAnalyze" type="b2602c69:ProjectViewProjectNode" />
-              <item name="AudioAnalyze" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Fox" type="462c0819:PsiDirectoryNode" />
-              <item name="utils" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="AudioAnalyze" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-            </path>
-            <path>
-              <item name="AudioAnalyze" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="MusicBrainzAndroid" type="70bed36:NamedLibraryElementNode" />
-            </path>
-            <path>
-              <item name="AudioAnalyze" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="MusicBrainzAndroid" type="70bed36:NamedLibraryElementNode" />
-              <item name="MusicBrainzAndroid.jar" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="AudioAnalyze" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="MusicBrainzAndroid" type="70bed36:NamedLibraryElementNode" />
-              <item name="MusicBrainzAndroid.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="api" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="AudioAnalyze" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="MusicBrainzAndroid" type="70bed36:NamedLibraryElementNode" />
-              <item name="MusicBrainzAndroid.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="api" type="462c0819:PsiDirectoryNode" />
-              <item name="webservice" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="Scope">
-        <subPane subId="Production">
-          <expand>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="ffmpegcalc" type="cbb8eebc:String" user="ffmpegcalc" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="ffmpegcalc" type="cbb8eebc:String" user="ffmpegcalc" />
-              <item name="src" type="cbb8eebc:String" user="src" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="ffmpegcalc" type="cbb8eebc:String" user="ffmpegcalc" />
-              <item name="src" type="cbb8eebc:String" user="src" />
-              <item name="test" type="cbb8eebc:String" user="test" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-        <subPane subId="Changed Files">
-          <expand>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="AudioAnalyze" type="cbb8eebc:String" user="AudioAnalyze" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-        <subPane subId="Project Files">
-          <expand>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="AudioAnalyze" type="cbb8eebc:String" user="AudioAnalyze" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="AudioAnalyze" type="cbb8eebc:String" user="AudioAnalyze" />
-              <item name="src" type="cbb8eebc:String" user="src" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="PackagesPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="AudioAnalyze" type="58d84e3e:PackageViewProjectNode" />
-              <item name="AudioAnalyze" type="616d4139:PackageViewModuleNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-    </panes>
+    <panes />
   </component>
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../MusicBrainzAndroidCover" />
@@ -917,12 +561,11 @@
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4043511" sideWeight="0.49408284" order="7" side_tool="false" content_ui="combo" x="13" y="64" width="293" height="651" />
       <window_info id="JSON Utils" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4163541" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5019157" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2888222" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2498621" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1724138" sideWeight="0.4958632" order="12" side_tool="false" content_ui="tabs" x="22" y="348" width="1813" height="383" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.14942528" sideWeight="0.4958632" order="12" side_tool="false" content_ui="tabs" x="22" y="348" width="1813" height="383" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17997098" sideWeight="0.50591713" order="5" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -933,6 +576,7 @@
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32984003" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32992464" sideWeight="0.5" order="10" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5019157" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Learn" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32984003" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -979,6 +623,7 @@
         <entry key="MAIN">
           <value>
             <State>
+              <option name="BEK_SORT_TYPE" value="1" />
               <option name="RECENTLY_FILTERED_USER_GROUPS">
                 <collection />
               </option>
@@ -1021,7 +666,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/Fox/test/testingJson.java</url>
-          <line>59</line>
+          <line>65</line>
           <properties />
           <option name="timeStamp" value="147" />
         </line-breakpoint>
@@ -1029,7 +674,7 @@
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="149" />
+      <option name="time" value="150" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
@@ -1158,7 +803,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
           <caret line="41" column="38" lean-forward="true" selection-start-line="41" selection-start-column="38" selection-end-line="41" selection-end-column="38" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1173,7 +817,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
           <caret line="23" column="36" lean-forward="false" selection-start-line="23" selection-start-column="36" selection-end-line="23" selection-end-column="36" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1206,7 +849,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1037">
           <caret line="65" column="41" lean-forward="true" selection-start-line="65" selection-start-column="41" selection-end-line="65" selection-end-column="41" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1222,7 +864,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="7" column="12" lean-forward="false" selection-start-line="7" selection-start-column="12" selection-end-line="7" selection-end-column="12" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1230,10 +871,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#7050#7051#0" expanded="false" />
-            <element signature="e#7106#7107#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1241,7 +878,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-101">
           <caret line="39" column="0" lean-forward="false" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1346,7 +982,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="714">
           <caret line="72" column="0" lean-forward="true" selection-start-line="72" selection-start-column="0" selection-end-line="72" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1354,7 +989,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="731">
           <caret line="82" column="13" lean-forward="false" selection-start-line="82" selection-start-column="13" selection-end-line="82" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1362,7 +996,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1370,7 +1003,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="7" column="17" lean-forward="false" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1378,7 +1010,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
           <caret line="25" column="17" lean-forward="false" selection-start-line="25" selection-start-column="17" selection-end-line="25" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1394,9 +1025,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-30">
           <caret line="50" column="38" lean-forward="false" selection-start-line="50" selection-start-column="38" selection-end-line="50" selection-end-column="38" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1404,7 +1032,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
           <caret line="18" column="5" lean-forward="false" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1412,7 +1039,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-489">
           <caret line="9" column="13" lean-forward="false" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1428,7 +1054,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="10" column="13" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1436,13 +1061,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="443">
           <caret line="45" column="0" lean-forward="false" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/json/AcoustID/lookupbyFP/recordings_releases_releasegroups.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="528">
+        <state relative-caret-position="1173">
           <caret line="6459" column="16" lean-forward="false" selection-start-line="6459" selection-start-column="16" selection-end-line="6459" selection-end-column="16" />
           <folding>
             <element signature="e#90#2313#0" expanded="false" />
@@ -1518,13 +1142,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="348">
           <caret line="170" column="58" lean-forward="false" selection-start-line="170" selection-start-column="58" selection-end-line="170" selection-end-column="58" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Fox/test/testing.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="244">
+        <state relative-caret-position="374">
           <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -1561,8 +1184,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Fox/test/testingJson.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="16" column="18" lean-forward="false" selection-start-line="16" selection-start-column="18" selection-end-line="16" selection-end-column="18" />
+        <state relative-caret-position="561">
+          <caret line="63" column="37" lean-forward="false" selection-start-line="63" selection-start-column="37" selection-end-line="63" selection-end-column="37" />
           <folding />
         </state>
       </provider>
@@ -1586,8 +1209,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Fox/core/main/CoverArtSearch.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1917">
-          <caret line="95" column="46" lean-forward="false" selection-start-line="95" selection-start-column="46" selection-end-line="95" selection-end-column="46" />
+        <state relative-caret-position="-470">
+          <caret line="49" column="8" lean-forward="false" selection-start-line="49" selection-start-column="8" selection-end-line="49" selection-end-column="8" />
           <folding />
         </state>
       </provider>

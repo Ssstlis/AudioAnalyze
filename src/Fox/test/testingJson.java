@@ -8,6 +8,9 @@ import Fox.core.lib.services.acoustid.AcoustIDClient;
 import Fox.core.lib.services.acoustid.AcoustIDRequestConfig;
 import Fox.core.main.CoverArtSearch;
 
+import java.io.Console;
+import java.util.Map;
+
 public class testingJson
 {
     public static void main(String[] args)
@@ -56,6 +59,9 @@ public class testingJson
                                                                 5
                                                                );
         l = System.currentTimeMillis() - l;
+
+
+        Map<String, String> getenv = System.getenv();
 
         AcoustIDRequestConfig config = new AcoustIDRequestConfig();
 
