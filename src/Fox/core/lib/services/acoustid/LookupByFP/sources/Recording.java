@@ -1,12 +1,13 @@
 package Fox.core.lib.services.acoustid.LookupByFP.sources;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class Recording
 {
-    private int duration;
-    private int sources;
+    private Integer duration;
+    private Integer sources;
     private String title;
     private String id;
     private List<Artist> Artists;
@@ -17,8 +18,8 @@ public class Recording
     }
 
     public Recording(
-            int duration,
-            int sources,
+            Integer duration,
+            Integer sources,
             String title,
             String id,
             List<Artist> Artists,
@@ -61,12 +62,12 @@ public class Recording
         return temp;
     }
 
-    public int getDuration()
+    public Integer getDuration()
     {
         return this.duration;
     }
 
-    public void setDuration(int duration)
+    public void setDuration(Integer duration)
     {
         this.duration = duration;
     }
@@ -103,7 +104,7 @@ public class Recording
 
     public boolean hasDuration()
     {
-        return duration != 0;
+        return duration !=null && duration != 0;
     }
 
     public boolean hasTitle()
@@ -136,18 +137,18 @@ public class Recording
         return Releasegroups != null && Releasegroups.size() > 0;
     }
 
-    public int getSources()
+    public Integer getSources()
     {
         return sources;
     }
 
-    public void setSources(int sources)
+    public void setSources(Integer sources)
     {
         this.sources = sources;
     }
 
     public boolean hasSources()
     {
-        return sources != 0;
+        return sources != null && sources != 0;
     }
 }

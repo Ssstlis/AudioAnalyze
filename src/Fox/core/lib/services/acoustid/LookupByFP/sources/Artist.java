@@ -7,6 +7,7 @@ public class Artist
 {
     private String id;
     private String name;
+    private String joinphrase;
 
     public Artist()
     {
@@ -14,10 +15,12 @@ public class Artist
 
     public Artist(
             String id,
-            String name)
+            String name,
+            String joinphrase)
     {
         this.id = id;
         this.name = name;
+        this.joinphrase = joinphrase;
     }
 
     public Artist(Artist copy)
@@ -26,6 +29,7 @@ public class Artist
         {
             this.name = copy.name;
             this.id = copy.id;
+            this.joinphrase = copy.joinphrase;
         }
     }
 
@@ -72,5 +76,20 @@ public class Artist
     public boolean hasName()
     {
         return name != null && name.length() > 0;
+    }
+
+    public String getJoinphrase()
+    {
+        return joinphrase;
+    }
+
+    public void setJoinphrase(String joinphrase)
+    {
+        this.joinphrase = joinphrase;
+    }
+
+    public boolean hasJoinPhrase()
+    {
+        return (joinphrase!=null && !joinphrase.isEmpty());
     }
 }

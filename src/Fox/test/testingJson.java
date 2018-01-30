@@ -61,8 +61,6 @@ public class testingJson
         l = System.currentTimeMillis() - l;
 
 
-        Map<String, String> getenv = System.getenv();
-
         AcoustIDRequestConfig config = new AcoustIDRequestConfig();
 
         config.setDefault();

@@ -1,22 +1,37 @@
 package Fox.core.lib.services.Common;
 
+import org.jetbrains.annotations.NotNull;
+
 public class SimpleInfo
 {
     private String Artist;
     private String MBID;
     private String Title;
-    private String Album;
+    private Integer usages;
+
+    public SimpleInfo()
+    {
+
+    }
 
     public SimpleInfo(
             String artist,
             String mbid,
             String title,
-            String album)
+            Integer usages)
     {
         this.Artist = artist;
         this.MBID = mbid;
         this.Title = title;
-        this.Album = album;
+        this.usages = usages;
+    }
+
+    public SimpleInfo(@NotNull SimpleInfo copy)
+    {
+        this.usages = copy.usages;
+        this.Artist = copy.Artist;
+        this.MBID = copy.MBID;
+        this.Title = copy.Title;
     }
 
     public String getArtist()
@@ -29,6 +44,11 @@ public class SimpleInfo
         Artist = artist;
     }
 
+    public boolean hasArtist()
+    {
+        return (Artist!=null && !Artist.isEmpty());
+    }
+
     public String getMBID()
     {
         return MBID;
@@ -37,6 +57,11 @@ public class SimpleInfo
     public void setMBID(String MBID)
     {
         this.MBID = MBID;
+    }
+
+    public boolean hasMBID()
+    {
+        return (MBID!=null && !MBID.isEmpty());
     }
 
     public String getTitle()
@@ -49,13 +74,23 @@ public class SimpleInfo
         Title = title;
     }
 
-    public String getAlbum()
+    public boolean hasTitle()
     {
-        return Album;
+        return (Title!=null && !Title.isEmpty());
     }
 
-    public void setAlbum(String album)
+    public Integer getUsages()
     {
-        Album = album;
+        return usages;
+    }
+
+    public void setUsages(Integer usages)
+    {
+        this.usages = usages;
+    }
+
+    public boolean hasUsages()
+    {
+        return (usages!=null && usages == 0);
     }
 }

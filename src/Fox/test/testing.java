@@ -20,7 +20,7 @@ public class testing
         try
         {
 
-            String mp3location = "D:\\Fraps";
+            String mp3location = "D:\\music\\Dingir";
             List<File> FileList = ExecutableHelper.GetFileList(mp3location,
                                                                new Mp3Filter()
                                                               );
@@ -65,7 +65,8 @@ public class testing
                         Line3,
                         Line4,
                         performance.MAX,
-                        true
+                        true,
+                        10
                                                             );
 
                 System.out.println(System.currentTimeMillis() - temp);

@@ -99,7 +99,7 @@ public class AcoustIDRequestConfig
                       false
                      );
         ConfigMap.put("sources",
-                      false
+                      true
                      );
         ConfigMap.put("compress",
                       false

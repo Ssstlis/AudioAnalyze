@@ -116,6 +116,13 @@ public class AcoustIDStructureBuilder
                                        "id",
                                        String.class
                                                      ));
+
+            temp.setJoinphrase((String)
+                               ParseSupport.GetSource(
+                                       ArtistObject,
+                                       "joinphrase",
+                                       String.class
+                                                     ));
         }
         catch (Exception e)
         {
@@ -367,7 +374,7 @@ public class AcoustIDStructureBuilder
                                              int.class
                                                            ));
 
-            temp.setDuration((int)
+            temp.setSources((int)
                                      ParseSupport.GetSource(
                                              RecordingJObj,
                                              "sources",

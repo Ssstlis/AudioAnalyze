@@ -2,6 +2,7 @@ package Fox.utils;
 
 import Fox.core.lib.general.DOM.FingerPrint;
 import Fox.core.lib.general.templates.FingerPrintThread;
+import Fox.core.lib.general.utils.FingerPrintProcessingException;
 import core.windows.FileDestinationWindows;
 import org.jetbrains.annotations.NotNull;
 
@@ -17,8 +18,7 @@ public class WindowsFPcalc
     public void getFingerPrint(
             @NotNull String location,
             @NotNull FingerPrint target)
-            throws
-            Exception
+            throws FingerPrintProcessingException
     {
         try
         {
@@ -26,8 +26,7 @@ public class WindowsFPcalc
                     .GetCurrentDir(WindowsFPcalc.class)
                     .addElem("fpcalc.exe",
                              true
-                            )
-                    .toString();
+                            ).toString();
 
             String duration, print;
             String[] args = new String[]{Source, location};
@@ -66,6 +65,7 @@ public class WindowsFPcalc
         catch (Exception e)
         {
             e.printStackTrace();
+            throw new FingerPrintProcessingException();
         }
     }
 }

@@ -8,22 +8,23 @@ import Fox.core.lib.general.templates.FingerPrintThread;
 import Fox.core.lib.general.templates.ProgressState;
 import Fox.core.lib.general.utils.ExecutableHelper;
 import Fox.core.lib.general.utils.FileChecker;
+import Fox.core.lib.general.utils.NoBuildException;
 import Fox.core.lib.general.utils.performance;
+import Fox.core.lib.services.LastFM.LastFMClient;
 import Fox.core.lib.services.acoustid.AcoustIDClient;
 import Fox.core.lib.services.acoustid.AcoustIDRequestConfig;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 public class AudioAnalyzeLibrary
 {
     private static AcoustIDClient AIDClient;
+    private static LastFMClient lastFMClient;
     private List<String>
             Locations,
             Rejected;
@@ -35,6 +36,7 @@ public class AudioAnalyzeLibrary
         AcoustIDRequestConfig AIDConfig = new AcoustIDRequestConfig();
         AIDConfig.setDefault();
         AIDClient = new AcoustIDClient(AIDConfig);
+        lastFMClient = new LastFMClient();
     }
 
     public void buildStrings(@NotNull List<String> Files)
@@ -62,10 +64,20 @@ public class AudioAnalyzeLibrary
             @NotNull ProgressState ServiceProgressBar,
             @NotNull ProgressState CommonProgressBar,
             @NotNull performance Speed,
-            boolean TrustMode)
+            boolean TrustMode,
+            int count)
             throws
-            Exception
+            InterruptedException,
+            NoBuildException,
+            ExecutionException,
+            IllegalArgumentException
     {
+        if (!isBuild)
+            throw new NoBuildException("Trying to call method without build file list.");
+
+        if (count < 0)
+            throw new IllegalArgumentException("Impossible to return less that zero or equals zero size of results.");
+
         CommonProgressBar.setSize(Locations.size() * 3);
         CheckerProgressBar.setSize(Locations.size());
 
@@ -116,18 +128,11 @@ public class AudioAnalyzeLibrary
         System.out.println("Стартовало " + CPU + " потоков");
 
         ExecutorService es = Executors.newFixedThreadPool(CPU);
+        List<FingerPrint> test = new ArrayList<>();
         for (String file : Locations)
         {
             FingerPrint transfer = new FingerPrint();
-
-            es.execute(new ServiceThread(
-                    AIDClient,
-                    transfer,
-                    target,
-                    ServiceProgressBar,
-                    CommonProgressBar,
-                    TrustMode
-            ));
+            test.add(transfer);
 
             es.execute(new FPCalcThread(
                     YourFPCalcThread,
@@ -135,6 +140,17 @@ public class AudioAnalyzeLibrary
                     transfer,
                     FPProgressBar,
                     CommonProgressBar
+            ));
+
+            es.execute(new ServiceThread(
+                    AIDClient,
+                    lastFMClient,
+                    transfer,
+                    target,
+                    ServiceProgressBar,
+                    CommonProgressBar,
+                    TrustMode,
+                    count
             ));
         }
 

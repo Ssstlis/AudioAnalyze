@@ -4,11 +4,13 @@ import Fox.core.lib.general.DOM.FingerPrint;
 import Fox.core.lib.general.DOM.ID3V2;
 import Fox.core.lib.general.templates.ProgressState;
 import Fox.core.lib.services.Common.ServiceProcessing;
+import Fox.core.lib.services.LastFM.LastFMClient;
 import Fox.core.lib.services.acoustid.AcoustIDClient;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.TimeUnit;
 
 public class ServiceThread
         implements Runnable
@@ -18,16 +20,19 @@ public class ServiceThread
     private AcoustIDClient AIDClient;
     private boolean Trust;
     private ConcurrentHashMap<String, List<ID3V2>> target;
+    private LastFMClient lastFMClient;
+    private int count;
 
 
     public ServiceThread(
             @NotNull AcoustIDClient AIDClient,
+            @NotNull LastFMClient LastFMClient,
             @NotNull FingerPrint FPrint,
             @NotNull ConcurrentHashMap<String, List<ID3V2>> Target,
             @NotNull ProgressState ServiceState,
             @NotNull ProgressState CommonProgress,
-            boolean Trust
-                        )
+            boolean Trust,
+            int count)
     {
         this.AIDClient = AIDClient;
         this.FPrint = FPrint;
@@ -35,6 +40,8 @@ public class ServiceThread
         this.Local = ServiceState;
         this.Trust = Trust;
         this.target = Target;
+        this.lastFMClient = LastFMClient;
+        this.count = count;
     }
 
     @Override
@@ -45,13 +52,13 @@ public class ServiceThread
             synchronized (FPrint)
             {
                 FPrint.wait(4000);
-                //System.out.println(FPrint.toString());
-                //TimeUnit.MILLISECONDS.sleep(2000);
-                ServiceProcessing ProcessingClient = new ServiceProcessing(AIDClient);
+                ServiceProcessing ProcessingClient = new ServiceProcessing(AIDClient,
+                                                                           lastFMClient);
 
                 ProcessingClient.Processing(FPrint,
                                             Trust,
-                                            target
+                                            target,
+                                            count
                                            );
 
                 Local.update();
