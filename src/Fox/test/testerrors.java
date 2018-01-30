@@ -16,7 +16,7 @@ public class testerrors
     public static void main(String[] args)
             throws IOException, AcoustIDException, NoMatchesException
     {
-        File f = new File("D:\\Projects\\AudioAnalyze\\json\\AcoustID\\lookupbyFP\\recordings_releases_releasegroups_tracks_usermeta_sources.json");
+        File f = new File("C:\\Users\\Ssstlis\\Desktop\\Projects\\AudioAnalyze\\json\\AcoustID\\lookupbyFP\\recordings_releases_releasegroups_tracks_usermeta_sources.json");
         BufferedReader fin = new BufferedReader(new FileReader(f));
         String json = "";
         String line;
@@ -24,10 +24,11 @@ public class testerrors
         while ((line = fin.readLine()) != null)
             a.append(line);
         json = a.toString();
+
         AcoustIDResponse acoustIDResponse = new AcoustIDResponse();
         acoustIDResponse.setSource(json);
         ByFingerPrint temp = new AcoustIDStructureBuilder().buildLookup(acoustIDResponse);
-        List<SimpleInfo> sifting = Sifter.Sifting(temp, true, 10);
+        List<SimpleInfo> sifting = Sifter.Sifting(temp, false, 10);
         System.out.println();
     }
 }

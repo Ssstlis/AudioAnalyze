@@ -227,4 +227,9 @@ public class track
     {
         this.toptags = new toptags(toptags);
     }
+
+    public boolean hasToptags()
+    {
+        return toptags != null;
+    }
 }

@@ -53,11 +53,11 @@ public class testingJson
                 ""
         );
         long l = System.currentTimeMillis();
-        AlbumArtCompilation meteora1 = new CoverArtSearch().run("Blood Visions",
-                                                                null,
-                                                                target.LastFM,
-                                                                5
-                                                               );
+        AlbumArtCompilation meteora1 =  CoverArtSearch.run("Blood Visions",
+                                                           null,
+                                                           target.LastFM,
+                                                           5
+                                                          );
         l = System.currentTimeMillis() - l;
 
 

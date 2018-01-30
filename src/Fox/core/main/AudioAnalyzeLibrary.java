@@ -14,6 +14,7 @@ import Fox.core.lib.services.LastFM.LastFMClient;
 import Fox.core.lib.services.acoustid.AcoustIDClient;
 import Fox.core.lib.services.acoustid.AcoustIDRequestConfig;
 import org.jetbrains.annotations.NotNull;
+import org.musicbrainz.android.api.webservice.MusicBrainzWebClient;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -25,6 +26,7 @@ public class AudioAnalyzeLibrary
 {
     private static AcoustIDClient AIDClient;
     private static LastFMClient lastFMClient;
+    private static MusicBrainzWebClient musicBrainzWebClient;
     private List<String>
             Locations,
             Rejected;
@@ -37,6 +39,7 @@ public class AudioAnalyzeLibrary
         AIDConfig.setDefault();
         AIDClient = new AcoustIDClient(AIDConfig);
         lastFMClient = new LastFMClient();
+        musicBrainzWebClient = new MusicBrainzWebClient("AudioAnalyzeApp");
     }
 
     public void buildStrings(@NotNull List<String> Files)
@@ -145,6 +148,7 @@ public class AudioAnalyzeLibrary
             es.execute(new ServiceThread(
                     AIDClient,
                     lastFMClient,
+                    musicBrainzWebClient,
                     transfer,
                     target,
                     ServiceProgressBar,

@@ -2,9 +2,10 @@ package Fox.core.lib.services.Common;
 
 import Fox.core.lib.general.utils.AcoustIDException;
 import Fox.core.lib.general.utils.NoMatchesException;
-import Fox.core.lib.services.acoustid.LookupByFP.RecordingComparator;
-import Fox.core.lib.services.acoustid.LookupByFP.sources.*;
+import Fox.core.lib.services.acoustid.LookupByFP.sources.ByFingerPrint;
 import Fox.core.lib.services.acoustid.LookupByFP.sources.Error;
+import Fox.core.lib.services.acoustid.LookupByFP.sources.Recording;
+import Fox.core.lib.services.acoustid.LookupByFP.sources.Result;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -62,7 +63,7 @@ public class Sifter
             return false;
 
         for(String elem:elems)
-            if (elem.equals(self))
+            if (elem.equalsIgnoreCase(self))
                 return true;
 
         return false;
@@ -73,7 +74,6 @@ public class Sifter
         Map<String, Integer> AssistMap = new HashMap<>();
         List<String> AssistList = new ArrayList<>();
         int max = 0;
-        String find = "";
 
         for(Recording elem : recordingList)
             if (elem.hasArtists())
@@ -114,29 +114,67 @@ public class Sifter
     private static SimpleInfo TrustSift(@NotNull List<Recording> recordingList)
     {
         SiftingByArtist(recordingList);
-        List<SimpleInfo> simpleInfos = FrequentSift(recordingList, 2);
+        List<SimpleInfo> simpleInfos = FrequentSift(recordingList, 1);
 
-        return simpleInfos.get(0);
+        if (simpleInfos != null && !simpleInfos.isEmpty())
+            return simpleInfos.get(0);
+
+        return new SimpleInfo();
     }
 
-    private static void RecSortingBackward(@NotNull List<Recording> recordingList)
+    /*private static List<Recording> RecSortingBackward(@NotNull List<Recording> elems)
     {
-        recordingList.sort(new RecordingComparator().reversed());
+        return Sorting(elems, false);
     }
 
-    private static void RecSortingForward(@NotNull List<Recording> recordingList)
+    private static List<Recording> RecordingSortingForward(@NotNull List<Recording> elems)
     {
-        recordingList.sort(new RecordingComparator());
+        return Sorting(elems, true);
+    }*/
+
+    private static List<SimpleInfo> SimpleInfoSortingForward(@NotNull List<SimpleInfo> elems)
+    {
+        return Sorting(elems, true);
     }
 
-    private static void SimpleInfoSortingForward(@NotNull List<SimpleInfo> elems)
+    private static List<SimpleInfo> SimpleInfoSortingBackward(@NotNull List<SimpleInfo> elems)
     {
-        elems.sort(new SimpleInfoComparator());
+        return Sorting(elems, false);
     }
 
-    private static void SimpleInfoSortingBackward(@NotNull List<SimpleInfo> elems)
+    private static List<SimpleInfo> Sorting(@NotNull List<SimpleInfo> elems, boolean IsForward)
     {
-        elems.sort(new SimpleInfoComparator().reversed());
+        int left = 0;
+        SimpleInfo buff;
+        int right = elems.size() - 1;
+        do
+        {
+            for (int i = left; i < right; i++)
+            {
+                if ((!IsForward && elems.get(i).compareTo(elems.get(i + 1)) < 0)
+                        || (IsForward && elems.get(i).compareTo(elems.get(i + 1)) > 0))
+                {
+                    buff = elems.get(i);
+                    elems.remove(i);
+                    elems.add(i + 1, buff);
+                }
+            }
+            right--;
+            for (int i = right; i > left; i--)
+            {
+                if ((!IsForward && elems.get(i).compareTo(elems.get(i - 1)) > 0)
+                        || (IsForward && elems.get(i).compareTo(elems.get(i - 1)) < 0))
+                {
+                    buff = elems.get(i);
+                    elems.remove(i);
+                    elems.add(i - 1, buff);
+                }
+            }
+            left++;
+        }
+        while (left < right);
+
+        return elems;
     }
 
     private static List<SimpleInfo> MergingByUsages(@NotNull List<SimpleInfo> ElemList)
@@ -158,7 +196,7 @@ public class Sifter
         for (String Elem : AssistMap.keySet())
             for (SimpleInfo InfoElem : ElemList)
                 if (InfoElem.hasMBID()
-                        && InfoElem.getMBID().equals(Elem)
+                        && InfoElem.getMBID().equalsIgnoreCase(Elem)
                         && SecAssistMap.get(Elem) == null)
                 {
                     SimpleInfo path = new SimpleInfo(InfoElem.getArtist(),
@@ -206,7 +244,7 @@ public class Sifter
 
         IntermediateList = Sifter.MergingByUsages(IntermediateList);
 
-        Sifter.SimpleInfoSortingBackward(IntermediateList);
+        IntermediateList = Sifter.SimpleInfoSortingBackward(IntermediateList);
 
         List<SimpleInfo> FinalList = new ArrayList<>();
 

@@ -2,6 +2,7 @@ package Fox.core.main;
 
 import Fox.core.lib.general.DOM.AlbumArtCompilation;
 import Fox.core.lib.general.DOM.Art;
+import Fox.core.lib.general.DOM.Extract;
 import Fox.core.lib.general.utils.NoMatchesException;
 import Fox.core.lib.general.utils.target;
 import Fox.core.lib.services.CoverArtArchive.CoverArtArchiveClient;
@@ -25,11 +26,8 @@ import java.util.List;
 
 public class CoverArtSearch
 {
-    public CoverArtSearch()
-    {
-    }
 
-    public AlbumArtCompilation run(
+    public static AlbumArtCompilation run(
             @NotNull String AlbumName,
             String ArtistName,
             @NotNull target source,
@@ -74,33 +72,27 @@ public class CoverArtSearch
                 if (album.hasImages())
                 {
                     List<image> elem = album.getImages();
-                    int size = elem.size();
 
-                    String text = null;
-                    String sizes = null;
+                    Extract extract;
 
-                    for (int i = size - 1; i >= 0; i--)
+                    try
                     {
-                        image image = elem.get(i);
-                        if (image.hasText())
-                        {
-                            text = image.getText();
-                            sizes = image.getSize();
-                            break;
-                        }
+                        extract = image.extract(elem);
+
+                        if (extract != null && extract.hasText())
+                            ArtList.add(new Art(extract.getText(),
+                                                extract.getSize(),
+                                                albumArtist,
+                                                albumName,
+                                                target.LastFM
+                            ));
+                    }
+                    catch (NoMatchesException e)
+                    {
+                        e.printStackTrace();
+                        throw new NoMatchesException("No matches.", e);
                     }
 
-                    if (text == null)
-                    {
-                        throw new NoMatchesException("No matches.");
-                    }
-
-                    ArtList.add(new Art(text,
-                                        sizes,
-                                        albumArtist,
-                                        albumName,
-                                        target.LastFM
-                    ));
                 }
 
                 if (album.hasMbid())
@@ -162,29 +154,26 @@ public class CoverArtSearch
                             if (elem.hasImages())
                             {
                                 List<Fox.core.lib.services.LastFM.CommonSources.image> imgList = elem.getImages();
-                                int size = imgList.size();
 
-                                String text = null;
-                                String sizes = null;
+                                Extract extract;
 
-                                for (int i = size - 1; i >= 0; i--)
+                                try
                                 {
-                                    image image = imgList.get(i);
-                                    if (image.hasText())
-                                    {
-                                        text = image.getText();
-                                        sizes = image.getSize();
-                                        break;
-                                    }
-                                }
+                                    extract = image.extract(imgList);
 
-                                if (text != null && sizes != null)
-                                    ArtList.add(new Art(text,
-                                                        sizes,
-                                                        elemArtist,
-                                                        elemName,
-                                                        target.LastFM
-                                    ));
+                                    if (extract != null && extract.hasText())
+                                        ArtList.add(new Art(extract.getText(),
+                                                            extract.getSize(),
+                                                            elemArtist,
+                                                            elemName,
+                                                            target.LastFM
+                                        ));
+                                }
+                                catch (NoMatchesException e)
+                                {
+                                    e.printStackTrace();
+                                    throw new NoMatchesException("No matches.", e);
+                                }
                             }
                         }
 

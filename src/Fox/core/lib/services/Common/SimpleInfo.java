@@ -2,7 +2,7 @@ package Fox.core.lib.services.Common;
 
 import org.jetbrains.annotations.NotNull;
 
-public class SimpleInfo
+public class SimpleInfo implements Comparable<SimpleInfo>
 {
     private String Artist;
     private String MBID;
@@ -92,5 +92,15 @@ public class SimpleInfo
     public boolean hasUsages()
     {
         return (usages!=null && usages == 0);
+    }
+
+    @Override
+    public int compareTo(@NotNull SimpleInfo o)
+    {
+        if (this.usages > o.usages)
+            return 1;
+        if (this.usages < o.usages)
+            return -1;
+        return 0;
     }
 }

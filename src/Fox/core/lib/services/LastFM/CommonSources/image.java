@@ -1,5 +1,8 @@
 package Fox.core.lib.services.LastFM.CommonSources;
 
+import Fox.core.lib.general.DOM.Extract;
+import Fox.core.lib.general.utils.NoMatchesException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,6 +47,36 @@ public class image
         }
 
         return temp;
+    }
+
+    public static Extract extract(List<image> imageList)
+            throws NoMatchesException
+    {
+        if (imageList != null && !imageList.isEmpty())
+        {
+            String text = null;
+            String sizes = null;
+
+            for (int i = imageList.size() - 1; i >= 0; i--)
+            {
+                image image = imageList.get(i);
+                if (image.hasText())
+                {
+                    text = image.getText();
+                    sizes = image.getSize();
+                    break;
+                }
+            }
+
+            if (text == null)
+            {
+                throw new NoMatchesException("No matches.");
+            }
+
+            Extract temp = new Extract(text, sizes);
+            return temp;
+        }
+        return null;
     }
 
     public String getText()

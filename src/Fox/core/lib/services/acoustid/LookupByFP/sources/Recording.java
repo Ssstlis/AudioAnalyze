@@ -1,10 +1,12 @@
 package Fox.core.lib.services.acoustid.LookupByFP.sources;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public class Recording
+public class Recording implements Comparable<Recording>
 {
     private Integer duration;
     private Integer sources;
@@ -150,5 +152,15 @@ public class Recording
     public boolean hasSources()
     {
         return sources != null && sources != 0;
+    }
+
+    @Override
+    public int compareTo(@NotNull Recording o)
+    {
+        if (this.sources > o.sources)
+            return 1;
+        if (this.sources < o.sources)
+            return -1;
+        return 0;
     }
 }

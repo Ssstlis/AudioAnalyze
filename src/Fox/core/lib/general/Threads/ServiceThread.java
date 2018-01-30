@@ -7,6 +7,7 @@ import Fox.core.lib.services.Common.ServiceProcessing;
 import Fox.core.lib.services.LastFM.LastFMClient;
 import Fox.core.lib.services.acoustid.AcoustIDClient;
 import org.jetbrains.annotations.NotNull;
+import org.musicbrainz.android.api.webservice.MusicBrainzWebClient;
 
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
@@ -21,12 +22,14 @@ public class ServiceThread
     private boolean Trust;
     private ConcurrentHashMap<String, List<ID3V2>> target;
     private LastFMClient lastFMClient;
+    private MusicBrainzWebClient musicBrainzWebClient;
     private int count;
 
 
     public ServiceThread(
             @NotNull AcoustIDClient AIDClient,
             @NotNull LastFMClient LastFMClient,
+            @NotNull MusicBrainzWebClient musicBrainzWebClient,
             @NotNull FingerPrint FPrint,
             @NotNull ConcurrentHashMap<String, List<ID3V2>> Target,
             @NotNull ProgressState ServiceState,
@@ -42,6 +45,7 @@ public class ServiceThread
         this.target = Target;
         this.lastFMClient = LastFMClient;
         this.count = count;
+        this.musicBrainzWebClient = musicBrainzWebClient;
     }
 
     @Override
@@ -53,7 +57,8 @@ public class ServiceThread
             {
                 FPrint.wait(4000);
                 ServiceProcessing ProcessingClient = new ServiceProcessing(AIDClient,
-                                                                           lastFMClient);
+                                                                           lastFMClient,
+                                                                           musicBrainzWebClient);
 
                 ProcessingClient.Processing(FPrint,
                                             Trust,

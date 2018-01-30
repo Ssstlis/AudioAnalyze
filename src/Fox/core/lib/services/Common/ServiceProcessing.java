@@ -9,6 +9,7 @@ import Fox.core.lib.services.acoustid.AcoustIDClient;
 import Fox.core.lib.services.acoustid.LookupByFP.sources.ByFingerPrint;
 import Fox.core.lib.services.acoustid.LookupByFP.sources.Error;
 import org.jetbrains.annotations.NotNull;
+import org.musicbrainz.android.api.webservice.MusicBrainzWebClient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,11 +19,16 @@ public class ServiceProcessing
 {
     private AcoustIDClient AIDClient;
     private LastFMClient lastFMClient;
+    private MusicBrainzWebClient musicBrainzWebClient;
 
     public ServiceProcessing(@NotNull AcoustIDClient AIDClient,
-                             @NotNull LastFMClient lastFMClient)
+                             @NotNull LastFMClient lastFMClient,
+                             @NotNull MusicBrainzWebClient musicBrainzWebClient)
     {
         this.AIDClient = AIDClient;
+        this.lastFMClient = lastFMClient;
+        this.musicBrainzWebClient = musicBrainzWebClient;
+
     }
 
     public void Processing(
@@ -51,24 +57,28 @@ public class ServiceProcessing
                                                     count
                                                    );
 
-        for (SimpleInfo entry : AfterSift)
+        BuildTagProcessing tagProcessing = new BuildTagProcessing(lastFMClient,
+                                                                  musicBrainzWebClient);
+
+        for (SimpleInfo elem : AfterSift)
         {
-            //TODO LASTFM REQUEST
-            //TODO COVERART REQUEST
-            //TODO BUILD TAGLIST
-            //THIS IS TEMPLATE
+
             List<ID3V2> temp = new ArrayList<>();
-            for (int i = 0; i < 2; i++)
+            try
             {
-                temp.add(new ID3V2(null,
-                                   null,
-                                   null
-                ));
-            }
+            ID3V2 buildTag = tagProcessing.BuildTag(elem);
+            if (buildTag != null)
+            temp.add(buildTag);
 
             Target.put(location,
                        temp
                       );
+            }
+            catch (NoMatchesException e)
+            {
+                e.printStackTrace();
+                System.out.println("An unexcepction matches lookup error occur.");
+            }
         }
     }
 
