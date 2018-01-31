@@ -50,13 +50,14 @@ public class ExecutableHelper
     public static List<File> GetFileList(
             @NotNull String pathname,
             @NotNull FileFilter filter)
+            throws IllegalArgumentException
     {
         File check = new File(pathname);
         List<File> files = new ArrayList<>();
 
         if (!check.exists())
         {
-            return files;
+            throw new IllegalArgumentException("Directory isn`t found");
         }
 
         File[] FilterResult = check.listFiles(filter);

@@ -7,17 +7,16 @@ import Fox.core.lib.services.CoverArtArchive.LookupAlbumArt.sources.AlbumArt;
 public class CoverArtArchiveClient
 {
     private final static String httpkey = "http://coverartarchive.org/release/";
-    private HttpGetClient RequestClient;
 
     public CoverArtArchiveClient()
     {
-        RequestClient = new HttpGetClient();
     }
 
-    public AlbumArt LookupAlbumArt(String mbid)
+    public static AlbumArt LookupAlbumArt(String mbid)
     {
         if (mbid != null)
         {
+            HttpGetClient RequestClient = new HttpGetClient();
             RequestClient.build(
                     httpkey + mbid + '/'
                                );

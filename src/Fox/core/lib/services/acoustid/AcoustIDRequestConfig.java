@@ -90,7 +90,7 @@ public class AcoustIDRequestConfig
                       false
                      );
         ConfigMap.put("releases",
-                      true
+                      false
                      );
         ConfigMap.put("tracks",
                       false
@@ -181,7 +181,7 @@ public class AcoustIDRequestConfig
 
     public boolean isRecordings()
     {
-        return ConfigMap.containsKey("recordings");
+        return ConfigMap.containsKey("recordings") && ConfigMap.get("recordings");
     }
 
     public void setRecordings()
@@ -200,7 +200,7 @@ public class AcoustIDRequestConfig
 
     public boolean isRecordingids()
     {
-        return ConfigMap.containsKey("recordingids");
+        return ConfigMap.containsKey("recordingids") && ConfigMap.get("recordingids");
     }
 
     public void setRecordingids()
@@ -219,7 +219,7 @@ public class AcoustIDRequestConfig
 
     public boolean isReleases()
     {
-        return ConfigMap.containsKey("releases");
+        return ConfigMap.containsKey("releases") && ConfigMap.get("releases");
     }
 
     public void setReleases()
@@ -238,7 +238,7 @@ public class AcoustIDRequestConfig
 
     public boolean isReleaseids()
     {
-        return ConfigMap.containsKey("releaseids");
+        return ConfigMap.containsKey("releaseids") && ConfigMap.get("releaseids");
     }
 
     public void setReleaseids()
@@ -257,7 +257,7 @@ public class AcoustIDRequestConfig
 
     public boolean isReleasegroups()
     {
-        return ConfigMap.containsKey("releasegroups");
+        return ConfigMap.containsKey("releasegroups") && ConfigMap.get("releasegroups");
     }
 
     public void setReleasegroups()
@@ -276,7 +276,7 @@ public class AcoustIDRequestConfig
 
     public boolean isReleasegroupids()
     {
-        return ConfigMap.containsKey("releasegroupids");
+        return ConfigMap.containsKey("releasegroupids") && ConfigMap.get("releasegroupids");
     }
 
     public void setReleasegroupids()
@@ -295,7 +295,7 @@ public class AcoustIDRequestConfig
 
     public boolean isTracks()
     {
-        return ConfigMap.containsKey("tracks");
+        return ConfigMap.containsKey("tracks") && ConfigMap.get("tracks");
     }
 
     public void setTracks()
@@ -314,7 +314,7 @@ public class AcoustIDRequestConfig
 
     public boolean isUsermeta()
     {
-        return ConfigMap.containsKey("usermeta");
+        return ConfigMap.containsKey("usermeta") && ConfigMap.get("usermeta");
     }
 
     public void setUsermeta()
@@ -333,7 +333,7 @@ public class AcoustIDRequestConfig
 
     public boolean isSources()
     {
-        return ConfigMap.containsKey("sources");
+        return ConfigMap.containsKey("sources") && ConfigMap.get("sources");
     }
 
     public void setSources()
@@ -352,7 +352,7 @@ public class AcoustIDRequestConfig
 
     public boolean isCompress()
     {
-        return ConfigMap.containsKey("compress");
+        return ConfigMap.containsKey("compress") && ConfigMap.get("compress");
     }
 
     public void setCompress()

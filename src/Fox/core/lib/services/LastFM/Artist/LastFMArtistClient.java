@@ -3,7 +3,7 @@ package Fox.core.lib.services.LastFM.Artist;
 import Fox.core.lib.services.Elapsed;
 import Fox.core.lib.services.LastFM.Artist.getInfo.GetInfoBuilder;
 import Fox.core.lib.services.LastFM.Artist.getInfo.sources.ArtistInfo;
-import Fox.core.lib.services.LastFM.LastFMClient;
+import Fox.core.lib.services.LastFM.LastFMApi;
 import org.jetbrains.annotations.NotNull;
 
 public class LastFMArtistClient
@@ -56,16 +56,16 @@ public class LastFMArtistClient
             artist = "&artist=" + artist;
         }
 
-        LastFMClient.RequestHTTPClient
+        LastFMApi.RequestHTTPClient
                 .build(
-                        LastFMClient.api_root +
+                        LastFMApi.api_root +
                                 method_name +
-                                LastFMClient.api_key +
-                                LastFMClient.format +
+                                LastFMApi.api_key +
+                                LastFMApi.format +
                                 artist +
                                 optional
                       );
-        String response = LastFMClient.RequestHTTPClient.run(Elapsed.LastFMElapse());
+        String response = LastFMApi.RequestHTTPClient.run(Elapsed.LastFMElapse());
         return new GetInfoBuilder().buildArtistInfo(response);
     }
 }

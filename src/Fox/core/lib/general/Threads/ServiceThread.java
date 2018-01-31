@@ -4,14 +4,13 @@ import Fox.core.lib.general.DOM.FingerPrint;
 import Fox.core.lib.general.DOM.ID3V2;
 import Fox.core.lib.general.templates.ProgressState;
 import Fox.core.lib.services.Common.ServiceProcessing;
-import Fox.core.lib.services.LastFM.LastFMClient;
+import Fox.core.lib.services.LastFM.LastFMApi;
 import Fox.core.lib.services.acoustid.AcoustIDClient;
 import org.jetbrains.annotations.NotNull;
 import org.musicbrainz.android.api.webservice.MusicBrainzWebClient;
 
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.TimeUnit;
 
 public class ServiceThread
         implements Runnable
@@ -21,14 +20,14 @@ public class ServiceThread
     private AcoustIDClient AIDClient;
     private boolean Trust;
     private ConcurrentHashMap<String, List<ID3V2>> target;
-    private LastFMClient lastFMClient;
+    private LastFMApi lastFMApi;
     private MusicBrainzWebClient musicBrainzWebClient;
     private int count;
 
 
     public ServiceThread(
             @NotNull AcoustIDClient AIDClient,
-            @NotNull LastFMClient LastFMClient,
+            @NotNull LastFMApi LastFMApi,
             @NotNull MusicBrainzWebClient musicBrainzWebClient,
             @NotNull FingerPrint FPrint,
             @NotNull ConcurrentHashMap<String, List<ID3V2>> Target,
@@ -43,7 +42,7 @@ public class ServiceThread
         this.Local = ServiceState;
         this.Trust = Trust;
         this.target = Target;
-        this.lastFMClient = LastFMClient;
+        this.lastFMApi = LastFMApi;
         this.count = count;
         this.musicBrainzWebClient = musicBrainzWebClient;
     }
@@ -56,23 +55,26 @@ public class ServiceThread
             synchronized (FPrint)
             {
                 FPrint.wait(4000);
-                ServiceProcessing ProcessingClient = new ServiceProcessing(AIDClient,
-                                                                           lastFMClient,
-                                                                           musicBrainzWebClient);
 
-                ProcessingClient.Processing(FPrint,
-                                            Trust,
-                                            target,
-                                            count
-                                           );
+                ServiceProcessing.Processing(AIDClient,
+                                             lastFMApi,
+                                             musicBrainzWebClient,
+                                             FPrint,
+                                             Trust,
+                                             target,
+                                             count
+                                            );
 
-                Local.update();
-                Common.update();
             }
         }
         catch (Exception e)
         {
             e.printStackTrace();
+        }
+        finally
+        {
+            Local.update();
+            Common.update();
         }
     }
 }

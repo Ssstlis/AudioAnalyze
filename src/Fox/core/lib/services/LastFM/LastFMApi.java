@@ -6,7 +6,7 @@ import Fox.core.lib.services.LastFM.Album.LastFMAlbumClient;
 import Fox.core.lib.services.LastFM.Artist.LastFMArtistClient;
 import Fox.core.lib.services.LastFM.Track.LastFMTrackClient;
 
-public class LastFMClient
+public class LastFMApi
 {
     public static final String api_root = "http://ws.audioscrobbler.com/2.0/";
     public static final String api_key = "&api_key=9a935ee818781ed7450c4decdc31611c";
@@ -18,7 +18,7 @@ public class LastFMClient
     public LastFMArtistClient Artist = new LastFMArtistClient();
     public LastFMAlbumClient Album = new LastFMAlbumClient();
 
-    public LastFMClient()
+    public LastFMApi()
     {
     }
 }

@@ -3,13 +3,10 @@ package Fox.test;
 import Fox.core.lib.general.DOM.AlbumArtCompilation;
 import Fox.core.lib.general.DOM.FingerPrint;
 import Fox.core.lib.general.utils.target;
-import Fox.core.lib.services.LastFM.LastFMClient;
+import Fox.core.lib.services.LastFM.LastFMApi;
 import Fox.core.lib.services.acoustid.AcoustIDClient;
 import Fox.core.lib.services.acoustid.AcoustIDRequestConfig;
 import Fox.core.main.CoverArtSearch;
-
-import java.io.Console;
-import java.util.Map;
 
 public class testingJson
 {
@@ -17,18 +14,18 @@ public class testingJson
             throws
             Exception
     {
-        LastFMClient lastFMClient = new LastFMClient();
-        /*TrackInfo a = lastFMClient.Track().getInfo(null,
+        LastFMApi lastFMApi = new LastFMApi();
+        /*TrackInfo a = lastFMApi.Track().getInfo(null,
                                                          "Believe",
                                                          "Cher",
                                                          null,
                                                          null);
-        ArtistInfo b = lastFMClient.Artist().getInfo(null,
+        ArtistInfo b = lastFMApi.Artist().getInfo(null,
                                                      "Linkin Park",
                                                      null,
                                                      null,
                                                      null);*/
-       /* AlbumInfo c = lastFMClient.Album()
+       /* AlbumInfo c = lastFMApi.Album()
                                   .getInfo(null,
                                            "Cher",
                                            "Believe",
@@ -40,7 +37,7 @@ public class testingJson
         /*LastFMTrackInfoCompilation lastFMTrackInfoCompilation = new LastFMTrackInfoCompilation(a,
                                                                                                b,
                                                                                                c);*/
-        /*Search believe = lastFMClient.Album()
+        /*Search believe = lastFMApi.Album()
                                      .search(null,
                                              null,
                                              "Believe"

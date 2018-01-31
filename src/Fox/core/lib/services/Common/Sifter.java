@@ -285,14 +285,16 @@ public class Sifter
 
             store.add(info);
         }
-
-        List<Recording> compressResult = Sifter.CompressResult(target);
-
-        if (trust)
-            store.add(Sifter.TrustSift(compressResult));
         else
-            store.addAll(Sifter.FrequentSift(compressResult, count));
+        {
+            List<Recording> compressResult = Sifter.CompressResult(target);
 
+            if (trust)
+                store.add(Sifter.TrustSift(compressResult));
+            else
+                store.addAll(Sifter.FrequentSift(compressResult,
+                                                 count));
+        }
         return store;
     }
 }

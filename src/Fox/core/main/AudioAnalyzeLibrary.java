@@ -10,7 +10,7 @@ import Fox.core.lib.general.utils.ExecutableHelper;
 import Fox.core.lib.general.utils.FileChecker;
 import Fox.core.lib.general.utils.NoBuildException;
 import Fox.core.lib.general.utils.performance;
-import Fox.core.lib.services.LastFM.LastFMClient;
+import Fox.core.lib.services.LastFM.LastFMApi;
 import Fox.core.lib.services.acoustid.AcoustIDClient;
 import Fox.core.lib.services.acoustid.AcoustIDRequestConfig;
 import org.jetbrains.annotations.NotNull;
@@ -25,7 +25,7 @@ import java.util.concurrent.*;
 public class AudioAnalyzeLibrary
 {
     private static AcoustIDClient AIDClient;
-    private static LastFMClient lastFMClient;
+    private static LastFMApi lastFMApi;
     private static MusicBrainzWebClient musicBrainzWebClient;
     private List<String>
             Locations,
@@ -38,7 +38,7 @@ public class AudioAnalyzeLibrary
         AcoustIDRequestConfig AIDConfig = new AcoustIDRequestConfig();
         AIDConfig.setDefault();
         AIDClient = new AcoustIDClient(AIDConfig);
-        lastFMClient = new LastFMClient();
+        lastFMApi = new LastFMApi();
         musicBrainzWebClient = new MusicBrainzWebClient("AudioAnalyzeApp");
     }
 
@@ -131,23 +131,14 @@ public class AudioAnalyzeLibrary
         System.out.println("Стартовало " + CPU + " потоков");
 
         ExecutorService es = Executors.newFixedThreadPool(CPU);
-        List<FingerPrint> test = new ArrayList<>();
+        //List<FingerPrint> test = new ArrayList<>();
         for (String file : Locations)
         {
             FingerPrint transfer = new FingerPrint();
-            test.add(transfer);
-
-            es.execute(new FPCalcThread(
-                    YourFPCalcThread,
-                    file,
-                    transfer,
-                    FPProgressBar,
-                    CommonProgressBar
-            ));
-
+            //test.add(transfer);
             es.execute(new ServiceThread(
                     AIDClient,
-                    lastFMClient,
+                    lastFMApi,
                     musicBrainzWebClient,
                     transfer,
                     target,
@@ -155,6 +146,14 @@ public class AudioAnalyzeLibrary
                     CommonProgressBar,
                     TrustMode,
                     count
+            ));
+
+            es.execute(new FPCalcThread(
+                    YourFPCalcThread,
+                    file,
+                    transfer,
+                    FPProgressBar,
+                    CommonProgressBar
             ));
         }
 
@@ -176,5 +175,4 @@ public class AudioAnalyzeLibrary
     {
         return Locations;
     }
-
 }

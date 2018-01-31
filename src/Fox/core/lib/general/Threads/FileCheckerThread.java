@@ -55,21 +55,25 @@ public class FileCheckerThread
     @Override
     public void run()
     {
-        if (acceptAsString(location))
+        try
         {
-            Target.add(location);
+            if (acceptAsString(location))
+            {
+                Target.add(location);
+            }
+            else
+            {
+                Rejected.add(location);
+            }
         }
-        else
+        catch (Exception e)
         {
-            Rejected.add(location);
+            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
-
-        synchronized (Line)
+        finally
         {
             Line.update();
-        }
-        synchronized (Common)
-        {
             Common.update();
         }
     }

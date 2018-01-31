@@ -20,7 +20,7 @@ public class testing
         try
         {
 
-            String mp3location = "D:\\music\\Dingir";
+            String mp3location = "C:\\Users\\Ssstlis\\Desktop\\music\\Dingir";
             List<File> FileList = ExecutableHelper.GetFileList(mp3location,
                                                                new Mp3Filter()
                                                               );
@@ -58,16 +58,14 @@ public class testing
 
 
                 Client.buildStrings(ExecutableHelper.FilesToStrings(FileList));
-                Map<String, List<ID3V2>> Result = Client.run(
-                        new WindowsFPcalc(),
-                        Line1,
-                        Line2,
-                        Line3,
-                        Line4,
-                        performance.MAX,
-                        true,
-                        10
-                                                            );
+                Map<String, List<ID3V2>> Result = Client.run(new WindowsFPcalc(),
+                                                             Line1,
+                                                             Line2,
+                                                             Line3,
+                                                             Line4,
+                                                             performance.MAX,
+                                                             true,
+                                                             10);
 
                 System.out.println(System.currentTimeMillis() - temp);
             }

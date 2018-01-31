@@ -5,7 +5,7 @@ import Fox.core.lib.services.LastFM.Album.getInfo.GetInfoBuilder;
 import Fox.core.lib.services.LastFM.Album.getInfo.sources.AlbumInfo;
 import Fox.core.lib.services.LastFM.Album.search.SearchBuilder;
 import Fox.core.lib.services.LastFM.Album.search.sources.Search;
-import Fox.core.lib.services.LastFM.LastFMClient;
+import Fox.core.lib.services.LastFM.LastFMApi;
 import org.jetbrains.annotations.NotNull;
 
 public class LastFMAlbumClient
@@ -64,17 +64,17 @@ public class LastFMAlbumClient
             artist = "&artist=" + artist;
         }
 
-        LastFMClient.RequestHTTPClient
+        LastFMApi.RequestHTTPClient
                 .build(
-                        LastFMClient.api_root +
+                        LastFMApi.api_root +
                                 method_name +
-                                LastFMClient.api_key +
-                                LastFMClient.format +
+                                LastFMApi.api_key +
+                                LastFMApi.format +
                                 album +
                                 artist +
                                 optional
                       );
-        String response = LastFMClient.RequestHTTPClient.run(Elapsed.LastFMElapse());
+        String response = LastFMApi.RequestHTTPClient.run(Elapsed.LastFMElapse());
         return new GetInfoBuilder().buildAlbumInfo(response);
     }
 
@@ -102,17 +102,17 @@ public class LastFMAlbumClient
             album = "&album=" + album;
         }
 
-        LastFMClient.RequestHTTPClient
+        LastFMApi.RequestHTTPClient
                 .build(
-                        LastFMClient.api_root +
+                        LastFMApi.api_root +
                                 method_name +
-                                LastFMClient.api_key +
-                                LastFMClient.format +
+                                LastFMApi.api_key +
+                                LastFMApi.format +
                                 album +
                                 optional
                       );
 
-        String response = LastFMClient.RequestHTTPClient.run(Elapsed.LastFMElapse());
+        String response = LastFMApi.RequestHTTPClient.run(Elapsed.LastFMElapse());
         return new SearchBuilder().buildSearch(response);
     }
 }

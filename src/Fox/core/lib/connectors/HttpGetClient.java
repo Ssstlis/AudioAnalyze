@@ -4,6 +4,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 public class HttpGetClient
@@ -41,8 +42,10 @@ public class HttpGetClient
                                   .string();
             return Resp;
         }
-        catch (Exception e)
+        catch (IOException | InterruptedException | NullPointerException e)
         {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
             return null;
         }
     }

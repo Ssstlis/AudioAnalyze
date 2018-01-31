@@ -38,14 +38,16 @@ public class FPCalcThread
                                         message
                                        );
                 message.notify();
-
-                Line.update();
-                Common.update();
             }
         }
         catch (Exception e)
         {
             e.printStackTrace();
+        }
+        finally
+        {
+            Line.update();
+            Common.update();
         }
 
     }

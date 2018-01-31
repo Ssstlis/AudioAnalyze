@@ -4,7 +4,7 @@ import Fox.core.lib.general.DOM.FingerPrint;
 import Fox.core.lib.general.DOM.ID3V2;
 import Fox.core.lib.general.utils.AcoustIDException;
 import Fox.core.lib.general.utils.NoMatchesException;
-import Fox.core.lib.services.LastFM.LastFMClient;
+import Fox.core.lib.services.LastFM.LastFMApi;
 import Fox.core.lib.services.acoustid.AcoustIDClient;
 import Fox.core.lib.services.acoustid.LookupByFP.sources.ByFingerPrint;
 import Fox.core.lib.services.acoustid.LookupByFP.sources.Error;
@@ -17,21 +17,16 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class ServiceProcessing
 {
-    private AcoustIDClient AIDClient;
-    private LastFMClient lastFMClient;
-    private MusicBrainzWebClient musicBrainzWebClient;
 
-    public ServiceProcessing(@NotNull AcoustIDClient AIDClient,
-                             @NotNull LastFMClient lastFMClient,
-                             @NotNull MusicBrainzWebClient musicBrainzWebClient)
+    public ServiceProcessing()
     {
-        this.AIDClient = AIDClient;
-        this.lastFMClient = lastFMClient;
-        this.musicBrainzWebClient = musicBrainzWebClient;
 
     }
 
-    public void Processing(
+    public static void Processing(
+            @NotNull AcoustIDClient AIDClient,
+            @NotNull LastFMApi lastFMApi,
+            @NotNull MusicBrainzWebClient musicBrainzWebClient,
             @NotNull FingerPrint AudioPrint,
             boolean Trust,
             @NotNull ConcurrentHashMap<String, List<ID3V2>> Target,
@@ -57,27 +52,25 @@ public class ServiceProcessing
                                                     count
                                                    );
 
-        BuildTagProcessing tagProcessing = new BuildTagProcessing(lastFMClient,
-                                                                  musicBrainzWebClient);
-
         for (SimpleInfo elem : AfterSift)
         {
 
             List<ID3V2> temp = new ArrayList<>();
             try
             {
-            ID3V2 buildTag = tagProcessing.BuildTag(elem);
+            ID3V2 buildTag = BuildTagProcessing.BuildTag(lastFMApi,
+                                                         musicBrainzWebClient,
+                                                         elem);
             if (buildTag != null)
             temp.add(buildTag);
 
             Target.put(location,
-                       temp
-                      );
+                       temp);
             }
             catch (NoMatchesException e)
             {
                 e.printStackTrace();
-                System.out.println("An unexcepction matches lookup error occur.");
+                System.out.println("An unxception matches lookup error occur.");
             }
         }
     }

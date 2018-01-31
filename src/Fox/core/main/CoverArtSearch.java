@@ -13,7 +13,7 @@ import Fox.core.lib.services.LastFM.Album.search.sources.Search;
 import Fox.core.lib.services.LastFM.Album.search.sources.albummatches;
 import Fox.core.lib.services.LastFM.Album.search.sources.results;
 import Fox.core.lib.services.LastFM.CommonSources.image;
-import Fox.core.lib.services.LastFM.LastFMClient;
+import Fox.core.lib.services.LastFM.LastFMApi;
 import org.jetbrains.annotations.NotNull;
 import org.musicbrainz.android.api.data.ReleaseArtist;
 import org.musicbrainz.android.api.data.ReleaseInfo;
@@ -26,6 +26,32 @@ import java.util.List;
 
 public class CoverArtSearch
 {
+
+    private static void AddMostResolutionImageLink(
+            String Artist,
+            String Album,
+            List<image> imageList,
+            @NotNull List<Art> targetList)
+    {
+        Extract extract;
+
+        try
+        {
+            extract = image.extract(imageList);
+
+            if (extract != null && extract.hasText())
+                targetList.add(new Art(extract.getText(),
+                                    extract.getSize(),
+                                    Artist,
+                                    Album,
+                                    target.LastFM
+                ));
+        }
+        catch (NoMatchesException e)
+        {
+            e.printStackTrace();
+        }
+    }
 
     public static AlbumArtCompilation run(
             @NotNull String AlbumName,
@@ -48,7 +74,7 @@ public class CoverArtSearch
 
         if (ArtistName != null && !ArtistName.isEmpty())
         {
-            AlbumInfo LFMInfo = new LastFMClient().Album
+            AlbumInfo LFMInfo = new LastFMApi().Album
                     .getInfo(null,
                              ArtistName,
                              AlbumName,
@@ -70,34 +96,14 @@ public class CoverArtSearch
                 String albumName = album.getName();
 
                 if (album.hasImages())
-                {
-                    List<image> elem = album.getImages();
-
-                    Extract extract;
-
-                    try
-                    {
-                        extract = image.extract(elem);
-
-                        if (extract != null && extract.hasText())
-                            ArtList.add(new Art(extract.getText(),
-                                                extract.getSize(),
-                                                albumArtist,
-                                                albumName,
-                                                target.LastFM
-                            ));
-                    }
-                    catch (NoMatchesException e)
-                    {
-                        e.printStackTrace();
-                        throw new NoMatchesException("No matches.", e);
-                    }
-
-                }
+                    AddMostResolutionImageLink(albumArtist,
+                                               albumName,
+                                               album.getImages(),
+                                               ArtList);
 
                 if (album.hasMbid())
                 {
-                    AlbumArt lookupAlbumArt = new CoverArtArchiveClient().LookupAlbumArt(album.getMbid());
+                    AlbumArt lookupAlbumArt = CoverArtArchiveClient.LookupAlbumArt(album.getMbid());
 
                     if (lookupAlbumArt != null && lookupAlbumArt.hasImages())
                     {
@@ -122,7 +128,7 @@ public class CoverArtSearch
 
         if (source == target.LastFM)
         {
-            Search searchLF = new LastFMClient().Album
+            Search searchLF = new LastFMApi().Album
                     .search(count,
                             null,
                             AlbumName
@@ -152,29 +158,10 @@ public class CoverArtSearch
                             String elemName = elem.getName();
 
                             if (elem.hasImages())
-                            {
-                                List<Fox.core.lib.services.LastFM.CommonSources.image> imgList = elem.getImages();
-
-                                Extract extract;
-
-                                try
-                                {
-                                    extract = image.extract(imgList);
-
-                                    if (extract != null && extract.hasText())
-                                        ArtList.add(new Art(extract.getText(),
-                                                            extract.getSize(),
-                                                            elemArtist,
-                                                            elemName,
-                                                            target.LastFM
-                                        ));
-                                }
-                                catch (NoMatchesException e)
-                                {
-                                    e.printStackTrace();
-                                    throw new NoMatchesException("No matches.", e);
-                                }
-                            }
+                                AddMostResolutionImageLink(elemArtist,
+                                                           elemName,
+                                                           elem.getImages(),
+                                                           ArtList);
                         }
 
                         if (ArtList.isEmpty())
@@ -197,13 +184,11 @@ public class CoverArtSearch
                 {
                     List<Art> ArtList = new ArrayList<>();
 
-                    CoverArtArchiveClient coverArtArchiveClient = new CoverArtArchiveClient();
-
                     for (int i = 0, size = releaseInfos.size();
                          ArtList.size() != count && i < size;
                          i++)
                     {
-                        AlbumArt albumArt = coverArtArchiveClient.LookupAlbumArt(releaseInfos.get(i)
+                        AlbumArt albumArt = CoverArtArchiveClient.LookupAlbumArt(releaseInfos.get(i)
                                                                                              .getReleaseMbid());
 
                         String releaseInfoTitle = null;
@@ -249,7 +234,7 @@ public class CoverArtSearch
             catch (IOException e)
             {
                 e.printStackTrace();
-                throw new NoMatchesException("No matches.");
+                throw new NoMatchesException("No matches.", e);
             }
         }
 
