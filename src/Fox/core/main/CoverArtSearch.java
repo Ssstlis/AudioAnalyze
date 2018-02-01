@@ -238,7 +238,6 @@ public class CoverArtSearch
             }
         }
 
-
         throw new NoMatchesException("No matches.");
     }
 }

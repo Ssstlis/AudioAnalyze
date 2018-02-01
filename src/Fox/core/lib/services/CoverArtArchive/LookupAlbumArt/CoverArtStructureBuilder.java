@@ -22,9 +22,8 @@ public class CoverArtStructureBuilder
 
     }
 
-    public AlbumArt buildAlbumArt(
-            @NotNull
-                    CoverArtArchiveResponse response)
+    public static AlbumArt buildAlbumArt(
+            @NotNull CoverArtArchiveResponse response)
     {
         JsonParser parser = new JsonParser();
 
@@ -50,15 +49,13 @@ public class CoverArtStructureBuilder
                                                           ));
             temp.setImages(buildImageList(AlbumArtObj));
         }
-        catch (Exception e)
+        catch (Exception ignored)
         {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
         }
         return temp;
     }
 
-    private List<image> buildImageList(JsonObject Obj)
+    private static List<image> buildImageList(JsonObject Obj)
     {
         List<image> temp = null;
 
@@ -83,14 +80,13 @@ public class CoverArtStructureBuilder
                 }
             }
         }
-        catch (Exception e)
+        catch (Exception ignored)
         {
-            System.out.println(e.getMessage());
         }
         return temp;
     }
 
-    private image buildImage(JsonElement element)
+    private static image buildImage(JsonElement element)
     {
         image temp = new image();
 
@@ -145,15 +141,15 @@ public class CoverArtStructureBuilder
             temp.setTypes(buildTypes(imageObj));
 
         }
-        catch (Exception e)
+        catch (Exception ignored)
         {
-            System.out.println(e.getMessage());
+
         }
 
         return temp;
     }
 
-    private List<String> buildTypes(JsonObject Obj)
+    private static List<String> buildTypes(JsonObject Obj)
     {
         List<String> temp = null;
         try
@@ -178,14 +174,14 @@ public class CoverArtStructureBuilder
                 }
             }
         }
-        catch (Exception e)
+        catch (Exception ignored)
         {
-            System.out.println(e.getMessage());
+
         }
         return temp;
     }
 
-    private thumbnail buildThumbnail(JsonElement element)
+    private static thumbnail buildThumbnail(JsonElement element)
     {
         thumbnail temp = new thumbnail();
 
@@ -206,9 +202,9 @@ public class CoverArtStructureBuilder
                                           String.class
                                                         ));
         }
-        catch (Exception e)
+        catch (Exception ignored)
         {
-            System.out.println(e.getMessage());
+
         }
 
         return temp;

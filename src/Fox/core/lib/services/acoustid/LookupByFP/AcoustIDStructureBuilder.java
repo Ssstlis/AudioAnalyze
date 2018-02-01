@@ -20,7 +20,7 @@ public class AcoustIDStructureBuilder
     {
     }
 
-    public ByFingerPrint buildLookup(@NotNull AcoustIDResponse response)
+    public static ByFingerPrint buildLookup(@NotNull AcoustIDResponse response)
     {
 
         if (!response.hasSource())
@@ -52,15 +52,15 @@ public class AcoustIDStructureBuilder
             temp.setErr(buildError(LookupJObj.get("error")));
             temp.setResult(buildResultList(LookupJObj));
         }
-        catch (Exception e)
+        catch (Exception ignored)
         {
-            System.out.println(e.getMessage());
+
         }
 
         return temp;
     }
 
-    private List<String> buildSecondarytypeList(JsonObject Obj)
+    private static List<String> buildSecondarytypeList(JsonObject Obj)
     {
         List<String> temp = null;
         try
@@ -85,14 +85,13 @@ public class AcoustIDStructureBuilder
                 }
             }
         }
-        catch (Exception e)
+        catch (Exception ignored)
         {
-            System.out.println(e.getMessage());
         }
         return temp;
     }
 
-    private Artist buildArtist(JsonElement element)
+    private static Artist buildArtist(JsonElement element)
     {
         Artist temp = null;
 
@@ -124,14 +123,13 @@ public class AcoustIDStructureBuilder
                                        String.class
                                                      ));
         }
-        catch (Exception e)
+        catch (Exception ignored)
         {
-            System.out.println(e.getMessage());
         }
         return temp;
     }
 
-    private Date buildDate(JsonElement element)
+    private static Date buildDate(JsonElement element)
     {
         Date temp = null;
 
@@ -162,14 +160,13 @@ public class AcoustIDStructureBuilder
                                          int.class
                                                        ));
         }
-        catch (Exception e)
+        catch (Exception ignored)
         {
-            System.out.println(e.getMessage());
         }
         return temp;
     }
 
-    private Error buildError(JsonElement element)
+    private static Error buildError(JsonElement element)
     {
         Error temp = null;
         try
@@ -192,14 +189,14 @@ public class AcoustIDStructureBuilder
                                          int.class
                                                        ));
         }
-        catch (Exception e)
+        catch (Exception ignored)
         {
-            System.out.println(e.getMessage());
+
         }
         return temp;
     }
 
-    private List<Result> buildResultList(JsonObject Obj)
+    private static List<Result> buildResultList(JsonObject Obj)
     {
         List<Result> ResultList = null;
         try
@@ -222,14 +219,13 @@ public class AcoustIDStructureBuilder
                 }
             }
         }
-        catch (Exception e)
+        catch (Exception ignored)
         {
-            System.out.println(e.getMessage());
         }
         return ResultList;
     }
 
-    private Result buildResult(JsonElement element)
+    private static Result buildResult(JsonElement element)
     {
         Result temp = null;
 
@@ -257,15 +253,14 @@ public class AcoustIDStructureBuilder
             temp.setReleasegroups(buildReleasegroupList(ResultJObj));
             temp.setReleases(buildReleaseList(ResultJObj));
         }
-        catch (Exception e)
+        catch (Exception ignored)
         {
-            System.out.println(e.getMessage());
         }
 
         return temp;
     }
 
-    private List<Recording> buildRecordingList(JsonObject Obj)
+    private static List<Recording> buildRecordingList(JsonObject Obj)
     {
         List<Recording> temp = null;
 
@@ -290,14 +285,13 @@ public class AcoustIDStructureBuilder
                 }
             }
         }
-        catch (Exception e)
+        catch (Exception ignored)
         {
-            System.out.println(e.getMessage());
         }
         return temp;
     }
 
-    private List<Release> buildReleaseList(JsonObject Obj)
+    private static List<Release> buildReleaseList(JsonObject Obj)
     {
         List<Release> temp = null;
         try
@@ -320,14 +314,13 @@ public class AcoustIDStructureBuilder
                 }
             }
         }
-        catch (Exception e)
+        catch (Exception ignored)
         {
-            System.out.println(e.getMessage());
         }
         return temp;
     }
 
-    private List<Releasegroup> buildReleasegroupList(JsonObject Obj)
+    private static List<Releasegroup> buildReleasegroupList(JsonObject Obj)
     {
         List<Releasegroup> temp = null;
         try
@@ -350,14 +343,13 @@ public class AcoustIDStructureBuilder
                 }
             }
         }
-        catch (Exception e)
+        catch (Exception ignored)
         {
-            System.out.println(e.getMessage());
         }
         return temp;
     }
 
-    private Recording buildRecording(JsonElement element)
+    private static Recording buildRecording(JsonElement element)
     {
         Recording temp = null;
 
@@ -399,14 +391,13 @@ public class AcoustIDStructureBuilder
             temp.setArtists(buildArtistList(RecordingJObj));
             temp.setReleasegroups(buildReleasegroupList(RecordingJObj));
         }
-        catch (Exception e)
+        catch (Exception ignored)
         {
-            System.out.println(e.getMessage());
         }
         return temp;
     }
 
-    private Releasegroup buildReleasegroup(JsonElement element)
+    private static Releasegroup buildReleasegroup(JsonElement element)
     {
         Releasegroup temp = null;
         try
@@ -440,14 +431,13 @@ public class AcoustIDStructureBuilder
             temp.setArtists(buildArtistList(ReleasegroupObject));
             temp.setReleases(buildReleaseList(ReleasegroupObject));
         }
-        catch (Exception e)
+        catch (Exception ignored)
         {
-            System.out.println(e.getMessage());
         }
         return temp;
     }
 
-    private List<Artist> buildArtistList(JsonObject Obj)
+    private static List<Artist> buildArtistList(JsonObject Obj)
     {
         List<Artist> temp = null;
         try
@@ -471,14 +461,13 @@ public class AcoustIDStructureBuilder
                 }
             }
         }
-        catch (Exception e)
+        catch (Exception ignored)
         {
-            System.out.println(e.getMessage());
         }
         return temp;
     }
 
-    private Medium buildMeduim(JsonElement element)
+    private static Medium buildMeduim(JsonElement element)
     {
         Medium temp = null;
 
@@ -511,14 +500,13 @@ public class AcoustIDStructureBuilder
 
             temp.setTracks(buildTrackList(MediumObj));
         }
-        catch (Exception e)
+        catch (Exception ignored)
         {
-            System.out.println(e.getMessage());
         }
         return temp;
     }
 
-    private List<Track> buildTrackList(JsonObject Obj)
+    private static List<Track> buildTrackList(JsonObject Obj)
     {
         List<Track> temp = null;
         try
@@ -541,14 +529,13 @@ public class AcoustIDStructureBuilder
                 }
             }
         }
-        catch (Exception e)
+        catch (Exception ignored)
         {
-            System.out.println(e.getMessage());
         }
         return temp;
     }
 
-    private Release buildRelease(JsonElement element)
+    private static Release buildRelease(JsonElement element)
     {
         Release temp = null;
 
@@ -603,15 +590,14 @@ public class AcoustIDStructureBuilder
             temp.setReleaseevents(buildReleaseeventList(ReleaseObj));
             temp.setMediums(buildMediumList(ReleaseObj));
         }
-        catch (Exception e)
+        catch (Exception ignored)
         {
-            System.out.println(e.getMessage());
         }
 
         return temp;
     }
 
-    private List<Releaseevent> buildReleaseeventList(JsonObject Obj)
+    private static List<Releaseevent> buildReleaseeventList(JsonObject Obj)
     {
         List<Releaseevent> temp = null;
 
@@ -635,15 +621,14 @@ public class AcoustIDStructureBuilder
                 }
             }
         }
-        catch (Exception e)
+        catch (Exception ignored)
         {
-            System.out.println(e.getMessage());
         }
 
         return temp;
     }
 
-    private List<Medium> buildMediumList(JsonObject Obj)
+    private static List<Medium> buildMediumList(JsonObject Obj)
     {
         List<Medium> temp = null;
 
@@ -667,14 +652,13 @@ public class AcoustIDStructureBuilder
                 }
             }
         }
-        catch (Exception e)
+        catch (Exception ignored)
         {
-            System.out.println(e.getMessage());
         }
         return temp;
     }
 
-    private Releaseevent buildReleaseevent(JsonElement element)
+    private static Releaseevent buildReleaseevent(JsonElement element)
     {
         Releaseevent temp = null;
         try
@@ -692,14 +676,13 @@ public class AcoustIDStructureBuilder
                                             String.class
                                                           ));
         }
-        catch (Exception e)
+        catch (Exception ignored)
         {
-            System.out.println(e.getMessage());
         }
         return temp;
     }
 
-    private Track buildTrack(JsonElement element)
+    private static Track buildTrack(JsonElement element)
     {
         Track temp = null;
         try
@@ -731,9 +714,8 @@ public class AcoustIDStructureBuilder
 
             temp.setArtists(buildArtistList(TrackObj));
         }
-        catch (Exception e)
+        catch (Exception ignored)
         {
-            System.out.println(e.getMessage());
         }
         return temp;
     }

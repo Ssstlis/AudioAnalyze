@@ -11,6 +11,10 @@ import org.musicbrainz.android.api.webservice.MusicBrainzWebClient;
 
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.logging.Level;
+
+import static Fox.core.main.AudioAnalyzeLibrary.logger;
+import static java.util.logging.Level.SEVERE;
 
 public class ServiceThread
         implements Runnable
@@ -64,12 +68,11 @@ public class ServiceThread
                                              target,
                                              count
                                             );
-
             }
         }
         catch (Exception e)
         {
-            e.printStackTrace();
+            logger.log(SEVERE, "", e);
         }
         finally
         {

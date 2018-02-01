@@ -6,6 +6,9 @@ import Fox.core.lib.services.Elapsed;
 import Fox.core.lib.services.acoustid.LookupByFP.AcoustIDStructureBuilder;
 import Fox.core.lib.services.acoustid.LookupByFP.sources.ByFingerPrint;
 
+import static Fox.core.main.AudioAnalyzeLibrary.logger;
+import static java.util.logging.Level.SEVERE;
+
 public class AcoustIDClient
 {
     private final static String key = "ZG11QsMYof";
@@ -61,14 +64,23 @@ public class AcoustIDClient
                             config.toString()
                                );
 
-            AcoustIDResponse response = new AcoustIDResponse
-                    (
-                            RequestClient
-                                    .run(Elapsed.AcoustIDElapse())
-                    );
+            AcoustIDResponse response;
+            ByFingerPrint fingerPrint = null;
 
-            return new AcoustIDStructureBuilder()
-                    .buildLookup(response);
+            try
+            {
+                response = new AcoustIDResponse(RequestClient.run(Elapsed.AcoustIDElapse()));
+            }
+            catch (Exception e)
+            {
+                logger.log(SEVERE, "", e );
+                return null;
+            }
+
+            if (response != null && response.hasSource())
+                fingerPrint = AcoustIDStructureBuilder.buildLookup(response);
+
+            return fingerPrint;
         }
         return null;
     }

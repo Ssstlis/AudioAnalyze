@@ -6,6 +6,11 @@ import Fox.core.lib.services.LastFM.Artist.getInfo.sources.ArtistInfo;
 import Fox.core.lib.services.LastFM.LastFMApi;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.IOException;
+
+import static Fox.core.main.AudioAnalyzeLibrary.logger;
+import static java.util.logging.Level.SEVERE;
+
 public class LastFMArtistClient
 {
     public LastFMArtistClient()
@@ -65,7 +70,23 @@ public class LastFMArtistClient
                                 artist +
                                 optional
                       );
-        String response = LastFMApi.RequestHTTPClient.run(Elapsed.LastFMElapse());
-        return new GetInfoBuilder().buildArtistInfo(response);
+
+        String response;
+        ArtistInfo buildArtistInfo = null;
+
+        try
+        {
+            response = LastFMApi.RequestHTTPClient.run(Elapsed.LastFMElapse());
+        }
+        catch (Exception e)
+        {
+            logger.log(SEVERE, "", e );
+            return null;
+        }
+
+        if (response != null)
+            buildArtistInfo = GetInfoBuilder.buildArtistInfo(response);
+
+        return buildArtistInfo;
     }
 }

@@ -21,7 +21,7 @@ public class GetInfoBuilder
 
     }
 
-    public ArtistInfo buildArtistInfo(String response)
+    public static ArtistInfo buildArtistInfo(String response)
     {
         if (response == null || response.isEmpty())
         {
@@ -48,15 +48,15 @@ public class GetInfoBuilder
             temp.setArtist(buildArtist2(ArtistInfoObj.get("artist")));
 
         }
-        catch (Exception e)
+        catch (Exception ignored)
         {
-            System.out.println(e.getMessage());
+
         }
 
         return temp;
     }
 
-    private artist buildArtist2(JsonElement element)
+    private static artist buildArtist2(JsonElement element)
     {
         artist temp = null;
 
@@ -95,15 +95,15 @@ public class GetInfoBuilder
             temp.setTags(buildToptags(ArtistObj.get("tags")));
             temp.setBio(buildBio(ArtistObj.get("bio")));
         }
-        catch (Exception e)
+        catch (Exception ignored)
         {
-            System.out.println(e.getMessage());
+
         }
 
         return temp;
     }
 
-    private stats buildStats(JsonElement element)
+    private static stats buildStats(JsonElement element)
     {
         stats temp = null;
 
@@ -125,15 +125,15 @@ public class GetInfoBuilder
                                               String.class
                                                             ));
         }
-        catch (Exception e)
+        catch (Exception ignored)
         {
-            System.out.println(e.getMessage());
+
         }
 
         return temp;
     }
 
-    private similar buildSimilar(JsonElement element)
+    private static similar buildSimilar(JsonElement element)
     {
         similar temp = null;
 
@@ -144,15 +144,15 @@ public class GetInfoBuilder
 
             temp.setArtists(buildArtistImageList(SimilarObj));
         }
-        catch (Exception e)
+        catch (Exception ignored)
         {
-            System.out.println(e.getMessage());
+
         }
 
         return temp;
     }
 
-    private List<artistimages> buildArtistImageList(JsonObject similarObj)
+    private static List<artistimages> buildArtistImageList(JsonObject similarObj)
     {
 
         List<artistimages> temp = null;
@@ -176,14 +176,14 @@ public class GetInfoBuilder
                 }
             }
         }
-        catch (Exception e)
+        catch (Exception ignored)
         {
-            System.out.println(e.getMessage());
+
         }
         return temp;
     }
 
-    private artistimages buildArtistImage(JsonElement element)
+    private static artistimages buildArtistImage(JsonElement element)
     {
         artistimages temp = null;
 
@@ -199,15 +199,15 @@ public class GetInfoBuilder
 
             temp.setImages(buildImageList(ArtistImageObj));
         }
-        catch (Exception e)
+        catch (Exception ignored)
         {
-            System.out.println(e.getMessage());
+
         }
 
         return temp;
     }
 
-    private bio buildBio(JsonElement element)
+    private static bio buildBio(JsonElement element)
     {
         bio temp = null;
 
@@ -224,15 +224,15 @@ public class GetInfoBuilder
 
             temp.setLinks(buildLinks(BioObj.get("links")));
         }
-        catch (Exception e)
+        catch (Exception ignored)
         {
-            System.out.println(e.getMessage());
+
         }
 
         return temp;
     }
 
-    private link buildLink(JsonElement element)
+    private static link buildLink(JsonElement element)
     {
         link temp = null;
 
@@ -260,15 +260,15 @@ public class GetInfoBuilder
                                          String.class
                                                        ));
         }
-        catch (Exception e)
+        catch (Exception ignored)
         {
-            System.out.println(e.getMessage());
+
         }
 
         return temp;
     }
 
-    private links buildLinks(JsonElement element)
+    private static links buildLinks(JsonElement element)
     {
         links temp = null;
 
@@ -279,9 +279,9 @@ public class GetInfoBuilder
 
             temp.setLink(buildLink(LinksObj.get("link")));
         }
-        catch (Exception e)
+        catch (Exception ignored)
         {
-            System.out.println(e.getMessage());
+
         }
 
         return temp;

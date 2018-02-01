@@ -24,7 +24,7 @@ public class GetInfoBuilder
 
     }
 
-    public AlbumInfo buildAlbumInfo(String source)
+    public static AlbumInfo buildAlbumInfo(String source)
     {
         if (source == null || source.isEmpty())
         {
@@ -50,15 +50,15 @@ public class GetInfoBuilder
             temp.setAlbum(buildAlbum(AlbumInfoObj.get("album")));
 
         }
-        catch (Exception e)
+        catch (Exception ignored)
         {
-            System.out.println(e.getMessage());
+
         }
 
         return temp;
     }
 
-    private album buildAlbum(JsonElement element)
+    private static album buildAlbum(JsonElement element)
     {
         album temp = null;
 
@@ -109,15 +109,15 @@ public class GetInfoBuilder
             temp.setTags(buildToptags(AlbumObj.get("tags")));
             temp.setWiki(buildWiki(AlbumObj.get("wiki")));
         }
-        catch (Exception e)
+        catch (Exception ignored)
         {
-            System.out.println(e.getMessage());
+
         }
 
         return temp;
     }
 
-    private tracks buildTracks(JsonElement element)
+    private static tracks buildTracks(JsonElement element)
     {
         tracks temp = null;
 
@@ -130,15 +130,15 @@ public class GetInfoBuilder
             temp.setTracks(buildTrackList(TracksObj));
 
         }
-        catch (Exception e)
+        catch (Exception ignored)
         {
-            System.out.println(e.getMessage());
+
         }
 
         return temp;
     }
 
-    private List<track> buildTrackList(JsonObject Obj)
+    private static List<track> buildTrackList(JsonObject Obj)
     {
         List<track> temp = null;
 
@@ -162,15 +162,15 @@ public class GetInfoBuilder
                 }
             }
         }
-        catch (Exception e)
+        catch (Exception ignored)
         {
-            System.out.println(e.getMessage());
+
         }
 
         return temp;
     }
 
-    private track buildTrack(JsonElement element)
+    private static track buildTrack(JsonElement element)
     {
         track temp = null;
 
@@ -202,16 +202,15 @@ public class GetInfoBuilder
             temp.setStreamable(buildStreamable(TrackObj.get("streamable")));
             temp.setArtist(buildArtist(TrackObj.get("artist")));
         }
-        catch (Exception e)
+        catch (Exception ignored)
         {
-            System.out.println(e.getMessage());
+
         }
 
         return temp;
     }
 
-    @Override
-    protected artist buildArtist(JsonElement element)
+    protected static artist buildArtist(JsonElement element)
     {
         artist temp = null;
 
@@ -240,9 +239,9 @@ public class GetInfoBuilder
                                          String.class
                                                        ));
         }
-        catch (Exception e)
+        catch (Exception ignored)
         {
-            System.out.println(e.getMessage());
+
         }
 
         return temp;

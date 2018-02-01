@@ -12,15 +12,19 @@ import Fox.utils.WindowsFPcalc;
 import java.io.File;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+
+import static Fox.core.main.AudioAnalyzeLibrary.logger;
 
 public class testing
 {
     public static void main(String[] args)
     {
+        Map<String, List<ID3V2>> Result = null;
         try
         {
 
-            String mp3location = "C:\\Users\\Ssstlis\\Desktop\\music\\Dingir";
+            String mp3location = "D:\\music\\Born Handed";
             List<File> FileList = ExecutableHelper.GetFileList(mp3location,
                                                                new Mp3Filter()
                                                               );
@@ -50,30 +54,29 @@ public class testing
 
             AudioAnalyzeLibrary Client = new AudioAnalyzeLibrary();
 
-            for (int i = 0; i < 4; i++)
-            {
-
-                System.out.println(i);
-                long temp = System.currentTimeMillis();
+            long temp = System.currentTimeMillis();
 
 
-                Client.buildStrings(ExecutableHelper.FilesToStrings(FileList));
-                Map<String, List<ID3V2>> Result = Client.run(new WindowsFPcalc(),
-                                                             Line1,
-                                                             Line2,
-                                                             Line3,
-                                                             Line4,
-                                                             performance.MAX,
-                                                             true,
-                                                             10);
+            Client.buildStrings(ExecutableHelper.FilesToStrings(FileList));
 
-                System.out.println(System.currentTimeMillis() - temp);
-            }
+            Result = Client.run(new WindowsFPcalc(),
+                    Line1,
+                    Line2,
+                    Line3,
+                    Line4,
+                    performance.MAX,
+                    false,
+                    10,
+                    true);
+
+            temp = System.currentTimeMillis() - temp;
+            String access = Result.size() == FileList.size() ? "good" : "bad";
+            logger.log(Level.INFO, Long.toString(temp) + " " + access);
+            System.currentTimeMillis();
         }
         catch (Exception e)
         {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
+            logger.log(Level.SEVERE, "", e);
         }
     }
 }

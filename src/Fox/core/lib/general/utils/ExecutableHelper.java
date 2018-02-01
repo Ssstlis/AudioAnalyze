@@ -57,7 +57,7 @@ public class ExecutableHelper
 
         if (!check.exists())
         {
-            throw new IllegalArgumentException("Directory isn`t found");
+            throw new IllegalArgumentException("Directory " + pathname +" isn`t found");
         }
 
         File[] FilterResult = check.listFiles(filter);

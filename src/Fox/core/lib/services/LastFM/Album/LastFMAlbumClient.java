@@ -8,6 +8,11 @@ import Fox.core.lib.services.LastFM.Album.search.sources.Search;
 import Fox.core.lib.services.LastFM.LastFMApi;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.IOException;
+
+import static Fox.core.main.AudioAnalyzeLibrary.logger;
+import static java.util.logging.Level.SEVERE;
+
 public class LastFMAlbumClient
 {
     public LastFMAlbumClient()
@@ -74,8 +79,22 @@ public class LastFMAlbumClient
                                 artist +
                                 optional
                       );
-        String response = LastFMApi.RequestHTTPClient.run(Elapsed.LastFMElapse());
-        return new GetInfoBuilder().buildAlbumInfo(response);
+        String response = null;
+        AlbumInfo buildAlbumInfo = null;
+
+        try
+        {
+            response = LastFMApi.RequestHTTPClient.run(Elapsed.LastFMElapse());
+        }
+        catch (IOException | InterruptedException e)
+        {
+            logger.log(SEVERE, "", e );
+            return null;
+        }
+        if (response != null)
+            buildAlbumInfo = GetInfoBuilder.buildAlbumInfo(response);
+
+        return buildAlbumInfo;
     }
 
     public Search search(
@@ -111,8 +130,22 @@ public class LastFMAlbumClient
                                 album +
                                 optional
                       );
+        String response = null;
+        Search buildSearch = null;
 
-        String response = LastFMApi.RequestHTTPClient.run(Elapsed.LastFMElapse());
-        return new SearchBuilder().buildSearch(response);
+        try
+        {
+            response = LastFMApi.RequestHTTPClient.run(Elapsed.LastFMElapse());
+        }
+        catch (IOException | InterruptedException e)
+        {
+            logger.log(SEVERE, "", e );
+            return null;
+        }
+
+        if (response != null)
+            buildSearch =  SearchBuilder.buildSearch(response);
+
+        return buildSearch;
     }
 }

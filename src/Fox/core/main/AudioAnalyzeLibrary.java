@@ -6,10 +6,7 @@ import Fox.core.lib.general.Threads.FPCalcThread;
 import Fox.core.lib.general.Threads.ServiceThread;
 import Fox.core.lib.general.templates.FingerPrintThread;
 import Fox.core.lib.general.templates.ProgressState;
-import Fox.core.lib.general.utils.ExecutableHelper;
-import Fox.core.lib.general.utils.FileChecker;
-import Fox.core.lib.general.utils.NoBuildException;
-import Fox.core.lib.general.utils.performance;
+import Fox.core.lib.general.utils.*;
 import Fox.core.lib.services.LastFM.LastFMApi;
 import Fox.core.lib.services.acoustid.AcoustIDClient;
 import Fox.core.lib.services.acoustid.AcoustIDRequestConfig;
@@ -17,19 +14,26 @@ import org.jetbrains.annotations.NotNull;
 import org.musicbrainz.android.api.webservice.MusicBrainzWebClient;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Logger;
+
+import static java.util.logging.Level.*;
 
 public class AudioAnalyzeLibrary
 {
+    public final static Logger logger = Logger.getLogger("AudioAnalyzeLibrary");
+    public final static String CALL_WO_BUILD = "Trying to call method without build file list.";
+    public final static String NO_COUNT = "Impossible to return less then zero or equals zero size of results.";
     private static AcoustIDClient AIDClient;
     private static LastFMApi lastFMApi;
     private static MusicBrainzWebClient musicBrainzWebClient;
-    private List<String>
-            Locations,
-            Rejected;
+    private List<String> Locations;
+    private List<String> Rejected;
     private boolean isBuild = false;
 
 
@@ -68,18 +72,29 @@ public class AudioAnalyzeLibrary
             @NotNull ProgressState CommonProgressBar,
             @NotNull performance Speed,
             boolean TrustMode,
-            int count)
+            int count,
+            boolean idDebug)
             throws
             InterruptedException,
             NoBuildException,
-            ExecutionException,
-            IllegalArgumentException
+            IllegalArgumentException,
+            ProgressStateException
     {
-        if (!isBuild)
-            throw new NoBuildException("Trying to call method without build file list.");
+        if (idDebug)
+            logger.setLevel(ALL);
+        else
+            logger.setLevel(OFF);
 
-        if (count < 0)
-            throw new IllegalArgumentException("Impossible to return less that zero or equals zero size of results.");
+        if (count < 0 && !TrustMode)
+        {
+            logger.log(SEVERE, NO_COUNT);
+            throw new IllegalArgumentException(NO_COUNT);
+        }
+        if (!isBuild)
+        {
+            logger.log(SEVERE, CALL_WO_BUILD);
+            throw new NoBuildException(CALL_WO_BUILD);
+        }
 
         CommonProgressBar.setSize(Locations.size() * 3);
         CheckerProgressBar.setSize(Locations.size());
@@ -96,6 +111,7 @@ public class AudioAnalyzeLibrary
 
         if (Locations == null || Locations.size() == 0)
         {
+            logger.log(SEVERE, "Empty accepted files....returning with null.");
             return null;
         }
 
@@ -128,14 +144,12 @@ public class AudioAnalyzeLibrary
             }
         }
 
-        System.out.println("Стартовало " + CPU + " потоков");
+        logger.log(INFO,"Starting pool with " + CPU + " threads");
 
         ExecutorService es = Executors.newFixedThreadPool(CPU);
-        //List<FingerPrint> test = new ArrayList<>();
         for (String file : Locations)
         {
             FingerPrint transfer = new FingerPrint();
-            //test.add(transfer);
             es.execute(new ServiceThread(
                     AIDClient,
                     lastFMApi,
@@ -148,8 +162,7 @@ public class AudioAnalyzeLibrary
                     count
             ));
 
-            es.execute(new FPCalcThread(
-                    YourFPCalcThread,
+            es.execute(new FPCalcThread(YourFPCalcThread,
                     file,
                     transfer,
                     FPProgressBar,

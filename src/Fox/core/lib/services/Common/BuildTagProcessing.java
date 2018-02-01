@@ -23,6 +23,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
+
+import static Fox.core.main.AudioAnalyzeLibrary.logger;
+import static java.util.logging.Level.INFO;
 
 public class BuildTagProcessing
 {
@@ -48,10 +52,15 @@ public class BuildTagProcessing
 
             if (MBTrackInfo != null)
             {
-                mbInfoRelease = MBTrackInfo.getReleases()
-                                      .get(0);
-                releaseArtist = MBTrackInfo.getArtists()
-                                      .get(0);
+                ArrayList<ReleaseInfo> mbTrackInfoReleases = MBTrackInfo.getReleases();
+
+                if (mbTrackInfoReleases!=null && !mbTrackInfoReleases.isEmpty())
+                    mbInfoRelease = MBTrackInfo.getReleases().get(0);
+
+                ArrayList<ReleaseArtist> mbTrackInfoArtists = MBTrackInfo.getArtists();
+
+                if (mbTrackInfoArtists !=null && !mbTrackInfoArtists.isEmpty())
+                    releaseArtist = MBTrackInfo.getArtists().get(0);
             }
 
             if (lfmInfoTrack.hasName())
@@ -119,7 +128,14 @@ public class BuildTagProcessing
                         Release lookupRelease = MBClient.lookupRelease(lfmInfoTrackAlbum.getMbid());
                         String lookupReleaseDate = lookupRelease.getDate();
                         if (lookupReleaseDate != null && !lookupReleaseDate.isEmpty())
+                        {
+                            int indexOf = lookupReleaseDate.indexOf("-");
+
+                            if (indexOf >= 0)
+                                lookupReleaseDate = lookupReleaseDate.substring(0,indexOf);
+
                             temp.setYear(lookupReleaseDate);
+                        }
                         else
                             throw new IOException();
                     }
@@ -332,8 +348,7 @@ public class BuildTagProcessing
         }
         catch (IOException e)
         {
-            e.printStackTrace();
-            System.out.println("MusicBrainzException at MBID " + track.getMBID());
+            logger.log(Level.SEVERE, "MusicBrainzException at MBID " + track.getMBID(), e);
         }
 
         try
@@ -348,30 +363,21 @@ public class BuildTagProcessing
         }
         catch (IOException e)
         {
-            e.printStackTrace();
-            System.out.println("MusicBrainzException at MBID " + track.getMBID());
+            logger.log(Level.SEVERE, "MusicBrainzException at MBID " + track.getMBID(), e);
         }
 
-        try
+        //When LastFM and MB have recording with equals mbid in head
+        if (MBInfo != null || LFMInfoWMBID != null && !LFMInfoWMBID.hasMessage())
         {
-            //When LastFM and MB have recording with equals mbid in head
-            if (MBInfo != null || LFMInfoWMBID != null && !LFMInfoWMBID.hasMessage())
-            {
-                return BuildTag(LFMInfoWMBID,
-                                MBInfo);
-            }
-
-            //When LastFM lookup has recording with Artist and track name -> mbid and MB have recording with equals mbid in head
-            if (MBSecInfo != null || LFMInfo != null && !LFMInfo.hasMessage())
-            {
-                return BuildTag(LFMInfo,
-                                MBSecInfo);
-            }
+            logger.log(INFO, "first scenario");
+            return BuildTag(LFMInfoWMBID, MBInfo);
         }
-        catch (NoMatchesException e)
+
+        //When LastFM lookup has recording with Artist and track name -> mbid and MB have recording with equals mbid in head
+        if (MBSecInfo != null || LFMInfo != null && !LFMInfo.hasMessage())
         {
-            e.printStackTrace();
-            throw new NoMatchesException("No matches.",e);
+            logger.log(INFO, "second scenario");
+            return BuildTag(LFMInfo, MBSecInfo);
         }
 
         throw new NoMatchesException("No matches.");

@@ -15,7 +15,7 @@ public class CommonBuilder
 
     }
 
-    protected artist buildArtist(JsonElement element)
+    protected static artist buildArtist(JsonElement element)
     {
         artist temp = null;
         try
@@ -39,14 +39,14 @@ public class CommonBuilder
                                         String.class
                                                       ));
         }
-        catch (Exception e)
+        catch (Exception ignored)
         {
-            System.out.println(e.getMessage());
+
         }
         return temp;
     }
 
-    protected attr buildAttribute(JsonElement element)
+    protected static attr buildAttribute(JsonElement element)
     {
         attr temp = null;
         try
@@ -75,14 +75,14 @@ public class CommonBuilder
                                         String.class
                                                       ));
         }
-        catch (Exception e)
+        catch (Exception ignored)
         {
-            System.out.println(e.getMessage());
+
         }
         return temp;
     }
 
-    protected Error buildError(JsonElement element)
+    protected static Error buildError(JsonElement element)
     {
         Error temp = null;
         try
@@ -104,14 +104,14 @@ public class CommonBuilder
                                             String.class
                                                           ));
         }
-        catch (Exception e)
+        catch (Exception ignored)
         {
-            System.out.println(e.getMessage());
+
         }
         return temp;
     }
 
-    protected image buildImage(JsonElement element)
+    protected static image buildImage(JsonElement element)
     {
         image temp = null;
         try
@@ -133,14 +133,14 @@ public class CommonBuilder
                                          String.class
                                                        ));
         }
-        catch (Exception e)
+        catch (Exception ignored)
         {
-            System.out.println(e.getMessage());
+
         }
         return temp;
     }
 
-    protected List<image> buildImageList(JsonObject Obj)
+    protected static List<image> buildImageList(JsonObject Obj)
     {
         List<image> temp = null;
 
@@ -163,15 +163,15 @@ public class CommonBuilder
                 }
             }
         }
-        catch (Exception e)
+        catch (Exception ignored)
         {
-            System.out.println(e.getMessage());
+
         }
 
         return temp;
     }
 
-    protected streamable buildStreamable(JsonElement element)
+    protected static streamable buildStreamable(JsonElement element)
     {
         streamable temp = null;
 
@@ -194,15 +194,15 @@ public class CommonBuilder
                                               String.class
                                                             ));
         }
-        catch (Exception e)
+        catch (Exception ignored)
         {
-            System.out.println(e.getMessage());
+
         }
 
         return temp;
     }
 
-    protected tag buildTag(JsonElement element)
+    protected static tag buildTag(JsonElement element)
     {
         tag temp = null;
 
@@ -225,15 +225,15 @@ public class CommonBuilder
                                          String.class
                                                        ));
         }
-        catch (Exception e)
+        catch (Exception ignored)
         {
-            System.out.println(e.getMessage());
+
         }
 
         return temp;
     }
 
-    protected List<tag> buildTagList(JsonObject Obj)
+    protected static List<tag> buildTagList(JsonObject Obj)
     {
         List<tag> temp = null;
 
@@ -256,15 +256,15 @@ public class CommonBuilder
                 }
             }
         }
-        catch (Exception e)
+        catch (Exception ignored)
         {
-            System.out.println(e.getMessage());
+
         }
 
         return temp;
     }
 
-    protected toptags buildToptags(JsonElement element)
+    protected static toptags buildToptags(JsonElement element)
     {
         toptags temp = null;
 
@@ -276,15 +276,15 @@ public class CommonBuilder
 
             temp.setTags(buildTagList(ToptagsObj));
         }
-        catch (Exception e)
+        catch (Exception ignored)
         {
-            System.out.println(e.getMessage());
+
         }
 
         return temp;
     }
 
-    protected wiki buildWiki(JsonElement element)
+    protected static wiki buildWiki(JsonElement element)
     {
         wiki temp = null;
 
@@ -313,9 +313,9 @@ public class CommonBuilder
                                             String.class
                                                           ));
         }
-        catch (Exception e)
+        catch (Exception ignored)
         {
-            System.out.println(e.getMessage());
+
         }
 
         return temp;

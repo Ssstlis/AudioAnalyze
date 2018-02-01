@@ -1,6 +1,12 @@
 package Fox.utils;
 
 import Fox.core.lib.general.templates.ProgressState;
+import Fox.core.lib.general.utils.ProgressStateException;
+
+import java.util.logging.Level;
+
+import static Fox.core.main.AudioAnalyzeLibrary.logger;
+import static java.util.logging.Level.INFO;
 
 public class CustomProgressState
         extends ProgressState
@@ -10,6 +16,7 @@ public class CustomProgressState
             int size,
             String name,
             String desc)
+            throws ProgressStateException
     {
         super(size,
               name,
@@ -20,13 +27,19 @@ public class CustomProgressState
     @Override
     public void onDone()
     {
-        System.out.println("Progress bar " + this.name + " is done.");
+        logger.log(INFO,"Progress bar " + this.name + " is done.");
+    }
+
+    @Override
+    protected void onResize()
+    {
+
     }
 
     @Override
     public void onChange()
     {
-        System.out.println(this.state + "\\" + this.size + "\\" + this.desc);
+        logger.log(INFO,this.state + "\\" + this.size + "\\" + this.desc);
     }
 
 }

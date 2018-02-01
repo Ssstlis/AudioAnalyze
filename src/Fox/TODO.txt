@@ -1,8 +1,0 @@
-#Create
-Analyze methods
-transfer-container
-LastFM DOM
-LastFM parser
-Wrapper for DOMs
-Some refactor and reformat code
-LastFM data about album+track+artist->MB->2`d analyze stage

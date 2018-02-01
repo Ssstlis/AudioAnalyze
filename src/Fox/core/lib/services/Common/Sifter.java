@@ -26,7 +26,7 @@ public class Sifter
         if (target.hasError() && target.getErr().hasMessage())
         {
             Error err = target.getErr();
-            throw new AcoustIDException("Error code: " + err.getCode() + " message: "+ err.getMessage());
+            throw new AcoustIDException(" TE module. Error code: " + err.getCode() + " message: "+ err.getMessage());
         }
 
         for(Result elem : target.getResult())
@@ -42,7 +42,7 @@ public class Sifter
         if (target.hasError() && target.getErr().hasMessage())
         {
             Error err = target.getErr();
-            throw new AcoustIDException("Error code: " + err.getCode() + " message: "+ err.getMessage());
+            throw new AcoustIDException(" CR module. Error code: " + err.getCode() + " message: "+ err.getMessage());
         }
 
         List<Recording> RecordingsStorage = new ArrayList<>();
@@ -245,10 +245,11 @@ public class Sifter
         IntermediateList = Sifter.MergingByUsages(IntermediateList);
 
         IntermediateList = Sifter.SimpleInfoSortingBackward(IntermediateList);
+        int size1 = IntermediateList.size();
 
         List<SimpleInfo> FinalList = new ArrayList<>();
 
-        for(int i = 0, size = count == 0 ? IntermediateList.size() : count; i < size; i++)
+        for(int i = 0, size = count == 0 ? size1 : count > size1 ? size1 : count; i < size; i++)
             FinalList.add(IntermediateList.get(i));
 
         return FinalList;

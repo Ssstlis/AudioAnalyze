@@ -20,7 +20,7 @@ public class SearchBuilder
 
     }
 
-    public Search buildSearch(String source)
+    public static Search buildSearch(String source)
     {
         if (source == null || source.isEmpty())
         {
@@ -47,14 +47,14 @@ public class SearchBuilder
             temp.setResults(buildResults(SearchObj.get("results")));
 
         }
-        catch (Exception e)
+        catch (Exception ignored)
         {
-            System.out.println(e.getMessage());
+
         }
         return temp;
     }
 
-    private results buildResults(JsonElement element)
+    private static results buildResults(JsonElement element)
     {
         results temp = null;
 
@@ -86,14 +86,14 @@ public class SearchBuilder
                                                                ));
             temp.setAlbummatches(buildAlbummatches(ResultsObj.get("albummatches")));
         }
-        catch (Exception e)
+        catch (Exception ignored)
         {
-            System.out.println(e.getMessage());
+
         }
         return temp;
     }
 
-    private albummatches buildAlbummatches(JsonElement element)
+    private static albummatches buildAlbummatches(JsonElement element)
     {
         albummatches temp = null;
 
@@ -104,15 +104,15 @@ public class SearchBuilder
 
             temp.setAlbumList(buildAlbumList(AlbummatchesObj));
         }
-        catch (Exception e)
+        catch (Exception ignored)
         {
-            System.out.println(e.getMessage());
+
         }
 
         return temp;
     }
 
-    private List<album> buildAlbumList(JsonObject albummatchesObj)
+    private static List<album> buildAlbumList(JsonObject albummatchesObj)
     {
         List<album> temp = null;
 
@@ -135,15 +135,15 @@ public class SearchBuilder
                 }
             }
         }
-        catch (Exception e)
+        catch (Exception ignored)
         {
-            System.out.println(e.getMessage());
+
         }
 
         return temp;
     }
 
-    private album buildAlbum(JsonElement element)
+    private static album buildAlbum(JsonElement element)
     {
         album temp = null;
 
@@ -185,14 +185,14 @@ public class SearchBuilder
             temp.setImages(buildImageList(AlbumObj));
 
         }
-        catch (Exception e)
+        catch (Exception ignored)
         {
-            System.out.println(e.getMessage());
+
         }
         return temp;
     }
 
-    private opensearchQuery buildQuery(JsonElement element)
+    private static opensearchQuery buildQuery(JsonElement element)
     {
         opensearchQuery temp = null;
 
@@ -225,9 +225,9 @@ public class SearchBuilder
                                               String.class
                                                             ));
         }
-        catch (Exception e)
+        catch (Exception ignored)
         {
-            System.out.println(e.getMessage());
+
         }
 
         return temp;

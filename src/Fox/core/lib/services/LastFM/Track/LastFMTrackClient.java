@@ -6,6 +6,12 @@ import Fox.core.lib.services.LastFM.Track.getInfo.GetInfoBuilder;
 import Fox.core.lib.services.LastFM.Track.getInfo.sources.TrackInfo;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.IOException;
+import java.util.logging.Level;
+
+import static Fox.core.main.AudioAnalyzeLibrary.logger;
+import static java.util.logging.Level.SEVERE;
+
 
 public class LastFMTrackClient
 {
@@ -68,7 +74,21 @@ public class LastFMTrackClient
                                 optional
                       );
 
-        String response = LastFMApi.RequestHTTPClient.run(Elapsed.LastFMElapse());
-        return new GetInfoBuilder().buildTrackInfo(response);
+        String response;
+        TrackInfo buildTrackInfo = null;
+
+        try
+        {
+            response = LastFMApi.RequestHTTPClient.run(Elapsed.LastFMElapse());
+        }
+        catch (Exception e)
+        {
+            logger.log(SEVERE, "", e );
+            return null;
+        }
+        if (response != null)
+            buildTrackInfo = GetInfoBuilder.buildTrackInfo(response);
+
+        return buildTrackInfo;
     }
 }

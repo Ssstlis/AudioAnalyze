@@ -14,6 +14,11 @@ import org.musicbrainz.android.api.webservice.MusicBrainzWebClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.logging.Level;
+
+import static Fox.core.main.AudioAnalyzeLibrary.NO_COUNT;
+import static Fox.core.main.AudioAnalyzeLibrary.logger;
+import static java.util.logging.Level.SEVERE;
 
 public class ServiceProcessing
 {
@@ -35,17 +40,30 @@ public class ServiceProcessing
             AcoustIDException,
             NoMatchesException
     {
+        if (count <= 0)
+        {
+            logger.log(SEVERE, NO_COUNT);
+            throw new IllegalArgumentException("Impossible to return less that zero or equals zero size of results.");
+        }
+
         String location = AudioPrint.getLocation();
         ByFingerPrint AIDResp = AIDClient.LookupByFingerPrint(AudioPrint);
+
+        if (AIDResp == null)
+        {
+            AcoustIDException acoustID_lookup_error = new AcoustIDException("Lookup error.");
+            logger.log(SEVERE, "", acoustID_lookup_error);
+            throw acoustID_lookup_error;
+        }
 
         if (AIDResp.hasError() && AIDResp.getErr().hasMessage())
         {
             Error err = AIDResp.getErr();
+            logger.log(SEVERE, "AcoustID error occure");
             throw new AcoustIDException("Error code: " + err.getCode() + " message: "+ err.getMessage());
         }
 
-        if (count <= 0)
-            throw new IllegalArgumentException("Impossible to return less that zero or equals zero size of results.");
+        //TODO LOGGING AID RESPONSE
 
         List<SimpleInfo> AfterSift = Sifter.Sifting(AIDResp,
                                                     Trust,
@@ -58,19 +76,17 @@ public class ServiceProcessing
             List<ID3V2> temp = new ArrayList<>();
             try
             {
-            ID3V2 buildTag = BuildTagProcessing.BuildTag(lastFMApi,
-                                                         musicBrainzWebClient,
-                                                         elem);
-            if (buildTag != null)
-            temp.add(buildTag);
+                ID3V2 buildTag = BuildTagProcessing.BuildTag(lastFMApi,
+                        musicBrainzWebClient,
+                        elem);
+                if (buildTag != null)
+                    temp.add(buildTag);
 
-            Target.put(location,
-                       temp);
-            }
-            catch (NoMatchesException e)
+                Target.put(location,
+                        temp);
+            } catch (NoMatchesException e)
             {
-                e.printStackTrace();
-                System.out.println("An unxception matches lookup error occur.");
+                logger.log(SEVERE, "An unxception matches lookup error occur.", e);
             }
         }
     }

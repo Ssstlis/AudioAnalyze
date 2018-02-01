@@ -5,6 +5,10 @@ import Fox.core.lib.general.templates.FingerPrintThread;
 import Fox.core.lib.general.templates.ProgressState;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.logging.Level;
+
+import static Fox.core.main.AudioAnalyzeLibrary.logger;
+
 public class FPCalcThread
         implements Runnable
 {
@@ -42,7 +46,7 @@ public class FPCalcThread
         }
         catch (Exception e)
         {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, "", e);
         }
         finally
         {

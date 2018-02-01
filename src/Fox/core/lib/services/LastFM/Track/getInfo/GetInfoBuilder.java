@@ -19,7 +19,7 @@ public class GetInfoBuilder
 
     }
 
-    public TrackInfo buildTrackInfo(String source)
+    public static TrackInfo buildTrackInfo(String source)
     {
         if (source == null || source.isEmpty())
         {
@@ -45,15 +45,15 @@ public class GetInfoBuilder
 
             temp.setTrack(buildTrack(TrackInfoObj.get("track")));
         }
-        catch (Exception e)
+        catch (Exception ignored)
         {
-            System.out.println(e.getMessage());
+
         }
 
         return temp;
     }
 
-    private track buildTrack(JsonElement element)
+    private static track buildTrack(JsonElement element)
     {
         track temp = null;
 
@@ -106,16 +106,15 @@ public class GetInfoBuilder
             temp.setToptags(buildToptags(TrackObj.get("toptags")));
             temp.setWiki(buildWiki(TrackObj.get("wiki")));
         }
-        catch (Exception e)
+        catch (Exception ignored)
         {
-            System.out.println(e.getMessage());
+
         }
 
         return temp;
     }
 
-
-    protected artist buildArtist1(JsonElement element)
+    private static artist buildArtist1(JsonElement element)
     {
         artist temp = null;
 
@@ -135,14 +134,14 @@ public class GetInfoBuilder
                                          String.class
                                                        ));
         }
-        catch (Exception e)
+        catch (Exception ignored)
         {
-            System.out.println(e.getMessage());
+
         }
         return temp;
     }
 
-    private album buildAlbum(JsonElement element)
+    private static album buildAlbum(JsonElement element)
     {
         album temp = null;
 
@@ -179,9 +178,9 @@ public class GetInfoBuilder
             temp.setAttribute(buildAttribute(AlbumObj.get("@attr")));
             temp.setImages(buildImageList(AlbumObj));
         }
-        catch (Exception e)
+        catch (Exception ignored)
         {
-            System.out.println(e.getMessage());
+
         }
 
         return temp;
