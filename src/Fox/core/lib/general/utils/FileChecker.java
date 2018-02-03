@@ -31,7 +31,7 @@ public class FileChecker
         this.Accepted = new CopyOnWriteArrayList<>();
         this.Rejected = new CopyOnWriteArrayList<>();
 
-        ExecutorService es = Executors.newFixedThreadPool(2);
+        ExecutorService es = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
 
         for (String loc : Sources)
         {

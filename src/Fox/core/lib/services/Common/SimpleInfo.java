@@ -2,6 +2,8 @@ package Fox.core.lib.services.Common;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Comparator;
+
 public class SimpleInfo implements Comparable<SimpleInfo>
 {
     private String Artist;
@@ -94,6 +96,10 @@ public class SimpleInfo implements Comparable<SimpleInfo>
         return (usages!=null && usages == 0);
     }
 
+    /** Comparing, implements by Comparable<T> based on usages comparing
+     * @param o comparing instance
+     * @return 1 if instance usage more, then usage of o param. 0 if equals. -1 if less.
+     */
     @Override
     public int compareTo(@NotNull SimpleInfo o)
     {
@@ -103,4 +109,5 @@ public class SimpleInfo implements Comparable<SimpleInfo>
             return -1;
         return 0;
     }
+
 }

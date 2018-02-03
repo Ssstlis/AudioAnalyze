@@ -10,6 +10,7 @@ import Fox.core.lib.general.utils.*;
 import Fox.core.lib.services.LastFM.LastFMApi;
 import Fox.core.lib.services.acoustid.AcoustIDClient;
 import Fox.core.lib.services.acoustid.AcoustIDRequestConfig;
+import Fox.test.testing;
 import org.jetbrains.annotations.NotNull;
 import org.musicbrainz.android.api.webservice.MusicBrainzWebClient;
 
@@ -101,10 +102,14 @@ public class AudioAnalyzeLibrary
 
         FileChecker FileReviewer = new FileChecker();
 
+        logger.log(INFO, "Start files check");
+
         FileReviewer.SiftFileAsString(Locations,
                                       CheckerProgressBar,
                                       CommonProgressBar
                                      );
+
+        logger.log(INFO, "End files check");
 
         Locations = FileReviewer.getAccepted();
         Rejected = FileReviewer.getRejected();
@@ -144,12 +149,13 @@ public class AudioAnalyzeLibrary
             }
         }
 
-        logger.log(INFO,"Starting pool with " + CPU + " threads");
+        logger.log(INFO,"Starting work with " + CPU + " threads");
 
         ExecutorService es = Executors.newFixedThreadPool(CPU);
         for (String file : Locations)
         {
             FingerPrint transfer = new FingerPrint();
+
             es.execute(new ServiceThread(
                     AIDClient,
                     lastFMApi,

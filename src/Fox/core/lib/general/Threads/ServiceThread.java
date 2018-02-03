@@ -76,8 +76,14 @@ public class ServiceThread
         }
         finally
         {
-            Local.update();
-            Common.update();
+            synchronized (Local)
+            {
+                Local.update();
+            }
+            synchronized (Common)
+            {
+                Common.update();
+            }
         }
     }
 }

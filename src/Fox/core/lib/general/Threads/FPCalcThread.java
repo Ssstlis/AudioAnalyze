@@ -50,8 +50,14 @@ public class FPCalcThread
         }
         finally
         {
-            Line.update();
-            Common.update();
+            synchronized (Line)
+            {
+                Line.update();
+            }
+            synchronized (Common)
+            {
+                Common.update();
+            }
         }
 
     }

@@ -1,24 +1,192 @@
 package Fox.core.lib.services.Common;
 
+import Fox.core.lib.general.DOM.FingerPrint;
 import Fox.core.lib.general.utils.AcoustIDException;
 import Fox.core.lib.general.utils.NoMatchesException;
+import Fox.core.lib.general.utils.RecordingRelativator;
+import Fox.core.lib.general.utils.Relativator;
 import Fox.core.lib.services.acoustid.LookupByFP.sources.ByFingerPrint;
 import Fox.core.lib.services.acoustid.LookupByFP.sources.Error;
 import Fox.core.lib.services.acoustid.LookupByFP.sources.Recording;
 import Fox.core.lib.services.acoustid.LookupByFP.sources.Result;
+import Fox.test.testing;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.Map.Entry;
+
+import static Fox.core.lib.general.utils.Sorts.RelativeSort;
+import static Fox.core.lib.general.utils.Sorts.Sort;
 
 public class Sifter
 {
+    private static SimpleInfoComparatorByUsages SimpleInfoComparatorByUsages = new SimpleInfoComparatorByUsages();
+    private static Relativator RecordingRelativator = new RecordingRelativator();
+
+
     public Sifter()
     {
     }
 
+    public static List<SimpleInfo> Sifting(FingerPrint FPrint,
+                                           @NotNull ByFingerPrint target,
+                                           int count,
+                                           boolean trust)
+            throws AcoustIDException,
+            NoMatchesException
+    {
+
+        if (count < 0)
+            throw new IllegalArgumentException("Impossible to return less that zero or equals zero size of results.");
+
+        int encounter = TracksEncounter(target);
+
+        if (encounter == 0)
+            throw new NoMatchesException("No matches at AcoustID");
+
+        List<SimpleInfo> store = new ArrayList<>();
+
+        if (encounter == 1)
+        {
+            SimpleInfo info = new SimpleInfo();
+
+            if (target.hasResults())
+            {
+                Result result = target.getResult()
+                        .get(0);
+
+                if (result.hasRecordings())
+                    info = Converting(result.getRecordings().get(0));
+            }
+
+            store.add(info);
+        }
+        else
+        {
+            List<Recording> compressResult = Sifter.CompressResult(target);
+
+            if (trust)
+                store.add(TrustSift(compressResult, FPrint));
+            else
+                store.addAll(FrequentSift(compressResult,
+                        count));
+        }
+        return store;
+    }
+
+    /**Sifting processing that return a list of SimpleInfo instances, represents the sift
+     * @param recordingList target list to sifting from
+     * @param count number of SimpleInfo instances in list
+     * @return list of SimpleInfo instances
+     */
+    private static List<SimpleInfo> FrequentSift(@NotNull List<Recording> recordingList,
+                                                 int count)
+    {
+
+        List<SimpleInfo> IntermediateList = Converting(recordingList);
+        IntermediateList = MergingByUsages(IntermediateList);
+        IntermediateList = SimpleInfoSortingBackwardByUsage(IntermediateList);
+        int size1 = IntermediateList.size();
+
+        List<SimpleInfo> FinalList = new ArrayList<>();
+
+        for(int i = 0, size = count == 0 ? size1 : count > size1 ? size1 : count; i < size; i++)
+            FinalList.add(IntermediateList.get(i));
+
+        return FinalList;
+    }
+
+    /**Sifting processing that return a one SimpleInfo instance, represents the smart sift
+     * @param recordingList target list to sifting from
+     * @return SimpleInfo instance
+     */
+    private static SimpleInfo TrustSift(@NotNull List<Recording> recordingList,
+                                        @NotNull FingerPrint FP)
+    {
+        SiftingByArtist(recordingList);
+        recordingList = RecordingRelativeSortingForward(recordingList, Integer.parseInt(FP.getDuration()));
+        testing.dbg3.put(FP.getLocation(), recordingList);
+        List<SimpleInfo> IntermediateList = Converting(recordingList);
+        IntermediateList = MergingByUsages(IntermediateList);
+
+        return IntermediateList.get(0);
+    }
+
+    /**
+     * @param elems target list to sorting
+     * @return sorting list from the smallest to the largest
+     */
+    private static List<SimpleInfo> SimpleInfoSortingForwardByUsage(@NotNull List<SimpleInfo> elems)
+    {
+        try
+        {
+            Sort(elems, SimpleInfoComparatorByUsages, true);
+        }
+        catch (IllegalArgumentException ignore)
+        {
+
+        }
+        return elems;
+    }
+
+    /**
+     * @param elems target list to sorting
+     * @return sorting list from the largest to the smallest
+     */
+    private static List<SimpleInfo> SimpleInfoSortingBackwardByUsage(@NotNull List<SimpleInfo> elems)
+    {
+        try
+        {
+            Sort(elems, SimpleInfoComparatorByUsages, false);
+        }
+        catch (IllegalArgumentException ignore)
+        {
+
+        }
+        return elems;
+    }
+
+    /**
+     * @param elems target list to sorting
+     * @return sorting list from the smallest to the largest
+     */
+    private static List<Recording> RecordingRelativeSortingForward(@NotNull List<Recording> elems,
+                                                                   Integer duration)
+    {
+        try
+        {
+            RelativeSort(elems, RecordingRelativator, duration, true);
+        }
+        catch (IllegalArgumentException ignore)
+        {
+
+        }
+        return elems;
+    }
+
+    /**
+     * @param elems target list to sorting
+     * @return sorting list from the largest to the smallest
+     */
+    private static List<Recording> RecordingRelativeSortingBackward(@NotNull List<Recording> elems,
+                                                                    Integer duration)
+    {
+        try
+        {
+            RelativeSort(elems, RecordingRelativator, duration, false);
+        }
+        catch (IllegalArgumentException ignore)
+        {
+
+        }
+        return elems;
+    }
+
+    /**
+     * @param target AcoustID response instance
+     * @return number of recordings in AcoustID response
+     * @throws AcoustIDException if AcoustID response contains Error instance
+     */
     private static int TracksEncounter(@NotNull ByFingerPrint target)
             throws AcoustIDException
     {
@@ -26,7 +194,7 @@ public class Sifter
         if (target.hasError() && target.getErr().hasMessage())
         {
             Error err = target.getErr();
-            throw new AcoustIDException(" TE module. Error code: " + err.getCode() + " message: "+ err.getMessage());
+            throw new AcoustIDException("Error code: " + err.getCode() + " message: "+ err.getMessage());
         }
 
         for(Result elem : target.getResult())
@@ -36,39 +204,40 @@ public class Sifter
         return result;
     }
 
+    /**
+     * For easy processing needs to compress few lists to single list.
+     * @param target is ByFingerPrint instance, contains list of Recording list.
+     * @return Compressing Recording list form ByFingerPrint instance.
+     * @throws AcoustIDException if target contains Error instance.
+     */
     private static List<Recording> CompressResult(@NotNull ByFingerPrint target)
             throws AcoustIDException
     {
         if (target.hasError() && target.getErr().hasMessage())
         {
             Error err = target.getErr();
-            throw new AcoustIDException(" CR module. Error code: " + err.getCode() + " message: "+ err.getMessage());
+            throw new AcoustIDException("Error code: " + err.getCode() + " message: "+ err.getMessage());
         }
 
-        List<Recording> RecordingsStorage = new ArrayList<>();
+        List<Recording> RecordingsStorage = null;
 
-        for(Result elem:target.getResult())
-            if (elem.hasRecordings())
-                for(Recording elemR:elem.getRecordings())
-                    if (elemR.hasArtists())
-                        RecordingsStorage.add(new Recording(elemR));
+        if (target.hasResults())
+        {
+            RecordingsStorage = new ArrayList<>();
 
+            for (Result elem : target.getResult())
+                if (elem.hasRecordings())
+                    for (Recording elemR : elem.getRecordings())
+                        if (elemR.hasArtists())
+                            RecordingsStorage.add(new Recording(elemR));
+        }
         return RecordingsStorage;
     }
 
-    private static boolean IsEntire(String self, List<String> elems)
-    {
-
-        if (self == null || elems == null)
-            return false;
-
-        for(String elem:elems)
-            if (elem.equalsIgnoreCase(self))
-                return true;
-
-        return false;
-    }
-
+    /**
+     * Left few instances with artist, which meet in list in maximum count
+     * @param recordingList Recording list, will be sifting
+     */
     private static void SiftingByArtist(@NotNull List<Recording> recordingList)
     {
         Map<String, Integer> AssistMap = new HashMap<>();
@@ -90,7 +259,7 @@ public class Sifter
             if (elem > max)
                 max = elem;
 
-        for(Map.Entry pair : AssistMap.entrySet())
+        for(Entry pair : AssistMap.entrySet())
             if ((Integer)pair.getValue() == max)
                 AssistList.add((String)pair.getKey());
 
@@ -102,7 +271,7 @@ public class Sifter
                 String Artist = recording.getArtists()
                                        .get(0)
                                        .getName();
-                if (!IsEntire(Artist, AssistList))
+                if (!AssistList.contains(Artist))
                 {
                     recordingList.remove(i--);
                     size--;
@@ -111,88 +280,31 @@ public class Sifter
         }
     }
 
-    private static SimpleInfo TrustSift(@NotNull List<Recording> recordingList)
-    {
-        SiftingByArtist(recordingList);
-        List<SimpleInfo> simpleInfos = FrequentSift(recordingList, 1);
-
-        if (simpleInfos != null && !simpleInfos.isEmpty())
-            return simpleInfos.get(0);
-
-        return new SimpleInfo();
-    }
-
-    /*private static List<Recording> RecSortingBackward(@NotNull List<Recording> elems)
-    {
-        return Sorting(elems, false);
-    }
-
-    private static List<Recording> RecordingSortingForward(@NotNull List<Recording> elems)
-    {
-        return Sorting(elems, true);
-    }*/
-
-    private static List<SimpleInfo> SimpleInfoSortingForward(@NotNull List<SimpleInfo> elems)
-    {
-        return Sorting(elems, true);
-    }
-
-    private static List<SimpleInfo> SimpleInfoSortingBackward(@NotNull List<SimpleInfo> elems)
-    {
-        return Sorting(elems, false);
-    }
-
-    private static List<SimpleInfo> Sorting(@NotNull List<SimpleInfo> elems, boolean IsForward)
-    {
-        int left = 0;
-        SimpleInfo buff;
-        int right = elems.size() - 1;
-        do
-        {
-            for (int i = left; i < right; i++)
-            {
-                if ((!IsForward && elems.get(i).compareTo(elems.get(i + 1)) < 0)
-                        || (IsForward && elems.get(i).compareTo(elems.get(i + 1)) > 0))
-                {
-                    buff = elems.get(i);
-                    elems.remove(i);
-                    elems.add(i + 1, buff);
-                }
-            }
-            right--;
-            for (int i = right; i > left; i--)
-            {
-                if ((!IsForward && elems.get(i).compareTo(elems.get(i - 1)) > 0)
-                        || (IsForward && elems.get(i).compareTo(elems.get(i - 1)) < 0))
-                {
-                    buff = elems.get(i);
-                    elems.remove(i);
-                    elems.add(i - 1, buff);
-                }
-            }
-            left++;
-        }
-        while (left < right);
-
-        return elems;
-    }
-
+    /**
+     * @param ElemList target to merging
+     * @return instance of merging target instances by usages
+     */
     private static List<SimpleInfo> MergingByUsages(@NotNull List<SimpleInfo> ElemList)
     {
         Map<String, Integer> AssistMap = new HashMap<>();
         Map<String, Boolean> SecAssistMap = new HashMap<>();
         List<SimpleInfo> Target = new ArrayList<>();
 
+        /*For all elems in list
+        */
         for (SimpleInfo Elem : ElemList)
         {
             if (Elem.hasMBID())
             {
                 String mbid = Elem.getMBID();
                 Integer count = AssistMap.get(mbid);
+                //Summing usages by equals mbid.
                 AssistMap.put(mbid, count == null ? Elem.getUsages() : Elem.getUsages() + count);
             }
         }
 
+        /* Do merging
+        */
         for (String Elem : AssistMap.keySet())
             for (SimpleInfo InfoElem : ElemList)
                 if (InfoElem.hasMBID()
@@ -202,8 +314,7 @@ public class Sifter
                     SimpleInfo path = new SimpleInfo(InfoElem.getArtist(),
                                                      InfoElem.getMBID(),
                                                      InfoElem.getTitle(),
-                                                     AssistMap.get(Elem)
-                    );
+                                                     AssistMap.get(Elem));
 
                     SecAssistMap.put(Elem, true);
                     Target.add(path);
@@ -213,6 +324,25 @@ public class Sifter
         return Target;
     }
 
+    /**
+     * Converting Recording list to SimpleInfo list.
+     * @param recordingList What Recording list you need to convert into SimpleInfo list
+     * @return converting object
+     */
+    private static List<SimpleInfo> Converting(@NotNull List<Recording> recordingList)
+    {
+        List<SimpleInfo> temp = new ArrayList<>();
+
+        for(Recording elem : recordingList)
+            temp.add(Converting(elem));
+
+        return temp;
+    }
+
+    /** Converting one Recording object to SimpleInfo object
+     * @param source What Recording you need to convert into SimpleInfo
+     * @return converting object
+     */
     private static SimpleInfo Converting(Recording source)
     {
         SimpleInfo temp = null;
@@ -231,71 +361,5 @@ public class Sifter
         }
 
         return temp;
-    }
-
-    private static List<SimpleInfo> FrequentSift(@NotNull List<Recording> recordingList,
-                                                 int count)
-    {
-
-        List<SimpleInfo> IntermediateList = new ArrayList<>();
-
-        for (Recording RecordingListElem : recordingList)
-            IntermediateList.add(Sifter.Converting(RecordingListElem));
-
-        IntermediateList = Sifter.MergingByUsages(IntermediateList);
-
-        IntermediateList = Sifter.SimpleInfoSortingBackward(IntermediateList);
-        int size1 = IntermediateList.size();
-
-        List<SimpleInfo> FinalList = new ArrayList<>();
-
-        for(int i = 0, size = count == 0 ? size1 : count > size1 ? size1 : count; i < size; i++)
-            FinalList.add(IntermediateList.get(i));
-
-        return FinalList;
-    }
-
-    public static List<SimpleInfo> Sifting(@NotNull ByFingerPrint target,
-                                           boolean trust,
-                                           int count)
-            throws AcoustIDException,
-                   NoMatchesException
-    {
-        int encounter = Sifter.TracksEncounter(target);
-
-        List<SimpleInfo> store = new ArrayList<>();
-
-        if (encounter == 0)
-            throw new NoMatchesException("No matches at AcoustID");
-
-        if (count < 0)
-            throw new IllegalArgumentException("Impossible to return less that zero or equals zero size of results.");
-
-        if (encounter == 1)
-        {
-            SimpleInfo info = new SimpleInfo();
-
-            if (target.hasResults())
-            {
-                Result result = target.getResult()
-                                      .get(0);
-
-                if (result.hasRecordings())
-                    info = Sifter.Converting(result.getRecordings().get(0));
-            }
-
-            store.add(info);
-        }
-        else
-        {
-            List<Recording> compressResult = Sifter.CompressResult(target);
-
-            if (trust)
-                store.add(Sifter.TrustSift(compressResult));
-            else
-                store.addAll(Sifter.FrequentSift(compressResult,
-                                                 count));
-        }
-        return store;
     }
 }

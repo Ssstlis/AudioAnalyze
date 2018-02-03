@@ -15,14 +15,15 @@ import Fox.core.lib.services.LastFM.Track.getInfo.sources.TrackInfo;
 import Fox.core.lib.services.LastFM.Track.getInfo.sources.album;
 import Fox.core.lib.services.LastFM.Track.getInfo.sources.artist;
 import Fox.core.lib.services.LastFM.Track.getInfo.sources.track;
+import Fox.test.testing;
 import org.jetbrains.annotations.NotNull;
 import org.musicbrainz.android.api.data.*;
 import org.musicbrainz.android.api.webservice.MusicBrainzWebClient;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
+import java.util.AbstractMap.SimpleEntry;
+import java.util.Map.Entry;
 import java.util.logging.Level;
 
 import static Fox.core.main.AudioAnalyzeLibrary.logger;
@@ -42,8 +43,64 @@ public class BuildTagProcessing
             Recording MBTrackInfo)
             throws NoMatchesException
     {
+        Entry<Recording, TrackInfo> dbg = new SimpleEntry<>(MBTrackInfo, LFMTrackInfo);
+        testing.dbg4.put(MBTrackInfo.getMbid(),dbg);
+        if (MBTrackInfo != null)
+        {
+            ID3V2 temp = new ID3V2();
 
-        if (LFMTrackInfo.hasTrack())
+            ReleaseInfo releaseInfo = null;
+            ReleaseArtist releaseArtist = null;
+            Tag tag = null;
+
+            ArrayList<ReleaseInfo> releases = MBTrackInfo.getReleases();
+            if (!releases.isEmpty())
+                releaseInfo = releases.get(0);
+
+            ArrayList<ReleaseArtist> artists = MBTrackInfo.getArtists();
+            if (!artists.isEmpty())
+                releaseArtist = artists.get(0);
+
+
+            LinkedList<Tag> tags = MBTrackInfo.getTags();
+            if (!tags.isEmpty())
+                tag = tags.get(0);
+
+            if (releaseInfo != null)
+            {
+                temp.setYear(releaseInfo.getDate());
+                temp.setAlbum(releaseInfo.getTitle());
+                temp.setNumber(releaseInfo.getTracksNum());
+
+                List<String> LinkList = new ArrayList<>();
+
+                AlbumArt lookupAlbumArt = CoverArtArchiveClient.LookupAlbumArt(releaseInfo.getReleaseMbid());
+
+                if (lookupAlbumArt != null && lookupAlbumArt.hasImages())
+                {
+                    for (Fox.core.lib.services.CoverArtArchive.LookupAlbumArt.sources.image elem : lookupAlbumArt.getImages())
+                    {
+                        if (elem.hasFront())
+                        {
+                            LinkList.add(elem.getImage());
+                        }
+                    }
+                    temp.setArtLinks(LinkList);
+                }
+            }
+
+            if (releaseArtist != null)
+            {
+                temp.setArtist(releaseArtist.getName());
+            }
+
+            if (tag != null)
+                temp.setGenre(tag.getText());
+
+            temp.setTitle(MBTrackInfo.getTitle());
+            return temp;
+        }
+        else if (LFMTrackInfo.hasTrack())
         {
             ID3V2 temp = new ID3V2();
             track lfmInfoTrack = LFMTrackInfo.getTrack();
@@ -252,67 +309,12 @@ public class BuildTagProcessing
             }
             return temp;
         }
-        else if (MBTrackInfo != null)
-        {
-            ID3V2 temp = new ID3V2();
-
-            ReleaseInfo releaseInfo = null;
-            ReleaseArtist releaseArtist = null;
-            Tag tag = null;
-
-            ArrayList<ReleaseInfo> releases = MBTrackInfo.getReleases();
-            if (!releases.isEmpty())
-                releaseInfo = releases.get(0);
-
-            ArrayList<ReleaseArtist> artists = MBTrackInfo.getArtists();
-            if (!artists.isEmpty())
-                releaseArtist = artists.get(0);
-
-
-            LinkedList<Tag> tags = MBTrackInfo.getTags();
-            if (!tags.isEmpty())
-                tag = tags.get(0);
-
-            if (releaseInfo != null)
-            {
-                temp.setYear(releaseInfo.getDate());
-                temp.setAlbum(releaseInfo.getTitle());
-                temp.setNumber(releaseInfo.getTracksNum());
-
-                List<String> LinkList = new ArrayList<>();
-
-                AlbumArt lookupAlbumArt = CoverArtArchiveClient.LookupAlbumArt(releaseInfo.getReleaseMbid());
-
-                if (lookupAlbumArt != null && lookupAlbumArt.hasImages())
-                {
-                    for (Fox.core.lib.services.CoverArtArchive.LookupAlbumArt.sources.image elem : lookupAlbumArt.getImages())
-                    {
-                        if (elem.hasFront())
-                        {
-                            LinkList.add(elem.getImage());
-                        }
-                    }
-                    temp.setArtLinks(LinkList);
-                }
-            }
-
-            if (releaseArtist != null)
-            {
-                temp.setArtist(releaseArtist.getName());
-            }
-
-            if (tag != null)
-                temp.setGenre(tag.getText());
-
-            temp.setTitle(MBTrackInfo.getTitle());
-            return temp;
-        }
         throw new NoMatchesException("No matches.");
     }
 
     public static ID3V2 BuildTag(@NotNull LastFMApi lastFMApi,
-                          @NotNull MusicBrainzWebClient MBClient,
-                          @NotNull SimpleInfo track)
+                                 @NotNull MusicBrainzWebClient MBClient,
+                                 @NotNull SimpleInfo track)
             throws
             NoMatchesException,
             NullPointerException
@@ -366,18 +368,18 @@ public class BuildTagProcessing
             logger.log(Level.SEVERE, "MusicBrainzException at MBID " + track.getMBID(), e);
         }
 
-        //When LastFM and MB have recording with equals mbid in head
-        if (MBInfo != null || LFMInfoWMBID != null && !LFMInfoWMBID.hasMessage())
+        //When LastFM lookup has recording with Artist and track name -> mbid and MB have recording with equals mbid in head
+        if (MBInfo != null || LFMInfo != null && !LFMInfo.hasMessage())
         {
             logger.log(INFO, "first scenario");
-            return BuildTag(LFMInfoWMBID, MBInfo);
+            return BuildTag(LFMInfo, MBInfo);
         }
 
-        //When LastFM lookup has recording with Artist and track name -> mbid and MB have recording with equals mbid in head
-        if (MBSecInfo != null || LFMInfo != null && !LFMInfo.hasMessage())
+        //When LastFM and MB have recording with equals mbid in head
+        if (MBSecInfo != null || LFMInfoWMBID != null && !LFMInfoWMBID.hasMessage())
         {
             logger.log(INFO, "second scenario");
-            return BuildTag(LFMInfo, MBSecInfo);
+            return BuildTag(LFMInfoWMBID, MBSecInfo);
         }
 
         throw new NoMatchesException("No matches.");

@@ -73,8 +73,14 @@ public class FileCheckerThread
         }
         finally
         {
-            Line.update();
-            Common.update();
+            synchronized (Line)
+            {
+                Line.update();
+            }
+            synchronized (Common)
+            {
+                Common.update();
+            }
         }
     }
 }

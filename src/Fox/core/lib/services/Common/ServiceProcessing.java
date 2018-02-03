@@ -8,14 +8,15 @@ import Fox.core.lib.services.LastFM.LastFMApi;
 import Fox.core.lib.services.acoustid.AcoustIDClient;
 import Fox.core.lib.services.acoustid.LookupByFP.sources.ByFingerPrint;
 import Fox.core.lib.services.acoustid.LookupByFP.sources.Error;
+import Fox.test.testing;
 import org.jetbrains.annotations.NotNull;
 import org.musicbrainz.android.api.webservice.MusicBrainzWebClient;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.logging.Level;
 
+import static Fox.core.lib.services.Common.Sifter.Sifting;
 import static Fox.core.main.AudioAnalyzeLibrary.NO_COUNT;
 import static Fox.core.main.AudioAnalyzeLibrary.logger;
 import static java.util.logging.Level.SEVERE;
@@ -49,6 +50,7 @@ public class ServiceProcessing
         String location = AudioPrint.getLocation();
         ByFingerPrint AIDResp = AIDClient.LookupByFingerPrint(AudioPrint);
 
+
         if (AIDResp == null)
         {
             AcoustIDException acoustID_lookup_error = new AcoustIDException("Lookup error.");
@@ -60,15 +62,17 @@ public class ServiceProcessing
         {
             Error err = AIDResp.getErr();
             logger.log(SEVERE, "AcoustID error occure");
-            throw new AcoustIDException("Error code: " + err.getCode() + " message: "+ err.getMessage());
+            throw new AcoustIDException("Error code: " + err.getCode() + " message: " + err.getMessage());
         }
 
-        //TODO LOGGING AID RESPONSE
+        testing.dbg2.put(location, AIDResp);
 
-        List<SimpleInfo> AfterSift = Sifter.Sifting(AIDResp,
-                                                    Trust,
-                                                    count
-                                                   );
+        List<SimpleInfo> AfterSift = Sifting(AudioPrint,
+                AIDResp,
+                count,
+                Trust);
+
+        testing.dbg5.put(location, AfterSift);
 
         for (SimpleInfo elem : AfterSift)
         {
@@ -76,19 +80,21 @@ public class ServiceProcessing
             List<ID3V2> temp = new ArrayList<>();
             try
             {
-                ID3V2 buildTag = BuildTagProcessing.BuildTag(lastFMApi,
+                ID3V2 buildTag = BuildTagProcessing.BuildTag(
+                        lastFMApi,
                         musicBrainzWebClient,
                         elem);
+
                 if (buildTag != null)
                     temp.add(buildTag);
 
                 Target.put(location,
                         temp);
+
             } catch (NoMatchesException e)
             {
-                logger.log(SEVERE, "An unxception matches lookup error occur.", e);
+                logger.log(SEVERE, "An unexpected matches lookup error occur.", e);
             }
         }
     }
-
 }

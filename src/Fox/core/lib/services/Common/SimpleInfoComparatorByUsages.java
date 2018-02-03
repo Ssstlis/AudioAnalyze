@@ -5,7 +5,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Comparator;
 
-public class SimpleInfoComparator implements Comparator<SimpleInfo>
+public class SimpleInfoComparatorByUsages implements Comparator<SimpleInfo>
 {
     @Override
     public int compare(@NotNull SimpleInfo a,

@@ -3,6 +3,7 @@ package Fox.utils;
 import Fox.core.lib.general.DOM.FingerPrint;
 import Fox.core.lib.general.templates.FingerPrintThread;
 import Fox.core.lib.general.utils.FingerPrintProcessingException;
+import Fox.test.testing;
 import core.windows.FileDestinationWindows;
 import org.jetbrains.annotations.NotNull;
 
@@ -59,6 +60,7 @@ public class WindowsFPcalc
                 target.setPrint(print);
                 target.setDuration(duration);
                 target.setLocation(location);
+                testing.dbg1.put(location, new FingerPrint(target));
             }
             process.destroy();
         }

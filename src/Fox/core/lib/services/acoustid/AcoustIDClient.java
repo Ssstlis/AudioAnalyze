@@ -11,7 +11,7 @@ import static java.util.logging.Level.SEVERE;
 
 public class AcoustIDClient
 {
-    private final static String key = "ZG11QsMYof";
+    private final static String key = "WweGbntpM7";
     private final static String httpkey =
             "https://api.acoustid.org/v2/lookup?client=" + key + "&format=json";
     private HttpGetClient RequestClient;

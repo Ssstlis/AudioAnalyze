@@ -24,6 +24,16 @@ public class FingerPrint
 
     }
 
+    public FingerPrint(FingerPrint copy)
+    {
+        if (copy != null)
+        {
+            this.duration = copy.duration;
+            this.location = copy.location;
+            this.print = copy.print;
+        }
+    }
+
     public String getPrint()
     {
         return print;
