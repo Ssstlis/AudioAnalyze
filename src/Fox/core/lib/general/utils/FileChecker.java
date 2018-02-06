@@ -6,10 +6,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 public class FileChecker
 {
@@ -31,7 +28,15 @@ public class FileChecker
         this.Accepted = new CopyOnWriteArrayList<>();
         this.Rejected = new CopyOnWriteArrayList<>();
 
-        ExecutorService es = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+        ExecutorService es = Executors.newFixedThreadPool(Runtime.getRuntime()
+                                                                 .availableProcessors(), new ThreadFactory()
+        {
+            @Override
+            public Thread newThread(@NotNull Runnable r)
+            {
+                return new Thread(r, "File checker pool");
+            }
+        });
 
         for (String loc : Sources)
         {
@@ -45,8 +50,8 @@ public class FileChecker
         }
 
         es.shutdown();
-        es.awaitTermination(1,
-                            TimeUnit.DAYS
+        es.awaitTermination(10*Sources.size(),
+                            TimeUnit.SECONDS
                            );
     }
 
@@ -60,7 +65,7 @@ public class FileChecker
 
         this.Accepted = new CopyOnWriteArrayList<>();
         this.Rejected = new CopyOnWriteArrayList<>();
-        ExecutorService es = Executors.newFixedThreadPool(2);
+        ExecutorService es = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
 
         for (File file : Sources)
         {
@@ -74,8 +79,8 @@ public class FileChecker
         }
 
         es.shutdown();
-        es.awaitTermination(15,
-                            TimeUnit.MINUTES
+        es.awaitTermination(10*Sources.size(),
+                            TimeUnit.SECONDS
                            );
     }
 

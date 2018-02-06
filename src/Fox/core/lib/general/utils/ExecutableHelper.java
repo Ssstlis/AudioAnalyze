@@ -7,10 +7,10 @@ import java.io.FileFilter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 public class ExecutableHelper
 {
-
     public static List<String> FilesToStrings(@NotNull List<File> FileList)
     {
         List<String> Temp = new ArrayList<>();
@@ -125,5 +125,40 @@ public class ExecutableHelper
                     }
                 }
                                            );
+    }
+
+    public static class Entry<K, V> implements Map.Entry<K, V>
+    {
+        private K key;
+        private V val;
+
+        public Entry(K key, V val)
+        {
+            if (key != null)
+            {
+                this.key = key;
+                this.val = val;
+            }
+        }
+
+        @Override
+        public K getKey()
+        {
+            return key;
+        }
+
+        @Override
+        public V getValue()
+        {
+            return val;
+        }
+
+        @Override
+        public V setValue(V value)
+        {
+            V old = val;
+            val = value;
+            return old;
+        }
     }
 }

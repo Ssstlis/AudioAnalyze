@@ -1,15 +1,10 @@
 package Fox.core.lib.services.Common;
 
 import Fox.core.lib.general.DOM.FingerPrint;
-import Fox.core.lib.general.utils.AcoustIDException;
-import Fox.core.lib.general.utils.NoMatchesException;
-import Fox.core.lib.general.utils.RecordingRelativator;
-import Fox.core.lib.general.utils.Relativator;
-import Fox.core.lib.services.acoustid.LookupByFP.sources.ByFingerPrint;
+import Fox.core.lib.general.utils.Exceptions;
+import Fox.core.lib.general.utils.Sorts;
+import Fox.core.lib.services.acoustid.LookupByFP.sources.*;
 import Fox.core.lib.services.acoustid.LookupByFP.sources.Error;
-import Fox.core.lib.services.acoustid.LookupByFP.sources.Recording;
-import Fox.core.lib.services.acoustid.LookupByFP.sources.Result;
-import Fox.test.testing;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -23,8 +18,8 @@ import static Fox.core.lib.general.utils.Sorts.Sort;
 
 public class Sifter
 {
-    private static SimpleInfoComparatorByUsages SimpleInfoComparatorByUsages = new SimpleInfoComparatorByUsages();
-    private static Relativator RecordingRelativator = new RecordingRelativator();
+    private static SimpleInfo.SimpleInfoComparatorByUsages SimpleInfoComparatorByUsages = new SimpleInfo.SimpleInfoComparatorByUsages();
+    private static Sorts.Relativator RecordingRelativator = new Recording.RecordingRelativator();
 
 
     public Sifter()
@@ -35,8 +30,9 @@ public class Sifter
                                            @NotNull ByFingerPrint target,
                                            int count,
                                            boolean trust)
-            throws AcoustIDException,
-            NoMatchesException
+            throws
+            Exceptions.AcoustIDException,
+            Exceptions.NoMatchesException
     {
 
         if (count < 0)
@@ -45,7 +41,7 @@ public class Sifter
         int encounter = TracksEncounter(target);
 
         if (encounter == 0)
-            throw new NoMatchesException("No matches at AcoustID");
+            throw new Exceptions.NoMatchesException("No matches at AcoustID");
 
         List<SimpleInfo> store = new ArrayList<>();
 
@@ -91,7 +87,7 @@ public class Sifter
         IntermediateList = SimpleInfoSortingBackwardByUsage(IntermediateList);
         int size1 = IntermediateList.size();
 
-        List<SimpleInfo> FinalList = new ArrayList<>();
+        List<SimpleInfo> FinalList = new ArrayList<>(IntermediateList.size());
 
         for(int i = 0, size = count == 0 ? size1 : count > size1 ? size1 : count; i < size; i++)
             FinalList.add(IntermediateList.get(i));
@@ -108,7 +104,6 @@ public class Sifter
     {
         SiftingByArtist(recordingList);
         recordingList = RecordingRelativeSortingForward(recordingList, Integer.parseInt(FP.getDuration()));
-        testing.dbg3.put(FP.getLocation(), recordingList);
         List<SimpleInfo> IntermediateList = Converting(recordingList);
         IntermediateList = MergingByUsages(IntermediateList);
 
@@ -188,16 +183,17 @@ public class Sifter
     /**
      * @param target AcoustID response instance
      * @return number of recordings in AcoustID response
-     * @throws AcoustIDException if AcoustID response contains Error instance
+     * @throws Exceptions.AcoustIDException if AcoustID response contains Error instance
      */
     private static int TracksEncounter(@NotNull ByFingerPrint target)
-            throws AcoustIDException
+            throws
+            Exceptions.AcoustIDException
     {
         int result = 0;
         if (target.hasError() && target.getErr().hasMessage())
         {
             Error err = target.getErr();
-            throw new AcoustIDException("Error code: " + err.getCode() + " message: "+ err.getMessage());
+            throw new Exceptions.AcoustIDException("Error code: " + err.getCode() + " message: "+ err.getMessage());
         }
 
         for(Result elem : target.getResult())
@@ -211,15 +207,16 @@ public class Sifter
      * For easy processing needs to compress few lists to single list.
      * @param target is ByFingerPrint instance, contains list of Recording list.
      * @return Compressing Recording list form ByFingerPrint instance.
-     * @throws AcoustIDException if target contains Error instance.
+     * @throws Exceptions.AcoustIDException if target contains Error instance.
      */
     private static List<Recording> CompressResult(@NotNull ByFingerPrint target)
-            throws AcoustIDException
+            throws
+            Exceptions.AcoustIDException
     {
         if (target.hasError() && target.getErr().hasMessage())
         {
             Error err = target.getErr();
-            throw new AcoustIDException("Error code: " + err.getCode() + " message: "+ err.getMessage());
+            throw new Exceptions.AcoustIDException("Error code: " + err.getCode() + " message: "+ err.getMessage());
         }
 
         List<Recording> RecordingsStorage = null;
@@ -244,7 +241,7 @@ public class Sifter
     private static void SiftingByArtist(@NotNull List<Recording> recordingList)
     {
         Map<String, Integer> AssistMap = new HashMap<>();
-        List<String> AssistList = new ArrayList<>();
+        List<String> AssistList = new ArrayList<>(recordingList.size());
         int max = 0;
 
         for(Recording elem : recordingList)
@@ -295,17 +292,20 @@ public class Sifter
         for(SimpleInfo elem:ElemList)
         {
             int count = 0;
-            String elemMBID = elem.getMBID();
-            if (elem.hasMBID() && SecAssistMap.get(elemMBID) == null)
+            String elemMBID = elem.getTrackMBID();
+            if (elem.hasTrackMBID() && SecAssistMap.get(elemMBID) == null)
             {
                 for (SimpleInfo elem1 : ElemList)
-                    if (elemMBID.equalsIgnoreCase(elem1.getMBID()))
+                    if (elemMBID.equalsIgnoreCase(elem1.getTrackMBID()))
                         count += elem1.getUsages();
 
                 Target.add(new SimpleInfo(elem.getArtist(),
-                        elemMBID,
-                        elem.getTitle(),
-                        count));
+                                          elemMBID,
+                                          elem.getTitle(),
+                                          elem.getAlbum(),
+                                          elem.getArtistMBID(),
+                                          elem.getAlbumMBID(),
+                                          count));
                 SecAssistMap.put(elemMBID, true);
             }
         }
@@ -319,7 +319,7 @@ public class Sifter
      */
     private static List<SimpleInfo> Converting(@NotNull List<Recording> recordingList)
     {
-        List<SimpleInfo> temp = new ArrayList<>();
+        List<SimpleInfo> temp = new ArrayList<>(recordingList.size());
 
         for(Recording elem : recordingList)
             temp.add(Converting(elem));
@@ -339,10 +339,16 @@ public class Sifter
         {
             temp = new SimpleInfo();
 
-            temp.setMBID(source.getId());
+            temp.setTrackMBID(source.getId());
 
             if (source.hasArtists())
-                temp.setArtist(source.getArtists().get(0).getName());
+            {
+                Artist artist = source.getArtists()
+                                      .get(0);
+                temp.setArtist(artist
+                                     .getName());
+                temp.setArtistMBID(artist.getId());
+            }
 
             temp.setTitle(source.getTitle());
             temp.setUsages(source.getSources());

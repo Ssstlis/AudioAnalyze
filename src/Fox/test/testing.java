@@ -1,46 +1,32 @@
 package Fox.test;
 
-import Fox.core.lib.general.DOM.FingerPrint;
 import Fox.core.lib.general.DOM.ID3V2;
 import Fox.core.lib.general.templates.ProgressState;
 import Fox.core.lib.general.utils.ExecutableHelper;
 import Fox.core.lib.general.utils.performance;
-import Fox.core.lib.services.Common.SimpleInfo;
-import Fox.core.lib.services.LastFM.Track.getInfo.sources.TrackInfo;
-import Fox.core.lib.services.acoustid.LookupByFP.sources.ByFingerPrint;
-import Fox.core.lib.services.acoustid.LookupByFP.sources.Recording;
 import Fox.core.main.AudioAnalyzeLibrary;
 import Fox.test.util.Mp3Filter;
-import Fox.utils.CustomProgressState;
-import Fox.utils.WindowsFPcalc;
+import Fox.test.util.CustomProgressState;
+import Fox.test.util.WindowsFPcalc;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.logging.Level;
 
-import static Fox.core.main.AudioAnalyzeLibrary.logger;
-import static java.util.logging.Level.WARNING;
 
 public class testing
 {
-    public static ConcurrentHashMap<String, FingerPrint> dbg1 = new ConcurrentHashMap<>();
-    public static ConcurrentHashMap<String ,ByFingerPrint> dbg2 = new ConcurrentHashMap<>();
-    public static ConcurrentHashMap<String, List<Recording>> dbg3 = new ConcurrentHashMap<>();
-    public static ConcurrentHashMap<String, List<SimpleInfo>> dbg4 = new ConcurrentHashMap<>();
-    public static ConcurrentHashMap<String, List<SimpleInfo>> dbg41 = new ConcurrentHashMap<>();
-    public static ConcurrentHashMap<String, List<SimpleInfo>> dbg5 = new ConcurrentHashMap<>();
-    public static ConcurrentHashMap<String, Entry<org.musicbrainz.android.api.data.Recording, TrackInfo>> dbg6 = new ConcurrentHashMap<>();
-    public static ConcurrentHashMap<String, ID3V2> dbg7 = new ConcurrentHashMap<>();
+    private static final Logger logger = LoggerFactory.getLogger(AudioAnalyzeLibrary.class);
     public static void main(String[] args)
     {
 
-        Map<String, List<ID3V2>> Result = null;
+        Entry<Map<String, List<ID3V2>>, List<String>> Result = null;
         try
         {
-            String mp3location = "D:\\music\\Born Handed";
+            String mp3location = "C:\\Users\\Ssstlis\\Desktop\\music\\Born Hanged";
             List<File> FileList = ExecutableHelper.GetFileList(mp3location,
                                                                new Mp3Filter()
                                                               );
@@ -70,31 +56,31 @@ public class testing
                      "Common"
                     );
 
-            AudioAnalyzeLibrary Client = new AudioAnalyzeLibrary();
 
             long temp = System.currentTimeMillis();
 
 
-            Client.buildStrings(ExecutableHelper.FilesToStrings(FileList));
 
-            Result = Client.run(new WindowsFPcalc(),
+            Result = AudioAnalyzeLibrary.run(ExecutableHelper.FilesToStrings(FileList),
+                                new WindowsFPcalc(),
                     Line1,
                     Line2,
                     Line3,
                     Line4,
                     performance.MAX,
                     true,
-                    10,
-                    false);
+                    5);
 
             temp = System.currentTimeMillis() - temp;
-            String access = Result.size() == FileList.size() ? "good" : "bad";
-            logger.log(WARNING, Long.toString(temp) + " " + access);
+            String access = Result.getKey().size() == FileList.size() ? "good" : "bad";
+            if (logger.isWarnEnabled())
+                logger.warn("{} {}", temp, access);
             System.currentTimeMillis();
         }
         catch (Exception e)
         {
-            logger.log(Level.SEVERE, "", e);
+            if (logger.isErrorEnabled())
+                logger.error("", e);
         }
     }
 }

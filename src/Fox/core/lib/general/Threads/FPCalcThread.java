@@ -3,50 +3,47 @@ package Fox.core.lib.general.Threads;
 import Fox.core.lib.general.DOM.FingerPrint;
 import Fox.core.lib.general.templates.FingerPrintThread;
 import Fox.core.lib.general.templates.ProgressState;
+import Fox.core.main.AudioAnalyzeLibrary;
 import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.util.logging.Level;
+import java.util.concurrent.Callable;
 
-import static Fox.core.main.AudioAnalyzeLibrary.logger;
 
 public class FPCalcThread
-        implements Runnable
+        implements Callable<FingerPrint>
 {
+    private static final Logger logger = LoggerFactory.getLogger(AudioAnalyzeLibrary.class);
     private FingerPrintThread executor;
     private volatile ProgressState Line, Common;
-    private FingerPrint message;
     private String location;
 
     public FPCalcThread(
             @NotNull FingerPrintThread executor,
             @NotNull String location,
-            @NotNull FingerPrint transfer,
             @NotNull ProgressState ProgressLine,
             @NotNull ProgressState CommonLine)
     {
         this.executor = executor;
         this.Line = ProgressLine;
-        this.message = transfer;
         this.location = location;
         this.Common = CommonLine;
     }
 
     @Override
-    public void run()
+    public FingerPrint call()
     {
+        FingerPrint fingerPrint = null;
         try
         {
-            synchronized (message)
-            {
-                executor.getFingerPrint(location,
-                                        message
-                                       );
-                message.notify();
-            }
+            fingerPrint = executor.getFingerPrint(location);
         }
         catch (Exception e)
         {
-            logger.log(Level.SEVERE, "", e);
+            if (logger.isErrorEnabled())
+                logger.error("", e);
+            return null;
         }
         finally
         {
@@ -59,6 +56,6 @@ public class FPCalcThread
                 Common.update();
             }
         }
-
+        return fingerPrint;
     }
 }

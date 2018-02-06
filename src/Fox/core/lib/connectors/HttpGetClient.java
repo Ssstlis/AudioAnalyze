@@ -44,8 +44,10 @@ public class HttpGetClient
         ResponseBody responseBody = response.body();
 
         if (responseBody != null)
-            Resp = response.body().string();
-
+        {
+            Resp = responseBody.string();
+            responseBody.close();
+        }
         return Resp;
     }
 }

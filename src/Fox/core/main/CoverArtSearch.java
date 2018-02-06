@@ -3,9 +3,9 @@ package Fox.core.main;
 import Fox.core.lib.general.DOM.AlbumArtCompilation;
 import Fox.core.lib.general.DOM.Art;
 import Fox.core.lib.general.DOM.Extract;
-import Fox.core.lib.general.utils.NoMatchesException;
+import Fox.core.lib.general.utils.Exceptions;
 import Fox.core.lib.general.utils.target;
-import Fox.core.lib.services.CoverArtArchive.CoverArtArchiveClient;
+import Fox.core.lib.services.CoverArtArchive.CoverArtArchiveApi;
 import Fox.core.lib.services.CoverArtArchive.LookupAlbumArt.sources.AlbumArt;
 import Fox.core.lib.services.LastFM.Album.getInfo.sources.AlbumInfo;
 import Fox.core.lib.services.LastFM.Album.getInfo.sources.album;
@@ -13,25 +13,32 @@ import Fox.core.lib.services.LastFM.Album.search.sources.Search;
 import Fox.core.lib.services.LastFM.Album.search.sources.albummatches;
 import Fox.core.lib.services.LastFM.Album.search.sources.results;
 import Fox.core.lib.services.LastFM.CommonSources.image;
-import Fox.core.lib.services.LastFM.LastFMApi;
 import org.jetbrains.annotations.NotNull;
 import org.musicbrainz.android.api.data.ReleaseArtist;
 import org.musicbrainz.android.api.data.ReleaseInfo;
 import org.musicbrainz.android.api.webservice.MusicBrainzWebClient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import static Fox.core.lib.services.Common.Elapsed.MusicBrainzElapse;
+import static Fox.core.lib.services.LastFM.Album.LastFMAlbumClient.getInfo;
+import static Fox.core.lib.services.LastFM.Album.LastFMAlbumClient.search;
+import static java.util.concurrent.TimeUnit.MILLISECONDS;
+
 public class CoverArtSearch
 {
 
-    private static void AddMostResolutionImageLink(
-            String Artist,
-            String Album,
-            List<image> imageList,
-            @NotNull List<Art> targetList)
+    private static final Logger logger = LoggerFactory.getLogger(CoverArtSearch.class);
+
+    private static void AddMostResolutionImageLink(String Artist,
+                                                   String Album,
+                                                   List<image> imageList,
+                                                   @NotNull List<Art> targetList)
     {
         Extract extract;
 
@@ -47,9 +54,10 @@ public class CoverArtSearch
                                     target.LastFM
                 ));
         }
-        catch (NoMatchesException e)
+        catch (Exceptions.NoMatchesException e)
         {
-            e.printStackTrace();
+            if (logger.isErrorEnabled())
+                logger.error("", e);
         }
     }
 
@@ -60,7 +68,7 @@ public class CoverArtSearch
             @NotNull Integer count)
             throws
             IllegalArgumentException,
-            NoMatchesException
+            Exceptions.NoMatchesException
     {
         AlbumArtCompilation temp = new AlbumArtCompilation(AlbumName,
                                                            ArtistName,
@@ -69,25 +77,33 @@ public class CoverArtSearch
 
         if (AlbumName.isEmpty() || count <= 0)
         {
+            if (logger.isErrorEnabled())
+                logger.error("Illegal album title or number of arts.");
             throw new IllegalArgumentException();
         }
 
+        if (logger.isDebugEnabled())
+            logger.debug("starting search");
+
         if (ArtistName != null && !ArtistName.isEmpty())
         {
-            AlbumInfo LFMInfo = new LastFMApi().Album
-                    .getInfo(null,
+            if (logger.isDebugEnabled())
+                logger.debug("first scenario");
+
+            AlbumInfo LFMInfo =
+                    getInfo(null,
                              ArtistName,
                              AlbumName,
                              null,
                              null,
                              true
                             );
-            if (LFMInfo != null && LFMInfo.hasError())
+            if (LFMInfo == null || LFMInfo.hasError())
             {
-                throw new NoMatchesException("No matches.");
+                throw new Exceptions.NoMatchesException("No matches.");
             }
 
-            if (LFMInfo != null && LFMInfo.hasAlbum())
+            if (LFMInfo.hasAlbum())
             {
                 album album = LFMInfo.getAlbum();
                 List<Art> ArtList = new ArrayList<>();
@@ -103,8 +119,21 @@ public class CoverArtSearch
 
                 if (album.hasMbid())
                 {
-                    AlbumArt lookupAlbumArt = CoverArtArchiveClient.LookupAlbumArt(album.getMbid());
+                    if (logger.isDebugEnabled())
+                        logger.debug("Cover Art lookup start");
+                    try
+                    {
+                        MILLISECONDS.sleep(MusicBrainzElapse());
+                    }
+                    catch (InterruptedException e)
+                    {
+                        if (logger.isErrorEnabled())
+                            logger.error("", e);
+                    }
+                    AlbumArt lookupAlbumArt = CoverArtArchiveApi.LookupAlbumArt(album.getMbid());
 
+                    if (logger.isDebugEnabled())
+                        logger.debug("Cover Art lookup end");
                     if (lookupAlbumArt != null && lookupAlbumArt.hasImages())
                     {
                         for (Fox.core.lib.services.CoverArtArchive.LookupAlbumArt.sources.image elem : lookupAlbumArt.getImages())
@@ -128,11 +157,20 @@ public class CoverArtSearch
 
         if (source == target.LastFM)
         {
-            Search searchLF = new LastFMApi().Album
-                    .search(count,
+            if (logger.isDebugEnabled())
+                logger.debug("second scenario");
+
+            if (logger.isDebugEnabled())
+                logger.debug("LastFM lookup start");
+
+            Search searchLF =
+                    search(count,
                             null,
                             AlbumName
                            );
+
+            if (logger.isDebugEnabled())
+                logger.debug("LastFM lookup end");
 
             if (searchLF != null && searchLF.hasResults())
             {
@@ -165,7 +203,7 @@ public class CoverArtSearch
                         }
 
                         if (ArtList.isEmpty())
-                            throw new NoMatchesException("No matches.");
+                            throw new Exceptions.NoMatchesException("No matches.");
 
                         temp.setArtList(ArtList);
                         return temp;
@@ -176,9 +214,25 @@ public class CoverArtSearch
 
         if (source == target.MusicBrainz)
         {
+            if (logger.isDebugEnabled())
+                logger.debug("third scenario");
             try
             {
+                if (logger.isDebugEnabled())
+                    logger.debug("MB lookup start");
+                try
+                {
+                    MILLISECONDS.sleep(MusicBrainzElapse());
+                }
+                catch (InterruptedException e)
+                {
+                    if (logger.isErrorEnabled())
+                        logger.error("", e);
+                }
                 LinkedList<ReleaseInfo> releaseInfos = new MusicBrainzWebClient("AudioAnalyzeApp").searchRelease(AlbumName);
+
+                if (logger.isDebugEnabled())
+                    logger.debug("MB lookup end");
 
                 if (releaseInfos != null && !releaseInfos.isEmpty())
                 {
@@ -188,8 +242,21 @@ public class CoverArtSearch
                          ArtList.size() != count && i < size;
                          i++)
                     {
-                        AlbumArt albumArt = CoverArtArchiveClient.LookupAlbumArt(releaseInfos.get(i)
-                                                                                             .getReleaseMbid());
+                        if (logger.isDebugEnabled())
+                            logger.debug("CoverArt lookup start");
+                        try
+                        {
+                            MILLISECONDS.sleep(MusicBrainzElapse());
+                        }
+                        catch (InterruptedException e)
+                        {
+                            if (logger.isErrorEnabled())
+                                logger.error("", e);
+                        }
+                        AlbumArt albumArt = CoverArtArchiveApi.LookupAlbumArt(releaseInfos.get(i)
+                                                                                          .getReleaseMbid());
+                        if (logger.isDebugEnabled())
+                            logger.debug("CoverArt lookup end");
 
                         String releaseInfoTitle = null;
                         String name = null;
@@ -233,11 +300,12 @@ public class CoverArtSearch
             }
             catch (IOException e)
             {
-                e.printStackTrace();
-                throw new NoMatchesException("No matches.", e);
+                if (logger.isErrorEnabled())
+                    logger.error("", e);
+                throw new Exceptions.NoMatchesException("No matches.", e);
             }
         }
 
-        throw new NoMatchesException("No matches.");
+        throw new Exceptions.NoMatchesException("No matches.");
     }
 }

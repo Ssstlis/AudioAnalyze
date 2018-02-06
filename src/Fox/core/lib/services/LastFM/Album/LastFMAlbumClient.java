@@ -1,26 +1,28 @@
 package Fox.core.lib.services.LastFM.Album;
 
-import Fox.core.lib.services.Elapsed;
+import Fox.core.lib.services.Common.Elapsed;
 import Fox.core.lib.services.LastFM.Album.getInfo.GetInfoBuilder;
 import Fox.core.lib.services.LastFM.Album.getInfo.sources.AlbumInfo;
 import Fox.core.lib.services.LastFM.Album.search.SearchBuilder;
 import Fox.core.lib.services.LastFM.Album.search.sources.Search;
 import Fox.core.lib.services.LastFM.LastFMApi;
+import Fox.core.main.AudioAnalyzeLibrary;
 import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
-import static Fox.core.main.AudioAnalyzeLibrary.logger;
-import static java.util.logging.Level.SEVERE;
 
 public class LastFMAlbumClient
 {
+    private static final Logger logger = LoggerFactory.getLogger(AudioAnalyzeLibrary.class);
     public LastFMAlbumClient()
     {
 
     }
 
-    public AlbumInfo getInfo(
+    public static AlbumInfo getInfo(
             String mbid,
             @NotNull String artist,
             @NotNull String album,
@@ -88,7 +90,8 @@ public class LastFMAlbumClient
         }
         catch (IOException | InterruptedException e)
         {
-            logger.log(SEVERE, "", e );
+            if (logger.isErrorEnabled())
+                logger.error("", e);
             return null;
         }
         if (response != null)
@@ -97,7 +100,7 @@ public class LastFMAlbumClient
         return buildAlbumInfo;
     }
 
-    public Search search(
+    public static Search search(
             Integer limit,
             Integer page,
             @NotNull String album
@@ -139,7 +142,8 @@ public class LastFMAlbumClient
         }
         catch (IOException | InterruptedException e)
         {
-            logger.log(SEVERE, "", e );
+            if (logger.isErrorEnabled())
+                logger.error("", e);
             return null;
         }
 

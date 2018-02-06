@@ -1,26 +1,23 @@
 package Fox.core.lib.services.LastFM.Track;
 
-import Fox.core.lib.services.Elapsed;
+import Fox.core.lib.services.Common.Elapsed;
 import Fox.core.lib.services.LastFM.LastFMApi;
 import Fox.core.lib.services.LastFM.Track.getInfo.GetInfoBuilder;
 import Fox.core.lib.services.LastFM.Track.getInfo.sources.TrackInfo;
+import Fox.core.main.AudioAnalyzeLibrary;
 import org.jetbrains.annotations.NotNull;
-
-import java.io.IOException;
-import java.util.logging.Level;
-
-import static Fox.core.main.AudioAnalyzeLibrary.logger;
-import static java.util.logging.Level.SEVERE;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class LastFMTrackClient
 {
+    private static final Logger logger = LoggerFactory.getLogger(AudioAnalyzeLibrary.class);
     public LastFMTrackClient()
     {
 
     }
 
-    public TrackInfo getInfo(
+    public static TrackInfo getInfo(
             String mbid,
             @NotNull String track,
             @NotNull String artist,
@@ -83,7 +80,8 @@ public class LastFMTrackClient
         }
         catch (Exception e)
         {
-            logger.log(SEVERE, "", e );
+            if (logger.isErrorEnabled())
+                logger.error("", e);
             return null;
         }
         if (response != null)

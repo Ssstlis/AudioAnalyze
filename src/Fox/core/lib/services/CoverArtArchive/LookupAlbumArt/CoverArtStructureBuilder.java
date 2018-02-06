@@ -1,7 +1,7 @@
 package Fox.core.lib.services.CoverArtArchive.LookupAlbumArt;
 
 import Fox.core.lib.services.Common.ParseSupport;
-import Fox.core.lib.services.CoverArtArchive.CoverArtArchiveResponse;
+import Fox.core.lib.services.CoverArtArchive.CoverArtArchiveApi;
 import Fox.core.lib.services.CoverArtArchive.LookupAlbumArt.sources.AlbumArt;
 import Fox.core.lib.services.CoverArtArchive.LookupAlbumArt.sources.image;
 import Fox.core.lib.services.CoverArtArchive.LookupAlbumArt.sources.thumbnail;
@@ -23,7 +23,7 @@ public class CoverArtStructureBuilder
     }
 
     public static AlbumArt buildAlbumArt(
-            @NotNull CoverArtArchiveResponse response)
+            @NotNull CoverArtArchiveApi.CoverArtArchiveResponse response)
     {
         JsonParser parser = new JsonParser();
 

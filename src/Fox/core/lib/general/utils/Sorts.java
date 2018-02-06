@@ -9,7 +9,7 @@ import java.util.List;
 public class Sorts
 {
     /**
-     * Sorting elems with comparator
+     * Sorting elems with comparator. For API 1.7 and earlier.
      * @param elems list for sorting
      * @param c comparator
      * @param isForward is true, the least elements at start, the most at the end. Else reversing sorting.
@@ -59,7 +59,7 @@ public class Sorts
     }
 
     /**
-     * Sorting elems in results from Relativator for single element
+     * Sorting elems in results from Relativator for single element. For API 1.7 and earlier.
      * @param elems list for sorting
      * @param r Relativator, which sorts the list
      * @param Relativator param for sorting relativator
@@ -150,5 +150,16 @@ public class Sorts
 
         elems.clear();
         elems.addAll(temp);
+    }
+
+
+    /** Relativator is replacing BiFunction<<T>, <R>, <E>> interface for API 1.7 and earlier.
+     * @param <T> the type of the first argument to the function
+     * @param <R> the type of the second argument to the function
+     * @param <E> the type of the result of the function
+     */
+    public interface Relativator<T, R, E extends Number>
+    {
+        E RelativeCompare(T o1, R o2) throws IllegalArgumentException;
     }
 }

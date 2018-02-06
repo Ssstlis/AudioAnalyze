@@ -4,39 +4,39 @@ import Fox.core.lib.general.DOM.FingerPrint;
 import Fox.core.lib.general.DOM.ID3V2;
 import Fox.core.lib.general.templates.ProgressState;
 import Fox.core.lib.services.Common.ServiceProcessing;
-import Fox.core.lib.services.LastFM.LastFMApi;
-import Fox.core.lib.services.acoustid.AcoustIDClient;
+import Fox.core.lib.services.acoustid.AcoustIDApi;
+import Fox.core.main.AudioAnalyzeLibrary;
 import org.jetbrains.annotations.NotNull;
-import org.musicbrainz.android.api.webservice.MusicBrainzWebClient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.logging.Level;
+import java.util.Map;
 
-import static Fox.core.main.AudioAnalyzeLibrary.logger;
-import static java.util.logging.Level.SEVERE;
 
 public class ServiceThread
         implements Runnable
 {
+    private static final Logger logger = LoggerFactory.getLogger(AudioAnalyzeLibrary.class);
     private FingerPrint FPrint;
     private volatile ProgressState Local, Common;
-    private AcoustIDClient AIDClient;
+    private AcoustIDApi AIDClient;
     private boolean Trust;
-    private ConcurrentHashMap<String, List<ID3V2>> target;
+    private Map<String, List<ID3V2>> target;
     private int count;
 
 
     public ServiceThread(
-            @NotNull AcoustIDClient AIDClient,
             @NotNull FingerPrint FPrint,
-            @NotNull ConcurrentHashMap<String, List<ID3V2>> Target,
+            @NotNull Map<String, List<ID3V2>> Target,
             @NotNull ProgressState ServiceState,
             @NotNull ProgressState CommonProgress,
             boolean Trust,
             int count)
     {
-        this.AIDClient = AIDClient;
+        AcoustIDApi.AcoustIDRequestConfig AIDConfig = new AcoustIDApi.AcoustIDRequestConfig();
+        AIDConfig.setDefault();
+        this.AIDClient = new AcoustIDApi(AIDConfig);
         this.FPrint = FPrint;
         this.Common = CommonProgress;
         this.Local = ServiceState;
@@ -50,9 +50,6 @@ public class ServiceThread
     {
         try
         {
-            synchronized (FPrint)
-            {
-                FPrint.wait(4000);
 
                 ServiceProcessing.Processing(AIDClient,
                                              FPrint,
@@ -60,11 +57,12 @@ public class ServiceThread
                                              target,
                                              count
                                             );
-            }
+
         }
         catch (Exception e)
         {
-            logger.log(SEVERE, "", e);
+            if (logger.isErrorEnabled())
+                logger.error("", e);
         }
         finally
         {

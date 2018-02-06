@@ -6,62 +6,57 @@ import Fox.core.lib.general.Threads.FPCalcThread;
 import Fox.core.lib.general.Threads.ServiceThread;
 import Fox.core.lib.general.templates.FingerPrintThread;
 import Fox.core.lib.general.templates.ProgressState;
-import Fox.core.lib.general.utils.*;
-import Fox.core.lib.services.LastFM.LastFMApi;
-import Fox.core.lib.services.acoustid.AcoustIDClient;
-import Fox.core.lib.services.acoustid.AcoustIDRequestConfig;
-import Fox.test.testing;
+import Fox.core.lib.general.utils.Exceptions;
+import Fox.core.lib.general.utils.ExecutableHelper;
+import Fox.core.lib.general.utils.FileChecker;
+import Fox.core.lib.general.utils.performance;
+import Fox.core.lib.services.Common.BuildTagProcessing;
 import org.jetbrains.annotations.NotNull;
-import org.musicbrainz.android.api.webservice.MusicBrainzWebClient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
-import java.util.logging.Logger;
+import java.util.Map.Entry;
+import java.util.concurrent.*;
 
-import static java.util.logging.Level.*;
+import static java.util.concurrent.TimeUnit.MINUTES;
 
 public class AudioAnalyzeLibrary
 {
-    public final static Logger logger = Logger.getLogger("AudioAnalyzeLibrary");
-    public final static String CALL_WO_BUILD = "Trying to call method without build file list.";
+    private static final Logger logger = LoggerFactory.getLogger(AudioAnalyzeLibrary.class);
+    private final static String CALL_WO_BUILD = "Trying to call method without build file list.";
     public final static String NO_COUNT = "Impossible to return less then zero or equals zero size of results.";
-    private static AcoustIDClient AIDClient;
-    private List<String> Locations;
-    private List<String> Rejected;
-    private boolean isBuild = false;
 
 
     public AudioAnalyzeLibrary()
     {
-        AcoustIDRequestConfig AIDConfig = new AcoustIDRequestConfig();
-        AIDConfig.setDefault();
-        AIDClient = new AcoustIDClient(AIDConfig);
     }
 
-    public void buildStrings(@NotNull List<String> Files)
+    private static List<String> ExcludeDuplicate(@NotNull List<String> Files)
     {
-        this.Locations = Files;
-        if (Locations.size() > 0)
+        Map<String, Boolean> AssistMap = new HashMap<>();
+        List<String> result = null;
+        if (Files.size() != 0)
         {
-            isBuild = true;
+            result = new ArrayList<>();
+            for (String elem : Files)
+            {
+                String lowerCase = elem.toLowerCase();
+                if (!AssistMap.containsKey(lowerCase))
+                {
+                    result.add(lowerCase);
+                    AssistMap.put(lowerCase, true);
+                }
+            }
         }
+        return result;
     }
 
-    public void buildFiles(@NotNull List<File> File)
-    {
-        this.Locations = ExecutableHelper.FilesToStrings(File);
-        if (Locations.size() > 0)
-        {
-            isBuild = true;
-        }
-    }
-
-    public Map<String, List<ID3V2>> run(
+    public static Entry<Map<String, List<ID3V2>>, List<String>> run(
+            @NotNull List<String> Files,
             @NotNull FingerPrintThread YourFPCalcThread,
             @NotNull ProgressState CheckerProgressBar,
             @NotNull ProgressState FPProgressBar,
@@ -69,30 +64,34 @@ public class AudioAnalyzeLibrary
             @NotNull ProgressState CommonProgressBar,
             @NotNull performance Speed,
             boolean TrustMode,
-            int count,
-            boolean idDebug)
+            int count)
             throws
             InterruptedException,
-            NoBuildException,
+            Exceptions.NoBuildException,
             IllegalArgumentException,
-            ProgressStateException
+            Exceptions.ProgressStateException,
+            Exceptions.NoMatchesException,
+            Exceptions.NoAccessingFilesException
     {
-        if (idDebug)
-            logger.setLevel(ALL);
-        else
-            logger.setLevel(WARNING);
+        boolean isBuild = false;
 
-        if (count < 0 && !TrustMode)
+        if (Files.size() == 0 || count < 0)
         {
-            if (logger.getLevel().intValue() <= SEVERE.intValue())
-                logger.log(SEVERE, NO_COUNT);
+            if (logger.isErrorEnabled())
+                logger.error(NO_COUNT);
             throw new IllegalArgumentException(NO_COUNT);
         }
+
+        List<String> Locations = ExcludeDuplicate(Files);
+
+        if (Locations.size() != 0)
+            isBuild = true;
+
         if (!isBuild)
         {
-            if (logger.getLevel().intValue() <= SEVERE.intValue())
-                logger.log(SEVERE, CALL_WO_BUILD);
-            throw new NoBuildException(CALL_WO_BUILD);
+            if (logger.isErrorEnabled())
+                logger.error(CALL_WO_BUILD);
+            throw new Exceptions.NoBuildException(CALL_WO_BUILD);
         }
 
         CommonProgressBar.setSize(Locations.size() * 3);
@@ -100,33 +99,35 @@ public class AudioAnalyzeLibrary
 
         FileChecker FileReviewer = new FileChecker();
 
-        if (logger.getLevel().intValue() <= INFO.intValue())
-            logger.log(INFO, "Start files check");
+        if (logger.isDebugEnabled())
+            logger.debug("Start files check");
 
         FileReviewer.SiftFileAsString(Locations,
                                       CheckerProgressBar,
                                       CommonProgressBar
                                      );
 
-        if (logger.getLevel().intValue() <= INFO.intValue())
-            logger.log(INFO, "End files check");
+        if (logger.isDebugEnabled())
+            logger.debug("End files check");
 
         Locations = FileReviewer.getAccepted();
-        Rejected = FileReviewer.getRejected();
-
-        if (Locations == null || Locations.size() == 0)
+        List<String> Rejected = FileReviewer.getRejected();
+        int size = Locations.size();
+        if (size == 0)
         {
-            if (logger.getLevel().intValue() <= SEVERE.intValue())
-                logger.log(SEVERE, "Empty accepted files....returning with null.");
-            return null;
+            Exceptions.NoAccessingFilesException exception = new Exceptions.NoAccessingFilesException("No one file were accepted.");
+            if (logger.isErrorEnabled())
+                logger.error("",exception);
+            throw exception;
         }
 
-        ConcurrentHashMap<String, List<ID3V2>> target = new ConcurrentHashMap<>();
+        Map<String, List<ID3V2>> target = new ConcurrentHashMap<>(size);
 
-        CommonProgressBar.setSize(CommonProgressBar.getSize() - 3 * Rejected.size());
+        if (Rejected.size() > 0)
+            CommonProgressBar.setSize(CommonProgressBar.getSize() - 3 * Rejected.size());
 
-        FPProgressBar.setSize(Locations.size());
-        ServiceProgressBar.setSize(Locations.size());
+        FPProgressBar.setSize(size);
+        ServiceProgressBar.setSize(size);
 
         int N_CPUs = Runtime.getRuntime()
                             .availableProcessors();
@@ -136,7 +137,7 @@ public class AudioAnalyzeLibrary
             switch (Speed)
             {
                 case MAX:
-                    CPU = (N_CPUs - 1 > 1) ? (N_CPUs - 1) : (2);
+                    CPU = (N_CPUs > 1) ? (N_CPUs) : (2);
                     break;
                 case HALF:
                     CPU = (N_CPUs / 2 > 1) ? (N_CPUs / 2) : (2);
@@ -150,48 +151,88 @@ public class AudioAnalyzeLibrary
             }
         }
 
-        if (logger.getLevel().intValue() <= INFO.intValue())
-            logger.log(INFO,"Starting work with " + CPU + " threads");
+        if (logger.isInfoEnabled())
+            logger.info("Starting work with " + CPU + " threads");
 
-        ExecutorService es = Executors.newFixedThreadPool(CPU);
+        ExecutorService ServicePool = Executors.newFixedThreadPool(CPU, new ThreadFactory()
+        {
+            @Override
+            public Thread newThread(@NotNull Runnable r)
+            {
+                return new Thread(r, "Service Pool");
+            }
+        });
+
+        if (logger.isInfoEnabled())
+            logger.info("Instance FingerPrint thread list");
+
+        long t = System.currentTimeMillis();
+        List<Callable<FingerPrint>> tasks = new ArrayList<>(size);
+
         for (String file : Locations)
         {
-            FingerPrint transfer = new FingerPrint();
-
-            es.execute(new ServiceThread(
-                    AIDClient,
-                    transfer,
-                    target,
-                    ServiceProgressBar,
-                    CommonProgressBar,
-                    TrustMode,
-                    count
-            ));
-
-            es.execute(new FPCalcThread(YourFPCalcThread,
-                    file,
-                    transfer,
-                    FPProgressBar,
-                    CommonProgressBar
-            ));
+            tasks.add(new FPCalcThread(YourFPCalcThread,
+                                       file,
+                                       FPProgressBar,
+                                       CommonProgressBar));
         }
 
-        es.shutdown();
-        es.awaitTermination(15,
-                            TimeUnit.MINUTES
-                           );
-        isBuild = false;
+        if (logger.isInfoEnabled())
+            logger.info("Instance done in {} milliseconds", System.currentTimeMillis() - t);
 
-        return target;
+
+        List<Future<FingerPrint>> futureList = ServicePool.invokeAll(tasks);
+        while (futureList.size() > 0)
+        {
+            Future<FingerPrint> toRemove = null;
+            for (Future<FingerPrint> thread : futureList)
+                if (thread.isDone())
+                {
+                    toRemove = thread;
+                    FingerPrint print = null;
+                    try
+                    {
+                        print = thread.get();
+                    }
+                    catch (ExecutionException e)
+                    {
+                        if (logger.isTraceEnabled())
+                            logger.error("", e);
+                    }
+
+                    if (print != null)
+                    {
+                        if (logger.isInfoEnabled())
+                            logger.info("Start service thread");
+
+                        ServicePool.submit(new ServiceThread(print,
+                                                             target,
+                                                             ServiceProgressBar,
+                                                             CommonProgressBar,
+                                                             TrustMode,
+                                                             count));
+                    }
+                    break;
+                }
+
+            if (toRemove != null)
+                futureList.remove(toRemove);
+        }
+
+        ServicePool.shutdown();
+        ServicePool.awaitTermination(25, MINUTES);
+        if (target.size() == 0)
+        {
+            Exceptions.NoMatchesException e = new Exceptions.NoMatchesException("No matches.");
+            if (logger.isErrorEnabled())
+                logger.error("", e);
+            throw e;
+        }
+        return new ExecutableHelper.Entry<>(target, Rejected);
     }
 
-    public List<String> getRejected()
+    public static void ClearCache()
     {
-        return Rejected;
-    }
-
-    public List<String> getAccepted()
-    {
-        return Locations;
+        BuildTagProcessing.ClearCache();
     }
 }

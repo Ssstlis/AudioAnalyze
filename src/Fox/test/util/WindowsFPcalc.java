@@ -1,26 +1,31 @@
-package Fox.utils;
+package Fox.test.util;
 
 import Fox.core.lib.general.DOM.FingerPrint;
 import Fox.core.lib.general.templates.FingerPrintThread;
-import Fox.core.lib.general.utils.FingerPrintProcessingException;
-import Fox.test.testing;
+import Fox.core.lib.general.utils.Exceptions;
+import Fox.core.main.AudioAnalyzeLibrary;
 import core.windows.FileDestinationWindows;
 import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+
 public class WindowsFPcalc
         implements FingerPrintThread
 {
 
+    private static final Logger logger = LoggerFactory.getLogger(AudioAnalyzeLibrary.class);
     @Override
-    public void getFingerPrint(
-            @NotNull String location,
-            @NotNull FingerPrint target)
-            throws FingerPrintProcessingException
+    public FingerPrint getFingerPrint(
+            @NotNull String location)
+            throws
+            Exceptions.FingerPrintProcessingException
     {
+        FingerPrint target = new FingerPrint();
         try
         {
             final String Source = new FileDestinationWindows()
@@ -58,16 +63,18 @@ public class WindowsFPcalc
                 print = result.substring(result.indexOf("FINGERPRINT=") + 12);
 
                 target.setPrint(print);
+                if (logger.isInfoEnabled())
+                    logger.info("Location: {}, duration {}", location, duration);
                 target.setDuration(duration);
                 target.setLocation(location);
-                testing.dbg1.put(location, new FingerPrint(target));
             }
             process.destroy();
         }
         catch (Exception e)
         {
             e.printStackTrace();
-            throw new FingerPrintProcessingException();
+            throw new Exceptions.FingerPrintProcessingException(e);
         }
+        return target;
     }
 }

@@ -1,9 +1,12 @@
 package Fox.core.lib.general.Threads;
 
 import Fox.core.lib.general.templates.ProgressState;
+import Fox.core.main.AudioAnalyzeLibrary;
 import org.jaudiotagger.audio.AudioFileIO;
 import org.jaudiotagger.audio.mp3.MP3File;
 import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.util.List;
@@ -11,7 +14,7 @@ import java.util.List;
 public class FileCheckerThread
         implements Runnable
 {
-
+    private static final Logger logger = LoggerFactory.getLogger(AudioAnalyzeLibrary.class);
     private String location;
     private List<String> Target, Rejected;
     private ProgressState Line, Common;
@@ -47,7 +50,8 @@ public class FileCheckerThread
         }
         catch (Exception e)
         {
-            e.printStackTrace();
+            if (logger.isErrorEnabled())
+                logger.error("", e);
             return false;
         }
     }
@@ -68,8 +72,8 @@ public class FileCheckerThread
         }
         catch (Exception e)
         {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
+            if (logger.isErrorEnabled())
+                logger.error("", e);
         }
         finally
         {

@@ -82,4 +82,9 @@ public class FingerPrint
         res = res.concat(print);
         return res;
     }
+
+    public boolean hasDuration()
+    {
+        return (duration != null && !duration.isEmpty());
+    }
 }

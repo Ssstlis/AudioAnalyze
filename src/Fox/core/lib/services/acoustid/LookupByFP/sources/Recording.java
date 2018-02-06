@@ -1,10 +1,13 @@
 package Fox.core.lib.services.acoustid.LookupByFP.sources;
 
+import Fox.core.lib.general.utils.Sorts;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+
+import static java.lang.Math.abs;
 
 public class Recording implements Comparable<Recording>
 {
@@ -162,5 +165,30 @@ public class Recording implements Comparable<Recording>
         if (this.sources < o.sources)
             return -1;
         return 0;
+    }
+
+    public static class RecordingRelativator implements Sorts.Relativator<Recording, Integer, Float>
+    {
+        @Override
+        public Float RelativeCompare(Recording o1, Integer o2)
+                throws IllegalArgumentException
+        {
+            if (o1 == null || !o1.hasDuration() || o1.getDuration() <= 0 ||  o2 == null || o2 <= 0)
+                throw new IllegalArgumentException();
+
+            Integer duration = o1.getDuration();
+
+            return (float)(100*(abs(duration - o2))/duration);
+        }
+    }
+
+    public static class RecordingComparator implements Comparator<Recording>
+    {
+        @Override
+        public int compare(@NotNull Recording a,
+                           @NotNull Recording b)
+        {
+            return a.getSources().compareTo(b.getSources());
+        }
     }
 }

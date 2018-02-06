@@ -2,8 +2,8 @@ package Fox.core.lib.services.Common;
 
 import Fox.core.lib.general.DOM.Extract;
 import Fox.core.lib.general.DOM.ID3V2;
-import Fox.core.lib.general.utils.NoMatchesException;
-import Fox.core.lib.services.CoverArtArchive.CoverArtArchiveClient;
+import Fox.core.lib.general.utils.Exceptions;
+import Fox.core.lib.services.CoverArtArchive.CoverArtArchiveApi;
 import Fox.core.lib.services.CoverArtArchive.LookupAlbumArt.sources.AlbumArt;
 import Fox.core.lib.services.LastFM.CommonSources.attr;
 import Fox.core.lib.services.LastFM.CommonSources.image;
@@ -14,37 +14,38 @@ import Fox.core.lib.services.LastFM.Track.getInfo.sources.TrackInfo;
 import Fox.core.lib.services.LastFM.Track.getInfo.sources.album;
 import Fox.core.lib.services.LastFM.Track.getInfo.sources.artist;
 import Fox.core.lib.services.LastFM.Track.getInfo.sources.track;
-import Fox.test.testing;
+import Fox.core.main.AudioAnalyzeLibrary;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.musicbrainz.android.api.data.*;
 import org.musicbrainz.android.api.webservice.MusicBrainzWebClient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.util.AbstractMap.SimpleEntry;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map.Entry;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.*;
 
-import static Fox.core.lib.services.Elapsed.MusicBrainzElapse;
-import static Fox.core.main.AudioAnalyzeLibrary.logger;
-import static Fox.test.testing.dbg6;
+import static Fox.core.lib.services.Common.Elapsed.MusicBrainzElapse;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
-import static java.util.logging.Level.INFO;
-import static java.util.logging.Level.SEVERE;
 
 public class BuildTagProcessing
 {
+    private static final Logger logger = LoggerFactory.getLogger(AudioAnalyzeLibrary.class);
     private static final MusicBrainzWebClient MBClient = new MusicBrainzWebClient("AudioAnalyzeLib");
     private static final LastFMApi lastFMApi = new LastFMApi();
-    private static ConcurrentHashMap<String, Release> MusicBrainzReleaseCache = new ConcurrentHashMap<>();
-    private static ConcurrentHashMap<String, Artist> MusicBrainzArtistCache = new ConcurrentHashMap<>();
-    private static ConcurrentHashMap<String, Recording> MusicBrainzRecordingCache = new ConcurrentHashMap<>();
+    private static Map<String, Release> MusicBrainzReleaseCache = new HashMap<>();
+    private static Map<String, Artist> MusicBrainzArtistCache = new HashMap<>();
+    private static Map<String, Recording> MusicBrainzRecordingCache = new HashMap<>();
 
     public BuildTagProcessing()
     {
+    }
+
+    public static void ClearCache()
+    {
+        MusicBrainzArtistCache = new HashMap<>();
+        MusicBrainzRecordingCache = new HashMap<>();
+        MusicBrainzReleaseCache = new HashMap<>();
     }
 
     @Contract(value = "null, null -> null", pure = true)
@@ -66,7 +67,8 @@ public class BuildTagProcessing
                         Release CacheRelease = MusicBrainzReleaseCache.get(lfmAlbumMBID);
                         if (CacheRelease != null)
                         {
-                            logger.log(INFO, "using caching release " + lfmAlbumMBID + ". Size of releases cache " + MusicBrainzReleaseCache.size());
+                            if (logger.isDebugEnabled())
+                                logger.debug("using caching release {}. Size of releases cache {}", lfmAlbumMBID, MusicBrainzReleaseCache.size());
                             lookupRelease = CacheRelease;
                         } else
                         {
@@ -75,7 +77,8 @@ public class BuildTagProcessing
                             if (lookupRelease != null && lookupRelease.getMbid() != null)
                             {
                                 MusicBrainzReleaseCache.put(lfmAlbumMBID, lookupRelease);
-                                logger.log(INFO, "add caching release " + lfmAlbumMBID + ". Size of releases cache " + MusicBrainzReleaseCache.size());
+                                if (logger.isDebugEnabled())
+                                    logger.debug("add caching release {}. Size of releases cache {}", lfmAlbumMBID, MusicBrainzReleaseCache.size());
                             }
                         }
                     }
@@ -90,7 +93,8 @@ public class BuildTagProcessing
                 }
                 catch (IOException e)
                 {
-                    logger.log(SEVERE, "MusicBrainzException at MBID " + lfmAlbumMBID, e);
+                    if (logger.isErrorEnabled())
+                        logger.error("MusicBrainzException at MBID {}", lfmAlbumMBID, e);
                 }
                 catch (InterruptedException ignored)
                 {
@@ -130,7 +134,8 @@ public class BuildTagProcessing
                     if (CacheRelease != null)
                     {
                         lookupRelease = CacheRelease;
-                        logger.log(INFO, "using caching release " + AlbumMBID + ". Size of releases cache " + MusicBrainzReleaseCache.size());
+                        if (logger.isDebugEnabled())
+                            logger.debug("using caching release {}. Size of releases cache {}", AlbumMBID, MusicBrainzReleaseCache.size());
                     } else
                     {
                         MILLISECONDS.sleep(MusicBrainzElapse());
@@ -138,7 +143,8 @@ public class BuildTagProcessing
                         if (lookupRelease != null && lookupRelease.getMbid() != null)
                         {
                             MusicBrainzReleaseCache.put(AlbumMBID, lookupRelease);
-                            logger.log(INFO, "add caching release " + AlbumMBID + ". Size of releases cache " + MusicBrainzReleaseCache.size());
+                            if (logger.isDebugEnabled())
+                                logger.debug("add caching release {}. Size of releases cache {}", AlbumMBID, MusicBrainzReleaseCache.size());
                         }
                     }
                 }
@@ -146,7 +152,8 @@ public class BuildTagProcessing
         }
         catch (IOException e)
         {
-            logger.log(SEVERE, "MusicBrainzException at MBID " + AlbumMBID, e);
+            if (logger.isErrorEnabled())
+                logger.error("MusicBrainzException at MBID {}", AlbumMBID, e);
         }
         catch (InterruptedException ignored){}
 
@@ -159,7 +166,8 @@ public class BuildTagProcessing
                     Artist CacheArtist = MusicBrainzArtistCache.get(ArtistMBID);
                     if (CacheArtist != null)
                     {
-                        logger.log(INFO, "using caching artist " + ArtistMBID + ". Size of artist cache " + MusicBrainzArtistCache.size());
+                        if (logger.isDebugEnabled())
+                            logger.debug("using caching artist {}. Size of artist cache {}", ArtistMBID, MusicBrainzArtistCache.size());
                         lookupArtist = CacheArtist;
                     } else
                     {
@@ -168,7 +176,8 @@ public class BuildTagProcessing
                         if (lookupArtist != null && lookupArtist.getMbid() != null)
                         {
                             MusicBrainzArtistCache.put(ArtistMBID, lookupArtist);
-                            logger.log(INFO, "add caching artist " + ArtistMBID + ". Size of artist cache " + MusicBrainzArtistCache.size());
+                            if (logger.isDebugEnabled())
+                                logger.debug("add caching artist {}. Size of artist cache {}", ArtistMBID, MusicBrainzArtistCache.size());
                         }
                     }
                 }
@@ -176,14 +185,15 @@ public class BuildTagProcessing
         }
         catch (IOException e)
         {
-            logger.log(SEVERE, "MusicBrainzException at MBID " + ArtistMBID, e);
+            if (logger.isErrorEnabled())
+                logger.error("MusicBrainzException at MBID {}", ArtistMBID, e);
         }
         catch (InterruptedException ignored){}
 
-        if (lookupArtist == null || lookupArtist.getMbid() == null)
-            logger.log(SEVERE, "null lookup artist at mbid " + ArtistMBID);
-        if (lookupRelease == null || lookupRelease.getMbid() == null)
-            logger.log(SEVERE, "null lookup release at mbid " + AlbumMBID);
+        if (logger.isErrorEnabled() && (lookupArtist == null || lookupArtist.getMbid() == null))
+            logger.error("null lookup artist at mbid {}", ArtistMBID);
+        if (logger.isErrorEnabled() && (lookupRelease == null || lookupRelease.getMbid() == null))
+            logger.error("null lookup release at mbid {}", AlbumMBID);
 
         //Album section
         Album_section:
@@ -431,7 +441,7 @@ public class BuildTagProcessing
 
                 List<String> LinkList = new ArrayList<>();
 
-                AlbumArt lookupAlbumArt = CoverArtArchiveClient.LookupAlbumArt(releaseInfo.getReleaseMbid());
+                AlbumArt lookupAlbumArt = CoverArtArchiveApi.LookupAlbumArt(releaseInfo.getReleaseMbid());
 
                 if (lookupAlbumArt != null && lookupAlbumArt.hasImages())
                 {
@@ -524,7 +534,7 @@ public class BuildTagProcessing
                 //Album art section 1
                 if (lfmInfoTrackAlbum.hasMbid())
                 {
-                    AlbumArt lookupAlbumArt = CoverArtArchiveClient.LookupAlbumArt(lfmInfoTrackAlbum.getMbid());
+                    AlbumArt lookupAlbumArt = CoverArtArchiveApi.LookupAlbumArt(lfmInfoTrackAlbum.getMbid());
 
                     if (lookupAlbumArt != null && lookupAlbumArt.hasImages())
                         for (Fox.core.lib.services.CoverArtArchive.LookupAlbumArt.sources.image elem : lookupAlbumArt.getImages())
@@ -545,9 +555,10 @@ public class BuildTagProcessing
                         if (extract != null && extract.hasText())
                             LinkList.add(extract.getText());
                     }
-                    catch (NoMatchesException e)
+                    catch (Exceptions.NoMatchesException e)
                     {
-                        e.printStackTrace();
+                        if (logger.isErrorEnabled())
+                            logger.error("", e);
                     }
                 }
                 temp.setArtLinks(LinkList);
@@ -580,37 +591,26 @@ public class BuildTagProcessing
     private static ID3V2 BuildTag(
             TrackInfo LFMTrackInfo,
             Recording MBTrackInfo)
-            throws NoMatchesException
+            throws
+            Exceptions.NoMatchesException
     {
-        Entry<Recording, TrackInfo> dbg = new SimpleEntry<>(MBTrackInfo, LFMTrackInfo);
-        String mbTrackInfoMbid = MBTrackInfo.getMbid();
-        String mbid = null;
-        if (LFMTrackInfo != null && LFMTrackInfo.hasTrack())
-            mbid = LFMTrackInfo.getTrack().getMbid();
-        if (mbTrackInfoMbid != null)
-            dbg6.put(mbTrackInfoMbid, dbg);
-        else if (mbid != null)
-            dbg6.put(mbid, dbg);
-
         ID3V2 fromLastFM = TagFromLastFM(LFMTrackInfo);
         ID3V2 fromMusicBrainz = TagFromMusicBrainz(MBTrackInfo);
         ID3V2 mergeTags = MergeTags(fromMusicBrainz, fromLastFM);
 
         if (mergeTags == null)
-            throw new NoMatchesException("No matches.");
-
-        testing.dbg7.put(mergeTags.getTitle(), mergeTags);
+            throw new Exceptions.NoMatchesException("No matches.");
 
         return mergeTags;
     }
 
     public static ID3V2 BuildTag(@NotNull SimpleInfo track)
             throws
-            NoMatchesException,
+            Exceptions.NoMatchesException,
             NullPointerException
     {
 
-        String trackMBID = track.getMBID();
+        String trackMBID = track.getTrackMBID();
         //Variable from LFM when request with MBID
         TrackInfo LFMInfoWMBID;
         //Variable from LFM when request without MBID
@@ -625,32 +625,42 @@ public class BuildTagProcessing
                 track.getArtist(),
                 null,
                 true);
-
+        String LFMMBID = null;
+        if (LFMInfo != null && LFMInfo.hasTrack())
+        {
+            Fox.core.lib.services.LastFM.Track.getInfo.sources.track lfmInfoTrack = LFMInfo.getTrack();
+            if (lfmInfoTrack.hasMbid())
+                LFMMBID = lfmInfoTrack.getMbid();
+        }
+        if (LFMMBID != null)
         try
         {
             synchronized (MusicBrainzRecordingCache)
             {
-                Recording CacheRecording = MusicBrainzRecordingCache.get(trackMBID);
+                Recording CacheRecording = MusicBrainzRecordingCache.get(LFMMBID);
                 if (CacheRecording != null)
                 {
                     MBInfo = CacheRecording;
-                    logger.log(INFO, "using caching recording " + trackMBID + ". Size of recording cache " + MusicBrainzRecordingCache.size());
+                    if (logger.isDebugEnabled())
+                        logger.debug("using caching recording {}. Size of recording cache {}", LFMMBID, MusicBrainzRecordingCache.size());
 
                 } else
                 {
                     MILLISECONDS.sleep(MusicBrainzElapse());
-                    MBInfo = MBClient.lookupRecording(trackMBID);
+                    MBInfo = MBClient.lookupRecording(LFMMBID);
                     if (MBInfo != null && MBInfo.getMbid() != null)
                     {
-                        MusicBrainzRecordingCache.put(trackMBID, MBInfo);
-                        logger.log(INFO, "add caching recording " + trackMBID + ". Size of recording cache " + MusicBrainzRecordingCache.size());
+                        MusicBrainzRecordingCache.put(LFMMBID, MBInfo);
+                        if (logger.isDebugEnabled())
+                            logger.debug("add caching recording {}. Size of recording cache {}", LFMMBID, MusicBrainzRecordingCache.size());
                     }
                 }
             }
 
         } catch (IOException e)
         {
-            logger.log(SEVERE, "MusicBrainzException at MBID " + trackMBID, e);
+            if (logger.isErrorEnabled())
+                logger.error("MusicBrainzException at MBID {}", trackMBID, e);
         }
         catch (InterruptedException ignored){}
 
@@ -658,7 +668,8 @@ public class BuildTagProcessing
         //When LastFM lookup has recording with Artist and track name -> mbid and MB have recording with equals mbid in head
         if (MBInfo != null || LFMInfo != null && !LFMInfo.hasMessage())
         {
-            logger.log(INFO, "first scenario");
+            if (logger.isDebugEnabled())
+                logger.debug("first scenario");
             return BuildTag(LFMInfo, MBInfo);
         }
 
@@ -683,7 +694,8 @@ public class BuildTagProcessing
                         if (CacheRecording != null)
                         {
                             MBSecInfo = CacheRecording;
-                            logger.log(INFO, "using caching recording " + trackMBID + ". Size of recording cache " + MusicBrainzRecordingCache.size());
+                            if (logger.isDebugEnabled())
+                                logger.debug("using caching recording {}. Size of recording cache {}", trackMBID, MusicBrainzRecordingCache.size());
 
                         } else
                         {
@@ -692,7 +704,8 @@ public class BuildTagProcessing
                             if (MBSecInfo != null && MBSecInfo.getMbid() != null)
                             {
                                 MusicBrainzRecordingCache.put(trackMBID, MBSecInfo);
-                                logger.log(INFO, "add caching recording " + trackMBID + ". Size of recording cache " + MusicBrainzRecordingCache.size());
+                                if (logger.isDebugEnabled())
+                                    logger.debug("using caching recording {}. Size of recording cache {}", trackMBID, MusicBrainzRecordingCache.size());
                             }
                         }
                     }
@@ -701,17 +714,19 @@ public class BuildTagProcessing
         }
         catch (IOException e)
         {
-            logger.log(SEVERE, "MusicBrainzException at MBID " + trackMBID, e);
+            if (logger.isErrorEnabled())
+                logger.error("MusicBrainzException at MBID {}", trackMBID, e);
         }
         catch (InterruptedException ignored){}
 
         //When LastFM and MB have recording with equals mbid in head
         if (MBSecInfo != null || LFMInfoWMBID != null && !LFMInfoWMBID.hasMessage())
         {
-            logger.log(INFO, "second scenario");
+            if (logger.isDebugEnabled())
+                logger.debug("second scenario");
             return BuildTag(LFMInfoWMBID, MBSecInfo);
         }
 
-        throw new NoMatchesException("No matches.");
+        throw new Exceptions.NoMatchesException("No matches.");
     }
 }

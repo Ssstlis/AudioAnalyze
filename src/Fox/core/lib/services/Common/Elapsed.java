@@ -1,4 +1,4 @@
-package Fox.core.lib.services;
+package Fox.core.lib.services.Common;
 
 public class Elapsed
 {

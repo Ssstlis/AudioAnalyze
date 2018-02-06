@@ -7,8 +7,11 @@ import java.util.Comparator;
 public class SimpleInfo implements Comparable<SimpleInfo>
 {
     private String Artist;
-    private String MBID;
+    private String TrackMBID;
     private String Title;
+    private String Album;
+    private String ArtistMBID;
+    private String AlbumMBID;
     private Integer usages;
 
     public SimpleInfo()
@@ -18,13 +21,17 @@ public class SimpleInfo implements Comparable<SimpleInfo>
 
     public SimpleInfo(
             String artist,
-            String mbid,
+            String trackmbid,
             String title,
-            Integer usages)
+            String album,
+            String artistMBID, String albumMBID, Integer usages)
     {
         this.Artist = artist;
-        this.MBID = mbid;
+        this.TrackMBID = trackmbid;
         this.Title = title;
+        Album = album;
+        ArtistMBID = artistMBID;
+        AlbumMBID = albumMBID;
         this.usages = usages;
     }
 
@@ -32,8 +39,11 @@ public class SimpleInfo implements Comparable<SimpleInfo>
     {
         this.usages = copy.usages;
         this.Artist = copy.Artist;
-        this.MBID = copy.MBID;
+        this.TrackMBID = copy.TrackMBID;
         this.Title = copy.Title;
+        Album = copy.Album;
+        ArtistMBID = copy.ArtistMBID;
+        AlbumMBID = copy.AlbumMBID;
     }
 
     public String getArtist()
@@ -51,19 +61,19 @@ public class SimpleInfo implements Comparable<SimpleInfo>
         return (Artist!=null && !Artist.isEmpty());
     }
 
-    public String getMBID()
+    public String getTrackMBID()
     {
-        return MBID;
+        return TrackMBID;
     }
 
-    public void setMBID(String MBID)
+    public void setTrackMBID(String trackMBID)
     {
-        this.MBID = MBID;
+        this.TrackMBID = trackMBID;
     }
 
-    public boolean hasMBID()
+    public boolean hasTrackMBID()
     {
-        return (MBID!=null && !MBID.isEmpty());
+        return (TrackMBID !=null && !TrackMBID.isEmpty());
     }
 
     public String getTitle()
@@ -110,4 +120,58 @@ public class SimpleInfo implements Comparable<SimpleInfo>
         return 0;
     }
 
+    public String getAlbum()
+    {
+        return Album;
+    }
+
+    public void setAlbum(String album)
+    {
+        Album = album;
+    }
+
+    public boolean hasAlbum()
+    {
+        return (Album != null && !Album.isEmpty());
+    }
+
+    public String getArtistMBID()
+    {
+        return ArtistMBID;
+    }
+
+    public void setArtistMBID(String artistMBID)
+    {
+        ArtistMBID = artistMBID;
+    }
+
+    public boolean hasArtistMBID()
+    {
+        return (ArtistMBID != null && !ArtistMBID.isEmpty());
+    }
+
+    public String getAlbumMBID()
+    {
+        return AlbumMBID;
+    }
+
+    public void setAlbumMBID(String albumMBID)
+    {
+        AlbumMBID = albumMBID;
+    }
+
+    public boolean hasAlbumMBID()
+    {
+        return (AlbumMBID != null && !AlbumMBID.isEmpty());
+    }
+
+    public static class SimpleInfoComparatorByUsages implements Comparator<SimpleInfo>
+    {
+        @Override
+        public int compare(@NotNull SimpleInfo a,
+                           @NotNull SimpleInfo b)
+        {
+            return a.getUsages().compareTo(b.getUsages());
+        }
+    }
 }

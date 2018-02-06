@@ -1,7 +1,7 @@
 package Fox.core.lib.services.acoustid.LookupByFP;
 
 import Fox.core.lib.services.Common.ParseSupport;
-import Fox.core.lib.services.acoustid.AcoustIDResponse;
+import Fox.core.lib.services.acoustid.AcoustIDApi;
 import Fox.core.lib.services.acoustid.LookupByFP.sources.*;
 import Fox.core.lib.services.acoustid.LookupByFP.sources.Error;
 import com.google.gson.JsonArray;
@@ -20,7 +20,7 @@ public class AcoustIDStructureBuilder
     {
     }
 
-    public static ByFingerPrint buildLookup(@NotNull AcoustIDResponse response)
+    public static ByFingerPrint buildLookup(@NotNull AcoustIDApi.AcoustIDResponse response)
     {
 
         if (!response.hasSource())
