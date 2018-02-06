@@ -4,13 +4,11 @@ import Fox.core.lib.general.DOM.FingerPrint;
 import Fox.core.lib.general.DOM.ID3V2;
 import Fox.core.lib.general.utils.AcoustIDException;
 import Fox.core.lib.general.utils.NoMatchesException;
-import Fox.core.lib.services.LastFM.LastFMApi;
 import Fox.core.lib.services.acoustid.AcoustIDClient;
 import Fox.core.lib.services.acoustid.LookupByFP.sources.ByFingerPrint;
 import Fox.core.lib.services.acoustid.LookupByFP.sources.Error;
 import Fox.test.testing;
 import org.jetbrains.annotations.NotNull;
-import org.musicbrainz.android.api.webservice.MusicBrainzWebClient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,8 +29,6 @@ public class ServiceProcessing
 
     public static void Processing(
             @NotNull AcoustIDClient AIDClient,
-            @NotNull LastFMApi lastFMApi,
-            @NotNull MusicBrainzWebClient musicBrainzWebClient,
             @NotNull FingerPrint AudioPrint,
             boolean Trust,
             @NotNull ConcurrentHashMap<String, List<ID3V2>> Target,
@@ -80,10 +76,7 @@ public class ServiceProcessing
             List<ID3V2> temp = new ArrayList<>();
             try
             {
-                ID3V2 buildTag = BuildTagProcessing.BuildTag(
-                        lastFMApi,
-                        musicBrainzWebClient,
-                        elem);
+                ID3V2 buildTag = BuildTagProcessing.BuildTag(elem);
 
                 if (buildTag != null)
                     temp.add(buildTag);
@@ -91,7 +84,8 @@ public class ServiceProcessing
                 Target.put(location,
                         temp);
 
-            } catch (NoMatchesException e)
+            }
+            catch (NoMatchesException e)
             {
                 logger.log(SEVERE, "An unexpected matches lookup error occur.", e);
             }

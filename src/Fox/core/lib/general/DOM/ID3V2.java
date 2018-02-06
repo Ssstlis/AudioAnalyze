@@ -5,11 +5,14 @@ import java.util.List;
 public class ID3V2
 {
     private String title;
+    private String ArtistMBID;
+    private String TrackMBID;
+    private String AlbumMBID;
     private String year;
     private String artist;
     private String album;
     private String comment;
-    private String genre;
+    private String tag;
     private List<String> ArtLinks;
     private Integer number;
 
@@ -19,20 +22,26 @@ public class ID3V2
     }
 
     public ID3V2(String title,
+                 String artistMBID,
+                 String trackMBID,
+                 String albumMBID,
                  String year,
                  String artist,
                  String album,
                  String comment,
-                 String genre,
+                 String tag,
                  Integer number,
                  List<String> ArtLinks
-                )
+    )
     {
+        ArtistMBID = artistMBID;
+        TrackMBID = trackMBID;
+        AlbumMBID = albumMBID;
         this.album = album;
         this.artist = artist;
         this.ArtLinks = ArtLinks;
         this.comment = comment;
-        this.genre = genre;
+        this.tag = tag;
         this.number = number;
         this.title = title;
         this.year = year;
@@ -113,19 +122,19 @@ public class ID3V2
         return (comment != null && !comment.isEmpty());
     }
 
-    public String getGenre()
+    public String getTag()
     {
-        return genre;
+        return tag;
     }
 
-    public void setGenre(String genre)
+    public void setTag(String tag)
     {
-        this.genre = genre;
+        this.tag = tag;
     }
 
-    public boolean hasGenre()
+    public boolean hasTag()
     {
-        return (genre != null && !genre.isEmpty());
+        return (tag != null && !tag.isEmpty());
     }
 
     public List<String> getArtLinks()
@@ -156,5 +165,50 @@ public class ID3V2
     public boolean hasNumber()
     {
         return (number != null && number != 0);
+    }
+
+    public String getArtistMBID()
+    {
+        return ArtistMBID;
+    }
+
+    public void setArtistMBID(String artistMBID)
+    {
+        ArtistMBID = artistMBID;
+    }
+
+    public boolean hasArtistMBID()
+    {
+        return (ArtistMBID != null && !ArtistMBID.isEmpty());
+    }
+
+    public String getTrackMBID()
+    {
+        return TrackMBID;
+    }
+
+    public void setTrackMBID(String trackMBID)
+    {
+        TrackMBID = trackMBID;
+    }
+
+    public boolean hasTrackMBID()
+    {
+        return (TrackMBID != null && !TrackMBID.isEmpty());
+    }
+
+    public String getAlbumMBID()
+    {
+        return AlbumMBID;
+    }
+
+    public void setAlbumMBID(String albumMBID)
+    {
+        AlbumMBID = albumMBID;
+    }
+
+    public boolean hasAlbumMBID()
+    {
+        return (AlbumMBID != null && !AlbumMBID.isEmpty());
     }
 }

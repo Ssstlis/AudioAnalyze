@@ -2,55 +2,63 @@ package Fox.core.lib.services;
 
 public class Elapsed
 {
-    private static final long
-            AcoustIDElapseState = 330,
-            LastFMElapseState = 250;
-    private static long
-            AcoustIDElapse,
-            LastFMElapse;
-    private static boolean
-            AcoustIDUsage = false,
-            LastFMUsage = false;
+    private static final Long
+            AcoustIDElapseState = (long) 330,
+            LastFMElapseState = (long) 250,
+            MusicBrainzElapseState = (long) 500;
+    private static Long
+            AcoustIDElapse = (long) System.currentTimeMillis(),
+            LastFMElapse = (long) System.currentTimeMillis(),
+            MusicBrainzElapse = (long) System.currentTimeMillis();
 
-    public static long LastFMElapse()
+    public static synchronized long LastFMElapse()
     {
-        long temp = System.currentTimeMillis() - LastFMElapse;
+        long temp;
+        long currentTimeMillis = System.currentTimeMillis();
+        if (currentTimeMillis > LastFMElapse)
+        {
+            temp = 0;
+            LastFMElapse = System.currentTimeMillis() + LastFMElapseState;
+        } else
+        {
+            temp = LastFMElapse - currentTimeMillis;
+            LastFMElapse += LastFMElapseState;
+        }
+        return temp;
 
-        LastFMElapse = System.currentTimeMillis();
-
-        if (!LastFMUsage)
-        {
-            LastFMUsage = true;
-            return 0;
-        }
-        if (temp > LastFMElapseState)
-        {
-            return 0;
-        }
-        else
-        {
-            return (LastFMElapseState - temp);
-        }
     }
 
-    public static long AcoustIDElapse()
+    public static synchronized long AcoustIDElapse()
     {
-        long temp = System.currentTimeMillis() - AcoustIDElapse;
+        long temp;
+        long currentTimeMillis = System.currentTimeMillis();
+        if (currentTimeMillis > AcoustIDElapse)
+        {
+            temp = 0;
+            AcoustIDElapse = System.currentTimeMillis() + AcoustIDElapseState;
+        } else
+        {
+            temp = AcoustIDElapse - currentTimeMillis;
+            AcoustIDElapse += AcoustIDElapseState;
+        }
+        return temp;
 
-        AcoustIDElapse = System.currentTimeMillis();
+    }
 
-        if (!AcoustIDUsage)
+    public static synchronized long MusicBrainzElapse()
+    {
+        long temp;
+        long currentTimeMillis = System.currentTimeMillis();
+        if (currentTimeMillis > MusicBrainzElapse)
         {
-            AcoustIDUsage = true;
-            return 0;
-        }
-        if (temp > AcoustIDElapseState)
+            temp = 0;
+            MusicBrainzElapse = System.currentTimeMillis() + MusicBrainzElapseState;
+        } else
         {
-            return 0;
+            temp = MusicBrainzElapse - currentTimeMillis;
+            MusicBrainzElapse += MusicBrainzElapseState;
         }
-        else
-        {
-            return (AcoustIDElapseState - temp);
-        }
+        return temp;
+
     }
 }

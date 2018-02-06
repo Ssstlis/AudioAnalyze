@@ -31,8 +31,6 @@ public class AudioAnalyzeLibrary
     public final static String CALL_WO_BUILD = "Trying to call method without build file list.";
     public final static String NO_COUNT = "Impossible to return less then zero or equals zero size of results.";
     private static AcoustIDClient AIDClient;
-    private static LastFMApi lastFMApi;
-    private static MusicBrainzWebClient musicBrainzWebClient;
     private List<String> Locations;
     private List<String> Rejected;
     private boolean isBuild = false;
@@ -43,8 +41,6 @@ public class AudioAnalyzeLibrary
         AcoustIDRequestConfig AIDConfig = new AcoustIDRequestConfig();
         AIDConfig.setDefault();
         AIDClient = new AcoustIDClient(AIDConfig);
-        lastFMApi = new LastFMApi();
-        musicBrainzWebClient = new MusicBrainzWebClient("AudioAnalyzeApp");
     }
 
     public void buildStrings(@NotNull List<String> Files)
@@ -84,16 +80,18 @@ public class AudioAnalyzeLibrary
         if (idDebug)
             logger.setLevel(ALL);
         else
-            logger.setLevel(OFF);
+            logger.setLevel(WARNING);
 
         if (count < 0 && !TrustMode)
         {
-            logger.log(SEVERE, NO_COUNT);
+            if (logger.getLevel().intValue() <= SEVERE.intValue())
+                logger.log(SEVERE, NO_COUNT);
             throw new IllegalArgumentException(NO_COUNT);
         }
         if (!isBuild)
         {
-            logger.log(SEVERE, CALL_WO_BUILD);
+            if (logger.getLevel().intValue() <= SEVERE.intValue())
+                logger.log(SEVERE, CALL_WO_BUILD);
             throw new NoBuildException(CALL_WO_BUILD);
         }
 
@@ -102,21 +100,24 @@ public class AudioAnalyzeLibrary
 
         FileChecker FileReviewer = new FileChecker();
 
-        logger.log(INFO, "Start files check");
+        if (logger.getLevel().intValue() <= INFO.intValue())
+            logger.log(INFO, "Start files check");
 
         FileReviewer.SiftFileAsString(Locations,
                                       CheckerProgressBar,
                                       CommonProgressBar
                                      );
 
-        logger.log(INFO, "End files check");
+        if (logger.getLevel().intValue() <= INFO.intValue())
+            logger.log(INFO, "End files check");
 
         Locations = FileReviewer.getAccepted();
         Rejected = FileReviewer.getRejected();
 
         if (Locations == null || Locations.size() == 0)
         {
-            logger.log(SEVERE, "Empty accepted files....returning with null.");
+            if (logger.getLevel().intValue() <= SEVERE.intValue())
+                logger.log(SEVERE, "Empty accepted files....returning with null.");
             return null;
         }
 
@@ -149,7 +150,8 @@ public class AudioAnalyzeLibrary
             }
         }
 
-        logger.log(INFO,"Starting work with " + CPU + " threads");
+        if (logger.getLevel().intValue() <= INFO.intValue())
+            logger.log(INFO,"Starting work with " + CPU + " threads");
 
         ExecutorService es = Executors.newFixedThreadPool(CPU);
         for (String file : Locations)
@@ -158,8 +160,6 @@ public class AudioAnalyzeLibrary
 
             es.execute(new ServiceThread(
                     AIDClient,
-                    lastFMApi,
-                    musicBrainzWebClient,
                     transfer,
                     target,
                     ServiceProgressBar,

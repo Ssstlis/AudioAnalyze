@@ -12,7 +12,10 @@ import Fox.core.lib.services.acoustid.LookupByFP.sources.Result;
 import Fox.test.testing;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import static Fox.core.lib.general.utils.Sorts.RelativeSort;
@@ -286,41 +289,26 @@ public class Sifter
      */
     private static List<SimpleInfo> MergingByUsages(@NotNull List<SimpleInfo> ElemList)
     {
-        Map<String, Integer> AssistMap = new HashMap<>();
         Map<String, Boolean> SecAssistMap = new HashMap<>();
         List<SimpleInfo> Target = new ArrayList<>();
 
-        /*For all elems in list
-        */
-        for (SimpleInfo Elem : ElemList)
+        for(SimpleInfo elem:ElemList)
         {
-            if (Elem.hasMBID())
+            int count = 0;
+            String elemMBID = elem.getMBID();
+            if (elem.hasMBID() && SecAssistMap.get(elemMBID) == null)
             {
-                String mbid = Elem.getMBID();
-                Integer count = AssistMap.get(mbid);
-                //Summing usages by equals mbid.
-                AssistMap.put(mbid, count == null ? Elem.getUsages() : Elem.getUsages() + count);
+                for (SimpleInfo elem1 : ElemList)
+                    if (elemMBID.equalsIgnoreCase(elem1.getMBID()))
+                        count += elem1.getUsages();
+
+                Target.add(new SimpleInfo(elem.getArtist(),
+                        elemMBID,
+                        elem.getTitle(),
+                        count));
+                SecAssistMap.put(elemMBID, true);
             }
         }
-
-        /* Do merging
-        */
-        for (String Elem : AssistMap.keySet())
-            for (SimpleInfo InfoElem : ElemList)
-                if (InfoElem.hasMBID()
-                        && InfoElem.getMBID().equalsIgnoreCase(Elem)
-                        && SecAssistMap.get(Elem) == null)
-                {
-                    SimpleInfo path = new SimpleInfo(InfoElem.getArtist(),
-                                                     InfoElem.getMBID(),
-                                                     InfoElem.getTitle(),
-                                                     AssistMap.get(Elem));
-
-                    SecAssistMap.put(Elem, true);
-                    Target.add(path);
-                    break;
-                }
-
         return Target;
     }
 

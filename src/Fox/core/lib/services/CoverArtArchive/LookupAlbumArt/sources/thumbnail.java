@@ -8,8 +8,6 @@ public class thumbnail
     {
     }
 
-    ;
-
     public thumbnail(
             String large,
             String small)

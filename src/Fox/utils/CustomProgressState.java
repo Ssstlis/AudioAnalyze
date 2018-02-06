@@ -3,8 +3,6 @@ package Fox.utils;
 import Fox.core.lib.general.templates.ProgressState;
 import Fox.core.lib.general.utils.ProgressStateException;
 
-import java.util.logging.Level;
-
 import static Fox.core.main.AudioAnalyzeLibrary.logger;
 import static java.util.logging.Level.INFO;
 

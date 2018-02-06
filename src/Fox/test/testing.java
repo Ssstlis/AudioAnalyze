@@ -22,26 +22,30 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 
 import static Fox.core.main.AudioAnalyzeLibrary.logger;
-import static java.util.logging.Level.INFO;
+import static java.util.logging.Level.WARNING;
 
 public class testing
 {
     public static ConcurrentHashMap<String, FingerPrint> dbg1 = new ConcurrentHashMap<>();
     public static ConcurrentHashMap<String ,ByFingerPrint> dbg2 = new ConcurrentHashMap<>();
     public static ConcurrentHashMap<String, List<Recording>> dbg3 = new ConcurrentHashMap<>();
-    public static ConcurrentHashMap<String, Entry<org.musicbrainz.android.api.data.Recording, TrackInfo>> dbg4 = new ConcurrentHashMap<>();
+    public static ConcurrentHashMap<String, List<SimpleInfo>> dbg4 = new ConcurrentHashMap<>();
+    public static ConcurrentHashMap<String, List<SimpleInfo>> dbg41 = new ConcurrentHashMap<>();
     public static ConcurrentHashMap<String, List<SimpleInfo>> dbg5 = new ConcurrentHashMap<>();
+    public static ConcurrentHashMap<String, Entry<org.musicbrainz.android.api.data.Recording, TrackInfo>> dbg6 = new ConcurrentHashMap<>();
+    public static ConcurrentHashMap<String, ID3V2> dbg7 = new ConcurrentHashMap<>();
     public static void main(String[] args)
     {
 
         Map<String, List<ID3V2>> Result = null;
         try
         {
-
             String mp3location = "D:\\music\\Born Handed";
             List<File> FileList = ExecutableHelper.GetFileList(mp3location,
                                                                new Mp3Filter()
                                                               );
+            //FileList.clear();
+            //FileList.add(new File("D:\\music\\Born Handed\\Black Tongue - Born Hanged - 05 Coma.mp3"));
             ProgressState Line1 = new CustomProgressState
                     (0,
                      "checker",
@@ -81,11 +85,11 @@ public class testing
                     performance.MAX,
                     true,
                     10,
-                    true);
+                    false);
 
             temp = System.currentTimeMillis() - temp;
             String access = Result.size() == FileList.size() ? "good" : "bad";
-            logger.log(INFO, Long.toString(temp) + " " + access);
+            logger.log(WARNING, Long.toString(temp) + " " + access);
             System.currentTimeMillis();
         }
         catch (Exception e)

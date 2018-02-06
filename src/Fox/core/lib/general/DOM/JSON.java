@@ -11,8 +11,6 @@ public class JSON
     {
     }
 
-    ;
-
     public void build(Map<String, String> json)
     {
         if (json == null)

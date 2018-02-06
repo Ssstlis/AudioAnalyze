@@ -24,15 +24,11 @@ public class ServiceThread
     private AcoustIDClient AIDClient;
     private boolean Trust;
     private ConcurrentHashMap<String, List<ID3V2>> target;
-    private LastFMApi lastFMApi;
-    private MusicBrainzWebClient musicBrainzWebClient;
     private int count;
 
 
     public ServiceThread(
             @NotNull AcoustIDClient AIDClient,
-            @NotNull LastFMApi LastFMApi,
-            @NotNull MusicBrainzWebClient musicBrainzWebClient,
             @NotNull FingerPrint FPrint,
             @NotNull ConcurrentHashMap<String, List<ID3V2>> Target,
             @NotNull ProgressState ServiceState,
@@ -46,9 +42,7 @@ public class ServiceThread
         this.Local = ServiceState;
         this.Trust = Trust;
         this.target = Target;
-        this.lastFMApi = LastFMApi;
         this.count = count;
-        this.musicBrainzWebClient = musicBrainzWebClient;
     }
 
     @Override
@@ -61,8 +55,6 @@ public class ServiceThread
                 FPrint.wait(4000);
 
                 ServiceProcessing.Processing(AIDClient,
-                                             lastFMApi,
-                                             musicBrainzWebClient,
                                              FPrint,
                                              Trust,
                                              target,
