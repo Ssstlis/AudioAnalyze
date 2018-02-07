@@ -33,7 +33,7 @@ public class testing
                                                                new Mp3Filter()
                                                               );
             AlbumArtCompilation meteora = SearchLib.SearchCovers("Meteora", null, target.MusicBrainz, 5);
-           //FileList.clear();
+            //FileList.clear();
             //FileList.add(new File("D:\\music\\Born Handed\\Black Tongue - Born Hanged - 05 Coma.mp3"));
             ProgressState Line1 = new CustomProgressState
                     (0,

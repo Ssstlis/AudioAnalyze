@@ -1,5 +1,6 @@
 package Fox.core.lib.services.LastFM.Album;
 
+import Fox.core.lib.connectors.HttpGetClient;
 import Fox.core.lib.services.Common.Elapsed;
 import Fox.core.lib.services.LastFM.Album.getInfo.GetInfoBuilder;
 import Fox.core.lib.services.LastFM.Album.getInfo.sources.AlbumInfo;
@@ -31,6 +32,7 @@ public class LastFMAlbumClient
             Boolean AutoCorrect
                             )
     {
+        HttpGetClient RequestHTTPClient = new HttpGetClient(logger);
         final String method_name = "?method=album.getInfo";
         String optional = "";
 
@@ -71,7 +73,7 @@ public class LastFMAlbumClient
             artist = "&artist=" + artist;
         }
 
-        LastFMApi.RequestHTTPClient
+        RequestHTTPClient
                 .build(
                         LastFMApi.api_root +
                                 method_name +
@@ -86,7 +88,7 @@ public class LastFMAlbumClient
 
         try
         {
-            response = LastFMApi.RequestHTTPClient.run(Elapsed.LastFMElapse(), 0);
+            response = RequestHTTPClient.run(Elapsed.LastFMElapse(), 0);
         }
         catch (IOException | InterruptedException e)
         {
@@ -106,6 +108,7 @@ public class LastFMAlbumClient
             @NotNull String album
                         )
     {
+        HttpGetClient RequestHTTPClient = new HttpGetClient(logger);
         final String method_name = "?method=album.search";
         String optional = "";
 
@@ -124,7 +127,7 @@ public class LastFMAlbumClient
             album = "&album=" + album;
         }
 
-        LastFMApi.RequestHTTPClient
+        RequestHTTPClient
                 .build(
                         LastFMApi.api_root +
                                 method_name +
@@ -138,7 +141,7 @@ public class LastFMAlbumClient
 
         try
         {
-            response = LastFMApi.RequestHTTPClient.run(Elapsed.LastFMElapse(), 0);
+            response = RequestHTTPClient.run(Elapsed.LastFMElapse(), 0);
         }
         catch (IOException | InterruptedException e)
         {

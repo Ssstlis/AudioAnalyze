@@ -20,7 +20,7 @@ public class HttpGetClient
                 .connectTimeout(60, TimeUnit.SECONDS)
                 .readTimeout(300, TimeUnit.SECONDS)
                 .writeTimeout(300,TimeUnit.SECONDS)
-                .connectionPool(new ConnectionPool(3, 1L, TimeUnit.MINUTES))
+                .connectionPool(new ConnectionPool(3, 11L, TimeUnit.MINUTES))
                 .build();
     }
 

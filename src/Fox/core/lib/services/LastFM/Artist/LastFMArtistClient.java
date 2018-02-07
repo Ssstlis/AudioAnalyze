@@ -1,5 +1,6 @@
 package Fox.core.lib.services.LastFM.Artist;
 
+import Fox.core.lib.connectors.HttpGetClient;
 import Fox.core.lib.services.Common.Elapsed;
 import Fox.core.lib.services.LastFM.Artist.getInfo.GetInfoBuilder;
 import Fox.core.lib.services.LastFM.Artist.getInfo.sources.ArtistInfo;
@@ -27,6 +28,7 @@ public class LastFMArtistClient
             Boolean AutoCorrect
                              )
     {
+        HttpGetClient RequestHTTPClient = new HttpGetClient(logger);
         final String method_name = "?method=artist.getInfo";
         String optional = "";
 
@@ -62,7 +64,7 @@ public class LastFMArtistClient
             artist = "&artist=" + artist;
         }
 
-        LastFMApi.RequestHTTPClient
+        RequestHTTPClient
                 .build(
                         LastFMApi.api_root +
                                 method_name +
@@ -77,7 +79,7 @@ public class LastFMArtistClient
 
         try
         {
-            response = LastFMApi.RequestHTTPClient.run(Elapsed.LastFMElapse(), 0);
+            response = RequestHTTPClient.run(Elapsed.LastFMElapse(), 0);
         }
         catch (Exception e)
         {
