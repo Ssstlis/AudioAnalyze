@@ -23,7 +23,6 @@ public class AcoustIDApi
 
     public AcoustIDApi()
     {
-        RequestClient = new HttpGetClient(logger);
         config = new AcoustIDRequestConfig();
         config.setDefault();
     }
@@ -57,6 +56,7 @@ public class AcoustIDApi
 
     public ByFingerPrint LookupByFingerPrint(FingerPrint FPrint)
     {
+        RequestClient = new HttpGetClient(logger);
         if (FPrint != null)
         {
             String request = httpkey +
