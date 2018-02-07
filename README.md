@@ -3,7 +3,7 @@ Artworks and tags look up library.<br>
 The library uses own data sorting and filtering methods for compatibility with Android.<br>
 For start using you need to attach dependencies listed in the latest release and slf4j logger implementation for your platform.
 
-# Search covers
+## Search covers
 To get album covers using a static method SearchCovers from SearchLib class, Fox.core.main package.<br>
 Necessary params:
 - Album title
@@ -16,7 +16,7 @@ Option params:
 Return instance that contains:
 - Request params and list of Arts
 
-# Example
+### Example
 ```java
 public class testing
 {
@@ -38,7 +38,7 @@ public class testing
     }
 }
 ```
-# Search tags
+## Search tags
 To get media tags using a static method SearchTags from SearchLib class, Fox.core.main package.<br>
 Necessary params:
 - 4 different instance of ProgressState (they will be notify you about processing)
@@ -52,7 +52,7 @@ Return instance of entry that contains results:
 - Map of entries file path as key and list of tags as value as key
 - List of file paths as value
 
-# Example
+### Example
 ```java
 public class testing
 {
