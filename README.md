@@ -1,7 +1,7 @@
 # AudioAnalyze
 Artworks and tags look up library.<br>
 The library uses own data sorting and filtering methods for compatibility with Android.<br>
-For start using you need to attach dependencies listed in the latest release and slf4j logger implementation for your platform.
+For start using you need to attach dependencies listed in the [latest release](https://github.com/Ssstlis/AudioAnalyze/releases/latest) and slf4j logger implementation for your platform.
 
 ## Search covers
 To get album covers using a static method SearchCovers from SearchLib class, Fox.core.main package.<br>
