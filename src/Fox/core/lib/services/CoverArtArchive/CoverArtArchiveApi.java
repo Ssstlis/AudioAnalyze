@@ -4,14 +4,14 @@ import Fox.core.lib.connectors.HttpGetClient;
 import Fox.core.lib.services.Common.Elapsed;
 import Fox.core.lib.services.CoverArtArchive.LookupAlbumArt.CoverArtStructureBuilder;
 import Fox.core.lib.services.CoverArtArchive.LookupAlbumArt.sources.AlbumArt;
-import Fox.core.main.AudioAnalyzeLibrary;
+import Fox.core.main.SearchLib;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
 public class CoverArtArchiveApi
 {
-    private static final Logger logger = LoggerFactory.getLogger(AudioAnalyzeLibrary.class);
+    private static final Logger logger = LoggerFactory.getLogger(SearchLib.class);
     private final static String httpkey = "http://coverartarchive.org/release/";
 
     public CoverArtArchiveApi()
@@ -22,7 +22,7 @@ public class CoverArtArchiveApi
     {
         if (mbid != null)
         {
-            HttpGetClient RequestClient = new HttpGetClient();
+            HttpGetClient RequestClient = new HttpGetClient(logger);
             RequestClient.build(
                     httpkey + mbid + '/'
                                );
@@ -31,7 +31,7 @@ public class CoverArtArchiveApi
 
             try
             {
-                response = new CoverArtArchiveResponse(RequestClient.run(Elapsed.MusicBrainzElapse()));
+                response = new CoverArtArchiveResponse(RequestClient.run(Elapsed.MusicBrainzElapse(), 0));
 
             } catch (Exception e)
             {

@@ -1,6 +1,6 @@
 package Fox.test.util;
 
-import Fox.core.main.AudioAnalyzeLibrary;
+import Fox.core.main.SearchLib;
 import org.jaudiotagger.audio.AudioFileIO;
 import org.jaudiotagger.audio.mp3.MP3File;
 import org.slf4j.Logger;
@@ -12,7 +12,7 @@ import java.io.FileFilter;
 public class Mp3Filter
         implements FileFilter
 {
-    private static final Logger logger = LoggerFactory.getLogger(AudioAnalyzeLibrary.class);
+    private static final Logger logger = LoggerFactory.getLogger(SearchLib.class);
     @Override
     public boolean accept(File pathname)
     {

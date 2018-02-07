@@ -1,8 +1,8 @@
 package Fox.test.util;
 
 import Fox.core.lib.general.templates.ProgressState;
-import Fox.core.lib.general.utils.Exceptions;
-import Fox.core.main.AudioAnalyzeLibrary;
+import Fox.core.lib.general.utils.ProgressStateException;
+import Fox.core.main.SearchLib;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,13 +10,13 @@ import org.slf4j.LoggerFactory;
 public class CustomProgressState
         extends ProgressState
 {
-    private static final Logger logger = LoggerFactory.getLogger(AudioAnalyzeLibrary.class);
+    private static final Logger logger = LoggerFactory.getLogger(SearchLib.class);
     public CustomProgressState(
             int size,
             String name,
             String desc)
             throws
-            Exceptions.ProgressStateException
+            ProgressStateException
     {
         super(size,
               name,

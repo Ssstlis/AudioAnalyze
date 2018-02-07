@@ -3,7 +3,7 @@ package Fox.core.lib.general.Threads;
 import Fox.core.lib.general.DOM.FingerPrint;
 import Fox.core.lib.general.templates.FingerPrintThread;
 import Fox.core.lib.general.templates.ProgressState;
-import Fox.core.main.AudioAnalyzeLibrary;
+import Fox.core.main.SearchLib;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +14,7 @@ import java.util.concurrent.Callable;
 public class FPCalcThread
         implements Callable<FingerPrint>
 {
-    private static final Logger logger = LoggerFactory.getLogger(AudioAnalyzeLibrary.class);
+    private static final Logger logger = LoggerFactory.getLogger(SearchLib.class);
     private FingerPrintThread executor;
     private volatile ProgressState Line, Common;
     private String location;

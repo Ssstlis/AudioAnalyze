@@ -5,7 +5,7 @@ import Fox.core.lib.general.DOM.ID3V2;
 import Fox.core.lib.general.templates.ProgressState;
 import Fox.core.lib.services.Common.ServiceProcessing;
 import Fox.core.lib.services.acoustid.AcoustIDApi;
-import Fox.core.main.AudioAnalyzeLibrary;
+import Fox.core.main.SearchLib;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +17,7 @@ import java.util.Map;
 public class ServiceThread
         implements Runnable
 {
-    private static final Logger logger = LoggerFactory.getLogger(AudioAnalyzeLibrary.class);
+    private static final Logger logger = LoggerFactory.getLogger(SearchLib.class);
     private FingerPrint FPrint;
     private volatile ProgressState Local, Common;
     private AcoustIDApi AIDClient;

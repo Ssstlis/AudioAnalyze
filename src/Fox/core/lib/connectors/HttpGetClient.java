@@ -1,25 +1,26 @@
 package Fox.core.lib.connectors;
 
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-import okhttp3.ResponseBody;
+import okhttp3.*;
+import org.slf4j.Logger;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 public class HttpGetClient
 {
+    private Logger logger;
     private OkHttpClient client;
     private Request req;
 
-    public HttpGetClient()
+    public HttpGetClient(Logger logger)
     {
+        this.logger = logger;
         client = new OkHttpClient
                 .Builder()
-                .connectTimeout(60,
-                                TimeUnit.SECONDS
-                               )
+                .connectTimeout(60, TimeUnit.SECONDS)
+                .readTimeout(300, TimeUnit.SECONDS)
+                .writeTimeout(300,TimeUnit.SECONDS)
+                .connectionPool(new ConnectionPool(3, 1L, TimeUnit.MINUTES))
                 .build();
     }
 
@@ -31,22 +32,41 @@ public class HttpGetClient
         return this;
     }
 
-    public String run(long Elapse)
+    public String run(long Elapse, int tries)
             throws
             IOException,
             InterruptedException,
             NullPointerException
     {
         TimeUnit.MILLISECONDS.sleep(Elapse);
-        Response response = client.newCall(req).execute();
+        Response response = null;
+        boolean success = false;
+
+        do
+        {
+            try
+            {
+                response = client.newCall(req).execute();
+                success = true;
+            }
+            catch (IOException e)
+            {
+                if (logger != null && logger.isErrorEnabled())
+                    logger.error("", e);
+            }
+        }
+        while (!success && --tries > 0);
 
         String Resp = null;
-        ResponseBody responseBody = response.body();
 
-        if (responseBody != null)
+        if (response != null)
         {
-            Resp = responseBody.string();
-            responseBody.close();
+            ResponseBody responseBody = response.body();
+            if (responseBody != null)
+            {
+                Resp = responseBody.string();
+                responseBody.close();
+            }
         }
         return Resp;
     }

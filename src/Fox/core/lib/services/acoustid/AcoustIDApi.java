@@ -5,7 +5,7 @@ import Fox.core.lib.general.DOM.FingerPrint;
 import Fox.core.lib.services.Common.Elapsed;
 import Fox.core.lib.services.acoustid.LookupByFP.AcoustIDStructureBuilder;
 import Fox.core.lib.services.acoustid.LookupByFP.sources.ByFingerPrint;
-import Fox.core.main.AudioAnalyzeLibrary;
+import Fox.core.main.SearchLib;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +14,7 @@ import java.util.HashMap;
 
 public class AcoustIDApi
 {
-    private static final Logger logger = LoggerFactory.getLogger(AudioAnalyzeLibrary.class);
+    private static final Logger logger = LoggerFactory.getLogger(SearchLib.class);
     private final static String key = "WweGbntpM7";
     private final static String httpkey =
             "https://api.acoustid.org/v2/lookup?client=" + key + "&format=json";
@@ -23,14 +23,14 @@ public class AcoustIDApi
 
     public AcoustIDApi()
     {
-        RequestClient = new HttpGetClient();
+        RequestClient = new HttpGetClient(logger);
         config = new AcoustIDRequestConfig();
         config.setDefault();
     }
 
     public AcoustIDApi(AcoustIDRequestConfig cfg)
     {
-        RequestClient = new HttpGetClient();
+        RequestClient = new HttpGetClient(logger);
         if (cfg != null)
         {
             config = cfg;
@@ -59,21 +59,21 @@ public class AcoustIDApi
     {
         if (FPrint != null)
         {
-            RequestClient.build(
-                    httpkey +
-                            "&duration=" +
-                            FPrint.getDuration() +
-                            "&fingerprint=" +
-                            FPrint.getPrint() +
-                            config.toString()
-                               );
+            String request = httpkey +
+                    "&duration=" +
+                    FPrint.getDuration() +
+                    "&fingerprint=" +
+                    FPrint.getPrint() +
+                    config.toString();
+
+            RequestClient.build(request);
 
             AcoustIDResponse response;
             ByFingerPrint fingerPrint = null;
 
             try
             {
-                response = new AcoustIDResponse(RequestClient.run(Elapsed.AcoustIDElapse()));
+                response = new AcoustIDResponse(RequestClient.run(Elapsed.AcoustIDElapse(), 0));
             }
             catch (Exception e)
             {

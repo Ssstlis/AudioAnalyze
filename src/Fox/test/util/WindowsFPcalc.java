@@ -2,8 +2,8 @@ package Fox.test.util;
 
 import Fox.core.lib.general.DOM.FingerPrint;
 import Fox.core.lib.general.templates.FingerPrintThread;
-import Fox.core.lib.general.utils.Exceptions;
-import Fox.core.main.AudioAnalyzeLibrary;
+import Fox.core.lib.general.utils.FingerPrintProcessingException;
+import Fox.core.main.SearchLib;
 import core.windows.FileDestinationWindows;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
@@ -18,12 +18,12 @@ public class WindowsFPcalc
         implements FingerPrintThread
 {
 
-    private static final Logger logger = LoggerFactory.getLogger(AudioAnalyzeLibrary.class);
+    private static final Logger logger = LoggerFactory.getLogger(SearchLib.class);
     @Override
     public FingerPrint getFingerPrint(
             @NotNull String location)
             throws
-            Exceptions.FingerPrintProcessingException
+            FingerPrintProcessingException
     {
         FingerPrint target = new FingerPrint();
         try
@@ -73,7 +73,7 @@ public class WindowsFPcalc
         catch (Exception e)
         {
             e.printStackTrace();
-            throw new Exceptions.FingerPrintProcessingException(e);
+            throw new FingerPrintProcessingException(e);
         }
         return target;
     }

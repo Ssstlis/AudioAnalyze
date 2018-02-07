@@ -2,7 +2,7 @@ package Fox.core.lib.services.Common;
 
 import Fox.core.lib.general.DOM.Extract;
 import Fox.core.lib.general.DOM.ID3V2;
-import Fox.core.lib.general.utils.Exceptions;
+import Fox.core.lib.general.utils.NoMatchesException;
 import Fox.core.lib.services.CoverArtArchive.CoverArtArchiveApi;
 import Fox.core.lib.services.CoverArtArchive.LookupAlbumArt.sources.AlbumArt;
 import Fox.core.lib.services.LastFM.CommonSources.attr;
@@ -14,7 +14,7 @@ import Fox.core.lib.services.LastFM.Track.getInfo.sources.TrackInfo;
 import Fox.core.lib.services.LastFM.Track.getInfo.sources.album;
 import Fox.core.lib.services.LastFM.Track.getInfo.sources.artist;
 import Fox.core.lib.services.LastFM.Track.getInfo.sources.track;
-import Fox.core.main.AudioAnalyzeLibrary;
+import Fox.core.main.SearchLib;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.musicbrainz.android.api.data.*;
@@ -30,7 +30,7 @@ import static java.util.concurrent.TimeUnit.MILLISECONDS;
 
 public class BuildTagProcessing
 {
-    private static final Logger logger = LoggerFactory.getLogger(AudioAnalyzeLibrary.class);
+    private static final Logger logger = LoggerFactory.getLogger(SearchLib.class);
     private static final MusicBrainzWebClient MBClient = new MusicBrainzWebClient("AudioAnalyzeLib");
     private static final LastFMApi lastFMApi = new LastFMApi();
     private static Map<String, Release> MusicBrainzReleaseCache = new HashMap<>();
@@ -555,7 +555,7 @@ public class BuildTagProcessing
                         if (extract != null && extract.hasText())
                             LinkList.add(extract.getText());
                     }
-                    catch (Exceptions.NoMatchesException e)
+                    catch (NoMatchesException e)
                     {
                         if (logger.isErrorEnabled())
                             logger.error("", e);
@@ -592,21 +592,21 @@ public class BuildTagProcessing
             TrackInfo LFMTrackInfo,
             Recording MBTrackInfo)
             throws
-            Exceptions.NoMatchesException
+            NoMatchesException
     {
         ID3V2 fromLastFM = TagFromLastFM(LFMTrackInfo);
         ID3V2 fromMusicBrainz = TagFromMusicBrainz(MBTrackInfo);
         ID3V2 mergeTags = MergeTags(fromMusicBrainz, fromLastFM);
 
         if (mergeTags == null)
-            throw new Exceptions.NoMatchesException("No matches.");
+            throw new NoMatchesException("No matches.");
 
         return mergeTags;
     }
 
     public static ID3V2 BuildTag(@NotNull SimpleInfo track)
             throws
-            Exceptions.NoMatchesException,
+            NoMatchesException,
             NullPointerException
     {
 
@@ -727,6 +727,6 @@ public class BuildTagProcessing
             return BuildTag(LFMInfoWMBID, MBSecInfo);
         }
 
-        throw new Exceptions.NoMatchesException("No matches.");
+        throw new NoMatchesException("No matches.");
     }
 }

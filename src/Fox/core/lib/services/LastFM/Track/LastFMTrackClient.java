@@ -4,14 +4,14 @@ import Fox.core.lib.services.Common.Elapsed;
 import Fox.core.lib.services.LastFM.LastFMApi;
 import Fox.core.lib.services.LastFM.Track.getInfo.GetInfoBuilder;
 import Fox.core.lib.services.LastFM.Track.getInfo.sources.TrackInfo;
-import Fox.core.main.AudioAnalyzeLibrary;
+import Fox.core.main.SearchLib;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class LastFMTrackClient
 {
-    private static final Logger logger = LoggerFactory.getLogger(AudioAnalyzeLibrary.class);
+    private static final Logger logger = LoggerFactory.getLogger(SearchLib.class);
     public LastFMTrackClient()
     {
 
@@ -76,7 +76,7 @@ public class LastFMTrackClient
 
         try
         {
-            response = LastFMApi.RequestHTTPClient.run(Elapsed.LastFMElapse());
+            response = LastFMApi.RequestHTTPClient.run(Elapsed.LastFMElapse(), 0);
         }
         catch (Exception e)
         {

@@ -1,7 +1,7 @@
 package Fox.core.lib.services.LastFM.CommonSources;
 
 import Fox.core.lib.general.DOM.Extract;
-import Fox.core.lib.general.utils.Exceptions;
+import Fox.core.lib.general.utils.NoMatchesException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +51,7 @@ public class image
 
     public static Extract extract(List<image> imageList)
             throws
-            Exceptions.NoMatchesException
+            NoMatchesException
     {
         if (imageList != null && !imageList.isEmpty())
         {
@@ -71,7 +71,7 @@ public class image
 
             if (text == null)
             {
-                throw new Exceptions.NoMatchesException("No matches.");
+                throw new NoMatchesException("No matches.");
             }
 
             Extract temp = new Extract(text, sizes);

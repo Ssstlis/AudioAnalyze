@@ -1,6 +1,6 @@
 package Fox.core.lib.general.templates;
 
-import Fox.core.lib.general.utils.Exceptions;
+import Fox.core.lib.general.utils.ProgressStateException;
 
 public abstract class ProgressState
 {
@@ -11,10 +11,10 @@ public abstract class ProgressState
             int size,
             String name,
             String desc) throws
-                         Exceptions.ProgressStateException
+            ProgressStateException
     {
         if (size < 0)
-            throw new Exceptions.ProgressStateException("Can`t set progress bar size to zero or less.");
+            throw new ProgressStateException("Can`t set progress bar size to zero or less.");
         this.size = size;
         this.desc = desc;
         this.name = name;
@@ -28,10 +28,10 @@ public abstract class ProgressState
             int now,
             String desc)
             throws
-            Exceptions.ProgressStateException
+            ProgressStateException
     {
         if (now < 0)
-            throw new Exceptions.ProgressStateException("Can`t change status of progress less then zero");
+            throw new ProgressStateException("Can`t change status of progress less then zero");
         this.state = now;
         this.desc = desc;
 
@@ -80,10 +80,10 @@ public abstract class ProgressState
     }
 
     public void setSize(int size) throws
-                                  Exceptions.ProgressStateException
+            ProgressStateException
     {
         if (size <= 0)
-            throw new Exceptions.ProgressStateException("Can`t resize progress bar size to zero or less.");
+            throw new ProgressStateException("Can`t resize progress bar size to zero or less.");
         this.size = size;
         onResize();
         if (state >= size)

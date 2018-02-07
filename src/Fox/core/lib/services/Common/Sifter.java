@@ -1,7 +1,8 @@
 package Fox.core.lib.services.Common;
 
 import Fox.core.lib.general.DOM.FingerPrint;
-import Fox.core.lib.general.utils.Exceptions;
+import Fox.core.lib.general.utils.AcoustIDException;
+import Fox.core.lib.general.utils.NoMatchesException;
 import Fox.core.lib.general.utils.Sorts;
 import Fox.core.lib.services.acoustid.LookupByFP.sources.*;
 import Fox.core.lib.services.acoustid.LookupByFP.sources.Error;
@@ -31,8 +32,8 @@ public class Sifter
                                            int count,
                                            boolean trust)
             throws
-            Exceptions.AcoustIDException,
-            Exceptions.NoMatchesException
+            AcoustIDException,
+            NoMatchesException
     {
 
         if (count < 0)
@@ -41,7 +42,7 @@ public class Sifter
         int encounter = TracksEncounter(target);
 
         if (encounter == 0)
-            throw new Exceptions.NoMatchesException("No matches at AcoustID");
+            throw new NoMatchesException("No matches at AcoustID");
 
         List<SimpleInfo> store = new ArrayList<>();
 
@@ -183,17 +184,17 @@ public class Sifter
     /**
      * @param target AcoustID response instance
      * @return number of recordings in AcoustID response
-     * @throws Exceptions.AcoustIDException if AcoustID response contains Error instance
+     * @throws AcoustIDException if AcoustID response contains Error instance
      */
     private static int TracksEncounter(@NotNull ByFingerPrint target)
             throws
-            Exceptions.AcoustIDException
+            AcoustIDException
     {
         int result = 0;
         if (target.hasError() && target.getErr().hasMessage())
         {
             Error err = target.getErr();
-            throw new Exceptions.AcoustIDException("Error code: " + err.getCode() + " message: "+ err.getMessage());
+            throw new AcoustIDException("Error code: " + err.getCode() + " message: "+ err.getMessage());
         }
 
         for(Result elem : target.getResult())
@@ -207,16 +208,16 @@ public class Sifter
      * For easy processing needs to compress few lists to single list.
      * @param target is ByFingerPrint instance, contains list of Recording list.
      * @return Compressing Recording list form ByFingerPrint instance.
-     * @throws Exceptions.AcoustIDException if target contains Error instance.
+     * @throws AcoustIDException if target contains Error instance.
      */
     private static List<Recording> CompressResult(@NotNull ByFingerPrint target)
             throws
-            Exceptions.AcoustIDException
+            AcoustIDException
     {
         if (target.hasError() && target.getErr().hasMessage())
         {
             Error err = target.getErr();
-            throw new Exceptions.AcoustIDException("Error code: " + err.getCode() + " message: "+ err.getMessage());
+            throw new AcoustIDException("Error code: " + err.getCode() + " message: "+ err.getMessage());
         }
 
         List<Recording> RecordingsStorage = null;
