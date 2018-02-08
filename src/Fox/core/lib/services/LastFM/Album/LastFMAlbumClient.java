@@ -17,7 +17,7 @@ import java.io.IOException;
 
 public class LastFMAlbumClient
 {
-    private static final Logger logger = LoggerFactory.getLogger(SearchLib.class);
+    private static Logger logger;
     public LastFMAlbumClient()
     {
 
@@ -32,6 +32,7 @@ public class LastFMAlbumClient
             Boolean AutoCorrect
                             )
     {
+        logger = LoggerFactory.getLogger(SearchLib.class);
         HttpGetClient RequestHTTPClient = new HttpGetClient(logger);
         final String method_name = "?method=album.getInfo";
         String optional = "";
@@ -72,17 +73,14 @@ public class LastFMAlbumClient
         {
             artist = "&artist=" + artist;
         }
-
-        RequestHTTPClient
-                .build(
-                        LastFMApi.api_root +
-                                method_name +
-                                LastFMApi.api_key +
-                                LastFMApi.format +
-                                album +
-                                artist +
-                                optional
-                      );
+        String request = LastFMApi.api_root +
+                method_name +
+                LastFMApi.api_key +
+                LastFMApi.format +
+                album +
+                artist +
+                optional;
+        RequestHTTPClient.build(request);
         String response = null;
         AlbumInfo buildAlbumInfo = null;
 
@@ -126,16 +124,14 @@ public class LastFMAlbumClient
         {
             album = "&album=" + album;
         }
+        String request = LastFMApi.api_root +
+                method_name +
+                LastFMApi.api_key +
+                LastFMApi.format +
+                album +
+                optional;
 
-        RequestHTTPClient
-                .build(
-                        LastFMApi.api_root +
-                                method_name +
-                                LastFMApi.api_key +
-                                LastFMApi.format +
-                                album +
-                                optional
-                      );
+        RequestHTTPClient.build(request);
         String response = null;
         Search buildSearch = null;
 

@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 public class CustomProgressState
         extends ProgressState
 {
-    private static final Logger logger = LoggerFactory.getLogger(SearchLib.class);
+    private static Logger logger;
     public CustomProgressState(
             int size,
             String name,
@@ -18,10 +18,12 @@ public class CustomProgressState
             throws
             ProgressStateException
     {
+
         super(size,
               name,
               desc
              );
+        logger = LoggerFactory.getLogger(SearchLib.class);
     }
 
     @Override

@@ -14,7 +14,7 @@ import java.util.HashMap;
 
 public class AcoustIDApi
 {
-    private static final Logger logger = LoggerFactory.getLogger(SearchLib.class);
+    private static Logger logger;
     private final static String key = "WweGbntpM7";
     private final static String httpkey =
             "https://api.acoustid.org/v2/lookup?client=" + key + "&format=json";
@@ -23,12 +23,14 @@ public class AcoustIDApi
 
     public AcoustIDApi()
     {
+        logger = LoggerFactory.getLogger(SearchLib.class);
         config = new AcoustIDRequestConfig();
         config.setDefault();
     }
 
     public AcoustIDApi(AcoustIDRequestConfig cfg)
     {
+        logger = LoggerFactory.getLogger(SearchLib.class);
         RequestClient = new HttpGetClient(logger);
         if (cfg != null)
         {

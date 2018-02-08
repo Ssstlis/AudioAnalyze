@@ -5,8 +5,8 @@ import Fox.core.lib.general.Threads.FPCalcThread;
 import Fox.core.lib.general.Threads.ServiceThread;
 import Fox.core.lib.general.templates.FingerPrintThread;
 import Fox.core.lib.general.templates.ProgressState;
-import Fox.core.lib.general.utils.*;
 import Fox.core.lib.general.utils.ExecutableHelper.Entry;
+import Fox.core.lib.general.utils.*;
 import Fox.core.lib.services.Common.BuildTagProcessing;
 import Fox.core.lib.services.CoverArtArchive.CoverArtArchiveApi;
 import Fox.core.lib.services.CoverArtArchive.LookupAlbumArt.sources.AlbumArt;
@@ -35,7 +35,7 @@ import static java.util.concurrent.TimeUnit.MINUTES;
 
 public class SearchLib
 {
-    private static final Logger logger = LoggerFactory.getLogger(SearchLib.class);
+    private static Logger logger;
     public final static String NO_COUNT = "Impossible to return less then zero or equals zero size of results.";
     private final static String CALL_WO_BUILD = "Trying to call method without build file list.";
     private final static String SAME_INSTANCES = "Same progress state instances";
@@ -43,11 +43,11 @@ public class SearchLib
     public static Entry<Map<String, List<ID3V2>>, List<String>> SearchTags(
             @NotNull List<String> Files,
             @NotNull FingerPrintThread YourFPCalcThread,
-            @NotNull ProgressState CheckerProgressBar,
-            @NotNull ProgressState FPProgressBar,
-            @NotNull ProgressState ServiceProgressBar,
-            @NotNull ProgressState CommonProgressBar,
-            @NotNull performance Speed,
+            ProgressState CheckerProgressBar,
+            ProgressState FPProgressBar,
+            ProgressState ServiceProgressBar,
+            ProgressState CommonProgressBar,
+            performance Speed,
             boolean TrustMode,
             int count)
             throws
@@ -58,12 +58,14 @@ public class SearchLib
             NoMatchesException,
             NoAccessingFilesException
     {
-       if (IsSameInstances(CheckerProgressBar, FPProgressBar, ServiceProgressBar, CommonProgressBar))
-       {
-          if (logger.isErrorEnabled())
-             logger.error(SAME_INSTANCES);
-          throw new IllegalArgumentException(SAME_INSTANCES);
-       }
+        logger = LoggerFactory.getLogger(SearchLib.class);
+        if (IsSameInstances(CheckerProgressBar, FPProgressBar, ServiceProgressBar, CommonProgressBar))
+        {
+            if (logger.isErrorEnabled())
+                logger.error(SAME_INSTANCES);
+
+            throw new IllegalArgumentException(SAME_INSTANCES);
+        }
 
         boolean isBuild = false;
 
@@ -77,7 +79,9 @@ public class SearchLib
         List<String> Locations = ExcludeDuplicate(Files);
 
         if (Locations.size() != 0)
+        {
             isBuild = true;
+        }
 
         if (!isBuild)
         {
@@ -86,8 +90,10 @@ public class SearchLib
             throw new NoBuildException(CALL_WO_BUILD);
         }
 
-        CommonProgressBar.setSize(Locations.size() * 3);
-        CheckerProgressBar.setSize(Locations.size());
+        if (CommonProgressBar != null)
+            CommonProgressBar.setSize(Locations.size() * 3);
+        if (CheckerProgressBar != null)
+            CheckerProgressBar.setSize(Locations.size());
 
         FileChecker FileReviewer = new FileChecker();
 
@@ -109,17 +115,20 @@ public class SearchLib
         {
             NoAccessingFilesException exception = new NoAccessingFilesException("No one file were accepted.");
             if (logger.isErrorEnabled())
-                logger.error("",exception);
+                logger.error("", exception);
             throw exception;
         }
 
         Map<String, List<ID3V2>> target = new ConcurrentHashMap<>(size);
 
-        if (Rejected.size() > 0)
+        if (Rejected.size() > 0 && CommonProgressBar != null)
+        {
             CommonProgressBar.setSize(CommonProgressBar.getSize() - 3 * Rejected.size());
-
-        FPProgressBar.setSize(size);
-        ServiceProgressBar.setSize(size);
+        }
+        if (FPProgressBar != null)
+            FPProgressBar.setSize(size);
+        if (ServiceProgressBar != null)
+            ServiceProgressBar.setSize(size);
 
         int N_CPUs = Runtime.getRuntime()
                             .availableProcessors();
@@ -172,7 +181,6 @@ public class SearchLib
         if (logger.isInfoEnabled())
             logger.info("Instance done in {} milliseconds", System.currentTimeMillis() - t);
 
-
         List<Future<FingerPrint>> futureList = ServicePool.invokeAll(tasks);
         while (futureList.size() > 0)
         {
@@ -208,7 +216,9 @@ public class SearchLib
                 }
 
             if (toRemove != null)
+            {
                 futureList.remove(toRemove);
+            }
         }
 
         ServicePool.shutdown();
@@ -217,32 +227,132 @@ public class SearchLib
         {
             NoMatchesException e = new NoMatchesException("No matches.");
             if (logger.isErrorEnabled())
+            {
                 logger.error("", e);
+            }
             throw e;
         }
         return new Entry<>(target, Rejected);
     }
 
+    public static Map<String, List<ID3V2>> SearchTags(
+            @NotNull String file,
+            @NotNull FingerPrintThread YourFPCalcThread,
+            ProgressState ProgressBar,
+            boolean TrustMode,
+            int count)
+            throws
+            InterruptedException,
+            IllegalArgumentException,
+            ProgressStateException,
+            NoMatchesException,
+            NoAccessingFilesException
+    {
+        if (count <= 0 || file.length() < 4)
+            throw new IllegalArgumentException(NO_COUNT + " Or wrong file name.");
+
+        logger = LoggerFactory.getLogger(SearchLib.class);
+
+        FileChecker FileReviewer = new FileChecker();
+
+        if (logger.isDebugEnabled())
+            logger.debug("Start file check");
+
+        @NotNull List<String> Locations = new ArrayList<>();
+        Locations.add(file);
+        ProgressBar.setSize(ProgressBar.getSize() + 3);
+        FileReviewer.SiftFileAsString(Locations,
+                                      null,
+                                      ProgressBar);
+
+        if (logger.isDebugEnabled())
+            logger.debug("End file check");
+
+        List<String> reviewerAccepted = FileReviewer.getAccepted();
+        if (reviewerAccepted.size() != 1)
+        {
+            ProgressBar.setSize(ProgressBar.getSize() - 2);
+            throw  new NoAccessingFilesException("No one file were accepted.");
+        }
+
+        file = reviewerAccepted.get(0);
+
+        Map<String, List<ID3V2>> target = new HashMap<>();
+        ExecutorService ServicePool = Executors.newFixedThreadPool(1, new ThreadFactory()
+        {
+            @Override
+            public Thread newThread(@NotNull Runnable r)
+            {
+                return new Thread(r, "Service Pool");
+            }
+        });
+
+        if (logger.isInfoEnabled())
+            logger.info("Instance FingerPrint thread");
+
+        Future<FingerPrint> future = ServicePool.submit(new FPCalcThread(YourFPCalcThread,
+                                                                         file,
+                                                                         null,
+                                                                         ProgressBar));
+        FingerPrint fingerPrint = null;
+        try
+        {
+            fingerPrint = future.get();
+        }
+        catch (ExecutionException e)
+        {
+            throw new IllegalArgumentException(e);
+        }
+
+        if (logger.isInfoEnabled())
+            logger.info("Start service thread");
+        if (fingerPrint != null)
+            ServicePool.submit(new ServiceThread(fingerPrint,
+                                                 target,
+                                                 null,
+                                                 ProgressBar,
+                                                 TrustMode,
+                                                 count));
+
+
+
+        ServicePool.shutdown();
+        ServicePool.awaitTermination(25, MINUTES);
+        if (target.size() == 0)
+        {
+            NoMatchesException e = new NoMatchesException("No matches.");
+            if (logger.isErrorEnabled())
+            {
+                logger.error("", e);
+            }
+            throw e;
+        }
+        return target;
+    }
     public static AlbumArtCompilation SearchCovers(
             @NotNull String AlbumName,
             String ArtistName,
-            @NotNull target source,
-            @NotNull Integer count)
+            target source,
+            int count)
             throws
             IllegalArgumentException,
             NoMatchesException
 
     {
+        logger = LoggerFactory.getLogger(SearchLib.class);
         if (AlbumName.isEmpty() || count <= 0)
         {
             if (logger.isErrorEnabled())
+            {
                 logger.error("Illegal album title or number of arts.");
+            }
             throw new IllegalArgumentException();
         }
 
-       AlbumArtCompilation temp = new AlbumArtCompilation(AlbumName,
-               ArtistName,
-               null);
+        long time = System.currentTimeMillis();
+        AlbumArtCompilation temp = new AlbumArtCompilation(AlbumName,
+                                                           ArtistName,
+                                                           null);
 
         if (logger.isDebugEnabled())
             logger.debug("starting search");
@@ -250,16 +360,19 @@ public class SearchLib
         if (ArtistName != null && !ArtistName.isEmpty())
         {
             if (logger.isDebugEnabled())
+            {
                 logger.debug("first scenario");
+                logger.debug("Artist: {} Album:{}", ArtistName, AlbumName);
+            }
 
             AlbumInfo LFMInfo =
                     getInfo(null,
-                             ArtistName,
-                             AlbumName,
-                             null,
-                             null,
-                             true
-                            );
+                            ArtistName,
+                            AlbumName,
+                            null,
+                            null,
+                            true
+                           );
             if (LFMInfo == null || LFMInfo.hasError())
             {
                 throw new NoMatchesException("No matches.");
@@ -274,15 +387,19 @@ public class SearchLib
                 String albumName = album.getName();
 
                 if (album.hasImages())
+                {
                     AddMostResolutionImageLink(albumArtist,
                                                albumName,
                                                album.getImages(),
                                                ArtList);
+                }
 
                 if (album.hasMbid())
                 {
                     if (logger.isDebugEnabled())
+                    {
                         logger.debug("Cover Art lookup start");
+                    }
                     try
                     {
                         MILLISECONDS.sleep(MusicBrainzElapse());
@@ -290,12 +407,16 @@ public class SearchLib
                     catch (InterruptedException e)
                     {
                         if (logger.isErrorEnabled())
+                        {
                             logger.error("", e);
+                        }
                     }
                     AlbumArt lookupAlbumArt = CoverArtArchiveApi.LookupAlbumArt(album.getMbid());
 
                     if (logger.isDebugEnabled())
+                    {
                         logger.debug("Cover Art lookup end");
+                    }
                     if (lookupAlbumArt != null && lookupAlbumArt.hasImages())
                     {
                         for (Fox.core.lib.services.CoverArtArchive.LookupAlbumArt.sources.image elem : lookupAlbumArt.getImages())
@@ -313,6 +434,8 @@ public class SearchLib
                     }
                 }
                 temp.setArtList(ArtList);
+                if (logger.isDebugEnabled())
+                    logger.debug("end in {} milliseconds", System.currentTimeMillis() - time);
                 return temp;
             }
         }
@@ -320,19 +443,24 @@ public class SearchLib
         if (source == target.LastFM)
         {
             if (logger.isDebugEnabled())
+            {
                 logger.debug("second scenario");
+                logger.debug("Album:{} ", AlbumName);
+            }
 
             if (logger.isDebugEnabled())
                 logger.debug("LastFM lookup start");
 
             Search searchLF =
                     search(count,
-                            null,
-                            AlbumName
-                           );
+                           null,
+                           AlbumName
+                          );
 
             if (logger.isDebugEnabled())
+            {
                 logger.debug("LastFM lookup end");
+            }
 
             if (searchLF != null && searchLF.hasResults())
             {
@@ -358,16 +486,22 @@ public class SearchLib
                             String elemName = elem.getName();
 
                             if (elem.hasImages())
+                            {
                                 AddMostResolutionImageLink(elemArtist,
                                                            elemName,
                                                            elem.getImages(),
                                                            ArtList);
+                            }
                         }
 
                         if (ArtList.isEmpty())
+                        {
                             throw new NoMatchesException("No matches.");
+                        }
 
                         temp.setArtList(ArtList);
+                        if (logger.isDebugEnabled())
+                            logger.debug("end in {} milliseconds", System.currentTimeMillis() - time);
                         return temp;
                     }
                 }
@@ -377,11 +511,15 @@ public class SearchLib
         if (source == target.MusicBrainz)
         {
             if (logger.isDebugEnabled())
+            {
                 logger.debug("third scenario");
+                logger.debug("Album:{} ", AlbumName);
+            }
             try
             {
                 if (logger.isDebugEnabled())
                     logger.debug("MB lookup start");
+
                 try
                 {
                     MILLISECONDS.sleep(MusicBrainzElapse());
@@ -396,6 +534,7 @@ public class SearchLib
                 if (logger.isDebugEnabled())
                     logger.debug("MB lookup end");
 
+
                 if (releaseInfos != null && !releaseInfos.isEmpty())
                 {
                     List<Art> ArtList = new ArrayList<>();
@@ -406,6 +545,7 @@ public class SearchLib
                     {
                         if (logger.isDebugEnabled())
                             logger.debug("CoverArt lookup start");
+
                         try
                         {
                             MILLISECONDS.sleep(MusicBrainzElapse());
@@ -456,9 +596,12 @@ public class SearchLib
                         }
                     }
                     temp.setArtList(ArtList);
+
+                    if (logger.isDebugEnabled())
+                        logger.debug("Count of results: {}. end in {} milliseconds {}", ArtList.size(), System.currentTimeMillis() - time);
+
                     return temp;
                 }
-
             }
             catch (IOException e)
             {
@@ -488,12 +631,14 @@ public class SearchLib
             extract = image.extract(imageList);
 
             if (extract != null && extract.hasText())
+            {
                 targetList.add(new Art(extract.getText(),
-                        extract.getSize(),
-                        Artist,
-                        Album,
-                        target.LastFM
+                                       extract.getSize(),
+                                       Artist,
+                                       Album,
+                                       target.LastFM
                 ));
+            }
         }
         catch (NoMatchesException e)
         {
@@ -522,19 +667,23 @@ public class SearchLib
         return result;
     }
 
-    private static boolean IsSameInstances(Object ... list)
+    private static boolean IsSameInstances(Object... list)
     {
-       boolean result = false;
-       if (list != null)
-          loop:
-               for (int i = 0, length = list.length; i < length; i++)
-                  if (list[i] != null)
-                     for (int l = i + 1; l < length; l++)
+        boolean result = false;
+        if (list != null)
+        {
+            loop:
+            for (int i = 0, length = list.length; i < length; i++)
+                if (list[i] != null)
+                {
+                    for (int l = i + 1; l < length; l++)
                         if (list[l] != null && list[i] == list[l])
                         {
-                           result = true;
-                           break loop;
+                            result = true;
+                            break loop;
                         }
+                }
+        }
 
         return result;
     }

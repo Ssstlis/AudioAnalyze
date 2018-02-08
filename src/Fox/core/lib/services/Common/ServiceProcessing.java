@@ -21,7 +21,7 @@ import static Fox.core.main.SearchLib.NO_COUNT;
 
 public class ServiceProcessing
 {
-    private static final Logger logger = LoggerFactory.getLogger(SearchLib.class);
+    private static Logger logger;
 
     public ServiceProcessing()
     {
@@ -38,6 +38,7 @@ public class ServiceProcessing
             AcoustIDException,
             NoMatchesException
     {
+        logger = LoggerFactory.getLogger(SearchLib.class);
         if (count <= 0)
         {
             if (logger.isErrorEnabled())

@@ -30,7 +30,7 @@ import static java.util.concurrent.TimeUnit.MILLISECONDS;
 
 public class BuildTagProcessing
 {
-    private static final Logger logger = LoggerFactory.getLogger(SearchLib.class);
+    private static Logger logger;
     private static final MusicBrainzWebClient MBClient = new MusicBrainzWebClient("AudioAnalyzeLib");
     private static final LastFMApi lastFMApi = new LastFMApi();
     private static Map<String, Release> MusicBrainzReleaseCache = new HashMap<>();
@@ -609,7 +609,7 @@ public class BuildTagProcessing
             NoMatchesException,
             NullPointerException
     {
-
+        logger = LoggerFactory.getLogger(SearchLib.class);
         String trackMBID = track.getTrackMBID();
         //Variable from LFM when request with MBID
         TrackInfo LFMInfoWMBID;

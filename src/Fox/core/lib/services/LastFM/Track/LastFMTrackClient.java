@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 
 public class LastFMTrackClient
 {
-    private static final Logger logger = LoggerFactory.getLogger(SearchLib.class);
+    private static Logger logger;
     public LastFMTrackClient()
     {
 
@@ -26,6 +26,7 @@ public class LastFMTrackClient
             Boolean AutoCorrect
                             )
     {
+        logger = LoggerFactory.getLogger(SearchLib.class);
         HttpGetClient RequestHTTPClient = new HttpGetClient(logger);
         final String method_name = "?method=track.getInfo";
         String optional = "";
@@ -62,16 +63,15 @@ public class LastFMTrackClient
             artist = "&artist=" + artist;
         }
 
-        RequestHTTPClient
-                .build(
-                        LastFMApi.api_root +
-                                method_name +
-                                LastFMApi.api_key +
-                                LastFMApi.format +
-                                track +
-                                artist +
-                                optional
-                      );
+        String request = LastFMApi.api_root +
+                method_name +
+                LastFMApi.api_key +
+                LastFMApi.format +
+                track +
+                artist +
+                optional;
+
+        RequestHTTPClient.build(request);
 
         String response;
         TrackInfo buildTrackInfo = null;
