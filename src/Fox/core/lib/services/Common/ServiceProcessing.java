@@ -39,6 +39,8 @@ public class ServiceProcessing
             NoMatchesException
     {
         logger = LoggerFactory.getLogger(SearchLib.class);
+        if (logger.isDebugEnabled())
+            logger.debug("Start service processing");
         if (count <= 0)
         {
             if (logger.isErrorEnabled())
@@ -75,11 +77,13 @@ public class ServiceProcessing
 
         for (SimpleInfo elem : AfterSift)
         {
-
             try
             {
+                if (logger.isDebugEnabled())
+                    logger.debug("Building tag start");
                 ID3V2 buildTag = BuildTagProcessing.BuildTag(elem);
-
+                if (logger.isDebugEnabled())
+                    logger.debug("Building tag done");
                 if (buildTag != null)
                     temp.add(buildTag);
 
@@ -90,7 +94,8 @@ public class ServiceProcessing
                     logger.error("An unexpected matches lookup error occur.", e);
             }
         }
-
+        if (Trust)
+            temp = Sifter.Choosing(temp);
         Target.put(location, temp);
     }
 }

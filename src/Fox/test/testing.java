@@ -29,13 +29,13 @@ public class testing
         Entry<Map<String, List<ID3V2>>, List<String>> Result = null;
         try
         {
-            String mp3location = "C:\\Users\\Ssstlis\\Desktop\\music\\Born Hanged";
+            String mp3location = "C:\\Users\\Ssstlis\\Desktop\\music\\test";
             List<File> FileList = ExecutableHelper.GetFileList(mp3location,
                                                                new Mp3Filter()
                                                               );
-            AlbumArtCompilation meteora = SearchLib.SearchCovers("Meteora", null, target.MusicBrainz, 5);
-            FileList.clear();
-            FileList.add(new File("C:\\Users\\Ssstlis\\Desktop\\music\\Born Hanged\\Black Tongue - Born Hanged - 05 Coma.mp3"));
+            //AlbumArtCompilation meteora = SearchLib.SearchCovers("Meteora", null, target.MusicBrainz, 5);
+            //FileList.clear();
+            //FileList.add(new File("C:\\Users\\Ssstlis\\Desktop\\music\\Born Hanged\\Black Tongue - Born Hanged - 05 Coma.mp3"));
             ProgressState Line1 = new CustomProgressState
                     (0,
                      "checker",

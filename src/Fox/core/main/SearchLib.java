@@ -649,22 +649,18 @@ public class SearchLib
 
     private static List<String> ExcludeDuplicate(@NotNull List<String> Files)
     {
-        Map<String, Boolean> AssistMap = new HashMap<>();
-        List<String> result = null;
-        if (Files.size() != 0)
+        List<String> temp = new ArrayList<>();
+        for(int i = 0, end = Files.size(); i < end; i++)
         {
-            result = new ArrayList<>();
-            for (String elem : Files)
-            {
-                String lowerCase = elem.toLowerCase();
-                if (!AssistMap.containsKey(lowerCase))
-                {
-                    result.add(lowerCase);
-                    AssistMap.put(lowerCase, true);
-                }
-            }
+            String s = Files.get(i);
+            if (i + 1 == end)
+                temp.add(s);
+            else
+            for (int l = i + 1; l < end; l++)
+                if (!s.equalsIgnoreCase(Files.get(l)))
+                    temp.add(s);
         }
-        return result;
+        return temp;
     }
 
     private static boolean IsSameInstances(Object... list)

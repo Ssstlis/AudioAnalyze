@@ -51,13 +51,11 @@ public class ServiceThread
     {
         try
         {
-
-                ServiceProcessing.Processing(AIDClient,
-                                             FPrint,
-                                             Trust,
-                                             target,
-                                             count
-                                            );
+            ServiceProcessing.Processing(AIDClient,
+                                         FPrint,
+                                         Trust,
+                                         target,
+                                         count);
 
         }
         catch (Exception e)
