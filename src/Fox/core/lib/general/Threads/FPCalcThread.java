@@ -14,7 +14,7 @@ import java.util.concurrent.Callable;
 public class FPCalcThread
         implements Callable<FingerPrint>
 {
-    private static final Logger logger = LoggerFactory.getLogger(SearchLib.class);
+    private static Logger logger;
     private FingerPrintThread executor;
     private volatile ProgressState Line, Common;
     private String location;
@@ -22,9 +22,10 @@ public class FPCalcThread
     public FPCalcThread(
             @NotNull FingerPrintThread executor,
             @NotNull String location,
-            @NotNull ProgressState ProgressLine,
-            @NotNull ProgressState CommonLine)
+            ProgressState ProgressLine,
+            ProgressState CommonLine)
     {
+        logger = LoggerFactory.getLogger(SearchLib.class);
         this.executor = executor;
         this.Line = ProgressLine;
         this.location = location;
@@ -47,14 +48,16 @@ public class FPCalcThread
         }
         finally
         {
-            synchronized (Line)
-            {
-                Line.update();
-            }
+            if (Line != null)
+                synchronized (Line)
+                {
+                    Line.update();
+                }
+            if (Common != null)
             synchronized (Common)
-            {
-                Common.update();
-            }
+                {
+                    Common.update();
+                }
         }
         return fingerPrint;
     }

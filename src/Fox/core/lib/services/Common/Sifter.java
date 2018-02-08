@@ -1,12 +1,17 @@
 package Fox.core.lib.services.Common;
 
 import Fox.core.lib.general.DOM.FingerPrint;
+import Fox.core.lib.general.DOM.ID3V2;
+import Fox.core.lib.general.DOM.ID3V2.ID3V2Comparator;
 import Fox.core.lib.general.utils.AcoustIDException;
 import Fox.core.lib.general.utils.NoMatchesException;
 import Fox.core.lib.general.utils.Sorts;
 import Fox.core.lib.services.acoustid.LookupByFP.sources.*;
 import Fox.core.lib.services.acoustid.LookupByFP.sources.Error;
+import Fox.core.main.SearchLib;
 import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,6 +26,7 @@ public class Sifter
 {
     private static SimpleInfo.SimpleInfoComparatorByUsages SimpleInfoComparatorByUsages = new SimpleInfo.SimpleInfoComparatorByUsages();
     private static Sorts.Relativator RecordingRelativator = new Recording.RecordingRelativator();
+    private static Logger logger;
 
 
     public Sifter()
@@ -35,12 +41,15 @@ public class Sifter
             AcoustIDException,
             NoMatchesException
     {
-
+        logger = LoggerFactory.getLogger(SearchLib.class);
+        if (logger.isDebugEnabled())
+            logger.debug("Start sifting for {}\n:{}", FPrint.getLocation(), FPrint.getDuration());
         if (count < 0)
             throw new IllegalArgumentException("Impossible to return less that zero or equals zero size of results.");
 
         int encounter = TracksEncounter(target);
-
+        if (logger.isDebugEnabled())
+            logger.debug("Encounter done");
         if (encounter == 0)
             throw new NoMatchesException("No matches at AcoustID");
 
@@ -48,6 +57,9 @@ public class Sifter
 
         if (encounter == 1)
         {
+
+            if (logger.isDebugEnabled())
+                logger.debug("Encounter first scenario");
             SimpleInfo info = new SimpleInfo();
 
             if (target.hasResults())
@@ -63,10 +75,15 @@ public class Sifter
         }
         else
         {
+            if (logger.isDebugEnabled())
+                logger.debug("Encounter second scenario");
             List<Recording> compressResult = Sifter.CompressResult(target);
 
+            if (logger.isDebugEnabled())
+                logger.debug("Compressing done");
+
             if (trust)
-                store.add(TrustSift(compressResult, FPrint));
+                store.addAll(TrustSift(compressResult, FPrint));
             else
                 store.addAll(FrequentSift(compressResult,
                         count));
@@ -83,9 +100,17 @@ public class Sifter
                                                  int count)
     {
 
+        if (logger.isDebugEnabled())
+            logger.debug("Frequent sift start");
         List<SimpleInfo> IntermediateList = Converting(recordingList);
+        if (logger.isDebugEnabled())
+            logger.debug("Convert done");
         IntermediateList = MergingByUsages(IntermediateList);
+        if (logger.isDebugEnabled())
+            logger.debug("Merging done");
         IntermediateList = SimpleInfoSortingBackwardByUsage(IntermediateList);
+        if (logger.isDebugEnabled())
+            logger.debug("Backward sorting done");
         int size1 = IntermediateList.size();
 
         List<SimpleInfo> FinalList = new ArrayList<>(IntermediateList.size());
@@ -93,6 +118,8 @@ public class Sifter
         for(int i = 0, size = count == 0 ? size1 : count > size1 ? size1 : count; i < size; i++)
             FinalList.add(IntermediateList.get(i));
 
+        if (logger.isDebugEnabled())
+            logger.debug("Frequent sift done");
         return FinalList;
     }
 
@@ -100,15 +127,56 @@ public class Sifter
      * @param recordingList target list to sifting from
      * @return SimpleInfo instance
      */
-    private static SimpleInfo TrustSift(@NotNull List<Recording> recordingList,
+    private static List<SimpleInfo> TrustSift(@NotNull List<Recording> recordingList,
                                         @NotNull FingerPrint FP)
     {
+        if (logger.isDebugEnabled())
+            logger.debug("Trust sift start");
         SiftingByArtist(recordingList);
+        if (logger.isDebugEnabled())
+            logger.debug("Artist sift done");
         recordingList = RecordingRelativeSortingForward(recordingList, Integer.parseInt(FP.getDuration()));
+        if (logger.isDebugEnabled())
+            logger.debug("Relative sort done");
         List<SimpleInfo> IntermediateList = Converting(recordingList);
+        if (logger.isDebugEnabled())
+            logger.debug("Converting done");
         IntermediateList = MergingByUsages(IntermediateList);
+        if (logger.isDebugEnabled())
+            logger.debug("Merging done. Trust sift done.");
+        SimpleInfo MostUsage = Sifter.ExtractFromListWithRemoving(IntermediateList);
+        IntermediateList.add(0, MostUsage);
+        IntermediateList = IntermediateList.subList(0, 2);
+        return IntermediateList;
+    }
 
-        return IntermediateList.get(0);
+    private static SimpleInfo ExtractFromListWithRemoving(List<SimpleInfo> intermediateList)
+    {
+        SimpleInfo temp = null;
+        if (intermediateList != null)
+        {
+            int size = intermediateList.size();
+            if (size == 1)
+            {
+                temp = intermediateList.remove(0);
+            }
+            else
+            {
+                temp = intermediateList.get(0);
+                int index = 0;
+                for(int i = 1; i < size; i++)
+                {
+                    SimpleInfo info = intermediateList.get(i);
+                    if (info.compareTo(temp) > 0)
+                    {
+                        temp = info;
+                        index = i;
+                    }
+                }
+                return intermediateList.remove(index);
+            }
+        }
+        return temp;
     }
 
     /**
@@ -346,8 +414,13 @@ public class Sifter
             {
                 Artist artist = source.getArtists()
                                       .get(0);
-                temp.setArtist(artist
-                                     .getName());
+
+                StringBuilder ArtistNameBuilder = new StringBuilder();
+                for(Artist elem : source.getArtists())
+                {
+                    ArtistNameBuilder.append(elem.getName()).append(((elem.hasJoinPhrase()) ? elem.getJoinphrase() : ""));
+                }
+                temp.setArtist(ArtistNameBuilder.toString());
                 temp.setArtistMBID(artist.getId());
             }
 
@@ -356,5 +429,13 @@ public class Sifter
         }
 
         return temp;
+    }
+
+    public static List<ID3V2> Choosing(List<ID3V2> temp)
+    {
+        Sort(temp, new ID3V2Comparator(), true);
+        List<ID3V2> result = new ArrayList<>();
+        result.add(temp.get(0));
+        return result;
     }
 }

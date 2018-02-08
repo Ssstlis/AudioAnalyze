@@ -18,13 +18,14 @@ public class WindowsFPcalc
         implements FingerPrintThread
 {
 
-    private static final Logger logger = LoggerFactory.getLogger(SearchLib.class);
+    private static Logger logger;
     @Override
     public FingerPrint getFingerPrint(
             @NotNull String location)
             throws
             FingerPrintProcessingException
     {
+        logger = LoggerFactory.getLogger(SearchLib.class);
         FingerPrint target = new FingerPrint();
         try
         {

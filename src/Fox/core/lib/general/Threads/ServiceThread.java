@@ -17,7 +17,7 @@ import java.util.Map;
 public class ServiceThread
         implements Runnable
 {
-    private static final Logger logger = LoggerFactory.getLogger(SearchLib.class);
+    private static Logger logger;
     private FingerPrint FPrint;
     private volatile ProgressState Local, Common;
     private AcoustIDApi AIDClient;
@@ -29,11 +29,12 @@ public class ServiceThread
     public ServiceThread(
             @NotNull FingerPrint FPrint,
             @NotNull Map<String, List<ID3V2>> Target,
-            @NotNull ProgressState ServiceState,
-            @NotNull ProgressState CommonProgress,
+            ProgressState ServiceState,
+            ProgressState CommonProgress,
             boolean Trust,
             int count)
     {
+        logger = LoggerFactory.getLogger(SearchLib.class);
         AcoustIDApi.AcoustIDRequestConfig AIDConfig = new AcoustIDApi.AcoustIDRequestConfig();
         AIDConfig.setDefault();
         this.AIDClient = new AcoustIDApi(AIDConfig);
@@ -50,13 +51,11 @@ public class ServiceThread
     {
         try
         {
-
-                ServiceProcessing.Processing(AIDClient,
-                                             FPrint,
-                                             Trust,
-                                             target,
-                                             count
-                                            );
+            ServiceProcessing.Processing(AIDClient,
+                                         FPrint,
+                                         Trust,
+                                         target,
+                                         count);
 
         }
         catch (Exception e)
@@ -66,14 +65,16 @@ public class ServiceThread
         }
         finally
         {
-            synchronized (Local)
-            {
-                Local.update();
-            }
-            synchronized (Common)
-            {
-                Common.update();
-            }
+            if (Local != null)
+                synchronized (Local)
+                {
+                    Local.update();
+                }
+            if (Common != null)
+                synchronized (Common)
+                {
+                    Common.update();
+                }
         }
     }
 }

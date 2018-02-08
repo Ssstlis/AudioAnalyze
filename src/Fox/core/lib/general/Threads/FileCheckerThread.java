@@ -14,7 +14,7 @@ import java.util.List;
 public class FileCheckerThread
         implements Runnable
 {
-    private static final Logger logger = LoggerFactory.getLogger(SearchLib.class);
+    private static Logger logger;
     private String location;
     private List<String> Target, Rejected;
     private ProgressState Line, Common;
@@ -23,9 +23,10 @@ public class FileCheckerThread
             @NotNull String Source,
             @NotNull List<String> TargetList,
             @NotNull List<String> RejectedList,
-            @NotNull ProgressState TargetProgress,
-            @NotNull ProgressState CommonLine)
+            ProgressState TargetProgress,
+            ProgressState CommonLine)
     {
+        logger = LoggerFactory.getLogger(SearchLib.class);
         this.location = Source;
         this.Target = TargetList;
         this.Rejected = RejectedList;
@@ -40,9 +41,8 @@ public class FileCheckerThread
             File pathname = new File(check);
 
             if (!check.endsWith(".mp3"))
-            {
                 return false;
-            }
+
 
             MP3File mp3File = (MP3File) AudioFileIO.read(pathname);
             return mp3File.getAudioHeader()
@@ -77,14 +77,16 @@ public class FileCheckerThread
         }
         finally
         {
-            synchronized (Line)
-            {
-                Line.update();
-            }
-            synchronized (Common)
-            {
-                Common.update();
-            }
+            if (Line != null)
+                synchronized (Line)
+                {
+                    Line.update();
+                }
+            if (Common != null)
+                synchronized (Common)
+                {
+                    Common.update();
+                }
         }
     }
 }

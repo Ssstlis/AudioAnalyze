@@ -21,7 +21,7 @@ import static Fox.core.main.SearchLib.NO_COUNT;
 
 public class ServiceProcessing
 {
-    private static final Logger logger = LoggerFactory.getLogger(SearchLib.class);
+    private static Logger logger;
 
     public ServiceProcessing()
     {
@@ -38,6 +38,9 @@ public class ServiceProcessing
             AcoustIDException,
             NoMatchesException
     {
+        logger = LoggerFactory.getLogger(SearchLib.class);
+        if (logger.isDebugEnabled())
+            logger.debug("Start service processing");
         if (count <= 0)
         {
             if (logger.isErrorEnabled())
@@ -74,11 +77,13 @@ public class ServiceProcessing
 
         for (SimpleInfo elem : AfterSift)
         {
-
             try
             {
+                if (logger.isDebugEnabled())
+                    logger.debug("Building tag start");
                 ID3V2 buildTag = BuildTagProcessing.BuildTag(elem);
-
+                if (logger.isDebugEnabled())
+                    logger.debug("Building tag done");
                 if (buildTag != null)
                     temp.add(buildTag);
 
@@ -89,7 +94,8 @@ public class ServiceProcessing
                     logger.error("An unexpected matches lookup error occur.", e);
             }
         }
-
+        if (Trust)
+            temp = Sifter.Choosing(temp);
         Target.put(location, temp);
     }
 }

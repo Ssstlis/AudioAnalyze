@@ -10,9 +10,8 @@ import java.util.concurrent.*;
 
 public class FileChecker
 {
-    private List<String>
-            Accepted,
-            Rejected;
+    private List<String> Accepted;
+    private List<String> Rejected;
 
     public FileChecker()
     {
@@ -20,8 +19,8 @@ public class FileChecker
 
     public void SiftFileAsString(
             @NotNull List<String> Sources,
-            @NotNull ProgressState Progress,
-            @NotNull ProgressState Common)
+            ProgressState Progress,
+            ProgressState Common)
             throws
             InterruptedException
     {
@@ -57,8 +56,8 @@ public class FileChecker
 
     public void SiftFileAsFile(
             @NotNull List<File> Sources,
-            @NotNull ProgressState Progress,
-            @NotNull ProgressState Common)
+            ProgressState Progress,
+            ProgressState Common)
             throws
             InterruptedException
     {

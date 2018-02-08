@@ -167,10 +167,10 @@ public class Recording implements Comparable<Recording>
         return 0;
     }
 
-    public static class RecordingRelativator implements Sorts.Relativator<Recording, Integer, Float>
+    public static class RecordingRelativator implements Sorts.Relativator<Recording, Integer, Long>
     {
         @Override
-        public Float RelativeCompare(Recording o1, Integer o2)
+        public Long RelativeCompare(Recording o1, Integer o2)
                 throws IllegalArgumentException
         {
             if (o1 == null || !o1.hasDuration() || o1.getDuration() <= 0 ||  o2 == null || o2 <= 0)
@@ -178,7 +178,7 @@ public class Recording implements Comparable<Recording>
 
             Integer duration = o1.getDuration();
 
-            return (float)(100*(abs(duration - o2))/duration);
+            return (long)abs(duration - o2);
         }
     }
 
@@ -189,6 +189,24 @@ public class Recording implements Comparable<Recording>
                            @NotNull Recording b)
         {
             return a.getSources().compareTo(b.getSources());
+        }
+
+        public Comparator<Recording> reversed()
+        {
+            return new Comparator<Recording>()
+            {
+                @Override
+                public int compare(@NotNull Recording a,
+                                   @NotNull Recording b)
+                {
+                    return Integer.compare(0, a.getSources().compareTo(b.getSources()));
+                }
+
+                public Comparator<Recording> reversed()
+                {
+                    return new RecordingComparator();
+                }
+            };
         }
     }
 }

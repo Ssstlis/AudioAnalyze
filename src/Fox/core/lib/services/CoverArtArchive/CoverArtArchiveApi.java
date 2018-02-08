@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 
 public class CoverArtArchiveApi
 {
-    private static final Logger logger = LoggerFactory.getLogger(SearchLib.class);
+    private static Logger logger;
     private final static String httpkey = "http://coverartarchive.org/release/";
 
     public CoverArtArchiveApi()
@@ -20,6 +20,7 @@ public class CoverArtArchiveApi
 
     public static AlbumArt LookupAlbumArt(String mbid)
     {
+        logger = LoggerFactory.getLogger(SearchLib.class);
         if (mbid != null)
         {
             HttpGetClient RequestClient = new HttpGetClient(logger);

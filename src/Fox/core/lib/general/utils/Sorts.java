@@ -1,16 +1,22 @@
 package Fox.core.lib.general.utils;
 
+import Fox.core.main.SearchLib;
 import org.jetbrains.annotations.Contract;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Comparator;
+import java.util.LinkedList;
 import java.util.List;
+
+import static java.lang.Math.abs;
 
 public class Sorts
 {
     /**
-     * Sorting elems with comparator. For API 1.7 and earlier.
-     * @param elems list for sorting
+     * Sorting elems with comparator. For language level 7.
+     * @param elems List for sorting
      * @param c comparator
      * @param isForward is true, the least elements at start, the most at the end. Else reversing sorting.
      * @param <T> type of elements
@@ -59,18 +65,18 @@ public class Sorts
     }
 
     /**
-     * Sorting elems in results from Relativator for single element. For API 1.7 and earlier.
-     * @param elems list for sorting
+     * Sorting elems in results from Relativator for single element. For language level 7.
+     * @param elems collection for sorting
      * @param r Relativator, which sorts the list
      * @param Relativator param for sorting relativator
      * @param isForward if true sorting from the least relative value to the most. Else reversing sorting.
      * @param <T> type of elements
-     * @param <R> type relativator base
+     * @param <R> type of relativator base
      * @param <E> type of relativator value
      * @throws IllegalArgumentException if list or comparator is null
      */
     @Contract("null, _, _, _ -> fail; !null, null, _, _ -> fail")
-    public static <T, R, E extends Number> void RelativeSort(List<T> elems,
+    public static <T, R, E extends Number> void RelativeSort(Collection<T> elems,
                                                                 Relativator<? super T, R, E> r,
                                                                 R Relativator,
                                                                 boolean isForward)
@@ -82,7 +88,8 @@ public class Sorts
         if (elems.isEmpty())
             return ;
 
-        List<T> temp = new ArrayList<>();
+
+        List<T> temp = new LinkedList<>();
 
         for(T elem : elems)
         {
@@ -123,28 +130,48 @@ public class Sorts
                 continue;
             }
 
-            for(int i = size/2; i >= 1; )
+            for(int i = size/2, l = 0; ; )
             {
+                int det = abs(i - l);
                 longValue = r.RelativeCompare(temp.get(i), Relativator).longValue();
+
                 if (insertHash == longValue)
                 {
                     temp.add(i, elem);
                     break;
                 }
-                if (i == 1 && (isForward && insertHash < longValue) || (!isForward && insertHash > longValue))
+                if (det <= 1)
                 {
-                    temp.add(i, elem);
-                    break;
-                }
-                if (i == 1 && (isForward && insertHash > longValue) || (!isForward && insertHash < longValue))
-                {
-                    temp.add(i + 1, elem);
-                    break;
+                    if ((isForward && insertHash < longValue) || (!isForward && insertHash > longValue))
+                    {
+                        temp.add(i, elem);
+                        break;
+                    }
+                    else if ((isForward && insertHash > longValue) || (!isForward && insertHash < longValue))
+                    {
+                        temp.add(i + 1, elem);
+                        break;
+                    }
                 }
                 if ((isForward && insertHash < longValue) || (!isForward && insertHash > longValue))
-                    i = i - i/2;
+                    if (l == 0)
+                    {
+                        i = i - i/2;
+                    }
+                    else
+                    {
+                        i = i - det/2;
+                    }
                 if ((isForward && insertHash > longValue) || (!isForward && insertHash < longValue))
-                    i = i + i/2;
+                    if (l == 0)
+                    {
+                        i = i + i/2;
+                    }
+                    else
+                    {
+                        i = i + det/2;
+                    }
+                l = i;
             }
         }
 

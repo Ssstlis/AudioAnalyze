@@ -1,5 +1,8 @@
 package Fox.core.lib.general.DOM;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Comparator;
 import java.util.List;
 
 public class ID3V2
@@ -210,5 +213,49 @@ public class ID3V2
     public boolean hasAlbumMBID()
     {
         return (AlbumMBID != null && !AlbumMBID.isEmpty());
+    }
+
+    public static class ID3V2Comparator implements Comparator<ID3V2>
+    {
+
+        @Override
+        public int compare(@NotNull ID3V2 a,
+                           @NotNull ID3V2 b)
+        {
+            if (!a.hasYear() && !b.hasYear())
+                return 0;
+            if (!a.hasYear() && b.hasYear())
+                return -1;
+            if (a.hasYear() && !b.hasYear())
+                return 1;
+            Integer aYear = Integer.parseInt(a.year);
+            Integer bYear = Integer.parseInt(b.year);
+            return aYear.compareTo(bYear);
+        }
+
+        public Comparator<ID3V2> reversed()
+        {
+            return new Comparator<ID3V2>()
+            {
+                @Override
+                public int compare(ID3V2 a, ID3V2 b)
+                {
+                    if (!a.hasYear() && !b.hasYear())
+                        return 0;
+                    if (!a.hasYear() && b.hasYear())
+                        return 1;
+                    if (a.hasYear() && !b.hasYear())
+                        return -1;
+                    Integer aYear = Integer.parseInt(a.year);
+                    Integer bYear = Integer.parseInt(b.year);
+                    return bYear.compareTo(aYear);
+                }
+
+                public Comparator<ID3V2> reversed()
+                {
+                    return new ID3V2Comparator();
+                }
+            };
+        }
     }
 }

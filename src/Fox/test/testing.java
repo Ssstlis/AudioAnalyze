@@ -21,20 +21,21 @@ import java.util.Map.Entry;
 
 public class testing
 {
-    private static final Logger logger = LoggerFactory.getLogger(SearchLib.class);
+    private static Logger logger;
     public static void main(String[] args)
     {
+        logger = LoggerFactory.getLogger(SearchLib.class);
 
         Entry<Map<String, List<ID3V2>>, List<String>> Result = null;
         try
         {
-            String mp3location = "D:\\music\\Born Handed";
+            String mp3location = "C:\\Users\\Ssstlis\\Desktop\\music\\test";
             List<File> FileList = ExecutableHelper.GetFileList(mp3location,
                                                                new Mp3Filter()
                                                               );
-            AlbumArtCompilation meteora = SearchLib.SearchCovers("Meteora", null, target.MusicBrainz, 5);
+            //AlbumArtCompilation meteora = SearchLib.SearchCovers("Meteora", null, target.MusicBrainz, 5);
             //FileList.clear();
-            //FileList.add(new File("D:\\music\\Born Handed\\Black Tongue - Born Hanged - 05 Coma.mp3"));
+            //FileList.add(new File("C:\\Users\\Ssstlis\\Desktop\\music\\Born Hanged\\Black Tongue - Born Hanged - 05 Coma.mp3"));
             ProgressState Line1 = new CustomProgressState
                     (0,
                      "checker",
@@ -61,11 +62,18 @@ public class testing
 
 
             long temp = System.currentTimeMillis();
-
+            Map<String, List<ID3V2>> res = null;
+            if (FileList.size() == 1)
+                res = SearchLib.SearchTags(ExecutableHelper.FilesToStrings(FileList).get(0),
+                                           new WindowsFPcalc(),
+                                           Line1,
+                                           true,
+                                           5);
+            else
             Result = SearchLib.SearchTags(ExecutableHelper.FilesToStrings(FileList),
                                 new WindowsFPcalc(),
                     Line1,
-                    Line2,
+                    null,
                     Line3,
                     Line4,
                     performance.MAX,
