@@ -1,11 +1,8 @@
 package Fox.core.lib.services.LastFM;
 
-import Fox.core.lib.connectors.HttpGetClient;
 import Fox.core.lib.services.LastFM.Album.LastFMAlbumClient;
 import Fox.core.lib.services.LastFM.Artist.LastFMArtistClient;
 import Fox.core.lib.services.LastFM.Track.LastFMTrackClient;
-import Fox.core.main.SearchLib;
-import org.slf4j.LoggerFactory;
 
 public class LastFMApi
 {

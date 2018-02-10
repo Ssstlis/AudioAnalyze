@@ -1,32 +1,41 @@
 package Fox.core.lib.general.utils;
 
-import Fox.core.main.SearchLib;
 import org.jetbrains.annotations.Contract;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 import static java.lang.Math.abs;
+import static java.lang.Math.tan;
 
 public class Sorts
 {
+    @Contract("null, _ -> fail; !null, null -> fail")
+    public static <T> void ForwardSorting(List<T> elems, Comparator<? super T> comparator)
+            throws IllegalArgumentException
+    {
+        Sort(elems, comparator, true);
+    }
+
+    @Contract("null, _ -> fail; !null, null -> fail")
+    public static <T> void BackwardSorting(List<T> elems, Comparator<? super T> comparator)
+            throws IllegalArgumentException
+    {
+        Sort(elems, comparator, false);
+    }
+
     /**
      * Sorting elems with comparator. For language level 7.
      * @param elems List for sorting
-     * @param c comparator
+     * @param comparator comparator
      * @param isForward is true, the least elements at start, the most at the end. Else reversing sorting.
      * @param <T> type of elements
      * @throws IllegalArgumentException if list of comparator is null
      */
     @Contract("null, _, _ -> fail; !null, null, _ -> fail")
-    public static <T> void Sort(List<T> elems, Comparator<? super T> c, boolean isForward)
+    private static <T> void Sort(List<T> elems, Comparator<? super T> comparator, boolean isForward)
             throws IllegalArgumentException
     {
-        if (elems == null || c == null)
+        if (elems == null || comparator == null)
             throw new IllegalArgumentException();
 
         int left = 0;
@@ -37,7 +46,7 @@ public class Sorts
             for (int i = left; i < right; i++)
             {
                 buff1 = elems.get(i);
-                int compare = c.compare(buff1, elems.get(i + 1));
+                int compare = comparator.compare(buff1, elems.get(i + 1));
 
                 if ((!isForward && compare < 0)
                         || (isForward && compare > 0))
@@ -50,7 +59,7 @@ public class Sorts
             for (int i = right; i > left; i--)
             {
                 buff1 = elems.get(i);
-                int compare = c.compare(buff1, elems.get(i - 1));
+                int compare = comparator.compare(buff1, elems.get(i - 1));
 
                 if ((!isForward && compare > 0)
                         || (isForward && compare < 0))
@@ -64,11 +73,29 @@ public class Sorts
         while (left < right);
     }
 
+    @Contract("null, _, _ -> fail; !null, null, _ -> fail")
+    public static <T, R, E extends Number> void ForwardRelativeSort(Collection<T> elems,
+                                                                    Relativator<? super T, R, E> Relativator,
+                                                                    R RelativeValue)
+            throws IllegalArgumentException
+    {
+        RelativeSort(elems, Relativator, RelativeValue, true);
+    }
+
+    @Contract("null, _, _ -> fail; !null, null, _ -> fail")
+    public static <T, R, E extends Number> void BackwardRelativeSort(Collection<T> elems,
+                                                                     Relativator<? super T, R, E> Relativator,
+                                                                     R RelativeValue)
+            throws IllegalArgumentException
+    {
+        RelativeSort(elems, Relativator, RelativeValue, false);
+    }
+
     /**
      * Sorting elems in results from Relativator for single element. For language level 7.
      * @param elems collection for sorting
-     * @param r Relativator, which sorts the list
-     * @param Relativator param for sorting relativator
+     * @param Relativator Relativator, which sorts the list
+     * @param RelativeValue param for sorting relativator
      * @param isForward if true sorting from the least relative value to the most. Else reversing sorting.
      * @param <T> type of elements
      * @param <R> type of relativator base
@@ -76,13 +103,13 @@ public class Sorts
      * @throws IllegalArgumentException if list or comparator is null
      */
     @Contract("null, _, _, _ -> fail; !null, null, _, _ -> fail")
-    public static <T, R, E extends Number> void RelativeSort(Collection<T> elems,
-                                                                Relativator<? super T, R, E> r,
-                                                                R Relativator,
+    private static <T, R, E extends Number> void RelativeSort(Collection<T> elems,
+                                                                Relativator<? super T, R, E> Relativator,
+                                                                R RelativeValue,
                                                                 boolean isForward)
             throws IllegalArgumentException
     {
-        if (elems == null || r == null)
+        if (elems == null || Relativator == null)
             throw new IllegalArgumentException();
 
         if (elems.isEmpty())
@@ -94,7 +121,7 @@ public class Sorts
         for(T elem : elems)
         {
             int size = temp.size();
-            long insertHash = r.RelativeCompare(elem, Relativator).longValue();
+            long insertHash = Relativator.RelativeCompare(elem, RelativeValue).longValue();
 
             if (size == 0)
             {
@@ -104,7 +131,7 @@ public class Sorts
 
             if (size == 1)
             {
-                long longValue = r.RelativeCompare(temp.get(0), Relativator).longValue();
+                long longValue = Relativator.RelativeCompare(temp.get(0), RelativeValue).longValue();
 
                 if ((isForward && insertHash < longValue) || (!isForward && insertHash > longValue))
                     temp.add(0, elem);
@@ -114,7 +141,7 @@ public class Sorts
                 continue;
             }
 
-            long longValue = r.RelativeCompare(temp.get(0), Relativator).longValue();
+            long longValue = Relativator.RelativeCompare(temp.get(0), RelativeValue).longValue();
 
             if ((isForward && insertHash < longValue) || (!isForward && insertHash > longValue))
             {
@@ -122,7 +149,7 @@ public class Sorts
                 continue;
             }
 
-            longValue = r.RelativeCompare(temp.get(size - 1), Relativator).longValue();
+            longValue = Relativator.RelativeCompare(temp.get(size - 1), RelativeValue).longValue();
 
             if ((isForward && insertHash > longValue) || (!isForward && insertHash < longValue))
             {
@@ -133,7 +160,7 @@ public class Sorts
             for(int i = size/2, l = 0; ; )
             {
                 int det = abs(i - l);
-                longValue = r.RelativeCompare(temp.get(i), Relativator).longValue();
+                longValue = Relativator.RelativeCompare(temp.get(i), RelativeValue).longValue();
 
                 if (insertHash == longValue)
                 {
@@ -179,6 +206,32 @@ public class Sorts
         elems.addAll(temp);
     }
 
+    /** Converting one <T> instance to <R> instance
+     * @param source What T you need to convert into R
+     * @param <T> type of instance for convert
+     * @param <R> type of instance for return
+     * @param Converter param that implement converting
+     * @return converting instance
+     */
+    public static <T, R> R Convert(T source, Converter<T, R> Converter)
+    {
+      return Converter.Convert(source);
+    }
+
+    /** Converting list of T into list of R using Converter<<T>, <R>> implementation
+     * @param source what list of T you need to convert into list of R
+     * @param Converter instance of Converter<<T>, <R>> implementation
+     * @param <T> type of source param
+     * @param <R> type of return
+     * @return converting list of instances
+     */
+    public static <T, R> List<R> Convert(List<T> source, Converter<T, R> Converter)
+    {
+        List<R> temp = new ArrayList<>(source.size());
+        for(T elem : source)
+            temp.add(Convert(elem, Converter));
+        return temp;
+    }
 
     /** Relativator is replacing BiFunction<<T>, <R>, <E>> interface for API 1.7 and earlier.
      * @param <T> the type of the first argument to the function
@@ -188,5 +241,67 @@ public class Sorts
     public interface Relativator<T, R, E extends Number>
     {
         E RelativeCompare(T o1, R o2) throws IllegalArgumentException;
+    }
+
+
+    /** Interface for Converting method of library
+     * @param <T> type of incoming instance
+     * @param <R> type of returning instance
+     */
+    public interface Converter<T, R>
+    {
+        R Convert(T elem);
+    }
+
+    /** Do merging some of instances in the list.
+     * @param ElemList list of type <T>
+     * @param <T> type of elements. This class should implements Cloneable<T> end extends Merger<<T>, <R>, <E>>.
+     * @param <R> type of hash for element of type <T>
+     * @param <E> type of additional information for merging list to instance
+     * @return instances of merging target instances
+     */
+    public static <T extends Merger<T, R, E>, R, E> List<T> Merging(final List<T> ElemList)
+    {
+        //FUTURES debug this
+        Map<R, Boolean> SecAssistMap = new HashMap<>();
+        List<T> Target = new ArrayList<>();
+
+        for(T elem:ElemList)
+        {
+            int count = 0;
+            R elemHash = elem.Hash();
+            if (SecAssistMap.get(elemHash) == null)
+            {
+                List<T> similar = elem.Similar(ElemList, elemHash);
+                Target.add(elem.Merge(similar, elem.ExtendValue(similar)).clone());
+                SecAssistMap.put(elemHash, true);
+            }
+        }
+        return Target;
+    }
+
+    public static abstract class Merger<T, R, E> implements Cloneable<T>
+    {
+        protected abstract R Hash();
+        protected abstract T Merge(List<T> list, E value);
+        protected abstract boolean HashEquals(R first, R second);
+        protected abstract E ExtendValue(final List<T> elems);
+
+        protected <T extends Merger<T, R, E>> List<T> Similar(final List<T> elems, R hash)
+        {
+            List<T> result = new ArrayList<>();
+            for (T elem1 : elems)
+                if (elem1.HashEquals(elem1.Hash(), hash))
+                    result.add(elem1);
+            return result;
+        }
+
+        @Override
+        public abstract T clone();
+    }
+
+    public interface Cloneable<T>
+    {
+        T clone();
     }
 }

@@ -1,7 +1,7 @@
 package Fox.core.lib.services.CoverArtArchive;
 
 import Fox.core.lib.connectors.HttpGetClient;
-import Fox.core.lib.services.Common.Elapsed;
+import Fox.core.lib.services.common.Elapsed;
 import Fox.core.lib.services.CoverArtArchive.LookupAlbumArt.CoverArtStructureBuilder;
 import Fox.core.lib.services.CoverArtArchive.LookupAlbumArt.sources.AlbumArt;
 import Fox.core.main.SearchLib;
