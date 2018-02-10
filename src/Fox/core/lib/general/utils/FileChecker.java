@@ -1,6 +1,6 @@
 package Fox.core.lib.general.utils;
 
-import Fox.core.lib.general.Threads.FileCheckerThread;
+import Fox.core.lib.general.threads.FileCheckerThread;
 import Fox.core.lib.general.templates.ProgressState;
 import org.jetbrains.annotations.NotNull;
 

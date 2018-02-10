@@ -1,6 +1,6 @@
 package Fox.test.util;
 
-import Fox.core.lib.general.DOM.FingerPrint;
+import Fox.core.lib.general.data.FingerPrint;
 import Fox.core.lib.general.templates.FingerPrintThread;
 import Fox.core.lib.general.utils.FingerPrintProcessingException;
 import Fox.core.main.SearchLib;
@@ -32,8 +32,8 @@ public class WindowsFPcalc
             final String Source = new FileDestinationWindows()
                     .GetCurrentDir(WindowsFPcalc.class)
                     .addElem("fpcalc.exe",
-                             true
-                            ).toString();
+                             true)
+                    .toString();
 
             String duration, print;
             String[] args = new String[]{Source, location};
@@ -59,8 +59,7 @@ public class WindowsFPcalc
             if (exit_value == 0)
             {
                 duration = result.substring(result.indexOf("DURATION=") + 9,
-                                            result.indexOf("DURATION=") + 12
-                                           );
+                                            result.indexOf("DURATION=") + 12);
                 print = result.substring(result.indexOf("FINGERPRINT=") + 12);
 
                 target.setPrint(print);
