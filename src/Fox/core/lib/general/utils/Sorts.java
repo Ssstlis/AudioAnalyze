@@ -297,7 +297,6 @@ public class Sorts
 
         for(T elem:ElemList)
         {
-            int count = 0;
             R elemHash = elem.Hash();
             if (SecAssistMap.get(elemHash) == null)
             {
@@ -317,7 +316,7 @@ public class Sorts
     public static abstract class Merger<T, R, E> implements Cloneable<T>
     {
         protected abstract R Hash();
-        protected abstract T Merge(List<T> list, E value);
+        protected abstract T Merge(final List<T> list, E value);
         protected abstract boolean HashEquals(R first, R second);
         protected abstract E ExtendValue(final List<T> elems);
 

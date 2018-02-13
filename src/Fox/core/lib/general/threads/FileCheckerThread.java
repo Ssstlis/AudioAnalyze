@@ -2,6 +2,7 @@ package Fox.core.lib.general.threads;
 
 import Fox.core.lib.general.templates.ProgressState;
 import Fox.core.main.SearchLib;
+import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
 import org.jaudiotagger.audio.mp3.MP3File;
 import org.jetbrains.annotations.NotNull;
@@ -51,18 +52,16 @@ public class FileCheckerThread
         {
             File pathname = new File(check);
 
-            if (!check.endsWith(".mp3"))
+            if (!check.endsWith(".mp3")
+                    || !check.endsWith(".flac")
+                    || !check.endsWith(".mp4")
+                    || !check.endsWith(".ogg"))
                 return false;
 
-
-            MP3File mp3File = (MP3File) AudioFileIO.read(pathname);
-            return mp3File.getAudioHeader()
-                          .getTrackLength() > 119;
+            return AudioFileIO.read(pathname).getAudioHeader().getTrackLength() > 119;
         }
         catch (Exception e)
         {
-            if (logger.isErrorEnabled())
-                logger.error("", e);
             return false;
         }
     }

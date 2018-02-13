@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.List;
 
 
 public class WindowsFPcalc
@@ -31,8 +32,7 @@ public class WindowsFPcalc
         {
             final String Source = new FileDestinationWindows()
                     .GetCurrentDir(WindowsFPcalc.class)
-                    .addElem("fpcalc.exe",
-                             true)
+                    .addElem("fpcalc.exe", true)
                     .toString();
 
             String duration, print;
@@ -51,9 +51,7 @@ public class WindowsFPcalc
             String result = "";
 
             while ((line = br.readLine()) != null)
-            {
                 result = result.concat(line + "\n");
-            }
 
             int exit_value = process.waitFor();
             if (exit_value == 0)
@@ -72,9 +70,14 @@ public class WindowsFPcalc
         }
         catch (Exception e)
         {
-            e.printStackTrace();
             throw new FingerPrintProcessingException(e);
         }
         return target;
+    }
+
+    @Override
+    public List<FingerPrint> getFingerPrint(@NotNull final List<String> location) throws FingerPrintProcessingException
+    {
+        return null;
     }
 }

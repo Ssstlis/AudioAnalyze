@@ -2,8 +2,14 @@ package Fox.core.lib.general.templates;
 
 import Fox.core.lib.general.utils.ProgressStateException;
 
+//TODO same class with observers
 public abstract class ProgressState
 {
+
+    protected abstract void onDone();
+    protected abstract void onResize();
+    protected abstract void onChange();
+
     protected int state, size;
     protected String desc, name;
 
@@ -20,10 +26,6 @@ public abstract class ProgressState
         this.name = name;
     }
 
-    protected abstract void onDone();
-    protected abstract void onResize();
-    protected abstract void onChange();
-
     public void update(
             int now,
             String desc)
@@ -34,38 +36,26 @@ public abstract class ProgressState
             throw new ProgressStateException("Can`t change status of progress less then zero");
         this.state = now;
         this.desc = desc;
-
         this.onChange();
-
         if (now >= size)
-        {
             this.onDone();
-        }
     }
 
     public void update(String desc)
     {
         this.state++;
         this.desc = desc;
-
         this.onChange();
-
         if (state >= size)
-        {
             this.onDone();
-        }
     }
 
     public void update()
     {
         this.state++;
-
         this.onChange();
-
         if (state >= size)
-        {
             this.onDone();
-        }
     }
 
 
@@ -87,9 +77,7 @@ public abstract class ProgressState
         this.size = size;
         onResize();
         if (state >= size)
-        {
             onDone();
-        }
     }
 
     public String getName()

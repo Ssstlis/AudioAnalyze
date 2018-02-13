@@ -9,6 +9,7 @@ import Fox.core.lib.services.AcoustID.LookupByFP.sources.ByFingerPrint;
 import Fox.core.lib.services.AcoustID.LookupByFP.sources.Error;
 import Fox.core.main.SearchLib;
 import org.jaudiotagger.audio.aiff.CommonChunk;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,9 +30,10 @@ public class ServiceProcessing
 
     }
 
+    @Contract("_, null, _, _, _ -> fail")
     public static void Processing(
             @NotNull AcoustIDApi AIDClient,
-            @NotNull FingerPrint AudioPrint,
+            FingerPrint AudioPrint,
             boolean Trust,
             @NotNull Map<String, List<ID3V2>> Target,
             int count)
@@ -39,6 +41,8 @@ public class ServiceProcessing
             AcoustIDException,
             NoMatchesException
     {
+        if (AudioPrint == null || (!AudioPrint.hasDuration() && !AudioPrint.hasPrint()))
+            throw new IllegalArgumentException("FingerPrint is null or contains error");
         logger = LoggerFactory.getLogger(SearchLib.class);
         if (logger.isDebugEnabled())
             logger.debug("Start service processing");

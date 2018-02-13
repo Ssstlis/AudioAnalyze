@@ -41,7 +41,7 @@ public class ServiceThread
 
 
     public ServiceThread(
-            @NotNull FingerPrint FPrint,
+            FingerPrint FPrint,
             @NotNull Map<String, List<ID3V2>> Target,
             ProgressState ServiceState,
             ProgressState CommonProgress,
