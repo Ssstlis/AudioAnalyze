@@ -1,7 +1,7 @@
 package Fox.core.lib.services.LastFM.Artist;
 
 import Fox.core.lib.connectors.HttpGetClient;
-import Fox.core.lib.services.common.Elapsed;
+import Fox.core.lib.services.Common.Elapsed;
 import Fox.core.lib.services.LastFM.Artist.getInfo.GetInfoBuilder;
 import Fox.core.lib.services.LastFM.Artist.getInfo.sources.ArtistInfo;
 import Fox.core.lib.services.LastFM.LastFMApi;

@@ -1,7 +1,7 @@
 package Fox.core.lib.services.LastFM.Album;
 
 import Fox.core.lib.connectors.HttpGetClient;
-import Fox.core.lib.services.common.Elapsed;
+import Fox.core.lib.services.Common.Elapsed;
 import Fox.core.lib.services.LastFM.Album.getInfo.GetInfoBuilder;
 import Fox.core.lib.services.LastFM.Album.getInfo.sources.AlbumInfo;
 import Fox.core.lib.services.LastFM.Album.search.SearchBuilder;

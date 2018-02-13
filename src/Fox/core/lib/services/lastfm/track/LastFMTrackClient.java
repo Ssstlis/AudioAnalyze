@@ -1,7 +1,7 @@
 package Fox.core.lib.services.LastFM.Track;
 
 import Fox.core.lib.connectors.HttpGetClient;
-import Fox.core.lib.services.common.Elapsed;
+import Fox.core.lib.services.Common.Elapsed;
 import Fox.core.lib.services.LastFM.LastFMApi;
 import Fox.core.lib.services.LastFM.Track.getInfo.GetInfoBuilder;
 import Fox.core.lib.services.LastFM.Track.getInfo.sources.TrackInfo;

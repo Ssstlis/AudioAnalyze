@@ -46,7 +46,7 @@ Necessary params:
 - List of String (represents file paths)
 - Value of performance (influence on number of threads)
 - Operation mode
-- Number of uniqe result for each file
+- Number of unique result for each file
 
 Return instance of entry that contains results:
 - Map of entries file path as key and list of tags as value as key

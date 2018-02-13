@@ -1,4 +1,4 @@
-package Fox.core.lib.services.common;
+package Fox.core.lib.services.Common;
 
 import Fox.core.lib.general.data.FingerPrint;
 import Fox.core.lib.general.data.ID3V2;
@@ -60,8 +60,7 @@ public class Sifter
 
             if (target.hasResults())
             {
-                Result result = target.getResult()
-                        .get(0);
+                Result result = target.getResult().get(0);
 
                 if (result.hasRecordings())
                     info = Convert(result.getRecordings().get(0), converter);
@@ -379,9 +378,13 @@ public class Sifter
 
     public static List<ID3V2> Choosing(List<ID3V2> temp)
     {
-        ForwardSorting(temp, new ID3V2Comparator());
-        List<ID3V2> result = new ArrayList<>();
-        result.add(temp.get(0));
-        return result;
+        if (temp != null && !temp.isEmpty())
+        {
+            ForwardSorting(temp, new ID3V2Comparator());
+            List<ID3V2> result = new ArrayList<>();
+            result.add(temp.get(0));
+            return result;
+        }
+        return null;
     }
 }

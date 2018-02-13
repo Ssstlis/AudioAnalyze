@@ -1,6 +1,6 @@
 package Fox.core.lib.services.CoverArtArchive.LookupAlbumArt;
 
-import Fox.core.lib.services.common.ParseSupport;
+import Fox.core.lib.services.Common.ParseSupport;
 import Fox.core.lib.services.CoverArtArchive.CoverArtArchiveApi;
 import Fox.core.lib.services.CoverArtArchive.LookupAlbumArt.sources.AlbumArt;
 import Fox.core.lib.services.CoverArtArchive.LookupAlbumArt.sources.image;

@@ -1,6 +1,6 @@
 package Fox.core.lib.services.LastFM.Album.search;
 
-import Fox.core.lib.services.common.ParseSupport;
+import Fox.core.lib.services.Common.ParseSupport;
 import Fox.core.lib.services.LastFM.Album.search.sources.*;
 import Fox.core.lib.services.LastFM.CommonSources.CommonBuilder;
 import Fox.core.lib.services.LastFM.CommonSources.Error;

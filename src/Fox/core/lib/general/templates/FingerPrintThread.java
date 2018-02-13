@@ -6,6 +6,7 @@ import org.jetbrains.annotations.NotNull;
 
 public interface FingerPrintThread
 {
+    @NotNull
     FingerPrint getFingerPrint(
             @NotNull String location)
             throws

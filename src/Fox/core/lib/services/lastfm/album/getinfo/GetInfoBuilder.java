@@ -1,6 +1,6 @@
 package Fox.core.lib.services.LastFM.Album.getInfo;
 
-import Fox.core.lib.services.common.ParseSupport;
+import Fox.core.lib.services.Common.ParseSupport;
 import Fox.core.lib.services.LastFM.Album.getInfo.sources.AlbumInfo;
 import Fox.core.lib.services.LastFM.Album.getInfo.sources.album;
 import Fox.core.lib.services.LastFM.Album.getInfo.sources.track;

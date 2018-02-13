@@ -10,6 +10,9 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadFactory;
 
 public class FileCheckerThread
         implements Runnable
@@ -18,6 +21,14 @@ public class FileCheckerThread
     private String location;
     private List<String> Target, Rejected;
     private ProgressState Line, Common;
+    private static final ExecutorService Pool = Executors.newFixedThreadPool(2, new ThreadFactory()
+    {
+        @Override
+        public Thread newThread(@NotNull Runnable r)
+        {
+            return new Thread(r, "Progress bar call");
+        }
+    });
 
     public FileCheckerThread(
             @NotNull String Source,
@@ -78,15 +89,29 @@ public class FileCheckerThread
         finally
         {
             if (Line != null)
-                synchronized (Line)
+                Pool.submit(new Runnable()
                 {
-                    Line.update();
-                }
+                    @Override
+                    public void run()
+                    {
+                        synchronized (Line)
+                        {
+                            Line.update();
+                        }
+                    }
+                });
             if (Common != null)
-                synchronized (Common)
+                Pool.submit(new Runnable()
                 {
-                    Common.update();
-                }
+                    @Override
+                    public void run()
+                    {
+                        synchronized (Common)
+                        {
+                            Common.update();
+                        }
+                    }
+                });
         }
     }
 }

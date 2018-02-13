@@ -2,7 +2,7 @@ package Fox.core.lib.services.AcoustID;
 
 import Fox.core.lib.connectors.HttpGetClient;
 import Fox.core.lib.general.data.FingerPrint;
-import Fox.core.lib.services.common.Elapsed;
+import Fox.core.lib.services.Common.Elapsed;
 import Fox.core.lib.services.AcoustID.LookupByFP.AcoustIDStructureBuilder;
 import Fox.core.lib.services.AcoustID.LookupByFP.sources.ByFingerPrint;
 import Fox.core.main.SearchLib;

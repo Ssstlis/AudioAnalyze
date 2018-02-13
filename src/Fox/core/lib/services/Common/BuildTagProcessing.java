@@ -1,4 +1,4 @@
-package Fox.core.lib.services.common;
+package Fox.core.lib.services.Common;
 
 import Fox.core.lib.general.data.Extract;
 import Fox.core.lib.general.data.ID3V2;
@@ -25,7 +25,7 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.util.*;
 
-import static Fox.core.lib.services.common.Elapsed.MusicBrainzElapse;
+import static Fox.core.lib.services.Common.Elapsed.MusicBrainzElapse;
 import static Fox.core.main.SearchLib.NO_MATCHES;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 

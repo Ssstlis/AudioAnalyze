@@ -9,6 +9,13 @@ import static java.lang.Math.tan;
 
 public class Sorts
 {
+
+    /** Simple call of forward sorting.
+     * @param elems list of elements.
+     * @param comparator Comparator for this class.
+     * @param <T> type of elements.
+     * @throws IllegalArgumentException if list or comparator is null.
+     */
     @Contract("null, _ -> fail; !null, null -> fail")
     public static <T> void ForwardSorting(List<T> elems, Comparator<? super T> comparator)
             throws IllegalArgumentException
@@ -16,6 +23,12 @@ public class Sorts
         Sort(elems, comparator, true);
     }
 
+    /** Simple call of backward sorting.
+     * @param elems list of elements.
+     * @param comparator Comparator for this class.
+     * @param <T> type of elements.
+     * @throws IllegalArgumentException if list or comparator is null.
+     */
     @Contract("null, _ -> fail; !null, null -> fail")
     public static <T> void BackwardSorting(List<T> elems, Comparator<? super T> comparator)
             throws IllegalArgumentException
@@ -73,6 +86,14 @@ public class Sorts
         while (left < right);
     }
 
+    /** Simple call of forward relative sorting.
+     * @param elems list of elements.
+     * @param Relativator Relativator for this class.
+     * @param <T> type of elements.
+     * @param <R> type of value for generate relative value.
+     * @param <E> type of value that represents relative.
+     * @throws IllegalArgumentException if list or Relativator is null.
+     */
     @Contract("null, _, _ -> fail; !null, null, _ -> fail")
     public static <T, R, E extends Number> void ForwardRelativeSort(Collection<T> elems,
                                                                     Relativator<? super T, R, E> Relativator,
@@ -82,6 +103,14 @@ public class Sorts
         RelativeSort(elems, Relativator, RelativeValue, true);
     }
 
+    /** Simple call of backward relative sorting.
+     * @param elems list of elements.
+     * @param Relativator Relativator for this class.
+     * @param <T> type of elements.
+     * @param <R> type of value for generate relative value.
+     * @param <E> type of value that represents relative.
+     * @throws IllegalArgumentException if list or Relativator is null.
+     */
     @Contract("null, _, _ -> fail; !null, null, _ -> fail")
     public static <T, R, E extends Number> void BackwardRelativeSort(Collection<T> elems,
                                                                      Relativator<? super T, R, E> Relativator,
@@ -280,6 +309,11 @@ public class Sorts
         return Target;
     }
 
+    /** Abstract class for fast merging, represents in Merging method. Define rules for merging.
+     * @param <T> type of elements for merging.
+     * @param <R> type of hash for elems.
+     * @param <E> type of additional instance for merging.
+     */
     public static abstract class Merger<T, R, E> implements Cloneable<T>
     {
         protected abstract R Hash();
@@ -300,6 +334,9 @@ public class Sorts
         public abstract T clone();
     }
 
+    /** Interface for cloning instance of type <T>. Use in Merger abstract class.
+     * @param <T> type of instance
+     */
     public interface Cloneable<T>
     {
         T clone();

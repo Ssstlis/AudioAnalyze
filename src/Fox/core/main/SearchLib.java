@@ -1,3 +1,28 @@
+/*
+ * MIT License
+ *
+ * Copyright (c) 2018 Ivan Aristov (Ssstlis/Fox)
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ *
+ */
+
 package Fox.core.main;
 
 import Fox.core.lib.general.data.*;
@@ -7,6 +32,7 @@ import Fox.core.lib.general.threads.FPCalcThread;
 import Fox.core.lib.general.threads.ServiceThread;
 import Fox.core.lib.general.utils.ExecutableHelper.Entry;
 import Fox.core.lib.general.utils.*;
+import Fox.core.lib.services.Common.BuildTagProcessing;
 import Fox.core.lib.services.CoverArtArchive.CoverArtArchiveApi;
 import Fox.core.lib.services.CoverArtArchive.LookupAlbumArt.sources.AlbumArt;
 import Fox.core.lib.services.LastFM.Album.getInfo.sources.AlbumInfo;
@@ -15,7 +41,6 @@ import Fox.core.lib.services.LastFM.Album.search.sources.Search;
 import Fox.core.lib.services.LastFM.Album.search.sources.albummatches;
 import Fox.core.lib.services.LastFM.Album.search.sources.results;
 import Fox.core.lib.services.LastFM.CommonSources.image;
-import Fox.core.lib.services.common.BuildTagProcessing;
 import org.jetbrains.annotations.NotNull;
 import org.musicbrainz.android.api.data.ReleaseArtist;
 import org.musicbrainz.android.api.data.ReleaseInfo;
@@ -27,12 +52,16 @@ import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.*;
 
+import static Fox.core.lib.services.Common.Elapsed.MusicBrainzElapse;
 import static Fox.core.lib.services.LastFM.Album.LastFMAlbumClient.getInfo;
 import static Fox.core.lib.services.LastFM.Album.LastFMAlbumClient.search;
-import static Fox.core.lib.services.common.Elapsed.MusicBrainzElapse;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static java.util.concurrent.TimeUnit.MINUTES;
 
+
+/**
+ * Main class of library. Calling methods in according with javadoc for expected results.
+ */
 public class SearchLib
 {
     private static Logger logger;
@@ -42,15 +71,37 @@ public class SearchLib
     private final static String SAME_INSTANCES = "Same progress state instances";
     private final static String NO_ONE_FILE_ERROR = "No one file were accepted.";
 
-    public static Entry<Map<String, List<ID3V2>>, List<String>> SearchTags(
-            @NotNull List<String> Files,
-            @NotNull FingerPrintThread YourFPCalcThread,
-            ProgressState CheckerProgressBar,
-            ProgressState FPProgressBar,
-            ProgressState ServiceProgressBar,
-            ProgressState CommonProgressBar,
-            performance Speed,
-            int count)
+    /** One of the main functional of library. Doing processing with your files
+     * and services, using finger print of media file for looking up data about FP in services.
+     * You can manually configure processing and observing with progress bars.
+     * @param Files list of files locations that you need to data looking up.
+     * @param YourFPCalcImplementation Your implementation of FingerPrintCalc/Chromaprint library to get fingerprint
+     *                                 of media file.
+     * @param CheckerProgressBar Progress bar for observing files checking process for each file.
+     * @param FPProgressBar Progress bar for observing fingerprints build for each file that was not reject.
+     * @param ServiceProgressBar Progress bar for observing search data for each file that was not reject.
+     * @param CommonProgressBar Common progress bar, show common progress.
+     * @param Speed Allows you to configure the number of threads in thread pool.
+     * @param count Configure maximum number of tags set for each file.
+     * @return Entry with result as key, which keys - file location (or other data, creating by your fingerprint
+     * realisation) and value - tag set, and reject files location (or other data, creating by your fingerprint
+     * realisation) as value.
+     * @throws InterruptedException if you have some problems with thread pool.
+     * @throws NoBuildException if Files are empty.
+     * @throws IllegalArgumentException if you configure count <= 0. Or same instances of progress bars.
+     * @throws ProgressStateException if your implementation of progress bar doing resize wrong.
+     * @throws NoMatchesException if library can`t look up any results for your files.
+     * @throws NoAccessingFilesException if all files are rejected.
+     */
+    @NotNull
+    public static Entry<Map<String, List<ID3V2>>, List<String>> SearchTags(@NotNull List<String> Files,
+                                                                           @NotNull FingerPrintThread YourFPCalcImplementation,
+                                                                           ProgressState CheckerProgressBar,
+                                                                           ProgressState FPProgressBar,
+                                                                           ProgressState ServiceProgressBar,
+                                                                           ProgressState CommonProgressBar,
+                                                                           performance Speed,
+                                                                           int count)
             throws
             InterruptedException,
             NoBuildException,
@@ -174,7 +225,7 @@ public class SearchLib
 
         for (String file : Locations)
         {
-            tasks.add(new FPCalcThread(YourFPCalcThread,
+            tasks.add(new FPCalcThread(YourFPCalcImplementation,
                                        file,
                                        FPProgressBar,
                                        CommonProgressBar));
@@ -212,7 +263,8 @@ public class SearchLib
                                                              ServiceProgressBar,
                                                              CommonProgressBar,
                                                              TrustMode,
-                                                             count));
+                                                             count,
+                                                             Rejected));
                     }
                     break;
                 }
@@ -237,11 +289,25 @@ public class SearchLib
         return new Entry<>(target, Rejected);
     }
 
-    public static List<ID3V2> SearchTags(
-            @NotNull String file,
-            @NotNull FingerPrintThread YourFPCalcThread,
-            ProgressState ProgressBar,
-            int count)
+    /** One of the main functional of library. Doing processing with your file
+     * and services, using finger print of media file for looking up data about FP in services.
+     * You can manually configure processing and observing with progress bar.
+     * @param file file location that you need to data looking up.
+     * @param YourFPCalcThreadImplementation Your implementation of FingerPrintCalc/Chromaprint library to get fingerprint
+     *                                       of media file.
+     * @param ProgressBar Common progress bar, show common progress.
+     * @param count Configure maximum number of tags set for file.
+     * @return List of tags for this file.
+     * @throws InterruptedException if you have some problems with thread pool.
+     * @throws IllegalArgumentException if you configure count <= 0. Or same instances of progress bars.
+     * @throws ProgressStateException if your implementation of progress bar doing resize wrong.
+     * @throws NoMatchesException if library can`t look up any results for your files.
+     * @throws NoAccessingFilesException if file is rejected.
+     */
+    public static List<ID3V2> SearchTags(@NotNull String file,
+                                         @NotNull FingerPrintThread YourFPCalcThreadImplementation,
+                                         ProgressState ProgressBar,
+                                         int count)
             throws
             InterruptedException,
             IllegalArgumentException,
@@ -293,7 +359,7 @@ public class SearchLib
         if (logger.isInfoEnabled())
             logger.info("Instance FingerPrint thread");
 
-        Future<FingerPrint> future = ServicePool.submit(new FPCalcThread(YourFPCalcThread,
+        Future<FingerPrint> future = ServicePool.submit(new FPCalcThread(YourFPCalcThreadImplementation,
                                                                          file,
                                                                          null,
                                                                          ProgressBar));
@@ -309,13 +375,15 @@ public class SearchLib
 
         if (logger.isInfoEnabled())
             logger.info("Start service thread");
+
         if (fingerPrint != null)
             ServicePool.submit(new ServiceThread(fingerPrint,
                                                  target,
                                                  null,
                                                  ProgressBar,
                                                  TrustMode,
-                                                 count));
+                                                 count,
+                                                 null));
 
         ServicePool.shutdown();
         ServicePool.awaitTermination(25, MINUTES);
@@ -335,11 +403,10 @@ public class SearchLib
         return list;
     }
 
-    public static AlbumArtCompilation SearchCovers(
-            @NotNull String AlbumName,
-            String ArtistName,
-            target source,
-            int count)
+    public static AlbumArtCompilation SearchCovers(@NotNull String AlbumName,
+                                                   String ArtistName,
+                                                   target source,
+                                                   int count)
             throws
             IllegalArgumentException,
             NoMatchesException
@@ -589,13 +656,20 @@ public class SearchLib
 
 
     /**
-     * Use it if library using too much memory.
+     * Clearing cache. Use it if library using too much memory.
      */
     public static void ClearCache()
     {
         BuildTagProcessing.ClearCache();
     }
 
+
+    /** Adding to targetList only the one link from imageList with highest resolution.
+     * @param Artist Artist name.
+     * @param Album Album title.
+     * @param imageList original list for processing.
+     * @param targetList target list for addition.
+     */
     private static void AddMostResolutionImageLink(String Artist,
                                                    String Album,
                                                    List<image> imageList,
@@ -624,6 +698,10 @@ public class SearchLib
         }
     }
 
+    /** Exclude duplicates from list, fill and return new list.
+     * @param Files original list of String.
+     * @return treated list of String.
+     */
     private static List<String> ExcludeDuplicate(@NotNull List<String> Files)
     {
         Map<String, Boolean> AssistMap = new HashMap<>();
@@ -632,17 +710,20 @@ public class SearchLib
             result = new ArrayList<>();
             for (String elem : Files)
             {
-                String lowerCase = elem.toLowerCase();
-                if (!AssistMap.containsKey(lowerCase))
+                if (!AssistMap.containsKey(elem.toLowerCase()))
                 {
-                    result.add(lowerCase);
-                    AssistMap.put(lowerCase, true);
+                    result.add(elem);
+                    AssistMap.put(elem.toLowerCase(), true);
                 }
             }
         }
         return result;
     }
-    
+
+    /**
+     * @param list items for for comparison
+     * @return true if at least two items in the list are the same links, else false
+     */
     private static boolean IsSameInstances(Object... list)
     {
         boolean result = false;
@@ -651,14 +732,12 @@ public class SearchLib
             loop:
             for (int i = 0, length = list.length; i < length; i++)
                 if (list[i] != null)
-                {
                     for (int l = i + 1; l < length; l++)
                         if (list[l] != null && list[i] == list[l])
                         {
                             result = true;
                             break loop;
                         }
-                }
         }
 
         return result;

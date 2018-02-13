@@ -1,4 +1,4 @@
-package Fox.core.lib.services.common;
+package Fox.core.lib.services.Common;
 
 import com.google.gson.*;
 import org.jetbrains.annotations.NotNull;
