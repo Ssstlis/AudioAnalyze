@@ -19,45 +19,25 @@ import java.util.Map.Entry;
 
 public class testing
 {
-    private static Logger logger;
+
     public static void main(String[] args)
     {
-        logger = LoggerFactory.getLogger(SearchLib.class);
+        Logger logger = LoggerFactory.getLogger(SearchLib.class);
 
         Entry<Map<String, List<ID3V2>>, List<String>> Result = null;
         try
         {
-            String mp3location = "D:\\music\\test";
+            String mp3location = "D:\\music\\Born Handed";
             List<File> FileList = ExecutableHelper.GetFileList(mp3location,
                                                                new Mp3Filter()
                                                               );
             //AlbumArtCompilation meteora = SearchLib.SearchCovers("Meteora", null, target.MusicBrainz, 5);
             //FileList.clear();
             //FileList.add(new File("D:\\music\\Born of osiris\\The New Reign\\Born Of Osiris - Abstract Art.mp3"));
-            ProgressState Line1 = new CustomProgressState
-                    (0,
-                     "checker",
-                     "checker"
-                    );
-
-            ProgressState Line2 = new CustomProgressState
-                    (0,
-                     "FP",
-                     "FP"
-                    );
-
-            ProgressState Line3 = new CustomProgressState
-                    (0,
-                     "Service",
-                     "Service"
-                    );
-
-            ProgressState Line4 = new CustomProgressState
-                    (0,
-                     "Common",
-                     "Common"
-                    );
-
+            ProgressState Line1 = new CustomProgressState(0, "checker", "checker");
+            ProgressState Line2 = new CustomProgressState(0, "FP", "FP");
+            ProgressState Line3 = new CustomProgressState(0, "Service", "Service");
+            ProgressState Line4 = new CustomProgressState(0, "Common", "Common");
 
             long temp = System.currentTimeMillis();
             List<ID3V2> res = null;

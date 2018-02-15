@@ -10,11 +10,6 @@ import java.util.List;
 
 public class CommonBuilder
 {
-    public CommonBuilder()
-    {
-
-    }
-
     protected static artist buildArtist(JsonElement element)
     {
         artist temp = null;

@@ -14,11 +14,6 @@ import com.google.gson.JsonParser;
 public class GetInfoBuilder
         extends CommonBuilder
 {
-    public GetInfoBuilder()
-    {
-
-    }
-
     public static TrackInfo buildTrackInfo(String source)
     {
         if (source == null || source.isEmpty())

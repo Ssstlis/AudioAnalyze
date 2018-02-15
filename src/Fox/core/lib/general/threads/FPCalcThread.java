@@ -18,9 +18,10 @@ public class FPCalcThread
         implements Callable<FingerPrint>
 {
     private static Logger logger;
-    private FingerPrintThread executor;
-    private volatile ProgressState Line, Common;
-    private String location;
+    private final FingerPrintThread executor;
+    private final ProgressState Line;
+    private final ProgressState Common;
+    private final String location;
     private static final ExecutorService Pool = Executors.newFixedThreadPool(2, new ThreadFactory()
     {
         @Override
@@ -46,7 +47,7 @@ public class FPCalcThread
     @Override
     public FingerPrint call()
     {
-        FingerPrint fingerPrint = null;
+        FingerPrint fingerPrint;
         try
         {
             fingerPrint = executor.getFingerPrint(location);

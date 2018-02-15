@@ -13,8 +13,4 @@ public class LastFMApi
     public LastFMTrackClient Track = new LastFMTrackClient();
     public LastFMArtistClient Artist = new LastFMArtistClient();
     public LastFMAlbumClient Album = new LastFMAlbumClient();
-
-    public LastFMApi()
-    {
-    }
 }

@@ -18,10 +18,6 @@ import java.io.IOException;
 public class LastFMAlbumClient
 {
     private static Logger logger;
-    public LastFMAlbumClient()
-    {
-
-    }
 
     public static AlbumInfo getInfo(
             String mbid,
@@ -29,8 +25,7 @@ public class LastFMAlbumClient
             @NotNull String album,
             String lang,
             String username,
-            Boolean AutoCorrect
-                            )
+            Boolean AutoCorrect)
     {
         logger = LoggerFactory.getLogger(SearchLib.class);
         HttpGetClient RequestHTTPClient = new HttpGetClient(logger);
@@ -63,25 +58,15 @@ public class LastFMAlbumClient
         {
             optional += "&lang=" + lang;
         }
-
-        if (!album.isEmpty())
-        {
-            album = "&album=" + album;
-        }
-
-        if (!artist.isEmpty())
-        {
-            artist = "&artist=" + artist;
-        }
         String request = LastFMApi.api_root +
                 method_name +
                 LastFMApi.api_key +
                 LastFMApi.format +
-                album +
-                artist +
+                (!album.isEmpty() ? ("&album=" + album) : ("")) +
+                (!artist.isEmpty() ? ("&artist=" + artist) : ("")) +
                 optional;
         RequestHTTPClient.build(request);
-        String response = null;
+        String response;
         AlbumInfo buildAlbumInfo = null;
 
         try
@@ -120,19 +105,15 @@ public class LastFMAlbumClient
             optional += "&page=" + page.toString();
         }
 
-        if (!album.isEmpty())
-        {
-            album = "&album=" + album;
-        }
         String request = LastFMApi.api_root +
                 method_name +
                 LastFMApi.api_key +
                 LastFMApi.format +
-                album +
+                (!album.isEmpty() ? ("&album=" + album) : ("")) +
                 optional;
 
         RequestHTTPClient.build(request);
-        String response = null;
+        String response;
         Search buildSearch = null;
 
         try

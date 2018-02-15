@@ -23,13 +23,14 @@ public class ServiceThread
         implements Runnable
 {
     private static Logger logger;
-    private FingerPrint FPrint;
-    private volatile ProgressState Local, Common;
-    private AcoustIDApi AIDClient;
-    private boolean Trust;
-    private Map<String, List<ID3V2>> target;
-    private int count;
-    private List<String> Rejected;
+    private final FingerPrint FPrint;
+    private final ProgressState Local;
+    private final ProgressState Common;
+    private final AcoustIDApi AIDClient;
+    private final boolean Trust;
+    private final Map<String, List<ID3V2>> target;
+    private final int count;
+    private final List<String> Rejected;
     private static final ExecutorService Pool = Executors.newFixedThreadPool(2, new ThreadFactory()
     {
         @Override

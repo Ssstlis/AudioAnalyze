@@ -16,10 +16,6 @@ import java.util.List;
 public class AcoustIDStructureBuilder
 {
 
-    public AcoustIDStructureBuilder()
-    {
-    }
-
     public static ByFingerPrint buildLookup(@NotNull AcoustIDApi.AcoustIDResponse response)
     {
 

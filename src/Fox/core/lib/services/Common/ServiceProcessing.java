@@ -8,7 +8,6 @@ import Fox.core.lib.services.AcoustID.AcoustIDApi;
 import Fox.core.lib.services.AcoustID.LookupByFP.sources.ByFingerPrint;
 import Fox.core.lib.services.AcoustID.LookupByFP.sources.Error;
 import Fox.core.main.SearchLib;
-import org.jaudiotagger.audio.aiff.CommonChunk;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
@@ -23,13 +22,6 @@ import static Fox.core.main.SearchLib.NO_COUNT;
 
 public class ServiceProcessing
 {
-    private static Logger logger;
-
-    public ServiceProcessing()
-    {
-
-    }
-
     @Contract("_, null, _, _, _ -> fail")
     public static void Processing(
             @NotNull AcoustIDApi AIDClient,
@@ -43,7 +35,8 @@ public class ServiceProcessing
     {
         if (AudioPrint == null || (!AudioPrint.hasDuration() && !AudioPrint.hasPrint()))
             throw new IllegalArgumentException("FingerPrint is null or contains error");
-        logger = LoggerFactory.getLogger(SearchLib.class);
+
+        Logger logger = LoggerFactory.getLogger(SearchLib.class);
         if (logger.isDebugEnabled())
             logger.debug("Start service processing");
         if (count <= 0)
@@ -66,7 +59,7 @@ public class ServiceProcessing
         {
             Error err = AIDResp.getErr();
             if (logger.isErrorEnabled())
-                logger.error("AcoustID error occure");
+                logger.error("AcoustID error occur");
             throw new AcoustIDException("File:" + location + " Error code: " + err.getCode() + " message: " + err.getMessage());
         }
 

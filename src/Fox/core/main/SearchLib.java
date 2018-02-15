@@ -128,7 +128,7 @@ public class SearchLib
             throw new IllegalArgumentException(SAME_INSTANCES);
         }
 
-        boolean isBuild = false, TrustMode = count == 1;
+        boolean isBuild = false;
 
         List<String> Locations = ExcludeDuplicate(Files);
 
@@ -202,6 +202,7 @@ public class SearchLib
                 case CLOSETOMIN:
                     CPU = (N_CPUs / 4 > 1) ? (N_CPUs / 4) : (2);
                     break;
+                default: CPU = 1; break;
             }
         }
 
@@ -235,6 +236,7 @@ public class SearchLib
             logger.info("Instance done in {} milliseconds", System.currentTimeMillis() - t);
 
         List<Future<FingerPrint>> futureList = ServicePool.invokeAll(tasks);
+        boolean TrustMode = count == 1;
         while (futureList.size() > 0)
         {
             Future<FingerPrint> toRemove = null;
@@ -321,6 +323,7 @@ public class SearchLib
         logger = LoggerFactory.getLogger(SearchLib.class);
         if (logger.isDebugEnabled())
             logger.debug("Single files search start");
+
         boolean TrustMode = count == 1;
         FileChecker FileReviewer = new FileChecker();
 
@@ -344,7 +347,7 @@ public class SearchLib
             throw  new NoAccessingFilesException("No one file were accepted.");
         }
 
-        file = reviewerAccepted.get(0);
+        String temp_path = reviewerAccepted.get(0);
 
         Map<String, List<ID3V2>> target = new HashMap<>();
         ExecutorService ServicePool = Executors.newFixedThreadPool(1, new ThreadFactory()
@@ -360,10 +363,10 @@ public class SearchLib
             logger.info("Instance FingerPrint thread");
 
         Future<FingerPrint> future = ServicePool.submit(new FPCalcThread(YourFPCalcThreadImplementation,
-                                                                         file,
+                                                                         temp_path,
                                                                          null,
                                                                          ProgressBar));
-        FingerPrint fingerPrint = null;
+        FingerPrint fingerPrint;
         try
         {
             fingerPrint = future.get();
@@ -397,6 +400,7 @@ public class SearchLib
         for(Map.Entry<String, List<ID3V2>> elem:target.entrySet())
         {
             Object value = elem.getValue();
+            //noinspection unchecked
             list = (List<ID3V2>)value;
         }
 
@@ -590,10 +594,8 @@ public class SearchLib
                 if (releaseInfos != null && !releaseInfos.isEmpty())
                 {
                     List<Art> ArtList = new ArrayList<>();
-
-                    for (int i = 0, size = releaseInfos.size();
-                         ArtList.size() != count && i < size;
-                         i++)
+                    int size1 = releaseInfos.size();
+                    for (int i = 0; ArtList.size() != count && i < size1; i++)
                     {
                         if (logger.isDebugEnabled())
                             logger.debug("CoverArt lookup start");
@@ -730,14 +732,17 @@ public class SearchLib
         if (list != null)
         {
             loop:
-            for (int i = 0, length = list.length; i < length; i++)
-                if (list[i] != null)
-                    for (int l = i + 1; l < length; l++)
-                        if (list[l] != null && list[i] == list[l])
-                        {
-                            result = true;
-                            break loop;
-                        }
+            {
+                int length_ = list.length;
+                for (int i = 0; i < length_; i++)
+                    if (list[i] != null)
+                        for (int l = i + 1; l < length_; l++)
+                            if (list[l] != null && list[i] == list[l])
+                            {
+                                result = true;
+                                break loop;
+                            }
+            }
         }
 
         return result;

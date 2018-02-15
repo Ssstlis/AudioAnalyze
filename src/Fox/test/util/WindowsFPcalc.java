@@ -12,21 +12,19 @@ import org.slf4j.LoggerFactory;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.List;
 
 
 public class WindowsFPcalc
         implements FingerPrintThread
 {
 
-    private static Logger logger;
     @Override
     public FingerPrint getFingerPrint(
             @NotNull String location)
             throws
             FingerPrintProcessingException
     {
-        logger = LoggerFactory.getLogger(SearchLib.class);
+        Logger logger = LoggerFactory.getLogger(SearchLib.class);
         FingerPrint target = new FingerPrint();
         try
         {
@@ -35,7 +33,8 @@ public class WindowsFPcalc
                     .addElem("fpcalc.exe", true)
                     .toString();
 
-            String duration, print;
+            String duration;
+            String print;
             String[] args = new String[]{Source, location};
 
             Process process = new ProcessBuilder()
@@ -73,11 +72,5 @@ public class WindowsFPcalc
             throw new FingerPrintProcessingException(e);
         }
         return target;
-    }
-
-    @Override
-    public List<FingerPrint> getFingerPrint(@NotNull final List<String> location) throws FingerPrintProcessingException
-    {
-        return null;
     }
 }

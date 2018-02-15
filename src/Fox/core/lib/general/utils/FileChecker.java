@@ -13,10 +13,6 @@ public class FileChecker
     private List<String> Accepted;
     private List<String> Rejected;
 
-    public FileChecker()
-    {
-    }
-
     public void SiftFileAsString(
             @NotNull List<String> Sources,
             ProgressState Progress,

@@ -16,12 +16,6 @@ import java.util.List;
 
 public class CoverArtStructureBuilder
 {
-
-    public CoverArtStructureBuilder()
-    {
-
-    }
-
     public static AlbumArt buildAlbumArt(
             @NotNull CoverArtArchiveApi.CoverArtArchiveResponse response)
     {

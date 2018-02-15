@@ -8,8 +8,8 @@ import java.util.concurrent.TimeUnit;
 
 public class HttpGetClient
 {
-    private Logger logger;
-    private OkHttpClient client;
+    private final Logger logger;
+    private final OkHttpClient client;
     private Request req;
 
     public HttpGetClient(Logger logger)
@@ -32,12 +32,13 @@ public class HttpGetClient
         return this;
     }
 
-    public String run(long Elapse, int tries)
+    public String run(long Elapse,final int tries)
             throws
             IOException,
             InterruptedException,
             NullPointerException
     {
+        int tries_ = tries;
         TimeUnit.MILLISECONDS.sleep(Elapse);
         Response response = null;
         boolean success = false;
@@ -55,7 +56,7 @@ public class HttpGetClient
                     logger.error("", e);
             }
         }
-        while (!success && --tries > 0);
+        while (!success && --tries_ > 0);
 
         String Resp = null;
 

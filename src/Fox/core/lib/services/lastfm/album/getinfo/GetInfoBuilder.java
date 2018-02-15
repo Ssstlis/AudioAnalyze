@@ -19,11 +19,6 @@ import java.util.List;
 public class GetInfoBuilder
         extends CommonBuilder
 {
-    public GetInfoBuilder()
-    {
-
-    }
-
     public static AlbumInfo buildAlbumInfo(String source)
     {
         if (source == null || source.isEmpty())

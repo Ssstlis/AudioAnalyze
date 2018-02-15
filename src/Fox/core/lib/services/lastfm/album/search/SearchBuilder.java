@@ -15,11 +15,6 @@ import java.util.List;
 public class SearchBuilder
         extends CommonBuilder
 {
-    public SearchBuilder()
-    {
-
-    }
-
     public static Search buildSearch(String source)
     {
         if (source == null || source.isEmpty())

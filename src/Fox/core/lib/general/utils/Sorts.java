@@ -5,7 +5,6 @@ import org.jetbrains.annotations.Contract;
 import java.util.*;
 
 import static java.lang.Math.abs;
-import static java.lang.Math.tan;
 
 public class Sorts
 {

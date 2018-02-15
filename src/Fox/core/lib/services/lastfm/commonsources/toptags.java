@@ -18,12 +18,9 @@ public class toptags
 
     public toptags(toptags copy)
     {
-        if (copy != null)
+        if (copy != null && copy.hasTags())
         {
-            if (copy.hasTags())
-            {
-                this.tags = tag.tagListCopy(copy.tags);
-            }
+            this.tags = tag.tagListCopy(copy.tags);
         }
     }
 

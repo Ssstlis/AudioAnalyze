@@ -109,8 +109,9 @@ public class Sifter
         int size1 = IntermediateList.size();
 
         List<SimpleInfo> FinalList = new ArrayList<>(IntermediateList.size());
-
-        for(int i = 0, size = count == 0 ? size1 : count > size1 ? size1 : count; i < size; i++)
+        int max_size = count > size1 ? size1 : count;
+        int count_ = count == 0 ? size1 : max_size;
+        for(int i = 0; i < count_; i++)
             FinalList.add(IntermediateList.get(i));
 
         if (logger.isDebugEnabled())
@@ -122,18 +123,19 @@ public class Sifter
      * @param recordingList target list to sifting from
      * @return SimpleInfo instance
      */
-    private static List<SimpleInfo> TrustSift(@NotNull List<Recording> recordingList,
-                                        @NotNull FingerPrint FP)
+    private static List<SimpleInfo> TrustSift(@NotNull final List<Recording> recordingList,
+                                              @NotNull FingerPrint FP)
     {
         if (logger.isDebugEnabled())
             logger.debug("Trust sift start");
         SiftingByArtist(recordingList);
         if (logger.isDebugEnabled())
             logger.debug("Artist sift done");
-        recordingList = RecordingRelativeSortingForward(recordingList, Integer.parseInt(FP.getDuration()));
+        List<Recording> recordingList_ = RecordingRelativeSortingForward(recordingList,
+                                                                         Integer.parseInt(FP.getDuration()));
         if (logger.isDebugEnabled())
             logger.debug("Relative sort done");
-        List<SimpleInfo> IntermediateList = Convert(recordingList, converter);
+        List<SimpleInfo> IntermediateList = Convert(recordingList_, converter);
         if (logger.isDebugEnabled())
             logger.debug("Converting done");
         IntermediateList = MergingByUsages(IntermediateList);
