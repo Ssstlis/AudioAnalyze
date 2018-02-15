@@ -1,4 +1,4 @@
-package Fox.core.lib.services.common;
+package Fox.core.lib.services.Common;
 
 import Fox.core.lib.general.data.Extract;
 import Fox.core.lib.general.data.ID3V2;
@@ -25,7 +25,7 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.util.*;
 
-import static Fox.core.lib.services.common.Elapsed.MusicBrainzElapse;
+import static Fox.core.lib.services.Common.Elapsed.MusicBrainzElapse;
 import static Fox.core.main.SearchLib.NO_MATCHES;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 
@@ -33,19 +33,24 @@ public class BuildTagProcessing
 {
     private static Logger logger;
     private static final MusicBrainzWebClient MBClient = new MusicBrainzWebClient("AudioAnalyzeLib");
-    private static Map<String, Release> MusicBrainzReleaseCache = new HashMap<>();
-    private static Map<String, Artist> MusicBrainzArtistCache = new HashMap<>();
-    private static Map<String, Recording> MusicBrainzRecordingCache = new HashMap<>();
+    private static final Map<String, Release> MusicBrainzReleaseCache = new HashMap<>();
+    private static final Map<String, Artist> MusicBrainzArtistCache = new HashMap<>();
+    private static final Map<String, Recording> MusicBrainzRecordingCache = new HashMap<>();
 
     public static void ClearCache()
     {
-        MusicBrainzArtistCache = new HashMap<>();
-        MusicBrainzRecordingCache = new HashMap<>();
-        MusicBrainzReleaseCache = new HashMap<>();
+        MusicBrainzArtistCache.clear();
+        MusicBrainzRecordingCache.clear();
+        MusicBrainzReleaseCache.clear();
     }
 
+    /** Merge tracks data from MusicBrainz and LastFM.
+     * @param MB Data from MusicBrainz.
+     * @param LFM Data from LastFM.
+     * @return Single ID3V2 data instance.
+     */
     @Contract(value = "null, null -> null", pure = true)
-    private static ID3V2 MergeTags(ID3V2 MB, ID3V2 LFM)
+    private static ID3V2 MergeTags(final ID3V2 MB, final ID3V2 LFM)
     {
         if (MB == null && LFM == null)
             return null;
@@ -83,7 +88,7 @@ public class BuildTagProcessing
                         String lookupReleaseDate = lookupRelease.getDate();
                         int indexOf = lookupReleaseDate.indexOf("-");
                         if (indexOf > 0)
-                            lookupReleaseDate = lookupReleaseDate.substring(0, indexOf - 1);
+                            lookupReleaseDate = lookupReleaseDate.substring(0, indexOf);
                         LFM.setYear(lookupReleaseDate);
                     }
                 }
@@ -400,7 +405,11 @@ public class BuildTagProcessing
         return temp;
     }
 
-    private static ID3V2 TagFromMusicBrainz(Recording MBRecording)
+    /** Converting Recording instance that contains track data into ID3V2 data instance.
+     * @param MBRecording Recording instance.
+     * @return ID3V2 data instance.
+     */
+    private static ID3V2 TagFromMusicBrainz(final Recording MBRecording)
     {
         ID3V2 temp = null;
 
@@ -424,7 +433,8 @@ public class BuildTagProcessing
             if (!tags.isEmpty())
             {
                 tag = tags.get(0);
-                for(int i = 1, end = tags.size(); i < end; i++)
+                int size = tags.size();
+                for(int i = 1; i < size; i++)
                 {
                     Tag tag1 = tags.get(i);
                     if (tag1.getCount() > tag.getCount())
@@ -489,7 +499,11 @@ public class BuildTagProcessing
         return temp;
     }
 
-    private static ID3V2 TagFromLastFM(TrackInfo LFMTrack)
+    /** Converting TrackInfo instance that contains track data into ID3V2 data instance.
+     * @param LFMTrack TrackInfo instance.
+     * @return ID3V2 data instance.
+     */
+    private static ID3V2 TagFromLastFM(final TrackInfo LFMTrack)
     {
         ID3V2 temp = null;
 
@@ -599,8 +613,8 @@ public class BuildTagProcessing
     }
 
     private static ID3V2 BuildTag(
-            TrackInfo LFMTrackInfo,
-            Recording MBTrackInfo)
+            final TrackInfo LFMTrackInfo,
+            final Recording MBTrackInfo)
             throws
             NoMatchesException
     {
@@ -614,7 +628,13 @@ public class BuildTagProcessing
         return mergeTags;
     }
 
-    public static ID3V2 BuildTag(@NotNull SimpleInfo track)
+    /** Try to build ID3V2 tag data from SimpleInfo with few requests to MusicBrainz and LastFM database.
+     * @param track SimpleInfo data.
+     * @return ID3V2 tag.
+     * @throws NoMatchesException if MusicBrainz and LastFM DBs don`t contains data about this track.
+     * @throws NullPointerException if try to call instance method to non-instanced variable.
+     */
+    public static ID3V2 BuildTag(@NotNull final SimpleInfo track)
             throws
             NoMatchesException,
             NullPointerException

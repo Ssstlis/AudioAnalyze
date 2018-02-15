@@ -1,4 +1,4 @@
-package Fox.core.lib.services.common;
+package Fox.core.lib.services.Common;
 
 import Fox.core.lib.general.utils.Sorts;
 import org.jetbrains.annotations.NotNull;

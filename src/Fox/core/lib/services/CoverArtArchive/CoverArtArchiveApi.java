@@ -1,7 +1,7 @@
 package Fox.core.lib.services.CoverArtArchive;
 
 import Fox.core.lib.connectors.HttpGetClient;
-import Fox.core.lib.services.common.Elapsed;
+import Fox.core.lib.services.Common.Elapsed;
 import Fox.core.lib.services.CoverArtArchive.LookupAlbumArt.CoverArtStructureBuilder;
 import Fox.core.lib.services.CoverArtArchive.LookupAlbumArt.sources.AlbumArt;
 import Fox.core.main.SearchLib;
@@ -11,16 +11,11 @@ import org.slf4j.LoggerFactory;
 
 public class CoverArtArchiveApi
 {
-    private static Logger logger;
     private final static String httpkey = "http://coverartarchive.org/release/";
-
-    public CoverArtArchiveApi()
-    {
-    }
 
     public static AlbumArt LookupAlbumArt(String mbid)
     {
-        logger = LoggerFactory.getLogger(SearchLib.class);
+        Logger logger = LoggerFactory.getLogger(SearchLib.class);
         if (mbid != null)
         {
             HttpGetClient RequestClient = new HttpGetClient(logger);
@@ -41,7 +36,7 @@ public class CoverArtArchiveApi
                 return null;
             }
 
-            if (response != null && response.hasSource())
+            if (response.hasSource())
                 buildAlbumArt = CoverArtStructureBuilder.buildAlbumArt(response);
             return buildAlbumArt;
         }
@@ -51,11 +46,6 @@ public class CoverArtArchiveApi
     public static class CoverArtArchiveResponse
     {
         private String source;
-
-        public CoverArtArchiveResponse()
-        {
-
-        }
 
         public CoverArtArchiveResponse(String source)
         {

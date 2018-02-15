@@ -1,6 +1,6 @@
 package Fox.core.lib.services.LastFM.CommonSources;
 
-import Fox.core.lib.services.common.ParseSupport;
+import Fox.core.lib.services.Common.ParseSupport;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -10,11 +10,6 @@ import java.util.List;
 
 public class CommonBuilder
 {
-    public CommonBuilder()
-    {
-
-    }
-
     protected static artist buildArtist(JsonElement element)
     {
         artist temp = null;

@@ -1,6 +1,6 @@
 package Fox.core.lib.services.LastFM.Album.getInfo;
 
-import Fox.core.lib.services.common.ParseSupport;
+import Fox.core.lib.services.Common.ParseSupport;
 import Fox.core.lib.services.LastFM.Album.getInfo.sources.AlbumInfo;
 import Fox.core.lib.services.LastFM.Album.getInfo.sources.album;
 import Fox.core.lib.services.LastFM.Album.getInfo.sources.track;
@@ -19,11 +19,6 @@ import java.util.List;
 public class GetInfoBuilder
         extends CommonBuilder
 {
-    public GetInfoBuilder()
-    {
-
-    }
-
     public static AlbumInfo buildAlbumInfo(String source)
     {
         if (source == null || source.isEmpty())

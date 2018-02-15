@@ -4,7 +4,9 @@ import org.jetbrains.annotations.NotNull;
 
 public class FingerPrint
 {
-    private String print, duration, location;
+    private String print;
+    private String duration;
+    private String location;
 
     public FingerPrint(
             @NotNull String print,
@@ -64,13 +66,6 @@ public class FingerPrint
         this.location = location;
     }
 
-    public void rebuild(@NotNull FingerPrint copy)
-    {
-        this.duration = copy.duration;
-        this.location = copy.location;
-        this.print = copy.print;
-    }
-
     @Override
     public String toString()
     {
@@ -86,5 +81,15 @@ public class FingerPrint
     public boolean hasDuration()
     {
         return (duration != null && !duration.isEmpty());
+    }
+
+    public boolean hasLocation()
+    {
+        return (location != null && !location.isEmpty());
+    }
+
+    public boolean hasPrint()
+    {
+        return (print != null && !print.isEmpty());
     }
 }

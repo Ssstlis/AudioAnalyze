@@ -1,6 +1,6 @@
 package Fox.core.lib.services.AcoustID.LookupByFP;
 
-import Fox.core.lib.services.common.ParseSupport;
+import Fox.core.lib.services.Common.ParseSupport;
 import Fox.core.lib.services.AcoustID.AcoustIDApi;
 import Fox.core.lib.services.AcoustID.LookupByFP.sources.*;
 import Fox.core.lib.services.AcoustID.LookupByFP.sources.Error;
@@ -15,10 +15,6 @@ import java.util.List;
 
 public class AcoustIDStructureBuilder
 {
-
-    public AcoustIDStructureBuilder()
-    {
-    }
 
     public static ByFingerPrint buildLookup(@NotNull AcoustIDApi.AcoustIDResponse response)
     {

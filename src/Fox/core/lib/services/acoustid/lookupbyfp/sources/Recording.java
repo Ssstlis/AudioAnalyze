@@ -2,7 +2,7 @@ package Fox.core.lib.services.AcoustID.LookupByFP.sources;
 
 import Fox.core.lib.general.utils.Sorts;
 import Fox.core.lib.general.utils.Sorts.Converter;
-import Fox.core.lib.services.common.SimpleInfo;
+import Fox.core.lib.services.Common.SimpleInfo;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;

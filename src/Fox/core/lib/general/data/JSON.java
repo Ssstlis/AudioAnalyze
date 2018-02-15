@@ -7,10 +7,6 @@ public class JSON
 {
     private String source;
 
-    public JSON()
-    {
-    }
-
     public void build(Map<String, String> json)
     {
         if (json == null)

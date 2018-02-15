@@ -1,6 +1,6 @@
 package Fox.core.lib.services.LastFM.Album.search;
 
-import Fox.core.lib.services.common.ParseSupport;
+import Fox.core.lib.services.Common.ParseSupport;
 import Fox.core.lib.services.LastFM.Album.search.sources.*;
 import Fox.core.lib.services.LastFM.CommonSources.CommonBuilder;
 import Fox.core.lib.services.LastFM.CommonSources.Error;
@@ -15,11 +15,6 @@ import java.util.List;
 public class SearchBuilder
         extends CommonBuilder
 {
-    public SearchBuilder()
-    {
-
-    }
-
     public static Search buildSearch(String source)
     {
         if (source == null || source.isEmpty())

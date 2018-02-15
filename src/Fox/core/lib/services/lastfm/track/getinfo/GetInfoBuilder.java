@@ -1,6 +1,6 @@
 package Fox.core.lib.services.LastFM.Track.getInfo;
 
-import Fox.core.lib.services.common.ParseSupport;
+import Fox.core.lib.services.Common.ParseSupport;
 import Fox.core.lib.services.LastFM.CommonSources.CommonBuilder;
 import Fox.core.lib.services.LastFM.CommonSources.Error;
 import Fox.core.lib.services.LastFM.Track.getInfo.sources.TrackInfo;
@@ -14,11 +14,6 @@ import com.google.gson.JsonParser;
 public class GetInfoBuilder
         extends CommonBuilder
 {
-    public GetInfoBuilder()
-    {
-
-    }
-
     public static TrackInfo buildTrackInfo(String source)
     {
         if (source == null || source.isEmpty())

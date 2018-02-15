@@ -3,21 +3,33 @@ package Fox.core.lib.general.threads;
 import Fox.core.lib.general.templates.ProgressState;
 import Fox.core.main.SearchLib;
 import org.jaudiotagger.audio.AudioFileIO;
-import org.jaudiotagger.audio.mp3.MP3File;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadFactory;
 
 public class FileCheckerThread
         implements Runnable
 {
     private static Logger logger;
-    private String location;
-    private List<String> Target, Rejected;
-    private ProgressState Line, Common;
+    private final String location;
+    private final List<String> Target;
+    private final List<String> Rejected;
+    private final ProgressState Line;
+    private final ProgressState Common;
+    private static final ExecutorService Pool = Executors.newFixedThreadPool(2, new ThreadFactory()
+    {
+        @Override
+        public Thread newThread(@NotNull Runnable r)
+        {
+            return new Thread(r, "Progress bar call");
+        }
+    });
 
     public FileCheckerThread(
             @NotNull String Source,
@@ -38,20 +50,14 @@ public class FileCheckerThread
     {
         try
         {
-            File pathname = new File(check);
-
-            if (!check.endsWith(".mp3"))
-                return false;
-
-
-            MP3File mp3File = (MP3File) AudioFileIO.read(pathname);
-            return mp3File.getAudioHeader()
-                          .getTrackLength() > 119;
+            return (check.endsWith(".mp3")
+                    || check.endsWith(".flac")
+                    || check.endsWith(".mp4")
+                    || check.endsWith(".ogg"))
+                    && AudioFileIO.read(new File(check)).getAudioHeader().getTrackLength() > 119;
         }
         catch (Exception e)
         {
-            if (logger.isErrorEnabled())
-                logger.error("", e);
             return false;
         }
     }
@@ -78,15 +84,29 @@ public class FileCheckerThread
         finally
         {
             if (Line != null)
-                synchronized (Line)
+                Pool.submit(new Runnable()
                 {
-                    Line.update();
-                }
+                    @Override
+                    public void run()
+                    {
+                        synchronized (Line)
+                        {
+                            Line.update();
+                        }
+                    }
+                });
             if (Common != null)
-                synchronized (Common)
+                Pool.submit(new Runnable()
                 {
-                    Common.update();
-                }
+                    @Override
+                    public void run()
+                    {
+                        synchronized (Common)
+                        {
+                            Common.update();
+                        }
+                    }
+                });
         }
     }
 }

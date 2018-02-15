@@ -2,11 +2,10 @@ package Fox.core.lib.services.AcoustID;
 
 import Fox.core.lib.connectors.HttpGetClient;
 import Fox.core.lib.general.data.FingerPrint;
-import Fox.core.lib.services.common.Elapsed;
+import Fox.core.lib.services.Common.Elapsed;
 import Fox.core.lib.services.AcoustID.LookupByFP.AcoustIDStructureBuilder;
 import Fox.core.lib.services.AcoustID.LookupByFP.sources.ByFingerPrint;
 import Fox.core.main.SearchLib;
-import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -68,14 +67,12 @@ public class AcoustIDApi
                     FPrint.getPrint() +
                     config.toString();
 
-            RequestClient.build(request);
-
             AcoustIDResponse response;
             ByFingerPrint fingerPrint = null;
 
             try
             {
-                response = new AcoustIDResponse(RequestClient.run(Elapsed.AcoustIDElapse(), 0));
+                response = new AcoustIDResponse(RequestClient.build(request).run(Elapsed.AcoustIDElapse(), 0));
             }
             catch (Exception e)
             {
@@ -84,7 +81,7 @@ public class AcoustIDApi
                 return null;
             }
 
-            if (response != null && response.hasSource())
+            if (response.hasSource())
                 fingerPrint = AcoustIDStructureBuilder.buildLookup(response);
 
             return fingerPrint;
@@ -94,12 +91,7 @@ public class AcoustIDApi
 
     public static class AcoustIDRequestConfig
     {
-        private HashMap<String, Boolean> ConfigMap = new HashMap<>();
-
-        public AcoustIDRequestConfig()
-        {
-
-        }
+        private final HashMap<String, Boolean> ConfigMap = new HashMap<>();
 
         public static AcoustIDRequestConfig DefaultConfig()
         {
@@ -463,12 +455,7 @@ public class AcoustIDApi
     {
         private String source;
 
-        public AcoustIDResponse()
-        {
-
-        }
-
-        public AcoustIDResponse(@NotNull String src)
+        public AcoustIDResponse(String src)
         {
             this.source = src;
         }

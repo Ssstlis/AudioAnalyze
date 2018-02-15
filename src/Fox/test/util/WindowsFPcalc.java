@@ -18,24 +18,23 @@ public class WindowsFPcalc
         implements FingerPrintThread
 {
 
-    private static Logger logger;
     @Override
     public FingerPrint getFingerPrint(
             @NotNull String location)
             throws
             FingerPrintProcessingException
     {
-        logger = LoggerFactory.getLogger(SearchLib.class);
+        Logger logger = LoggerFactory.getLogger(SearchLib.class);
         FingerPrint target = new FingerPrint();
         try
         {
             final String Source = new FileDestinationWindows()
                     .GetCurrentDir(WindowsFPcalc.class)
-                    .addElem("fpcalc.exe",
-                             true)
+                    .addElem("fpcalc.exe", true)
                     .toString();
 
-            String duration, print;
+            String duration;
+            String print;
             String[] args = new String[]{Source, location};
 
             Process process = new ProcessBuilder()
@@ -51,9 +50,7 @@ public class WindowsFPcalc
             String result = "";
 
             while ((line = br.readLine()) != null)
-            {
                 result = result.concat(line + "\n");
-            }
 
             int exit_value = process.waitFor();
             if (exit_value == 0)
@@ -72,7 +69,6 @@ public class WindowsFPcalc
         }
         catch (Exception e)
         {
-            e.printStackTrace();
             throw new FingerPrintProcessingException(e);
         }
         return target;

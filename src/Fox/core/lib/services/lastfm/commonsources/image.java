@@ -71,11 +71,10 @@ public class image
 
             if (text == null)
             {
-                throw new NoMatchesException("No matches from lastfm for album arts.");
+                throw new NoMatchesException("No matches from LastFM for album arts.");
             }
 
-            Extract temp = new Extract(text, sizes);
-            return temp;
+            return new Extract(text, sizes);
         }
         return null;
     }

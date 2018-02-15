@@ -12,11 +12,10 @@ import java.io.FileFilter;
 public class Mp3Filter
         implements FileFilter
 {
-    private static Logger logger;
     @Override
     public boolean accept(File pathname)
     {
-        logger = LoggerFactory.getLogger(SearchLib.class);
+        Logger logger = LoggerFactory.getLogger(SearchLib.class);
         try
         {
             if (!pathname.getName()

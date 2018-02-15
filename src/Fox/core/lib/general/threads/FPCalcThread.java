@@ -9,15 +9,27 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadFactory;
 
 
 public class FPCalcThread
         implements Callable<FingerPrint>
 {
     private static Logger logger;
-    private FingerPrintThread executor;
-    private volatile ProgressState Line, Common;
-    private String location;
+    private final FingerPrintThread executor;
+    private final ProgressState Line;
+    private final ProgressState Common;
+    private final String location;
+    private static final ExecutorService Pool = Executors.newFixedThreadPool(2, new ThreadFactory()
+    {
+        @Override
+        public Thread newThread(@NotNull Runnable r)
+        {
+            return new Thread(r, "Progress bar call");
+        }
+    });
 
     public FPCalcThread(
             @NotNull FingerPrintThread executor,
@@ -35,7 +47,7 @@ public class FPCalcThread
     @Override
     public FingerPrint call()
     {
-        FingerPrint fingerPrint = null;
+        FingerPrint fingerPrint;
         try
         {
             fingerPrint = executor.getFingerPrint(location);
@@ -49,15 +61,29 @@ public class FPCalcThread
         finally
         {
             if (Line != null)
-                synchronized (Line)
+                Pool.submit(new Runnable()
                 {
-                    Line.update();
-                }
+                    @Override
+                    public void run()
+                    {
+                        synchronized (Line)
+                        {
+                            Line.update();
+                        }
+                    }
+                });
             if (Common != null)
-            synchronized (Common)
+                Pool.submit(new Runnable()
                 {
-                    Common.update();
-                }
+                    @Override
+                    public void run()
+                    {
+                        synchronized (Common)
+                        {
+                            Common.update();
+                        }
+                    }
+                });
         }
         return fingerPrint;
     }

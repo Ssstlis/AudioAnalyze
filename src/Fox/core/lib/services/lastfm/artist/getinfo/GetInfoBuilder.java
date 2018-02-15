@@ -1,6 +1,6 @@
 package Fox.core.lib.services.LastFM.Artist.getInfo;
 
-import Fox.core.lib.services.common.ParseSupport;
+import Fox.core.lib.services.Common.ParseSupport;
 import Fox.core.lib.services.LastFM.Artist.getInfo.sources.*;
 import Fox.core.lib.services.LastFM.CommonSources.CommonBuilder;
 import Fox.core.lib.services.LastFM.CommonSources.Error;
@@ -16,11 +16,6 @@ import java.util.List;
 public class GetInfoBuilder
         extends CommonBuilder
 {
-    public GetInfoBuilder()
-    {
-
-    }
-
     public static ArtistInfo buildArtistInfo(String response)
     {
         if (response == null || response.isEmpty())

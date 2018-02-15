@@ -104,10 +104,7 @@ public class Releasegroup
     {
         List<String> temp = null;
         if (this.secondarytypes != null)
-        {
-            temp = new ArrayList<>();
-            temp.addAll(this.secondarytypes);
-        }
+            temp = new ArrayList<>(this.secondarytypes);
         return temp;
     }
 
@@ -115,10 +112,7 @@ public class Releasegroup
     {
         List<String> temp = null;
         if (secondarytypes != null)
-        {
-            temp = new ArrayList<>();
-            temp.addAll(secondarytypes);
-        }
+            temp = new ArrayList<>(secondarytypes);
         this.secondarytypes = temp;
     }
 
