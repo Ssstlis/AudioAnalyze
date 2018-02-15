@@ -14,26 +14,6 @@ import Fox.core.lib.general.utils.ProgressStateException;
  */
 public abstract class ProgressState
 {
-
-    /**
-     * Common onDone event callback.
-     * Calls it when progress status == progress state size.
-     */
-    protected abstract void onDone();
-
-    /**
-     * Common onResize event callback.
-     * Calls it when progress state size change.
-     */
-    protected abstract void onResize();
-
-    /**
-     * Common onResize event callback.
-     * Calls it when progress state status change.
-     */
-    protected abstract void onChange();
-
-
     /**
      * Value of the current progress.
      */
@@ -70,6 +50,24 @@ public abstract class ProgressState
         this.desc = desc;
         this.name = name;
     }
+
+    /**
+     * Common onDone event callback.
+     * Calls it when progress status == progress state size.
+     */
+    protected abstract void onDone();
+
+    /**
+     * Common onResize event callback.
+     * Calls it when progress state size change.
+     */
+    protected abstract void onResize();
+
+    /**
+     * Common onResize event callback.
+     * Calls it when progress state status change.
+     */
+    protected abstract void onChange();
 
     /** Updating progress bar with new values.
      *  Calling onChange() each time.
