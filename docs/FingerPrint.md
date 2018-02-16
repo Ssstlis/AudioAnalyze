@@ -1,23 +1,22 @@
 # FingerPrint
 
-#### FingerPrintThread interface
+## FingerPrintThread interface
 The Finger Print Thread interface provides the ability to define its own implementation of media file fingerprint creation.<br>
 You must use a [Chromaprint](https://acoustid.org/chromaprint) library to build instance of FingerPrint class.
 
-#### Interface signature
+### Interface signature
 ```java
 public interface FingerPrintThread
 {
     FingerPrint getFingerPrint(@NotNull String location) throws FingerPrintProcessingException;
 }
 ```
-Method should throws FingerPrintProcessingException when you catching a another exception while Chromaprint is running.
+Method should produce FingerPrintProcessingException when you catching another exception while Chromaprint is running.
 
-
-#### FingerPrint class
+### FingerPrint class
 FingerPrint class provide to encapsulate result of Chromaprint library.<br>
 You must create and populate an instance in accordance with the data that is returned to the Chromaprint library without modifications.<br>
-###### Short class definition
+#### Short class definition
 ```java
 public class FingerPrint
 {
@@ -36,7 +35,7 @@ public class FingerPrint
     //getters, setters...
 }
 ```
-##### fields:
+### Fields:
 - location must be the path of the file that you used to create the fingerprint
 - print must be a fingerprint, created by Chromaprint
 - duration must be a duration, created by Chromaprint

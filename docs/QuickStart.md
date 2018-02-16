@@ -2,7 +2,7 @@
 Here you will learn how you can using library for yourself.
 All methods are static locate in SearchLib class.
 
-##### Look up cover arts
+## Look up cover arts
 For looking up cover arts you need to know:
 - Album title
 - Artist name (optional)
@@ -14,7 +14,7 @@ Call SearchLib static method SearchCovers with signature:
 public static AlbumArtCompilation SearchCovers(@NotNull String AlbumName, String ArtistName, target source, int count)
             throws llegalArgumentException,  NoMatchesException
 ````
-###### Return:
+### Return:
 
 AlbumArtCompilation class instance contains:
 - Album title
@@ -32,7 +32,7 @@ Method may throws:
 - IllegalArgumentException when album title is empty or count < 1.
 - NoMatchesException when service responses are empty or contains
 
-###### Typical usage pattern:
+### Typical usage pattern:
 ````java
 package Foo;
 
@@ -73,7 +73,7 @@ public class Bar
 }
 ````
 
-##### Look up media tags
+## Look up media tags
 
 For looking up media tags you need:
 - [FingerPrint](FingerPrint.md) implementation
@@ -92,7 +92,7 @@ Call SearchLib static method SearchTags with signature:
             throws InterruptedException, NoBuildException, IllegalArgumentException,
                    ProgressStateException, NoMatchesException, NoAccessingFilesException
 ````
-or for single file
+or short signature for single file:
 ````java
     public static List<ID3V2> SearchTags(@NotNull String file,
                                          @NotNull FingerPrintThread YourFPCalcImplementation,
@@ -102,7 +102,7 @@ or for single file
                        NoMatchesException, NoAccessingFilesException
 ````
 
-###### Short signature explain
+### Fast signature explain
 ***ProgressState*** instances needs to notify you about process statuses inside the method.<br>
 ***CheckerProgressBar*** notify you about file checking process status.(missing in signature for single file)<br>
 ***FPProgressBar*** notify you about fingerprint build process status.(missing in signature for single file)<br>
@@ -130,7 +130,7 @@ It contains:
 ***Return value by signature for single file*** is instance of List<ID3V2>.<br>
 It contains list of tags for the file you provided.
 
-###### Typical usage patterns:
+### Typical usage patterns:
 ````java
 package Foo;
 

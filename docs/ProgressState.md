@@ -1,7 +1,7 @@
 # ProgressState abstract class
 ProgressState is abstract class for simple event notification.
 
-##### Class definition
+## Class definition
 ```java
 public abstract class ProgressState
 {
@@ -97,14 +97,14 @@ public abstract class ProgressState
     protected abstract void onChange();
 }
 ```
-##### fields:
+### Fields:
 - state - current status of progress bar
 - size - current size of progress bar
 - desc - current description of progress bar
 - name - name of progress bar
 - Done - completion status
 
-##### notification
+### Notifications
 When calling update(...) methods and setSize() method they may calls callback methods:
 - onChange() when current process status are changing
 - onDode() when current process are complete

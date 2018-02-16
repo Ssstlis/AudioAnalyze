@@ -4,14 +4,14 @@ The library is platform independent and requires you to implement few interfaces
 The library uses own data sorting and filtering methods for compatibility with Android.<br>
 For start using you need [latest release](https://github.com/Ssstlis/AudioAnalyze/releases/latest) and slf4j logger implementation for your platform.<br>
 
-##### All documentation
+## All documentation
 - [Quick start](QuickStart.md)
 - [ProgressState class](ProgressState.md)
 - [FingerPrint interface](FingerPrint.md)
 - [ ] [Samples](Samples.md)
 - [Future tools](Future.md)
 
-##### Dependencies
+## Dependencies
 - [Google GSON 2.8.2](https://github.com/google/gson/releases/)
 - [okhttp 3.9.1](https://github.com/square/okhttp/releases/)
 - [okio     1.13.0](https://github.com/square/okio/releases/)
@@ -19,7 +19,7 @@ For start using you need [latest release](https://github.com/Ssstlis/AudioAnalyz
 - [MusicBrainzAndroid](https://github.com/Ssstlis/AudioAnalyze/releases/download/v1.0.0/MusicBrainzAndroid.jar)
 - [JAudioTagger 2.2.3](https://github.com/Ssstlis/AudioAnalyze/releases/download/v1.0.0/jaudiotagger-2.2.3.jar)
 
-##### Logging
+### Logging
 You can configure logging with props file or using System.setProperty() 
 depending on which implementation you import.<br>
 You can get Logger with this instruction:
@@ -27,7 +27,7 @@ You can get Logger with this instruction:
 org.slf4j.Logger loggername = org.slf4j.LoggerFactory.getLogger(SearchLib.class);
 ````
 
-##### Small examples
+### Small examples
 Album covers look up:
 ```java
 package Foo;
@@ -91,7 +91,7 @@ public class someclass
 }
 ```
 
-###### License
+## License
 ````
 MIT License
 
