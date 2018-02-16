@@ -1,6 +1,7 @@
 package Fox.core.lib.general.utils;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -21,28 +22,22 @@ public class ExecutableHelper
         return Temp;
     }
 
+    @Nullable
     public static List<File> GetPathList(@NotNull String pathname)
     {
-        List<File> files = new ArrayList<>();
         File check = new File(pathname);
 
         if (!check.exists())
-        {
-            return files;
-        }
+            return null;
+
+        List<File> files = new ArrayList<>();
 
         File[] elems = check.listFiles();
 
         if (elems != null)
-        {
             for (File elem : elems)
-            {
                 if (elem.isDirectory())
-                {
                     files.add(elem);
-                }
-            }
-        }
 
         return files;
     }
@@ -53,33 +48,22 @@ public class ExecutableHelper
             throws IllegalArgumentException
     {
         File check = new File(pathname);
-        List<File> files = new ArrayList<>();
 
         if (!check.exists())
-        {
             throw new IllegalArgumentException("Directory " + pathname +" isn`t found");
-        }
+
+        List<File> files = new ArrayList<>();
 
         File[] FilterResult = check.listFiles(filter);
         File[] ResultForPath = check.listFiles();
 
         if (FilterResult != null)
-        {
             files.addAll(Arrays.asList(FilterResult));
-        }
 
         if (ResultForPath != null)
-        {
             for (File file : ResultForPath)
-            {
                 if (file.isDirectory())
-                {
-                    files.addAll(GetFileList(file.getPath(),
-                                             filter
-                                            ));
-                }
-            }
-        }
+                    files.addAll(GetFileList(file.getPath(),filter));
 
         return files;
     }
@@ -97,13 +81,9 @@ public class ExecutableHelper
                     @Override
                     public boolean accept(File pathname)
                     {
-                        return pathname.exists()
-                                && pathname.getName()
-                                           .endsWith(name);
+                        return pathname.exists()&& pathname.getName().endsWith(name);
                     }
-                }
-                                           )
-                               .get(0);
+                }).get(0);
     }
 
     @NotNull
@@ -119,12 +99,9 @@ public class ExecutableHelper
                     @Override
                     public boolean accept(File pathname)
                     {
-                        return pathname.exists()
-                                && pathname.getName()
-                                           .endsWith(name);
+                        return pathname.exists() && pathname.getName().endsWith(name);
                     }
-                }
-                                           );
+                });
     }
 
     public static class Entry<K, V> implements Map.Entry<K, V>

@@ -4,9 +4,9 @@ import org.jetbrains.annotations.NotNull;
 
 public class FingerPrint
 {
-    private String print;
-    private String duration;
-    private String location;
+    private String print = "";
+    private String duration = "";
+    private String location = "";
 
     public FingerPrint(
             @NotNull String print,
@@ -20,9 +20,6 @@ public class FingerPrint
 
     public FingerPrint()
     {
-        this.duration = "";
-        this.print = "";
-        this.location = "";
 
     }
 
@@ -70,11 +67,11 @@ public class FingerPrint
     public String toString()
     {
         String res = "";
-        res = res.concat(location);
-        res = res.concat("\n");
-        res = res.concat(duration);
-        res = res.concat("\n");
-        res = res.concat(print);
+        res = res.concat(location)
+                 .concat("\n")
+                 .concat(duration)
+                 .concat("\n")
+                 .concat(print);
         return res;
     }
 

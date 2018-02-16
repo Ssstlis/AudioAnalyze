@@ -1,0 +1,5 @@
+theme: jekyll-theme-cayman
+title: Audio analyze library
+description: Library for looking up media data
+show_downloads: "true"
+google_analytics: UA-114214815-1
