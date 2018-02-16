@@ -64,7 +64,14 @@ public class testing
         try
         {
             String mp3location = "D:\\music\\Born Handed";
-            List<File> FileList = ExecutableHelper.GetFileList(mp3location, new Mp3Filter());
+            List<File> FileList = ExecutableHelper.GetFileList(mp3location, new FileFilter()
+            {
+                @Override
+                public boolean accept(File pathname)
+                {
+                    return true;
+                }
+            });
             
             ProgressState Line1 = new CustomProgressState(0, "checker", "checker");
             ProgressState Line2 = new CustomProgressState(0, "FP", "FP");
