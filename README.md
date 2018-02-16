@@ -8,7 +8,7 @@ To get album covers using a static method SearchCovers from SearchLib class, Fox
 Necessary params:
 - Album title
 - Target service
-- Count of links<br>
+- Count of links
 
 Option params:
 - Artist name.
@@ -73,7 +73,6 @@ public class testing
             
             Result = SearchLib.SearchTags(ExecutableHelper.FilesToStrings(FileList), new WindowsFPcalc(),
                                           Line1, Line2, Line3, Line4, performance.MAX, true, 5);
-
             temp = System.currentTimeMillis() - temp;
             String success = Result.getKey().size() == FileList.size() ? "good" : "bad";
             if (logger.isInfoEnabled())

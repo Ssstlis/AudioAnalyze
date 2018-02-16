@@ -23,7 +23,6 @@ public class testing
     public static void main(String[] args)
     {
         Logger logger = LoggerFactory.getLogger(SearchLib.class);
-
         Entry<Map<String, List<ID3V2>>, List<String>> Result = null;
         try
         {

@@ -1,3 +1,5 @@
+package Fox.core.main;
+
 /*
  * MIT License
  *
@@ -22,8 +24,6 @@
  * SOFTWARE.
  *
  */
-
-package Fox.core.main;
 
 import Fox.core.lib.general.data.*;
 import Fox.core.lib.general.templates.FingerPrintThread;
@@ -421,7 +421,7 @@ public class SearchLib
         if (logger.isDebugEnabled())
             logger.debug("Starting search album arts");
 
-        if (AlbumName.isEmpty() || count <= 0)
+        if (AlbumName.isEmpty() || count < 1)
         {
             if (logger.isErrorEnabled())
             {
