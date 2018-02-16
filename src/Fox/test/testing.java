@@ -5,7 +5,7 @@ import Fox.core.lib.general.templates.ProgressState;
 import Fox.core.lib.general.utils.ExecutableHelper;
 import Fox.core.lib.general.utils.performance;
 import Fox.core.main.SearchLib;
-import Fox.test.util.Mp3Filter;
+import Fox.test.util.MediaFilter;
 import Fox.test.util.CustomProgressState;
 import Fox.test.util.WindowsFPcalc;
 import org.slf4j.Logger;
@@ -28,8 +28,9 @@ public class testing
         {
             String mp3location = "D:\\music\\Born Handed";
             List<File> FileList = ExecutableHelper.GetFileList(mp3location,
-                                                               new Mp3Filter()
+                                                               new MediaFilter()
                                                               );
+
             //AlbumArtCompilation meteora = SearchLib.SearchCovers("Meteora", null, target.MusicBrainz, 5);
             //FileList.clear();
             //FileList.add(new File("D:\\music\\Born of osiris\\The New Reign\\Born Of Osiris - Abstract Art.mp3"));
@@ -37,6 +38,7 @@ public class testing
             ProgressState Line2 = new CustomProgressState(0, "FP", "FP");
             ProgressState Line3 = new CustomProgressState(0, "Service", "Service");
             ProgressState Line4 = new CustomProgressState(0, "Common", "Common");
+
 
             long temp = System.currentTimeMillis();
             List<ID3V2> res = null;

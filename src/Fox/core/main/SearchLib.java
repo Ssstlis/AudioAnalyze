@@ -294,8 +294,8 @@ public class SearchLib
     /** One of the main functional of library. Doing processing with your file
      * and services, using finger print of media file for looking up data about FP in services.
      * You can manually configure processing and observing with progress bar.
-     * @param file file location that you need to data looking up.
-     * @param YourFPCalcThreadImplementation Your implementation of FingerPrintCalc/Chromaprint library to get fingerprint
+     * @param file file location that you need to looking up data.
+     * @param YourFPCalcImplementation Your implementation of FingerPrintCalc/Chromaprint library to get fingerprint
      *                                       of media file.
      * @param ProgressBar Common progress bar, show common progress.
      * @param count Configure maximum number of tags set for file.
@@ -307,7 +307,7 @@ public class SearchLib
      * @throws NoAccessingFilesException if file is rejected.
      */
     public static List<ID3V2> SearchTags(@NotNull String file,
-                                         @NotNull FingerPrintThread YourFPCalcThreadImplementation,
+                                         @NotNull FingerPrintThread YourFPCalcImplementation,
                                          ProgressState ProgressBar,
                                          int count)
             throws
@@ -362,7 +362,7 @@ public class SearchLib
         if (logger.isInfoEnabled())
             logger.info("Instance FingerPrint thread");
 
-        Future<FingerPrint> future = ServicePool.submit(new FPCalcThread(YourFPCalcThreadImplementation,
+        Future<FingerPrint> future = ServicePool.submit(new FPCalcThread(YourFPCalcImplementation,
                                                                          temp_path,
                                                                          null,
                                                                          ProgressBar));

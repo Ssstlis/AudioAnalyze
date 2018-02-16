@@ -4,12 +4,18 @@ The library is platform independent and requires you to implement few interfaces
 The library uses own data sorting and filtering methods for compatibility with Android.<br>
 For start using you need [latest release](https://github.com/Ssstlis/AudioAnalyze/releases/latest) and slf4j logger implementation for your platform.<br>
 
+##### All documentation
+- [Quick start](QuickStart.md)
+- [ProgressState class](ProgressState.md)
+- [FingerPrint interface](FingerPrint.md)
+- [ ] [Samples](Samples.md)
+- [Future tools](Future.md)
+
 ##### Dependencies
-- [Google GSON 2.8.2](https://github.com/Ssstlis/AudioAnalyze/releases/download/v1.0.0/gson-2.8.2.jar)
-- [okhttp 3.9.1](http://repo1.maven.org/maven2/com/squareup/okhttp3/okhttp/3.9.1/okhttp-3.9.1.jar)
-- [okio 1.13.0](https://search.maven.org/remote_content?g=com.squareup.okio&a=okio&v=LATEST)
+- [Google GSON 2.8.2](https://github.com/google/gson/releases/)
+- [okhttp 3.9.1](https://github.com/square/okhttp/releases/)
+- [okio     1.13.0](https://github.com/square/okio/releases/)
 - [slf4j 1.7.25](https://www.slf4j.org/dist/slf4j-1.7.25.zip)
-- [DestinationBuilder](https://github.com/Ssstlis/AudioAnalyze/releases/download/v1.0.0/DestinationBuilder.jar)
 - [MusicBrainzAndroid](https://github.com/Ssstlis/AudioAnalyze/releases/download/v1.0.0/MusicBrainzAndroid.jar)
 - [JAudioTagger 2.2.3](https://github.com/Ssstlis/AudioAnalyze/releases/download/v1.0.0/jaudiotagger-2.2.3.jar)
 
@@ -24,7 +30,9 @@ org.slf4j.Logger loggername = org.slf4j.LoggerFactory.getLogger(SearchLib.class)
 ##### Small examples
 Album covers look up:
 ```java
-public class testing
+package Foo;
+
+public class Bar
 {
     public static void main(String[] args)
     {
@@ -43,10 +51,13 @@ public class testing
         }
     }
 }
+
 ```
 Tracks tags look up:
 ```java
-public class testing
+package Foo;
+
+public class someclass
 {
     public static void main(String[] args)
     {
@@ -79,15 +90,6 @@ public class testing
     }
 }
 ```
-
-##### More
-- [Quick start](QuickStart.md)
-- [ProgressState class](ProgressState.md)
-- [FingerPrint implementation](FingerPrint.md)
-- [Exceptions](Exceptions.md)
-- [Sorts interfaces](Sorts.md)
-- [Samples](Samples.md)
-- [Future tools](Future.md)
 
 ###### License
 ````

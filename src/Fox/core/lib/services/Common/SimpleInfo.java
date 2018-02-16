@@ -12,6 +12,7 @@ public class SimpleInfo extends Sorts.Merger<SimpleInfo, String, Integer>
         Sorts.Cloneable<SimpleInfo>,
         Comparator<SimpleInfo>
 {
+
     private String Artist;
     private String TrackMBID;
     private String Title;
@@ -157,7 +158,7 @@ public class SimpleInfo extends Sorts.Merger<SimpleInfo, String, Integer>
         return (AlbumMBID != null && !AlbumMBID.isEmpty());
     }
 
-    /** Comparing, implements by Comparable<T> based on usages comparing
+    /** Comparing, implements by Comparable<T> based on usages field comparing
      * @param o comparing instance
      * @return 1 if instance usage more, then usage of o param. 0 if equals. -1 if less.
      */

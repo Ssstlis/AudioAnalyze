@@ -30,6 +30,7 @@ public abstract class ProgressState
      * Name of progress bar.
      */
     protected String name;
+    private boolean Done = false;
 
 
     /** Constructor.
@@ -70,7 +71,7 @@ public abstract class ProgressState
     protected abstract void onChange();
 
     /** Updating progress bar with new values.
-     *  Calling onChange() each time.
+     *  Calling onChange() if process are not complete.
      *  Calling onDone() if state >= size of progress bar.
      * @param now set current progress bar status.
      * @param desc set current progress bar description.
@@ -84,39 +85,57 @@ public abstract class ProgressState
     {
         if (now < 0)
             throw new ProgressStateException("Can`t change status of progress less then zero");
-        this.state = now;
-        this.desc = desc;
-        this.onChange();
-        if (state >= size)
-            this.onDone();
+        if (!Done)
+        {
+            this.state = now;
+            this.desc = desc;
+            this.onChange();
+            if (state >= size)
+            {
+                this.onDone();
+                Done = true;
+            }
+        }
     }
 
     /** Updating progress bar with new values.
      * Status incrementing.
-     * Calling onChange() each time.
+     * Calling onChange() if process are not complete.
      * Calling onDone() if state >= size of progress bar.
      * @param desc set current description.
      */
     public void update(String desc)
     {
-        this.state++;
-        this.desc = desc;
-        this.onChange();
-        if (state >= size)
-            this.onDone();
+        if (!Done)
+        {
+            this.state++;
+            this.desc = desc;
+            this.onChange();
+            if (state >= size)
+            {
+                this.onDone();
+                Done = true;
+            }
+        }
     }
 
     /**
      * Updating progress bar with incrementing status.
-     * Calling onChange() each time.
+     * Calling onChange() if process are not complete.
      * Calling onDone() if state >= size of progress bar.
      */
     public void update()
     {
-        this.state++;
-        this.onChange();
-        if (state >= size)
-            this.onDone();
+        if (!Done)
+        {
+            this.state++;
+            this.onChange();
+            if (state >= size)
+            {
+                this.onDone();
+                Done = true;
+            }
+        }
     }
 
 
@@ -137,7 +156,7 @@ public abstract class ProgressState
     }
 
     /** Resizing progress bar.
-     * Call onResize() each time.
+     * Call onResize() if size are changing.
      * Calling onDone() if state >= size of progress bar.
      * @param size value to set as size of progress size.
      * @throws ProgressStateException if size <= 0.
@@ -148,9 +167,18 @@ public abstract class ProgressState
         if (size <= 0)
             throw new ProgressStateException("Can`t set progress bar size to zero or less.");
         this.size = size;
-        onResize();
-        if (state >= size)
+        if (state >= size && !Done)
+        {
+            onResize();
             onDone();
+            Done = true;
+            return;
+        }
+        if (size < state)
+        {
+            onResize();
+            Done = false;
+        }
     }
 
     /**
