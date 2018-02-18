@@ -32,8 +32,8 @@ public class testing
                                                               );
 
             //AlbumArtCompilation meteora = SearchLib.SearchCovers("Meteora", null, target.MusicBrainz, 5);
-            //FileList.clear();
-            //FileList.add(new File("D:\\music\\Born of osiris\\The New Reign\\Born Of Osiris - Abstract Art.mp3"));
+            FileList.clear();
+            FileList.add(new File("D:\\music\\Born of osiris\\The New Reign\\Born Of Osiris - Abstract Art.mp3"));
             ProgressState Line1 = new CustomProgressState(0, "checker", "checker");
             ProgressState Line2 = new CustomProgressState(0, "FP", "FP");
             ProgressState Line3 = new CustomProgressState(0, "Service", "Service");

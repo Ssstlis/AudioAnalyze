@@ -35,7 +35,7 @@ Method may throws:
 ### Typical usage pattern:
 ````java
 package Foo;
-
+//missing imports
 public class Bar
 {
     public static void main(String[] args)
@@ -49,7 +49,7 @@ public class Bar
                                                                           target.MusicBrainz,
                                                                           5);
             
-            AlbumArtCompilation SearchWitoutArtist = SearchLib.Search(AlbumTitle,
+            AlbumArtCompilation SearchWitoutArtist = SearchLib.SearchCovers(AlbumTitle,
                                                                       null,
                                                                       target.MusicBrainz,
                                                                       5);
@@ -133,7 +133,7 @@ It contains list of tags for the file you provided.
 ### Typical usage patterns:
 ````java
 package Foo;
-
+//missing imports
 public class Bar
 {
     public static void main(String[] args)

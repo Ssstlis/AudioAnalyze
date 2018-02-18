@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.io.FileFilter;
 
-public class Mp3Filter
+public class MediaFilter
         implements FileFilter
 {
     @Override
@@ -18,14 +18,8 @@ public class Mp3Filter
         Logger logger = LoggerFactory.getLogger(SearchLib.class);
         try
         {
-            if (!pathname.getName()
-                         .endsWith(".mp3"))
-            {
-                return false;
-            }
-            MP3File mp3File = (MP3File) AudioFileIO.read(pathname);
-            return mp3File.getAudioHeader()
-                          .getTrackLength() > 119;
+            String name = pathname.getName();
+            return (name.endsWith(".mp3") || name.endsWith(".flac") || name.endsWith(".ogg")) && AudioFileIO.read(pathname).getAudioHeader().getTrackLength() > 119;
         }
         catch (Exception e)
         {
