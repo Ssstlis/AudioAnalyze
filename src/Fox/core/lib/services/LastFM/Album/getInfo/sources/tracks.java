@@ -4,7 +4,7 @@ import java.util.List;
 
 public class tracks
 {
-    private List<track> tracks;
+    private List<track> tracks_;
 
     public tracks()
     {
@@ -13,24 +13,24 @@ public class tracks
 
     public tracks(List<track> tracks)
     {
-        this.tracks = tracks;
+        this.tracks_ = tracks;
     }
 
     public tracks(tracks copy)
     {
-        if (tracks != null)
+        if (tracks_ != null)
         {
-            this.tracks = track.trackListCopy(copy.tracks);
+            this.tracks_ = track.trackListCopy(copy.tracks_);
         }
     }
 
     public List<track> getTracks()
     {
-        return track.trackListCopy(tracks);
+        return track.trackListCopy(tracks_);
     }
 
     public void setTracks(List<track> tracks)
     {
-        this.tracks = track.trackListCopy(tracks);
+        this.tracks_ = track.trackListCopy(tracks);
     }
 }

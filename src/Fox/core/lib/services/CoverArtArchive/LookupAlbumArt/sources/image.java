@@ -10,7 +10,7 @@ public class image
     private Boolean front;
     private Boolean back;
     private String comment;
-    private String image;
+    private String image_;
     private Long id;
     private Long edit;
 
@@ -36,24 +36,24 @@ public class image
         this.front = front;
         this.back = back;
         this.comment = comment;
-        this.image = image;
+        this.image_ = image;
         this.id = id;
         this.edit = edit;
     }
 
     public String getImage()
     {
-        return image;
+        return image_;
     }
 
     public void setImage(String image)
     {
-        this.image = image;
+        this.image_ = image;
     }
 
     public boolean hasImage()
     {
-        return (image != null && !image.isEmpty());
+        return (image_ != null && !image_.isEmpty());
     }
 
     public String getComment()

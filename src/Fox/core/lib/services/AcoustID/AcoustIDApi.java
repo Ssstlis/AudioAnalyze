@@ -13,7 +13,7 @@ import java.util.HashMap;
 
 public class AcoustIDApi
 {
-    private static Logger logger;
+    private Logger logger;
     private final static String key = "WweGbntpM7";
     private final static String httpkey =
             "https://api.acoustid.org/v2/lookup?client=" + key + "&format=json";

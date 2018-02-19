@@ -5,7 +5,6 @@ import Fox.core.lib.general.data.ID3V2;
 import Fox.core.lib.general.data.ID3V2.ID3V2Comparator;
 import Fox.core.lib.general.utils.AcoustIDException;
 import Fox.core.lib.general.utils.NoMatchesException;
-import Fox.core.lib.general.utils.Sorts;
 import Fox.core.lib.services.AcoustID.LookupByFP.sources.*;
 import Fox.core.lib.services.AcoustID.LookupByFP.sources.Error;
 import Fox.core.lib.services.AcoustID.LookupByFP.sources.Recording.RecordingRelativator;
@@ -26,7 +25,7 @@ import static Fox.core.lib.general.utils.Sorts.*;
 public class Sifter
 {
     private final static SimpleInfo SimpleInfoComparatorByUsages = new SimpleInfo();
-    private final static Sorts.Relativator RecordingRelativator = new RecordingRelativator();
+    private final static Relativator RecordingRelativator = new RecordingRelativator();
     private final static RecordingSimpleInfoConverter converter = new RecordingSimpleInfoConverter();
     private static Logger logger;
 
@@ -179,23 +178,6 @@ public class Sifter
 
     /**
      * @param elems target list to sorting
-     * @return sorting list from the smallest to the largest
-     */
-    private static List<SimpleInfo> SimpleInfoSortingForwardByUsage(@NotNull List<SimpleInfo> elems)
-    {
-        try
-        {
-            ForwardSorting(elems, SimpleInfoComparatorByUsages);
-        }
-        catch (IllegalArgumentException ignore)
-        {
-
-        }
-        return elems;
-    }
-
-    /**
-     * @param elems target list to sorting
      * @return sorting list from the largest to the smallest
      */
     private static List<SimpleInfo> SimpleInfoSortingBackwardByUsage(@NotNull List<SimpleInfo> elems)
@@ -221,24 +203,6 @@ public class Sifter
         try
         {
             ForwardRelativeSort(elems, RecordingRelativator, duration);
-        }
-        catch (IllegalArgumentException ignore)
-        {
-
-        }
-        return elems;
-    }
-
-    /**
-     * @param elems target list to sorting
-     * @return sorting list from the largest to the smallest
-     */
-    private static List<Recording> RecordingRelativeSortingBackward(@NotNull List<Recording> elems,
-                                                                    Integer duration)
-    {
-        try
-        {
-            BackwardRelativeSort(elems, RecordingRelativator, duration);
         }
         catch (IllegalArgumentException ignore)
         {
@@ -329,8 +293,8 @@ public class Sifter
         for(Entry pair : AssistMap.entrySet())
             if ((Integer)pair.getValue() == max)
                 AssistList.add((String)pair.getKey());
-
-        for(int i = 0, size = recordingList.size(); i < size; i++)
+        int size = recordingList.size();
+        for(int i = 0; i < size; i++)
         {
             Recording recording = recordingList.get(i);
             if (recording.hasArtists())

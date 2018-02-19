@@ -2,7 +2,6 @@ package Fox.core.lib.general.data;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.io.Serializable;
 import java.util.Comparator;
 import java.util.List;
 

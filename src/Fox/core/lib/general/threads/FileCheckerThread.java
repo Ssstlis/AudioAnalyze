@@ -16,7 +16,7 @@ import java.util.concurrent.ThreadFactory;
 public class FileCheckerThread
         implements Runnable
 {
-    private static Logger logger;
+    private Logger logger;
     private final String location;
     private final List<String> Target;
     private final List<String> Rejected;
@@ -31,12 +31,11 @@ public class FileCheckerThread
         }
     });
 
-    public FileCheckerThread(
-            @NotNull String Source,
-            @NotNull List<String> TargetList,
-            @NotNull List<String> RejectedList,
-            ProgressState TargetProgress,
-            ProgressState CommonLine)
+    public FileCheckerThread(@NotNull String Source,
+                             @NotNull List<String> TargetList,
+                             @NotNull List<String> RejectedList,
+                             ProgressState TargetProgress,
+                             ProgressState CommonLine)
     {
         logger = LoggerFactory.getLogger(SearchLib.class);
         this.location = Source;

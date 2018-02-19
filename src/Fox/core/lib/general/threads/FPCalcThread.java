@@ -17,7 +17,7 @@ import java.util.concurrent.ThreadFactory;
 public class FPCalcThread
         implements Callable<FingerPrint>
 {
-    private static Logger logger;
+    private Logger logger;
     private final FingerPrintThread executor;
     private final ProgressState Line;
     private final ProgressState Common;

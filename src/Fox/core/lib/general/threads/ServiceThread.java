@@ -22,7 +22,7 @@ import java.util.concurrent.ThreadFactory;
 public class ServiceThread
         implements Runnable
 {
-    private static Logger logger;
+    private Logger logger;
     private final FingerPrint FPrint;
     private final ProgressState Local;
     private final ProgressState Common;

@@ -12,13 +12,11 @@ import org.slf4j.LoggerFactory;
 
 public class LastFMTrackClient
 {
-    public static TrackInfo getInfo(
-            String mbid,
-            @NotNull String track,
-            @NotNull String artist,
-            String username,
-            Boolean AutoCorrect
-                            )
+    public static TrackInfo getInfo(String mbid,
+                                    @NotNull String track,
+                                    @NotNull String artist,
+                                    String username,
+                                    Boolean AutoCorrect)
     {
         Logger logger = LoggerFactory.getLogger(SearchLib.class);
         HttpGetClient RequestHTTPClient = new HttpGetClient(logger);
@@ -45,16 +43,6 @@ public class LastFMTrackClient
         if (mbid != null && !mbid.isEmpty())
         {
             optional += "&mbid=" + mbid;
-        }
-
-        if (!track.isEmpty())
-        {
-            track = "&track=" + track;
-        }
-
-        if (!artist.isEmpty())
-        {
-            artist = "&artist=" + artist;
         }
 
         String request = LastFMApi.api_root +
