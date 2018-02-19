@@ -30,7 +30,7 @@ org.slf4j.Logger loggername = org.slf4j.LoggerFactory.getLogger(SearchLib.class)
 Album covers look up:
 ```java
 package Foo;
-
+//missing imports
 public class Bar
 {
     public static void main(String[] args)
@@ -55,7 +55,7 @@ public class Bar
 Tracks tags look up:
 ```java
 package Foo;
-
+//missing imports
 public class someclass
 {
     public static void main(String[] args)
