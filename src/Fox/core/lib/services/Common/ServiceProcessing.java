@@ -81,7 +81,6 @@ public class ServiceProcessing
                     logger.debug("Building tag done");
                 if (buildTag != null)
                     temp.add(buildTag);
-
             }
             catch (NoMatchesException e)
             {

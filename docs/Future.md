@@ -1,8 +1,8 @@
 # Future tools
 
-- [ ] Separate libraries
-- [ ] Improve performance
-- [ ] Improve caching tools
-- [ ] Extends libraries
+- [ ] Separated libraries
+- [ ] Improved performance
+- [ ] Improved caching tools
+- [ ] Extended libraries
 - [ ] Full documentation
 - [ ] Full tests 

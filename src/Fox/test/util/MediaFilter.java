@@ -2,7 +2,6 @@ package Fox.test.util;
 
 import Fox.core.main.SearchLib;
 import org.jaudiotagger.audio.AudioFileIO;
-import org.jaudiotagger.audio.mp3.MP3File;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

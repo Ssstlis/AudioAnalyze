@@ -105,7 +105,7 @@ public abstract class ProgressState
 - Done - completion status
 
 ### Notifications
-When calling update(...) methods and setSize() method they may calls callback methods:
+Calling "update(...)" and "setSize()" may cause callback methods:
 - onChange() when current process status are changing
 - onDode() when current process are complete
 - onResize() when size of progress state are changing

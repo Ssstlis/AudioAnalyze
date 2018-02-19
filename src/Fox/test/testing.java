@@ -22,18 +22,19 @@ public class testing
 
     public static void main(String[] args)
     {
+        System.setProperty("org.slf4j.simpleLogger.defaultLogLevel", "debug");
         Logger logger = LoggerFactory.getLogger(SearchLib.class);
         Entry<Map<String, List<ID3V2>>, List<String>> Result = null;
         try
         {
-            String mp3location = "D:\\music\\Born Handed";
+            String mp3location = "C:\\Users\\Ssstlis\\Desktop\\music\\Born Hanged";
             List<File> FileList = ExecutableHelper.GetFileList(mp3location,
                                                                new MediaFilter()
                                                               );
 
             //AlbumArtCompilation meteora = SearchLib.SearchCovers("Meteora", null, target.MusicBrainz, 5);
             FileList.clear();
-            FileList.add(new File("D:\\music\\Born of osiris\\The New Reign\\Born Of Osiris - Abstract Art.mp3"));
+            FileList.add(new File("C:\\Users\\Ssstlis\\Desktop\\music\\Born of osiris\\The New Reign\\Born Of Osiris - Abstract Art.mp3"));
             ProgressState Line1 = new CustomProgressState(0, "checker", "checker");
             ProgressState Line2 = new CustomProgressState(0, "FP", "FP");
             ProgressState Line3 = new CustomProgressState(0, "Service", "Service");

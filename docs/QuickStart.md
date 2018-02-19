@@ -1,21 +1,20 @@
 # Quick start
-Here you will learn how you can using library for yourself.
+Here are some methods for using the library.<br>
 All methods are static locate in SearchLib class.
 
 ## Look up cover arts
-For looking up cover arts you need to know:
+To look up cover arts you need to know:
 - Album title
 - Artist name (optional)
 - Target service
 - Count of links
 
-Call SearchLib static method SearchCovers with signature:
+Call SearchLib static method "SearchCovers" by using this signature:
 ````java
 public static AlbumArtCompilation SearchCovers(@NotNull String AlbumName, String ArtistName, target source, int count)
             throws llegalArgumentException,  NoMatchesException
 ````
 ### Return:
-
 AlbumArtCompilation class instance contains:
 - Album title
 - Artist name
@@ -29,8 +28,8 @@ Art class instance contains:
 - Source (service that provided the cover)
 
 Method may throws:
-- IllegalArgumentException when album title is empty or count < 1.
-- NoMatchesException when service responses are empty or contains
+- IllegalArgumentException when album title is empty or *count* < 1.
+- NoMatchesException when service responses or results are empty
 
 ### Typical usage pattern:
 ````java
@@ -74,8 +73,7 @@ public class Bar
 ````
 
 ## Look up media tags
-
-For looking up media tags you need:
+To look up media tags you need:
 - [FingerPrint](FingerPrint.md) implementation
 - From 4 to none [ProgressState](ProgressState.md) implementations
 - Files path (few or one)
@@ -104,16 +102,16 @@ or short signature for single file:
 
 ### Fast signature explain
 ***ProgressState*** instances needs to notify you about process statuses inside the method.<br>
-***CheckerProgressBar*** notify you about file checking process status.(missing in signature for single file)<br>
-***FPProgressBar*** notify you about fingerprint build process status.(missing in signature for single file)<br>
-***ServiceProgressBar*** notify you about service build process status.(missing in signature for single file)<br>
-***CommonProgressBar/ProgressBar*** notify you about whole progress of process status.<br>  
-***YourFingerPrintImplementation*** must be an instance of FingerPrintThread class of his child.<br>
+***CheckerProgressBar*** notifies you about file checking process status.(missing in signature for single file)<br>
+***FPProgressBar*** notifies you about fingerprint build process status.(missing in signature for single file)<br>
+***ServiceProgressBar*** notifies you about service build process status.(missing in signature for single file)<br>
+***CommonProgressBar/ProgressBar*** notifies you about whole progress of process status.<br>  
+***YourFingerPrintImplementation*** must be an instance of FingerPrintThread class or his child.<br>
 ***Speed*** is value of  performance  enumeration. Value affects on the number of threads in the thread pool, higher value - more threads.(missing in signature for single file)<br>
 ***count*** value show how much tags will built for each file. If *count* equals 1, then library will be use smart search.
 
-Methods may throws:
-- IllegalArgumentException when you call methods with same instances of *ProgressState* or Count < 1
+Methods may throw:
+- IllegalArgumentException when you call methods with same instances of *ProgressState* or *count* < 1
 - InterruptedException when you have problems with threads execute or await/sleep.
 - ProgressStateException when an unexpected event occurs in processing.
 - NoBuildException when files path list are empty

@@ -344,7 +344,7 @@ public class SearchLib
         if (reviewerAccepted.size() != 1)
         {
             ProgressBar.setSize(ProgressBar.getSize() - 2);
-            throw  new NoAccessingFilesException("No one file were accepted.");
+            throw new NoAccessingFilesException("No one file were accepted.");
         }
 
         String temp_path = reviewerAccepted.get(0);

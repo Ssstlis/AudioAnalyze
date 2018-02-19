@@ -1,8 +1,8 @@
 # Audio analyze 
-This library provides convenient methods to search tags and album covers for your music.<br>
-The library is platform independent and requires you to implement few interfaces from library.<br>
-The library uses own data sorting and filtering methods for compatibility with Android.<br>
-For start using you need [latest release](https://github.com/Ssstlis/AudioAnalyze/releases/latest) and slf4j logger implementation for your platform.<br>
+This library provides convenient methods for music tags and album covers searching.<br>
+It is platform independent and requires you to implement few interfaces from itself.<br>
+The library uses its own data sorting and filtering methods for compatibility with Android.<br>
+For quick start, you need to download the [latest release](https://github.com/Ssstlis/AudioAnalyze/releases/latest) and slf4j logger implementation for your platform.<br>
 
 ## All documentation
 - [Quick start](QuickStart.md)
@@ -20,8 +20,7 @@ For start using you need [latest release](https://github.com/Ssstlis/AudioAnalyz
 - [JAudioTagger 2.2.3](https://github.com/Ssstlis/AudioAnalyze/releases/download/v1.0.0/jaudiotagger-2.2.3.jar)
 
 ### Logging
-You can configure logging with props file or using System.setProperty() 
-depending on which implementation you import.<br>
+You can configure logging with props file or by using System.setProperty() depending on which implementation you import.<br>
 You can get Logger with this instruction:
 ````java
 org.slf4j.Logger loggername = org.slf4j.LoggerFactory.getLogger(SearchLib.class);

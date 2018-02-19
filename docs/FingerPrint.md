@@ -11,11 +11,11 @@ public interface FingerPrintThread
     FingerPrint getFingerPrint(@NotNull String location) throws FingerPrintProcessingException;
 }
 ```
-Method should produce FingerPrintProcessingException when you catching another exception while Chromaprint is running.
+Method should throw FingerPrintProcessingException when you catching another exception while Chromaprint is running.
 
 ### FingerPrint class
 FingerPrint class provide to encapsulate result of Chromaprint library.<br>
-You must create and populate an instance in accordance with the data that is returned to the Chromaprint library without modifications.<br>
+You need to create and fill an instance in accordance with the data that is returned by Chromaprint library without modifications.<br>
 #### Short class definition
 ```java
 public class FingerPrint
