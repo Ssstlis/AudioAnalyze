@@ -2,6 +2,7 @@ package Fox.core.lib.general.data;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.Serializable;
 import java.util.Comparator;
 import java.util.List;
 
@@ -228,8 +229,8 @@ public class ID3V2
                 return -1;
             if (a.hasYear() && !b.hasYear())
                 return 1;
-            Integer aYear = Integer.parseInt(a.year);
-            Integer bYear = Integer.parseInt(b.year);
+            Integer aYear = Integer.valueOf(a.year);
+            Integer bYear = Integer.valueOf(b.year);
             return aYear.compareTo(bYear);
         }
 
