@@ -2,6 +2,13 @@
 Here are some methods for using the library.<br>
 All methods are static locate in SearchLib class.
 
+### Logging
+You can configure logging with props file or by using System.setProperty() depending on which implementation you import.<br>
+You can get Logger with this instruction:
+````java
+org.slf4j.Logger loggername = org.slf4j.LoggerFactory.getLogger(SearchLib.class);
+````
+
 ## Look up cover arts
 To look up cover arts you need to know:
 - Album title
@@ -64,7 +71,7 @@ public class Bar
                         //do something....
                     }
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             e.printStackTrace();
         }
@@ -107,7 +114,7 @@ or short signature for single file:
 ***ServiceProgressBar*** notifies you about service build process status.(missing in signature for single file)<br>
 ***CommonProgressBar/ProgressBar*** notifies you about whole progress of process status.<br>  
 ***YourFingerPrintImplementation*** must be an instance of FingerPrintThread class or his child.<br>
-***Speed*** is value of  performance  enumeration. Value affects on the number of threads in the thread pool, higher value - more threads.(missing in signature for single file)<br>
+***Speed*** is value of [performance enumeration](Performance.md). Value affects on the number of threads in the thread pool, higher value - more threads.(missing in signature for single file)<br>
 ***count*** value show how much tags will built for each file. If *count* equals 1, then library will be use smart search.
 
 Methods may throw:
@@ -120,10 +127,10 @@ Methods may throw:
 
 ***Return value by signature for List of String*** is instance of Map.Entry interface implementation.<br>
 It contains:
-- Map<String, List< ID3V2 >> as key that contains:
-  - String value that your ***YourFingerPrintImplementation*** inject in FingerPrint instance as key
-  - List<ID3V2> that contains list of founded and build tags data for track String ID provided by key in this Map
-- List<String> as value that contains rejected file path (not been tested for duration/format of the file or no results).
+- Map<String, List<[ID3V2](ID3V2.md)> > ***as key*** that contains:
+  - String value that your ***YourFingerPrintImplementation*** inject in FingerPrint instance ***as key***
+  - List<[ID3V2](ID3V2.md)> that contains list of founded and build tags data for track String ID provided by key in this Map ***as value***
+- List<String> ***as value*** that contains rejected file path (not been tested for duration/format of the file or no results).
 
 ***Return value by signature for single file*** is instance of List<ID3V2>.<br>
 It contains list of tags for the file you provided.
@@ -144,15 +151,22 @@ public class Bar
         {
             //Override methods
         };
-        ProgressState Line2 = "/*some implementation*/";
-        ProgressState Line3 = "/*same implementation*/";
-        ProgressState Line4 = "/*same implementation*/";
+        ProgressState Line2 = new ProgressState(/*initial parameters*/)
+        {
+            //Override methods
+        };
+        ProgressState Line3 = new ProgressState(/*initial parameters*/)
+        {
+            //Override methods
+        };
+        ProgressState Line4 = new ProgressState(/*initial parameters*/)
+        {
+            //Override methods
+        };
         
         List<String> FileList = new ArrayList<>();
         FileList.add("a.mp3");
         FileList.add("b.mp3");
-        FileList.add("/*another file path*/");
-        FileList.add("/*another file path*/");
         //and so on
         
         try
@@ -181,7 +195,7 @@ public class Bar
             ID2V2 tag = res.get(0);
             //do something
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             e.printStackTrace();        
         }

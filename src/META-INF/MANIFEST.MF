@@ -1,5 +1,2 @@
 Manifest-Version: 1.0
-Class-Path: okhttp-3.9.1.jar DestinationBuilder.jar gson-2.8.2.jar jau
- diotagger-2.2.3.jar slf4j-api-1.7.25.jar okio-1.13.0.jar MusicBrainzA
- ndroid.jar annotations-java8.jar
 
