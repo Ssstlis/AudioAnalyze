@@ -4,7 +4,7 @@ public class Elapsed
 {
     private static final Long
             AcoustIDElapseState = (long) 330,
-            LastFMElapseState = (long) 250,
+            LastFMElapseState = (long) 300,
             MusicBrainzElapseState = (long) 500;
     private static Long
             AcoustIDElapse = (long) System.currentTimeMillis(),
