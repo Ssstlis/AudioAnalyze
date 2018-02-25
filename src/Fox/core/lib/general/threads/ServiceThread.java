@@ -12,6 +12,7 @@ import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
@@ -81,6 +82,16 @@ public class ServiceThread
                 Rejected.add(FPrint.getLocation());
             if (logger.isErrorEnabled())
                 logger.error("{} {}", FPrint.getLocation(), e.getMessage());
+        }
+        catch (InterruptedException e)
+        {
+            if (logger.isErrorEnabled())
+                logger.error("{} {}", FPrint.getLocation(), e.getMessage());
+        }
+        catch (Exception e)
+        {
+            if (logger.isErrorEnabled())
+                logger.error("WHAT?\n", e);
         }
         finally
         {

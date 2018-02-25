@@ -1,5 +1,8 @@
 Release notes
 
+v1.0.3
+- Fix bug with -1 track number
+
 v1.0.2
 - Remove hardcoded dependencies from class path
 - Update documentation
