@@ -1,5 +1,12 @@
 Release notes
 
+v1.0.4
+-Fix bug with uncatched exception on threads
+-Add progress bar files wrapper
+
+v1.0.3
+- Fix bug with -1 track number
+
 v1.0.2
 - Remove hardcoded dependencies from class path
 - Update documentation

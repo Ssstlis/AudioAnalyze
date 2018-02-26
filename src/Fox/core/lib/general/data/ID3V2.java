@@ -167,7 +167,7 @@ public class ID3V2
 
     public boolean hasNumber()
     {
-        return (number != null && number != 0);
+        return (number != null);
     }
 
     public String getArtistMBID()

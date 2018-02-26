@@ -31,7 +31,8 @@ public class ServiceProcessing
             int count)
             throws
             AcoustIDException,
-            NoMatchesException
+            NoMatchesException,
+            InterruptedException
     {
         if (AudioPrint == null || (!AudioPrint.hasDuration() && !AudioPrint.hasPrint()))
             throw new IllegalArgumentException("FingerPrint is null or contains error");
