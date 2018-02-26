@@ -1,5 +1,6 @@
 package Fox.core.lib.general.utils;
 
+import Fox.core.lib.general.templates.ProgressState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -44,7 +45,8 @@ public class ExecutableHelper
 
     public static List<File> GetFileList(
             @NotNull String pathname,
-            @NotNull FileFilter filter)
+            @NotNull FileFilter filter,
+            ProgressState bar)
             throws IllegalArgumentException
     {
         File check = new File(pathname);
@@ -63,7 +65,21 @@ public class ExecutableHelper
         if (ResultForPath != null)
             for (File file : ResultForPath)
                 if (file.isDirectory())
-                    files.addAll(GetFileList(file.getPath(),filter));
+                {
+                    try
+                    {
+                        if (bar != null)
+                            bar.setSize(bar.getSize() + 1);
+                    }
+                    catch(Exception e)
+                    {
+                        e.printStackTrace();
+                    }
+                    files.addAll(GetFileList(file.getPath(), filter, bar));
+                }
+
+        if (bar != null)
+            bar.update();
 
         return files;
     }
@@ -83,7 +99,7 @@ public class ExecutableHelper
                     {
                         return pathname.exists()&& pathname.getName().endsWith(name);
                     }
-                }).get(0);
+                }, null).get(0);
     }
 
     @NotNull
@@ -101,7 +117,7 @@ public class ExecutableHelper
                     {
                         return pathname.exists() && pathname.getName().endsWith(name);
                     }
-                });
+                }, null);
     }
 
     public static class Entry<K, V> implements Map.Entry<K, V>

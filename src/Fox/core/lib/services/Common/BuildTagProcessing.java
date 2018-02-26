@@ -93,18 +93,17 @@ public class BuildTagProcessing
                     if (lookupRelease != null)
                     {
                         String lookupReleaseDate = lookupRelease.getDate();
-                        int indexOf = lookupReleaseDate.indexOf("-");
+                        int indexOf = lookupReleaseDate != null ? lookupReleaseDate.indexOf("-") : 0;
                         if (indexOf > 0)
                             lookupReleaseDate = lookupReleaseDate.substring(0, indexOf);
                         LFM.setYear(lookupReleaseDate);
                     }
                 }
-                catch (IOException e)
+                catch (Exception e)
                 {
                     if (logger.isErrorEnabled())
                         logger.error("MusicBrainzException at MBID {}", lfmAlbumMBID, e);
                 }
-                catch (InterruptedException ignored){}
             }
             return LFM;
         }
@@ -157,12 +156,11 @@ public class BuildTagProcessing
                 }
             }
         }
-        catch (IOException e)
+        catch (Exception e)
         {
             if (logger.isErrorEnabled())
                 logger.error("MusicBrainzException at MBID {}", AlbumMBID, e);
         }
-        catch (InterruptedException ignored){}
 
         try
         {
@@ -191,12 +189,11 @@ public class BuildTagProcessing
                 }
             }
         }
-        catch (IOException e)
+        catch (Exception e)
         {
             if (logger.isErrorEnabled())
                 logger.error("MusicBrainzException at MBID {}", ArtistMBID, e);
         }
-        catch (InterruptedException ignored){}
 
         if (logger.isErrorEnabled() && (lookupArtist == null || lookupArtist.getMbid() == null))
             logger.error("null lookup artist at mbid {}", ArtistMBID);
@@ -667,6 +664,11 @@ public class BuildTagProcessing
             if (logger.isErrorEnabled())
                 logger.error("Problems with params...");
         }
+        catch (Exception e)
+        {
+            if (logger.isErrorEnabled())
+                logger.error("WTF?", e);
+        }
         try
         {
             if (LFMInfo != null && !LFMInfo.hasMessage() && LFMInfo.hasTrack())
@@ -698,12 +700,11 @@ public class BuildTagProcessing
                 }
             }
         }
-        catch (IOException e)
+        catch (Exception e)
         {
             if (logger.isErrorEnabled())
                 logger.error("MusicBrainzException at MBID {}", trackMBID, e);
         }
-        catch (InterruptedException ignored){}
 
         try
         {
@@ -755,12 +756,11 @@ public class BuildTagProcessing
                     }
                 }
             }
-            catch (IOException e)
+            catch (Exception e)
             {
                 if (logger.isErrorEnabled())
                     logger.error("MusicBrainzException at MBID {}", trackMBID, e);
             }
-            catch (InterruptedException ignored){}
         }
 
         //When LastFM lookup has recording with Artist and track name -> mbid and MB have recording with equals mbid in head
@@ -805,12 +805,11 @@ public class BuildTagProcessing
                     return BuildTag(null, MBInfo);
                 }
             }
-            catch (IOException e)
+            catch (Exception e)
             {
                 if (logger.isErrorEnabled())
                     logger.error("MusicBrainzException at MBID {}", trackMBID, e);
             }
-            catch (InterruptedException ignored){}
         }
 
         throw new NoMatchesException(NO_MATCHES);

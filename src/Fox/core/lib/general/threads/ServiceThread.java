@@ -88,10 +88,15 @@ public class ServiceThread
             if (logger.isErrorEnabled())
                 logger.error("{} {}", FPrint.getLocation(), e.getMessage());
         }
+        catch (IllegalArgumentException e)
+        {
+            if (logger.isErrorEnabled())
+                logger.error("{} {} {} {}",FPrint, FPrint != null ? FPrint.getLocation() : null, FPrint != null ? FPrint.getDuration() : null, FPrint != null ? FPrint.getPrint() : null,  e);
+        }
         catch (Exception e)
         {
             if (logger.isErrorEnabled())
-                logger.error("WHAT?\n", e);
+                logger.error("WHAT? \n {} \n {}", e.getMessage(), e.getStackTrace());
         }
         finally
         {

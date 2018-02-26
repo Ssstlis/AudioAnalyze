@@ -645,7 +645,7 @@ public class SearchLib
                     return temp;
                 }
             }
-            catch (IOException e)
+            catch (Exception e)
             {
                 if (logger.isErrorEnabled())
                     logger.error("", e);
