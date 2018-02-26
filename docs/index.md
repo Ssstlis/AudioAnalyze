@@ -1,6 +1,6 @@
 # Audio analyze 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/2a5ff1dee06f40e8a7a38149f8888f80)](https://www.codacy.com/app/apostrof1995/AudioAnalyze?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Ssstlis/AudioAnalyze&amp;utm_campaign=Badge_Grade)<br>
-This library provides convenient methods for music tags and album covers searching.<br>
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/2a5ff1dee06f40e8a7a38149f8888f80)](https://www.codacy.com/app/apostrof1995/AudioAnalyze?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Ssstlis/AudioAnalyze&amp;utm_campaign=Badge_Grade)
+<br>This library provides convenient methods for music tags and album covers searching.<br>
 It is platform independent and requires you to implement few interfaces from itself.<br>
 The library uses its own data sorting and filtering methods for compatibility with Android.<br>
 For quick start, you need to download the [latest release](https://github.com/Ssstlis/AudioAnalyze/releases/latest) and slf4j logger implementation for your platform.<br>
