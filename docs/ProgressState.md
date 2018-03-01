@@ -1,113 +1,31 @@
 # ProgressState abstract class
 ProgressState is abstract class for simple event notification.
 
-## Class definition
-```java
-public abstract class ProgressState
-{
-    protected int state;
-    protected int size;
-    protected String desc;
-    protected String name;
-    private boolean Done = false;
+## Constructors
+- `protected ProgressState(int size,String name,String desc) throws ProgressStateException`
+   Create new instance of ProgressState class with same params.<br>May produce `ProgressStateException` when size < 0.
 
-    protected ProgressState(int size,String name,String desc) throws ProgressStateException
-    {
-        if (size < 0) throw new ProgressStateException("Can`t set progress bar size lesser than zero.");
-        this.size = size;
-        this.desc = desc;
-        this.name = name;
-    }
+## Fields
+- `protected int state;` - current state value of progress bar
+- `protected int size;` - current size value of progress bar
+- `protected String desc;` - current description value of progress bar
+- `protected String name;` - name value of progress bar
+- `private boolean Done = false;` - completion status
 
-    public void update(int now, String desc) throws ProgressStateException
-    {
-        if (now < 0) throw new ProgressStateException("Can`t change status of progress less then zero");
-        if (!Done)
-        {
-            this.state = now;
-            this.desc = desc;
-            this.onChange();
-            if (state >= size)
-            {
-                this.onDone();
-                Done = true;
-            }
-        }
-    }
+## Methods
+- `public void update(int now, String desc) throws ProgressStateException` update state value and description value of current instance with new values.<br>May produce `ProgressStateException` when state < 0.
+- `public void update(String desc)` increment state value and update description value of current instance with new value
+- `public void update()` increment state value of ProgressState instance.
+- `public int getState()` return state value of ProgressState instance.
+- `public int getSize()` return size value of ProgressState instance.
+- `public void setSize(int size) throws ProgressStateException` set new size of ProgressState instance.<br>May produce `ProgressStateException` when size <= 0.
+- `public final String getName()` return name value of ProgressState instance.
+- `public String getDesc()` return description value of ProgressState instance.
+- `public boolean isDone()` return Done value of ProgressState instance.
 
-    public void update(String desc)
-    {
-        if (!Done)
-        {
-            this.state++;
-            this.desc = desc;
-            this.onChange();
-            if (state >= size)
-            {
-                this.onDone();
-                Done = true;
-            }
-        }
-    }
-
-    public void update()
-    {
-        if (!Done)
-        {
-            this.state++;
-            this.onChange();
-            if (state >= size)
-            {
-                this.onDone();
-                Done = true;
-            }
-        }
-    }
-
-    public int getState(){return state;}
-    
-    public int getSize(){return size;}
-    
-    public void setSize(int size) throws ProgressStateException
-    {
-        if (size <= 0) throw new ProgressStateException("Can`t set progress bar size to zero or less.");
-        this.size = size;
-        if (state >= size && !Done)
-        {
-            onResize();
-            onDone();
-            Done = true;
-            return;
-        }
-        if (size < state)
-        {
-            onResize();
-            Done = false;
-        }
-    }
-    
-    public final String getName(){return name;}
-    
-    public String getDesc(){return desc;}
-
-    public boolean isDone(){return Done;}
-    
-    protected abstract void onDone();
-    protected abstract void onResize();
-    protected abstract void onChange();
-}
-```
-### Fields:
-- state - current status of progress bar
-- size - current size of progress bar
-- desc - current description of progress bar
-- name - name of progress bar
-- Done - completion status
-
-### Notifications
-Calling "update(...)" and "setSize()" may cause callback methods:
-- onChange() when current process status are changing
-- onDode() when current process are complete
-- onResize() when size of progress state are changing
+## Abstract methods
+- `protected abstract void onDone()` call when progress is done.
+- `protected abstract void onResize()` call when bar maximum is changing.
+- `protected abstract void onChange()` call when value is changing.
 
 You must override these methods in your implementation to track changes. 

@@ -48,10 +48,10 @@ import org.musicbrainz.android.api.webservice.MusicBrainzWebClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.*;
 
+import static Fox.core.lib.general.utils.performance.MIN;
 import static Fox.core.lib.services.Common.Elapsed.MusicBrainzElapse;
 import static Fox.core.lib.services.LastFM.Album.LastFMAlbumClient.getInfo;
 import static Fox.core.lib.services.LastFM.Album.LastFMAlbumClient.search;
@@ -317,94 +317,20 @@ public class SearchLib
             NoMatchesException,
             NoAccessingFilesException
     {
-        if (count <= 0 || file.length() < 4)
-            throw new IllegalArgumentException(NO_COUNT + " Or wrong file name.");
-
-        logger = LoggerFactory.getLogger(SearchLib.class);
-        if (logger.isDebugEnabled())
-            logger.debug("Single files search start");
-
-        boolean TrustMode = count == 1;
-        FileChecker FileReviewer = new FileChecker();
-
-        if (logger.isDebugEnabled())
-            logger.debug("Start file check");
-
-        @NotNull List<String> Locations = new ArrayList<>();
-        Locations.add(file);
-        ProgressBar.setSize(ProgressBar.getSize() + 3);
-        FileReviewer.SiftFileAsString(Locations,
-                                      null,
-                                      ProgressBar);
-
-        if (logger.isDebugEnabled())
-            logger.debug("End file check");
-
-        List<String> reviewerAccepted = FileReviewer.getAccepted();
-        if (reviewerAccepted.size() != 1)
-        {
-            ProgressBar.setSize(ProgressBar.getSize() - 2);
-            throw new NoAccessingFilesException("No one file were accepted.");
-        }
-
-        String temp_path = reviewerAccepted.get(0);
-
-        Map<String, List<ID3V2>> target = new HashMap<>();
-        ExecutorService ServicePool = Executors.newFixedThreadPool(1, new ThreadFactory()
-        {
-            @Override
-            public Thread newThread(@NotNull Runnable r)
-            {
-                return new Thread(r, "Service Pool");
-            }
-        });
-
-        if (logger.isInfoEnabled())
-            logger.info("Instance FingerPrint thread");
-
-        Future<FingerPrint> future = ServicePool.submit(new FPCalcThread(YourFPCalcImplementation,
-                                                                         temp_path,
-                                                                         null,
-                                                                         ProgressBar));
-        FingerPrint fingerPrint;
+        List<String> objects = new ArrayList<>();
+        objects.add(file);
         try
         {
-            fingerPrint = future.get();
+            return SearchTags(objects, YourFPCalcImplementation, null, null, null, ProgressBar, MIN, count).getKey()
+                                                                                                           .entrySet()
+                                                                                                           .iterator()
+                                                                                                           .next()
+                                                                                                           .getValue();
         }
-        catch (ExecutionException e)
+        catch (NoBuildException e)
         {
-            throw new IllegalArgumentException(e);
+            throw new NoAccessingFilesException(e);
         }
-
-        if (logger.isInfoEnabled())
-            logger.info("Start service thread");
-
-        if (fingerPrint != null)
-            ServicePool.submit(new ServiceThread(fingerPrint,
-                                                 target,
-                                                 null,
-                                                 ProgressBar,
-                                                 TrustMode,
-                                                 count,
-                                                 null));
-
-        ServicePool.shutdown();
-        ServicePool.awaitTermination(25, MINUTES);
-        if (target.size() == 0)
-        {
-            if (logger.isErrorEnabled())
-                logger.error(NO_MATCHES);
-            throw new NoMatchesException(NO_MATCHES);
-        }
-        List<ID3V2> list = null;
-        for(Map.Entry<String, List<ID3V2>> elem:target.entrySet())
-        {
-            Object value = elem.getValue();
-            //noinspection unchecked
-            list = (List<ID3V2>)value;
-        }
-
-        return list;
     }
 
     public static AlbumArtCompilation SearchCovers(@NotNull String AlbumName,
@@ -414,7 +340,6 @@ public class SearchLib
             throws
             IllegalArgumentException,
             NoMatchesException
-
     {
         logger = LoggerFactory.getLogger(SearchLib.class);
 

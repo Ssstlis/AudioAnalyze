@@ -1,7 +1,7 @@
 # FingerPrint
 
 ## FingerPrintThread interface
-The Finger Print Thread interface provides the ability to define its own implementation of media file fingerprint creation.<br>
+The FingerPrintThread interface provides the ability to define its own implementation of media file fingerprint creation.<br>
 You must use a [Chromaprint](https://acoustid.org/chromaprint) library to build instance of FingerPrint class.
 
 ### Interface signature

@@ -56,6 +56,12 @@ public class ExecutableHelper
 
         List<File> files = new ArrayList<>();
 
+        if (check.isFile())
+        {
+            files.add(check);
+            return files;
+        }
+
         File[] FilterResult = check.listFiles(filter);
         File[] ResultForPath = check.listFiles();
 
