@@ -2,9 +2,6 @@ package Fox.core.lib.general.templates;
 
 import Fox.core.lib.general.utils.ProgressStateException;
 
-//TODO same class with observers
-
-
 /**
  * Progress state class allows you to use simple progress class with notifications and simple callbacks possibilities.
  * Progress state size can`t be less than zero and when you want to set size <=0 you need to catching
@@ -138,7 +135,6 @@ public abstract class ProgressState
         }
     }
 
-
     /**
      * @return current status of progress bar.
      */
@@ -174,7 +170,7 @@ public abstract class ProgressState
             Done = true;
             return;
         }
-        if (size < state)
+        if (size > state)
         {
             onResize();
             Done = false;

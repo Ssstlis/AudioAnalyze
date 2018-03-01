@@ -1,5 +1,11 @@
 # Release notes
 
+## v1.0.5
+- Fix bug with non-called onResize() Progress state method
+- Change logic in SearchTags for single file
+- Change logic in file wrapper
+- Update documentation
+
 ## v1.0.4
 - Fix bug with uncatched exception on threads
 - Add progress bar to files wrapper
