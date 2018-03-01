@@ -1,5 +1,5 @@
 # AudioAnalyze
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/2a5ff1dee06f40e8a7a38149f8888f80)](https://www.codacy.com/app/apostrof1995/AudioAnalyze?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Ssstlis/AudioAnalyze&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/551339284efd422f914c4abd49788d80)](https://app.codacy.com/app/apostrof1995/AudioAnalyze?utm_source=github.com&utm_medium=referral&utm_content=Ssstlis/AudioAnalyze&utm_campaign=badger)
 <br>
 Artworks and tags look up library.<br>
 The library uses own data sorting and filtering methods for compatibility with Android.<br>
