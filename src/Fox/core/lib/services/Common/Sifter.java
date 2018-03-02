@@ -38,14 +38,15 @@ public class Sifter
             NoMatchesException
     {
         logger = LoggerFactory.getLogger(SearchLib.class);
+        String location = FPrint.getLocation();
         if (logger.isDebugEnabled())
-            logger.debug("Start sifting for {}\n:{}", FPrint.getLocation(), FPrint.getDuration());
+            logger.debug("Start sifting for {}\n:{}", location, FPrint.getDuration());
         if (count < 0)
             throw new IllegalArgumentException("Impossible to return less that zero or equals zero size of results.");
 
         int encounter = TracksEncounter(target);
         if (logger.isDebugEnabled())
-            logger.debug("Encounter done");
+            logger.debug("Encounter done {}", location);
         if (encounter == 0)
             throw new NoMatchesException("No matches at AcoustID");
 
@@ -55,7 +56,7 @@ public class Sifter
         {
 
             if (logger.isDebugEnabled())
-                logger.debug("Encounter first scenario");
+                logger.debug("Encounter first scenario {}", location);
             SimpleInfo info = new SimpleInfo();
 
             if (target.hasResults())
@@ -71,11 +72,11 @@ public class Sifter
         else
         {
             if (logger.isDebugEnabled())
-                logger.debug("Encounter second scenario");
+                logger.debug("Encounter second scenario {}", location);
             List<Recording> compressResult = Sifter.CompressResult(target);
 
             if (logger.isDebugEnabled())
-                logger.debug("Compressing done");
+                logger.debug("Compressing done {}", location);
 
             if (trust)
                 store.addAll(TrustSift(compressResult, FPrint));
@@ -126,21 +127,22 @@ public class Sifter
     private static List<SimpleInfo> TrustSift(@NotNull final List<Recording> recordingList,
                                               @NotNull FingerPrint FP)
     {
+        String location = FP.getLocation();
         if (logger.isDebugEnabled())
-            logger.debug("Trust sift start");
+            logger.debug("Trust sift start {}", location);
         SiftingByArtist(recordingList);
         if (logger.isDebugEnabled())
-            logger.debug("Artist sift done");
+            logger.debug("Artist sift done {}", location);
         List<Recording> recordingList_ = RecordingRelativeSortingForward(recordingList,
                                                                          Integer.parseInt(FP.getDuration()));
         if (logger.isDebugEnabled())
-            logger.debug("Relative sort done");
+            logger.debug("Relative sort done {}", location);
         List<SimpleInfo> IntermediateList = Convert(recordingList_, converter);
         if (logger.isDebugEnabled())
-            logger.debug("Converting done");
+            logger.debug("Converting done {}", location);
         IntermediateList = MergingByUsages(IntermediateList);
         if (logger.isDebugEnabled())
-            logger.debug("Merging done. Trust sift done.");
+            logger.debug("Merging done. Trust sift done. {}", location);
         SimpleInfo MostUsage = Sifter.ExtractFromListWithRemoving(IntermediateList);
         IntermediateList.add(0, MostUsage);
         IntermediateList = IntermediateList.subList(0, 2);
