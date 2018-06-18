@@ -283,9 +283,7 @@ public class SearchLib
         {
             NoMatchesException e = new NoMatchesException(NO_MATCHES);
             if (logger.isErrorEnabled())
-            {
                 logger.error("", e);
-            }
             throw e;
         }
         return new Entry<>(target, Rejected);
@@ -349,10 +347,15 @@ public class SearchLib
         if (AlbumName.isEmpty() || count < 1)
         {
             if (logger.isErrorEnabled())
-            {
                 logger.error("Illegal album title or number of arts.");
-            }
             throw new IllegalArgumentException();
+        }
+
+        if (source == null)
+        {
+            if (logger.isErrorEnabled())
+                logger.error("Null target instance. Please, put existing reference when you call.");
+            throw new IllegalArgumentException("Null target instance. Please, put existing reference when you call.");
         }
 
         long time = System.currentTimeMillis();
@@ -369,12 +372,9 @@ public class SearchLib
                             AlbumName,
                             null,
                             null,
-                            true
-                           );
+                            true);
             if (LFMInfo == null || LFMInfo.hasError())
-            {
                 throw new NoMatchesException(NO_MATCHES);
-            }
 
             if (LFMInfo.hasAlbum())
             {
@@ -385,12 +385,7 @@ public class SearchLib
                 String albumName = album.getName();
 
                 if (album.hasImages())
-                {
-                    AddMostResolutionImageLink(albumArtist,
-                                               albumName,
-                                               album.getImages(),
-                                               ArtList);
-                }
+                    AddMostResolutionImageLink(albumArtist, albumName, album.getImages(), ArtList);
 
                 if (album.hasMbid())
                 {
@@ -430,9 +425,7 @@ public class SearchLib
         if (source == target.LastFM)
         {
             if (logger.isDebugEnabled())
-            {
                 logger.debug("second scenario\nAlbum:{} ", AlbumName);
-            }
 
             if (logger.isDebugEnabled())
                 logger.debug("LastFM lookup start");
@@ -444,9 +437,7 @@ public class SearchLib
                           );
 
             if (logger.isDebugEnabled())
-            {
                 logger.debug("LastFM lookup end");
-            }
 
             if (searchLF != null && searchLF.hasResults())
             {
@@ -493,9 +484,8 @@ public class SearchLib
         if (source == target.MusicBrainz)
         {
             if (logger.isDebugEnabled())
-            {
                 logger.debug("third scenario\nAlbum:{} ", AlbumName);
-            }
+
             try
             {
                 if (logger.isDebugEnabled())
