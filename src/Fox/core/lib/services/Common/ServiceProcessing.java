@@ -38,8 +38,10 @@ public class ServiceProcessing
             throw new IllegalArgumentException("FingerPrint is null or contains error");
 
         Logger logger = LoggerFactory.getLogger(SearchLib.class);
+        String location = AudioPrint.getLocation();
+
         if (logger.isDebugEnabled())
-            logger.debug("Start service processing");
+            logger.debug("Start service processing {}", location);
         if (count <= 0)
         {
             if (logger.isErrorEnabled())
@@ -47,9 +49,7 @@ public class ServiceProcessing
             throw new IllegalArgumentException(NO_COUNT);
         }
 
-        String location = AudioPrint.getLocation();
         ByFingerPrint AIDResp = AIDClient.LookupByFingerPrint(AudioPrint);
-
 
         if (AIDResp == null)
         {
@@ -76,10 +76,10 @@ public class ServiceProcessing
             try
             {
                 if (logger.isDebugEnabled())
-                    logger.debug("Building tag start");
+                    logger.debug("Building tag start {}", location);
                 ID3V2 buildTag = BuildTagProcessing.BuildTag(elem);
                 if (logger.isDebugEnabled())
-                    logger.debug("Building tag done");
+                    logger.debug("Building tag done {}", location);
                 if (buildTag != null)
                     temp.add(buildTag);
             }

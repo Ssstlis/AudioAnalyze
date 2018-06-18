@@ -7,8 +7,9 @@ The class provides an encapsulation of the metadata for music tracks.<br>
 - `public ID3V2(String title, String artistMBID, String trackMBID,
         String albumMBID, String year, String artist,
         String album, String comment, String tag,
-        Integer number, List<String> ArtLinks)`<br>
-        constructor with parameters
+        Integer number, List<String> ArtLinks)`<br>constructor with parameters<br>
+        
+
 ## Methods
 - `public String getAlbum()` return Album title
 - `public String getAlbumMBID()` return Album MBID
